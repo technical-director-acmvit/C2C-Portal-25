@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import DotGrid from './DotGrid';
+import DotGrid from './dot-grid';
 
 const About = ({ children }: { children?: React.ReactNode }) => (
 	<div className="w-full h-[600px] relative overflow-hidden">
@@ -12,7 +12,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
 			{children}
 		</div>
 		<Image
-			src="/Landing/hdmi.svg"
+			src="/landing/hdmi.svg"
 			alt="HDMI Decorative"
 			width={450}
 			height={355}

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Portal from '@/app/components/portal/portal';
-import TeamUp from '../components/portal/teamUp';
+import TeamUp from '../components/portal/team-up';
 import Dashboard from '../components/portal/dashboard';
 import { fetchDashboard } from '../actions/dashboard';
 

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const GradientBG = () => (
   <Image
-    src="/Landing/gradient.svg"
+    src="/landing/gradient.svg"
     alt="Gradient Background"
     fill
     priority

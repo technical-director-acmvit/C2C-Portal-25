@@ -2,7 +2,7 @@
 
 import Landing from "./components/landing/landing";
 import { signIn } from "next-auth/react";
-import About from "./components/landing/About";
+import About from "./components/landing/about";
 import Topper from "./components/landing/topper";
 import Sponsors from "./components/landing/sponsors";
 import FAQs from "./components/landing/faqs";
