@@ -2,12 +2,7 @@
 
 import React from "react";
 import Image from 'next/image';
-import { signIn } from 'next-auth/react';
-
 const Landing = () => {
-  const handleApplyClick = () => {
-    signIn('google', { callbackUrl: '/portal' });
-  };
   return (
     <div 
       className="h-screen w-full relative overflow-hidden"
@@ -99,7 +94,7 @@ const Landing = () => {
               textAlign: 'center'
             }}
           >
-            Don't just code for the vibes, Code2Create.
+            Don&apos;t just code for the vibes, Code2Create.
           </p>
         </div>
 
@@ -130,7 +125,7 @@ const Landing = () => {
               maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0))'
             }}
           >
-            Don't just code for the vibes, Code2Create.
+            Don&apos;t just code for the vibes, Code2Create.
           </p>
         </div>
 
