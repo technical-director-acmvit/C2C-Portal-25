@@ -2,13 +2,20 @@
 
 import React from "react";
 import Image from 'next/image';
+import TopBar from './top-bar';
+
 const Landing = () => {
 
   return (
     <div className="h-screen w-full relative overflow-hidden bg-transparent">
+      {/* Top Bar */}
+      <div className="absolute top-0 left-0 w-full z-30">
+        <TopBar />
+      </div>
+
       {/* Gradient Background */}
       <Image
-        src="/Landing/gradient.svg"
+        src="/landing/gradient.svg"
         alt="Gradient Background"
         fill
         priority
@@ -21,7 +28,7 @@ const Landing = () => {
       />
       {/* Gradient Background */}
       <Image
-        src="/Landing/gradient.svg"
+        src="/landing/gradient.svg"
         alt="Gradient Background"
         fill
         priority
@@ -41,7 +48,7 @@ const Landing = () => {
             className="text-center whitespace-nowrap"
             style={{
               WebkitTextStroke: '2.41px #EFEFEF',
-              fontFamily: 'Trap, Arial, sans-serif',
+              fontFamily: 'Trap-Bold, Arial, sans-serif',
               fontSize: 'clamp(40px, 6vw, 77px)',
               fontWeight: '700',
               lineHeight: '130%',
@@ -55,7 +62,7 @@ const Landing = () => {
             className="text-center whitespace-nowrap"
             style={{
               WebkitTextStroke: '2.41px #EFEFEF',
-              fontFamily: 'Trap, Arial, sans-serif',
+              fontFamily: 'Trap-Bold, Arial, sans-serif',
               fontSize: 'clamp(40px, 6vw, 77px)',
               fontWeight: '700',
               lineHeight: '130%',
@@ -70,7 +77,7 @@ const Landing = () => {
         {/* Main logo positioned like rising sun from mountains - behind mountains */}
         <div className="absolute bottom-1/3 left-1/2 transform -translate-x-1/2 translate-y-1/4" style={{ zIndex: 1 }}>
           <Image 
-            src="/Landing/C2C Logo.svg" 
+            src="/landing/C2C Logo.svg" 
             alt="Code2Create Main Logo" 
             width={180} 
             height={180}
@@ -81,7 +88,7 @@ const Landing = () => {
         {/* Mountains background - moved up; darken with filter so colors read darker */}
         <div className="absolute bottom-0 left-0 w-full" style={{ zIndex: 5 }}>
           <Image 
-            src="/Landing/footer-hills 1.png" 
+            src="/landing/footer-hills 1.png" 
             alt="Mountain Background" 
             width={1920} 
             height={100}
@@ -96,7 +103,7 @@ const Landing = () => {
             className="text-center whitespace-nowrap"
             style={{
               color: '#BEBEBE',
-              fontFamily: 'Trap, Arial, sans-serif',
+              fontFamily: 'Trap-Bold, Arial, sans-serif',
               fontSize: 'clamp(20px, 4vw, 42px)',
               fontWeight: '700',
               lineHeight: '130%',
@@ -140,20 +147,20 @@ const Landing = () => {
 
         {/* Footer text - left */}
         <div className="absolute bottom-6 left-6" style={{ zIndex: 20 }}>
-          <p style={{ fontFamily: 'Trap, Arial, sans-serif', fontSize: '12px', fontWeight: 700, margin: 0, color: '#FFF' }}>
+          <p style={{ fontFamily: 'Trap-Bold, Arial, sans-serif', fontSize: '12px', fontWeight: 700, margin: 0, color: '#FFF' }}>
             We are not just another <span style={{ color: 'var(--C2C-Green, #48BA86)', fontWeight: 700 }}>hackathon</span>
           </p>
-          <p style={{ fontFamily: 'Trap, Arial, sans-serif', fontSize: '12px', fontWeight: 400, margin: 0, color: '#FFF' }}>
+          <p style={{ fontFamily: 'Trap-Bold, Arial, sans-serif', fontSize: '12px', fontWeight: 400, margin: 0, color: '#FFF' }}>
             We are the conspiracy that actually works
           </p>
         </div>
 
         {/* Footer text - right */}
         <div className="absolute bottom-6 right-6 text-right" style={{ zIndex: 20 }}>
-          <p style={{ fontFamily: 'Trap, Arial, sans-serif', fontSize: '12px', fontWeight: 700, margin: 0, color: '#FFF' }}>
+          <p style={{ fontFamily: 'Trap-Bold, Arial, sans-serif', fontSize: '12px', fontWeight: 700, margin: 0, color: '#FFF' }}>
             Established in 2016
           </p>
-          <p style={{ fontFamily: 'Trap, Arial, sans-serif', fontSize: '12px', fontWeight: 700, margin: 0, color: 'var(--C2C-Green, #48BA86)' }}>
+          <p style={{ fontFamily: 'Trap-Bold, Arial, sans-serif', fontSize: '12px', fontWeight: 700, margin: 0, color: 'var(--C2C-Green, #48BA86)' }}>
             Code2Create 6.0
           </p>
         </div>
