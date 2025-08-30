@@ -1,6 +1,6 @@
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
-import { JWT } from "next-auth/jwt"
+// import { JWT } from "next-auth/jwt"
 
 declare module "next-auth" {
   interface Session {
@@ -46,11 +46,9 @@ const handler = NextAuth({
   },
   callbacks: {
     async jwt({ token, account, profile }) {
-      // On initial sign-in, persist the Google ID token for backend auth
       if (account?.id_token) {
         token.idToken = account.id_token as string;
       }
-      // Attach a stable userId if available from profile
       if (profile && typeof profile.sub === 'string') {
         token.userId = profile.sub;
       }

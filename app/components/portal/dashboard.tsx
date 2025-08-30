@@ -3,12 +3,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Image from 'next/image';
 import Form from './form';
-import { fetchDashboard } from '../../actions/dashboard';
+import { fetchDashboard, type DashboardResponse, type UserSummary } from '../../actions/dashboard';
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState<any | null>(null);
+  const [data, setData] = useState<DashboardResponse | null>(null);
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const Dashboard = () => {
         if (!res.ok) {
           setError(res.error || 'Failed to load dashboard');
         } else {
-          setData(res.data);
+          setData(res.data ?? null);
         }
       } catch (err) {
         if (mounted) setError(err instanceof Error ? err.message : 'Failed to load dashboard');
@@ -32,9 +32,15 @@ const Dashboard = () => {
     return () => { mounted = false; };
   }, []);
 
-  const team = data?.team || null;
-  const teammates = data?.teammates || [];
-  const track = data?.track || null;
+  const team = data?.team ?? null;
+  const teammates = data?.teammates ?? [];
+  const track = data?.track ?? null;
+  const currentUser = data?.user ?? null;
+  const members = useMemo<UserSummary[]>(() => {
+    const arr: UserSummary[] = [];
+    if (currentUser) arr.push(currentUser);
+    return arr.concat(teammates);
+  }, [currentUser, teammates]);
   const needsSubmission = useMemo(() => {
     if (!team) return false;
     return !(team.github_url && team.figma_url && team.other && team.track_id);
@@ -91,11 +97,10 @@ const Dashboard = () => {
           </button>
         </div>
 
-        {/* Team Members Section */}
-        {teammates.length > 0 ? (
+        {members.length > 1 ? (
           <div className="flex gap-12 mb-8">
-            {teammates.map((m: any) => (
-              <div key={m.id} className="flex flex-col items-center">
+            {members.map((m: UserSummary, idx: number) => (
+              <div key={`${m.id || 'member'}-${idx}`} className="flex flex-col items-center">
                 <div className="w-16 h-16 rounded-full border-2 border-white bg-transparent mb-2 flex items-center justify-center">
                   <Image 
                     src="/portal/user.svg" 

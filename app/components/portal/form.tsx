@@ -102,8 +102,9 @@ const Form = () => {
                   fontFamily: "'Pilat Extended', Arial, sans-serif",
                   fontSize: '14px'
                 }}
+                disabled={loading}
               >
-                <option value="" className="text-gray-400">Select a Track</option>
+                <option value="" className="text-gray-400">{loading ? 'Loading tracks…' : 'Select a Track'}</option>
                 {tracks.map(t => (
                   <option key={t.id} value={t.id}>{t.title}</option>
                 ))}

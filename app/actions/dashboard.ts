@@ -1,10 +1,41 @@
 import { getIdToken } from './session';
 
+export type UserSummary = {
+  id: string;
+  name?: string;
+  email?: string;
+  profile_picture_url?: string;
+  contact_number?: string;
+  gender?: string;
+  reg_no?: string;
+  internal?: boolean;
+  college_name?: string;
+  role?: string;
+  team_id?: string | null;
+};
+
+export type TeamInfo = {
+  id: string;
+  name: string;
+  description?: string | null;
+  code: string;
+  github_url?: string | null;
+  figma_url?: string | null;
+  other?: string | null;
+  track_id?: string | null;
+};
+
+export type TrackInfo = {
+  id?: string;
+  title?: string;
+  description?: string;
+};
+
 export type DashboardResponse = {
-  user?: any;
-  team?: any | null;
-  teammates?: any[];
-  track?: any;
+  user?: UserSummary;
+  team?: TeamInfo | null;
+  teammates?: UserSummary[];
+  track?: TrackInfo | null;
 };
 
 export async function fetchDashboard(): Promise<{ ok: boolean; status: number; data?: DashboardResponse; error?: string }> {
@@ -16,9 +47,28 @@ export async function fetchDashboard(): Promise<{ ok: boolean; status: number; d
     credentials: 'omit',
     cache: 'no-store',
   });
-  let data: any = undefined;
-  try { data = await res.json(); } catch {}
-  if (!res.ok) return { ok: false, status: res.status, error: data?.error };
-  return { ok: true, status: res.status, data };
+  let raw: unknown = undefined;
+  try { raw = await res.json(); } catch {}
+  if (!res.ok) {
+    const err = (raw as { error?: string })?.error;
+    return { ok: false, status: res.status, error: err };
+  }
+  const r = (raw ?? {}) as {
+    user?: UserSummary;
+    team?: TeamInfo | null;
+    teammates?: unknown;
+    track?: unknown;
+  };
+  const teammates: UserSummary[] = Array.isArray(r.teammates) ? (r.teammates as UserSummary[]) : [];
+  let track: TrackInfo | null = null;
+  if (r.track && typeof r.track === 'object' && Object.keys(r.track as Record<string, unknown>).length > 0) {
+    track = r.track as TrackInfo;
+  }
+  const cooked: DashboardResponse = {
+    user: r.user,
+    team: r.team ?? null,
+    teammates,
+    track,
+  };
+  return { ok: true, status: res.status, data: cooked };
 }
-
