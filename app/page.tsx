@@ -8,7 +8,7 @@ import CreateTeam from './components/portal/createTeam';
 export default function Home() {
   return (
     <>
-      <CreateTeam />
+      <Landing />
     </>
   );
 }
