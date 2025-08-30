@@ -1,4 +1,11 @@
-import { getServerSession } from "next-auth/next";
+// Client-safe helpers to talk to backend using Google ID token from NextAuth session
+async function getIdToken(): Promise<string> {
+  const res = await fetch('/api/auth/session');
+  if (!res.ok) throw new Error('Not authenticated');
+  const s = await res.json();
+  if (!s?.idToken) throw new Error('No authentication token found');
+  return s.idToken as string;
+}
 
 interface InternalSignupData {
   name: string;
@@ -19,17 +26,13 @@ interface ExternalSignupData {
 // Function for internal users (VIT students)
 export async function signupInternal(data: InternalSignupData) {
   try {
-    const session = await getServerSession();
-    
-    if (!session?.backendToken) {
-      throw new Error('No authentication token found');
-    }
+    const idToken = await getIdToken();
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/signup`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${session.backendToken}`,
+        'Authorization': `Bearer ${idToken}`,
       },
       body: JSON.stringify({
         contact_number: data.contact_number,
@@ -56,17 +59,13 @@ export async function signupInternal(data: InternalSignupData) {
 // Function for external users (non-VIT students)
 export async function signupExternal(data: ExternalSignupData) {
   try {
-    const session = await getServerSession();
-    
-    if (!session?.backendToken) {
-      throw new Error('No authentication token found');
-    }
+    const idToken = await getIdToken();
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/signup`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${session.backendToken}`,
+        'Authorization': `Bearer ${idToken}`,
       },
       body: JSON.stringify({
         contact_number: data.contact_number,
@@ -88,4 +87,47 @@ export async function signupExternal(data: ExternalSignupData) {
     console.error('External signup error:', error);
     throw error;
   }
+}
+
+export async function getUserFromBackend() {
+  const idToken = await getIdToken();
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/user`, {
+    headers: { 'Authorization': `Bearer ${idToken}` },
+    cache: 'no-store',
+  });
+  return res;
+}
+
+export async function createTeam(data: { name: string; description?: string }) {
+  const idToken = await getIdToken();
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/team/create`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${idToken}`,
+    },
+    body: JSON.stringify({ name: data.name, description: data.description ?? null }),
+  });
+  if (!res.ok) {
+    const e = await res.json().catch(() => ({}));
+    throw new Error(e.error || 'Failed to create team');
+  }
+  return res.json();
+}
+
+export async function joinTeam(code: string) {
+  const idToken = await getIdToken();
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/team/join`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${idToken}`,
+    },
+    body: JSON.stringify({ code }),
+  });
+  if (!res.ok) {
+    const e = await res.json().catch(() => ({}));
+    throw new Error(e.error || 'Failed to join team');
+  }
+  return res.json();
 }

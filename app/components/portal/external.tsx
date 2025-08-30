@@ -1,9 +1,12 @@
 import Image from 'next/image';
-import { useState } from 'react';
 import TeamUp from './teamUp';
+import { useState } from 'react';
+import { signupExternal } from '../../api/signup';
 
 const External = () => {
     const [submitted, setSubmitted] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -28,9 +31,23 @@ const External = () => {
                formData.contactNumber.trim() !== '';
     };
 
-    const handleSubmit = () => {
-        if (isFormValid()) {
+    const handleSubmit = async () => {
+        if (!isFormValid()) return;
+        setLoading(true);
+        setError(null);
+        try {
+            await signupExternal({
+                name: formData.name,
+                email: formData.email,
+                contact_number: formData.contactNumber,
+                gender: formData.gender,
+                college_name: formData.collegeName,
+            });
             setSubmitted(true);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Signup failed');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -48,6 +65,11 @@ const External = () => {
             <div className="flex items-center justify-center h-full">
                 <div className="bg-gray-900 rounded-xl shadow-lg p-10 w-full max-w-md flex flex-col gap-6">
                     <h2 className="text-2xl font-bold text-center mb-4 text-white">STUDENT INFORMATION</h2>
+                    {error && (
+                        <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded-md text-sm">
+                            {error}
+                        </div>
+                    )}
                     <input 
                         className="border rounded-md p-3" 
                         type="text" 
@@ -98,9 +120,9 @@ const External = () => {
                         }`}
                         style={{ backgroundColor: '#5EBF94' }}
                         onClick={handleSubmit}
-                        disabled={!isFormValid()}
+                        disabled={!isFormValid() || loading}
                     >
-                        Submit
+                        {loading ? 'Submitting…' : 'Submit'}
                     </button>
                 </div>
             </div>
