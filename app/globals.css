@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
+/* Pilat Extended font from local files */
+@font-face {
+  font-family: 'Pilat Extended';
+  src: url('/fonts/PilatExtended-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pilat Extended';
+  src: url('/fonts/PilatExtended-Bold.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
