@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import TeamUp from './teamUp';
+import TeamUp from './team-up';
 import { useState } from 'react';
 import { signupExternal } from '../../actions/signup';
 

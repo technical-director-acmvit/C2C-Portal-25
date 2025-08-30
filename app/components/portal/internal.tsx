@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import TeamUp from './teamUp';
+import TeamUp from './team-up';
 import { signupInternal } from '../../actions/signup';
 
 const Internal = () => {
