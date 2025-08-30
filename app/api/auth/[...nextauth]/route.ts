@@ -35,6 +35,7 @@ const handler = NextAuth({
           prompt: "select_account",
           // hd hint helps prefer this domain if applicable
           hd: 'vitstudent.ac.in',
+          scope: 'openid email profile',
         },
       },
     }),
