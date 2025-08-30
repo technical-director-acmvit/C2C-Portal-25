@@ -4,35 +4,40 @@ import React from "react";
 import Image from 'next/image';
 
 const Landing = () => {
-<<<<<<< HEAD
   const handleApplyClick = () => {
     if (typeof window !== 'undefined') {
       window.location.href = "/portal";
     }
-  };
+  };  
 
-=======
->>>>>>> e2f5526c6e07f6b8fc7f94b6eab6ea74ae7597c0
   return (
-    <div 
-      className="h-screen w-full relative overflow-hidden"
-      style={{ 
-        background: 'linear-gradient(180deg, #4A9B7A 0%, #2A5A45 100%)'
-      }}
-    >
-      {/* Gradient Background Effects */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
-        {/* soft color blobs (reduced opacity, mix-blend multiply for richer/darker tones) */}
-        <div className="w-[1405.33px] h-[1405.33px] absolute -bottom-96 -left-96 rounded-full blur-[426.58px] mix-blend-multiply" style={{ background: 'conic-gradient(from 153deg at 50% 50%, #5EBF94 96deg, #6DB1E2 263deg, #29A37A 360deg)', opacity: 0.22 }} />
-        <div className="w-[1405.33px] h-[1405.33px] absolute -bottom-80 -left-40 rounded-full blur-[426.58px] mix-blend-multiply" style={{ background: 'conic-gradient(from 137deg at 50% 50%, #FFCA3C 96deg, #C36BF8 252deg, #FD7E41 360deg)', opacity: 0.18 }} />
-
-        {/* optional extra blobs (fine tune or remove) */}
-        <div className="w-[900px] h-[900px] absolute -top-72 -right-40 rounded-full blur-[300px] mix-blend-soft-light" style={{ background: 'conic-gradient(from 200deg at 50% 50%, #86E3C3, #6DB1E2, #8A7AF8)', opacity: 0.14 }} />
-
-        {/* dark overlay to deepen colors (adjust alpha) */}
-        <div className="absolute inset-0" style={{ backgroundColor: 'rgba(0,0,0,0.28)' }} />
-      </div>
-
+    <div className="h-screen w-full relative overflow-hidden bg-transparent">
+      {/* Gradient Background */}
+      <Image
+        src="/Landing/gradient.svg"
+        alt="Gradient Background"
+        fill
+        priority
+        style={{
+          objectFit: "cover",
+          zIndex: 0,
+          pointerEvents: "none",
+          userSelect: "none"
+        }}
+      />
+      {/* Gradient Background */}
+      <Image
+        src="/Landing/gradient.svg"
+        alt="Gradient Background"
+        fill
+        priority
+        style={{
+          objectFit: "cover",
+          zIndex: 0,
+          pointerEvents: "none",
+          userSelect: "none"
+        }}
+      />
       {/* Main Content Container */}
       <div className="relative h-full flex flex-col items-center justify-center z-10">
         
