@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import DotGrid from './DotGrid';
+import DotGrid from './dot-grid';
 
 const About = ({ children }: { children?: React.ReactNode }) => (
 	<div className="w-full h-[600px] relative overflow-hidden">

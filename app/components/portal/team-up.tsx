@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import Image from 'next/image';
-import JoinTeam from './joinTeam';
-import CreateTeam from './createTeam';
+import JoinTeam from './join-team';
+import CreateTeam from './create-team';
 
 const TeamUp = () => {
   const [selectedOption, setSelectedOption] = useState<'join' | 'create' | null>(null);
