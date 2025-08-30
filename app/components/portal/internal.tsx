@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import TeamUp from './teamUp';
-import { signupInternal } from '../../api/signup';
+import { signupInternal } from '../../actions/signup';
 
 const Internal = () => {
     const [submitted, setSubmitted] = useState(false);

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from 'next/image';
 import Dashboard from './dashboard';
-import { joinTeam } from '../../api/signup';
+import { joinTeam } from '../../actions/team';
 
 const JoinTeam = () => {
   const [teamCode, setTeamCode] = useState('');
