@@ -2,8 +2,12 @@
 
 import React from "react";
 import Image from 'next/image';
+import { signIn } from 'next-auth/react';
 
 const Landing = () => {
+  const handleApplyClick = () => {
+    signIn('google', { callbackUrl: '/portal' });
+  };
   return (
     <div 
       className="h-screen w-full relative overflow-hidden"

@@ -1,22 +1,28 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from 'next/image';
+import JoinTeam from './joinTeam';
+import CreateTeam from './createTeam';
 
 const TeamUp = () => {
+  const [selectedOption, setSelectedOption] = useState<'join' | 'create' | null>(null);
+
   const handleJoinTeam = () => {
-    if (typeof window !== 'undefined') {
-      // Add join team logic here
-      console.log("Join Team clicked");
-    }
+    setSelectedOption('join');
   };
 
   const handleCreateTeam = () => {
-    if (typeof window !== 'undefined') {
-      // Add create team logic here
-      console.log("Create Team clicked");
-    }
+    setSelectedOption('create');
   };
+
+  if (selectedOption === 'join') {
+    return <JoinTeam />;
+  }
+
+  if (selectedOption === 'create') {
+    return <CreateTeam />;
+  }
 
   return (
     <div className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/portal/bg1.svg)' }}>

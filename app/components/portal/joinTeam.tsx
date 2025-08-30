@@ -2,20 +2,36 @@
 
 import React, { useState } from "react";
 import Image from 'next/image';
+import Dashboard from './dashboard';
+import { joinTeam } from '../../actions/team';
 
 const JoinTeam = () => {
   const [teamCode, setTeamCode] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTeamCode(e.target.value);
   };
 
-  const handleProceed = () => {
-    if (typeof window !== 'undefined') {
-      console.log("Team code entered:", teamCode);
-      // Add join team logic here
+  const handleProceed = async () => {
+    if (!teamCode.trim()) return;
+    setLoading(true);
+    setError(null);
+    try {
+      await joinTeam(teamCode.trim());
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to join team');
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (submitted) {
+    return <Dashboard />;
+  }
 
   return (
     <div className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/portal/bg1.svg)' }}>
@@ -37,6 +53,11 @@ const JoinTeam = () => {
           Enter Team Code
         </h1>
         
+        {error && (
+          <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded-md text-sm mb-4">
+            {error}
+          </div>
+        )}
         <div className="mb-6">
           <input
             type="text"
@@ -64,7 +85,11 @@ const JoinTeam = () => {
         </p>
         
         <button 
-          className="px-8 py-3 rounded-lg text-white cursor-pointer transition-all duration-200 hover:bg-[#4da577] active:scale-95" 
+          className={`px-8 py-3 rounded-lg text-white transition-all duration-200 active:scale-95 ${
+            teamCode.trim() 
+              ? 'cursor-pointer hover:bg-[#4da577]' 
+              : 'cursor-not-allowed opacity-50'
+          }`}
           style={{ 
             backgroundColor: '#5EBF94',
             fontSize: '18px',
@@ -72,9 +97,9 @@ const JoinTeam = () => {
             fontWeight: '400'
           }}
           onClick={handleProceed}
-          disabled={!teamCode.trim()}
+          disabled={!teamCode.trim() || loading}
         >
-          Proceed
+          {loading ? 'Joining…' : 'Proceed'}
         </button>
       </div>
     </div>
