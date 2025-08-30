@@ -2,20 +2,25 @@
 
 import React, { useState } from "react";
 import Image from 'next/image';
+import Dashboard from './dashboard';
 
 const JoinTeam = () => {
   const [teamCode, setTeamCode] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
   const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTeamCode(e.target.value);
   };
 
   const handleProceed = () => {
-    if (typeof window !== 'undefined') {
-      console.log("Team code entered:", teamCode);
-      // Add join team logic here
+    if (teamCode.trim()) {
+      setSubmitted(true);
     }
   };
+
+  if (submitted) {
+    return <Dashboard />;
+  }
 
   return (
     <div className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/portal/bg1.svg)' }}>
@@ -64,7 +69,11 @@ const JoinTeam = () => {
         </p>
         
         <button 
-          className="px-8 py-3 rounded-lg text-white cursor-pointer transition-all duration-200 hover:bg-[#4da577] active:scale-95" 
+          className={`px-8 py-3 rounded-lg text-white transition-all duration-200 active:scale-95 ${
+            teamCode.trim() 
+              ? 'cursor-pointer hover:bg-[#4da577]' 
+              : 'cursor-not-allowed opacity-50'
+          }`}
           style={{ 
             backgroundColor: '#5EBF94',
             fontSize: '18px',

@@ -1,15 +1,19 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from 'next/image';
+import Form from './form';
 
 const Dashboard = () => {
+  const [showForm, setShowForm] = useState(false);
+
   const handleGoToForm = () => {
-    if (typeof window !== 'undefined') {
-      // Add go to form logic here
-      console.log("Go to form clicked");
-    }
+    setShowForm(true);
   };
+
+  if (showForm) {
+    return <Form />;
+  }
 
   return (
     <div className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/portal/bg1.svg)' }}>

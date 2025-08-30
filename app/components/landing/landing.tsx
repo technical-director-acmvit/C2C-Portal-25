@@ -5,7 +5,7 @@ import React from "react";
 const Landing = () => {
   const handleApplyClick = () => {
     if (typeof window !== 'undefined') {
-      window.location.href = "#apply";
+      window.location.href = "/portal";
     }
   };
 

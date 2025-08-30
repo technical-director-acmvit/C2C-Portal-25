@@ -1,5 +1,43 @@
 import Image from 'next/image';
+import { useState } from 'react';
+import TeamUp from './teamUp';
+
 const Internal = () => {
+    const [submitted, setSubmitted] = useState(false);
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        registrationNumber: '',
+        gender: '',
+        contactNumber: ''
+    });
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const isFormValid = () => {
+        return formData.name.trim() !== '' &&
+               formData.email.trim() !== '' &&
+               formData.registrationNumber.trim() !== '' &&
+               formData.gender !== '' &&
+               formData.contactNumber.trim() !== '';
+    };
+
+    const handleSubmit = () => {
+        if (isFormValid()) {
+            setSubmitted(true);
+        }
+    };
+
+    if (submitted) {
+        return <TeamUp />;
+    }
+
     return (
         <div className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/portal/bg1.svg)' }}>
             {/* Logo top left */}
@@ -9,16 +47,61 @@ const Internal = () => {
             {/* Centered card for student info */}
             <div className="flex items-center justify-center h-full">
                 <div className="bg-gray-900 rounded-xl shadow-lg p-10 w-full max-w-md flex flex-col gap-6">
-                    <h2 className="text-2xl font-bold text-center mb-4">STUDENT INFORMATION</h2>
-                    <input className="border rounded-md p-3" type="text" placeholder="Name" />
-                    <input className="border rounded-md p-3" type="email" placeholder="Email" />
-                    <input className="border rounded-md p-3" type="text" placeholder="Registration Number" />
-                    <select className="border rounded-md p-3" defaultValue="">
+                    <h2 className="text-2xl font-bold text-center mb-4 text-white">STUDENT INFORMATION</h2>
+                    <input 
+                        className="border rounded-md p-3" 
+                        type="text" 
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        placeholder="Name" 
+                    />
+                    <input 
+                        className="border rounded-md p-3" 
+                        type="email" 
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        placeholder="Email" 
+                    />
+                    <input 
+                        className="border rounded-md p-3" 
+                        type="text" 
+                        name="registrationNumber"
+                        value={formData.registrationNumber}
+                        onChange={handleInputChange}
+                        placeholder="Registration Number" 
+                    />
+                    <select 
+                        className="border rounded-md p-3" 
+                        name="gender"
+                        value={formData.gender}
+                        onChange={handleInputChange}
+                    >
                         <option value="" disabled>Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                     </select>
-                    <input className="border rounded-md p-3" type="tel" placeholder="Contact Number" />
+                    <input 
+                        className="border rounded-md p-3" 
+                        type="tel" 
+                        name="contactNumber"
+                        value={formData.contactNumber}
+                        onChange={handleInputChange}
+                        placeholder="Contact Number" 
+                    />
+                    <button 
+                        className={`px-8 py-4 rounded-lg text-white text-xl font-semibold mt-4 ${
+                            isFormValid() 
+                                ? 'cursor-pointer' 
+                                : 'cursor-not-allowed opacity-50'
+                        }`}
+                        style={{ backgroundColor: '#5EBF94' }}
+                        onClick={handleSubmit}
+                        disabled={!isFormValid()}
+                    >
+                        Submit
+                    </button>
                 </div>
             </div>
         </div>
