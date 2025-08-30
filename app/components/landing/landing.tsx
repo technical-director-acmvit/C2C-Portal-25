@@ -73,7 +73,10 @@ const Landing = () => {
         </div>
 
         {/* Main logo positioned like rising sun from mountains - behind mountains */}
-        <div className="absolute bottom-1/3 left-1/2 transform -translate-x-1/2 translate-y-1/4" style={{ zIndex: 1 }}>
+        <div
+          className="absolute top-[52%] left-4/7 transform -translate-x-1/2 -translate-y-1/2 animate-floating"
+          style={{ zIndex: 1 }}
+        >
           <Image 
             src="/Landing/C2C Logo.svg" 
             alt="Code2Create Main Logo" 
@@ -82,6 +85,16 @@ const Landing = () => {
             className="opacity-200"
           />
         </div>
+        <style jsx global>{`
+          @keyframes floating {
+            0% { transform: translate(-50%, 25%) translateY(0); }
+            50% { transform: translate(-50%, 25%) translateY(-18px); }
+            100% { transform: translate(-50%, 25%) translateY(0); }
+          }
+          .animate-floating {
+            animation: floating 3s ease-in-out infinite;
+          }
+        `}</style>
 
         {/* Mountains background - moved up; darken with filter so colors read darker */}
         <div className="absolute bottom-0 left-0 w-full" style={{ zIndex: 5 }}>
