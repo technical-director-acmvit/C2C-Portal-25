@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from 'next/image';
 import Dashboard from './dashboard';
-import { createTeam } from '../../api/signup';
+import { createTeam } from '../../actions/team';
 
 const CreateTeam = () => {
   const [teamName, setTeamName] = useState('');
