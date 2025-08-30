@@ -3,18 +3,29 @@
 import React, { useState } from "react";
 import Image from 'next/image';
 import Dashboard from './dashboard';
+import { joinTeam } from '../../actions/team';
 
 const JoinTeam = () => {
   const [teamCode, setTeamCode] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTeamCode(e.target.value);
   };
 
-  const handleProceed = () => {
-    if (teamCode.trim()) {
+  const handleProceed = async () => {
+    if (!teamCode.trim()) return;
+    setLoading(true);
+    setError(null);
+    try {
+      await joinTeam(teamCode.trim());
       setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to join team');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -42,6 +53,11 @@ const JoinTeam = () => {
           Enter Team Code
         </h1>
         
+        {error && (
+          <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded-md text-sm mb-4">
+            {error}
+          </div>
+        )}
         <div className="mb-6">
           <input
             type="text"
@@ -81,9 +97,9 @@ const JoinTeam = () => {
             fontWeight: '400'
           }}
           onClick={handleProceed}
-          disabled={!teamCode.trim()}
+          disabled={!teamCode.trim() || loading}
         >
-          Proceed
+          {loading ? 'Joining…' : 'Proceed'}
         </button>
       </div>
     </div>

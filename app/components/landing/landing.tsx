@@ -2,17 +2,7 @@
 
 import React from "react";
 import Image from 'next/image';
-
 const Landing = () => {
-<<<<<<< HEAD
-  const handleApplyClick = () => {
-    if (typeof window !== 'undefined') {
-      window.location.href = "/portal";
-    }
-  };
-
-=======
->>>>>>> e2f5526c6e07f6b8fc7f94b6eab6ea74ae7597c0
   return (
     <div 
       className="h-screen w-full relative overflow-hidden"
@@ -104,7 +94,7 @@ const Landing = () => {
               textAlign: 'center'
             }}
           >
-            Don't just code for the vibes, Code2Create.
+            Don&apos;t just code for the vibes, Code2Create.
           </p>
         </div>
 
@@ -135,7 +125,7 @@ const Landing = () => {
               maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0))'
             }}
           >
-            Don't just code for the vibes, Code2Create.
+            Don&apos;t just code for the vibes, Code2Create.
           </p>
         </div>
 

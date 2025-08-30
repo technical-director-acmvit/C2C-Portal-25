@@ -1,18 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from 'next/image';
+import { getTracks, submitTeamSubmission, type Track } from '../../actions/submission';
 
 const Form = () => {
   const [formData, setFormData] = useState({
-    track: '',
-    ideaTitle: '',
-    description: '',
-    techStack: '',
-    figmaLink: '',
-    driveLink: '',
-    githubLink: ''
+    track_id: '',
+    github_url: '',
+    figma_url: '',
+    other: '',
   });
+  const [tracks, setTracks] = useState<Track[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -22,10 +25,41 @@ const Form = () => {
     }));
   };
 
-  const handleSubmit = () => {
-    if (typeof window !== 'undefined') {
-      console.log("Form submitted:", formData);
-      // Add form submission logic here
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      setLoading(true);
+      try {
+        const list = await getTracks();
+        if (mounted) setTracks(list);
+      } catch (err) {
+        if (mounted) setError(err instanceof Error ? err.message : 'Failed to load tracks');
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    })();
+    return () => { mounted = false; };
+  }, []);
+
+  const valid = formData.track_id && formData.github_url && formData.figma_url && formData.other;
+
+  const handleSubmit = async () => {
+    if (!valid) return;
+    setSubmitting(true);
+    setError(null);
+    setSuccess(null);
+    try {
+      await submitTeamSubmission({
+        track_id: formData.track_id,
+        github_url: formData.github_url,
+        figma_url: formData.figma_url,
+        other: formData.other,
+      });
+      setSuccess('Submission saved');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to submit');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -47,88 +81,42 @@ const Form = () => {
               fontWeight: '700'
             }}
           >
-            Form
+            Team Submission
           </h1>
+          {error && (
+            <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded-md text-sm mb-4">{error}</div>
+          )}
+          {success && (
+            <div className="bg-green-500/20 border border-green-500 text-green-200 px-4 py-2 rounded-md text-sm mb-4">{success}</div>
+          )}
           
           <div className="space-y-4">
             {/* Track Dropdown */}
             <div>
               <select
-                name="track"
-                value={formData.track}
+                name="track_id"
+                value={formData.track_id}
                 onChange={handleInputChange}
                 className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
                 style={{
                   fontFamily: "'Pilat Extended', Arial, sans-serif",
                   fontSize: '14px'
                 }}
+                disabled={loading}
               >
-                <option value="" className="text-gray-400">Track</option>
-                <option value="web">Web Development</option>
-                <option value="mobile">Mobile Development</option>
-                <option value="ai">AI/ML</option>
-                <option value="blockchain">Blockchain</option>
+                <option value="" className="text-gray-400">{loading ? 'Loading tracks…' : 'Select a Track'}</option>
+                {tracks.map(t => (
+                  <option key={t.id} value={t.id}>{t.title}</option>
+                ))}
               </select>
-            </div>
-
-            {/* Idea Title */}
-            <div>
-              <input
-                type="text"
-                name="ideaTitle"
-                value={formData.ideaTitle}
-                onChange={handleInputChange}
-                placeholder="Idea Title"
-                className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
-                style={{
-                  fontFamily: "'Pilat Extended', Arial, sans-serif",
-                  fontSize: '14px'
-                }}
-              />
-            </div>
-
-            {/* Description */}
-            <div className="relative">
-              <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleInputChange}
-                placeholder="Description"
-                rows={4}
-                maxLength={100}
-                className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94] resize-none"
-                style={{
-                  fontFamily: "'Pilat Extended', Arial, sans-serif",
-                  fontSize: '14px'
-                }}
-              />
-              <div className="absolute bottom-2 right-2 text-gray-400 text-xs">
-                {formData.description.length}/100 words
-              </div>
-            </div>
-
-            {/* Tech Stack */}
-            <div>
-              <input
-                type="text"
-                name="techStack"
-                value={formData.techStack}
-                onChange={handleInputChange}
-                placeholder="Tech Stack"
-                className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
-                style={{
-                  fontFamily: "'Pilat Extended', Arial, sans-serif",
-                  fontSize: '14px'
-                }}
-              />
             </div>
 
             {/* Figma Link */}
             <div>
               <input
                 type="url"
-                name="figmaLink"
-                value={formData.figmaLink}
+                name="figma_url"
+                value={formData.figma_url}
                 onChange={handleInputChange}
                 placeholder="Figma Link"
                 className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
@@ -139,14 +127,14 @@ const Form = () => {
               />
             </div>
 
-            {/* Drive Link */}
+            {/* Other/Drive/Demo Link */}
             <div>
               <input
                 type="url"
-                name="driveLink"
-                value={formData.driveLink}
+                name="other"
+                value={formData.other}
                 onChange={handleInputChange}
-                placeholder="Drive Link"
+                placeholder="Other Link (demo, drive, etc.)"
                 className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
                 style={{
                   fontFamily: "'Pilat Extended', Arial, sans-serif",
@@ -159,10 +147,10 @@ const Form = () => {
             <div>
               <input
                 type="url"
-                name="githubLink"
-                value={formData.githubLink}
+                name="github_url"
+                value={formData.github_url}
                 onChange={handleInputChange}
-                placeholder="Github Link"
+                placeholder="GitHub Link"
                 className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
                 style={{
                   fontFamily: "'Pilat Extended', Arial, sans-serif",
@@ -183,8 +171,9 @@ const Form = () => {
                 fontWeight: '400'
               }}
               onClick={handleSubmit}
+              disabled={!valid || submitting}
             >
-              Submit
+              {submitting ? 'Submitting…' : 'Submit'}
             </button>
           </div>
         </div>
