@@ -12,7 +12,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
 			{children}
 		</div>
 		<Image
-			src="/Landing/hdmi.svg"
+			src="/landing/hdmi.svg"
 			alt="HDMI Decorative"
 			width={450}
 			height={355}
