@@ -1,49 +1,166 @@
 "use client";
 
 import React from "react";
+import Image from 'next/image';
 
 const Landing = () => {
+<<<<<<< HEAD
   const handleApplyClick = () => {
     if (typeof window !== 'undefined') {
       window.location.href = "/portal";
     }
   };
 
+=======
+>>>>>>> e2f5526c6e07f6b8fc7f94b6eab6ea74ae7597c0
   return (
     <div 
-      className="fixed inset-0 bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center text-white"
-      style={{ backgroundImage: "url(/Landing/bg.svg)" }}
+      className="h-screen w-full relative overflow-hidden"
+      style={{ 
+        background: 'linear-gradient(180deg, #4A9B7A 0%, #2A5A45 100%)'
+      }}
     >
-      <div className="flex flex-col items-center justify-center text-center z-10">
-        <h1 className="mb-6 leading-none" style={{
-          fontSize: '59.90px',
-          fontFamily: "'Pilat Extended', Arial, sans-serif",
-          fontWeight: '700',
-          lineHeight: '80.86px',
-          letterSpacing: '0.60px'
-        }}>
-          <span style={{ color: '#48BA86' }}>We are</span>
-          <span style={{ color: 'white' }}> the Hackathon</span><br />
-          <span style={{ color: 'white' }}>everyone </span>
-          <span style={{ color: '#48BA86' }}>dreams</span>
-          <span style={{ color: 'white' }}> of</span>
-        </h1>
+      {/* Gradient Background Effects */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+        {/* soft color blobs (reduced opacity, mix-blend multiply for richer/darker tones) */}
+        <div className="w-[1405.33px] h-[1405.33px] absolute -bottom-96 -left-96 rounded-full blur-[426.58px] mix-blend-multiply" style={{ background: 'conic-gradient(from 153deg at 50% 50%, #5EBF94 96deg, #6DB1E2 263deg, #29A37A 360deg)', opacity: 0.22 }} />
+        <div className="w-[1405.33px] h-[1405.33px] absolute -bottom-80 -left-40 rounded-full blur-[426.58px] mix-blend-multiply" style={{ background: 'conic-gradient(from 137deg at 50% 50%, #FFCA3C 96deg, #C36BF8 252deg, #FD7E41 360deg)', opacity: 0.18 }} />
+
+        {/* optional extra blobs (fine tune or remove) */}
+        <div className="w-[900px] h-[900px] absolute -top-72 -right-40 rounded-full blur-[300px] mix-blend-soft-light" style={{ background: 'conic-gradient(from 200deg at 50% 50%, #86E3C3, #6DB1E2, #8A7AF8)', opacity: 0.14 }} />
+
+        {/* dark overlay to deepen colors (adjust alpha) */}
+        <div className="absolute inset-0" style={{ backgroundColor: 'rgba(0,0,0,0.28)' }} />
+      </div>
+
+      {/* Main Content Container */}
+      <div className="relative h-full flex flex-col items-center justify-center z-10">
         
-        <p className="text-lg md:text-xl mb-8 text-gray-300 max-w-2xl px-4">
-          Experience the sixth edition of Code2Create now, right from the comfort of your home
-        </p>
-        
-        <button 
-          className="px-10 py-4 text-lg rounded-xl border-2 border-[#4FE3C1] bg-black/70 text-[#4FE3C1] font-semibold cursor-pointer mb-8 transition-all duration-200 hover:bg-[#4FE3C1]/20 hover:shadow-[0_0_20px_#4FE3C1] active:scale-95"
-          onClick={handleApplyClick}
+        {/* Main Heading with stroke - positioned above logo */}
+        <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2" style={{ zIndex: 10 }}>
+          <h1 
+            className="text-center whitespace-nowrap"
+            style={{
+              WebkitTextStroke: '2.41px #EFEFEF',
+              fontFamily: 'Trap, Arial, sans-serif',
+              fontSize: 'clamp(40px, 6vw, 77px)',
+              fontWeight: '700',
+              lineHeight: '130%',
+              color: 'transparent',
+              textAlign: 'center'
+            }}
+          >
+            We are the hackathon
+          </h1>
+          <h1 
+            className="text-center whitespace-nowrap"
+            style={{
+              WebkitTextStroke: '2.41px #EFEFEF',
+              fontFamily: 'Trap, Arial, sans-serif',
+              fontSize: 'clamp(40px, 6vw, 77px)',
+              fontWeight: '700',
+              lineHeight: '130%',
+              color: 'transparent',
+              textAlign: 'center'
+            }}
+          >
+            Everyone dreams of
+          </h1>
+        </div>
+
+        {/* Main logo positioned like rising sun from mountains - behind mountains */}
+        <div className="absolute bottom-1/3 left-1/2 transform -translate-x-1/2 translate-y-1/4" style={{ zIndex: 1 }}>
+          <Image 
+            src="/Landing/C2C Logo.svg" 
+            alt="Code2Create Main Logo" 
+            width={180} 
+            height={180}
+            className="opacity-200"
+          />
+        </div>
+
+        {/* Mountains background - moved up; darken with filter so colors read darker */}
+        <div className="absolute bottom-0 left-0 w-full" style={{ zIndex: 5 }}>
+          <Image 
+            src="/Landing/footer-hills 1.png" 
+            alt="Mountain Background" 
+            width={1920} 
+            height={100}
+            className="w-full h-auto object-cover"
+            style={{ maxHeight: '70vh', filter: 'brightness(0.72) contrast(0.95)' }}
+          />
+        </div>
+
+        {/* Main tagline */}
+        <div className="absolute bottom-1/5 left-1/2 transform -translate-x-1/2 translate-y-full" style={{ zIndex: 10 }}>
+          <p 
+            className="text-center whitespace-nowrap"
+            style={{
+              color: '#BEBEBE',
+              fontFamily: 'Trap, Arial, sans-serif',
+              fontSize: 'clamp(20px, 4vw, 42px)',
+              fontWeight: '700',
+              lineHeight: '130%',
+              textAlign: 'center'
+            }}
+          >
+            Don't just code for the vibes, Code2Create.
+          </p>
+        </div>
+
+        {/* Background/faded tagline (reflection) */}
+        <div
+          className="absolute bottom-1/6 left-1/2 transform -translate-x-1/2"
+          style={{
+            bottom: '8%', // adjust to align reflection on the water line
+            zIndex: 6,     // above mountains (zIndex 5) but below main tagline (10)
+            pointerEvents: 'none',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center'
+          }}
         >
-          apply now
-        </button>
-        
-        <p className="text-base text-gray-400">
-          disclaimer: apply with your Gravitas registered email id
-        </p>
+          <p
+            style={{
+              color: '#BEBEBE',
+              fontFamily: 'Trap, Arial, sans-serif',
+              fontSize: 'clamp(20px, 4vw, 42px)',
+              fontWeight: '700',
+              lineHeight: '130%',
+              opacity: 0.4,
+              textAlign: 'center',
+              transform: 'translateY(6%) scaleY(-1)', // flip & nudge down
+              filter: 'blur(0.6px)',                   // subtle blur for realism
+              WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0))',
+              maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0))'
+            }}
+          >
+            Don't just code for the vibes, Code2Create.
+          </p>
+        </div>
+
+        {/* Footer text - left */}
+        <div className="absolute bottom-6 left-6" style={{ zIndex: 20 }}>
+          <p style={{ fontFamily: 'Trap, Arial, sans-serif', fontSize: '12px', fontWeight: 700, margin: 0, color: '#FFF' }}>
+            We are not just another <span style={{ color: 'var(--C2C-Green, #48BA86)', fontWeight: 700 }}>hackathon</span>
+          </p>
+          <p style={{ fontFamily: 'Trap, Arial, sans-serif', fontSize: '12px', fontWeight: 400, margin: 0, color: '#FFF' }}>
+            We are the conspiracy that actually works
+          </p>
+        </div>
+
+        {/* Footer text - right */}
+        <div className="absolute bottom-6 right-6 text-right" style={{ zIndex: 20 }}>
+          <p style={{ fontFamily: 'Trap, Arial, sans-serif', fontSize: '12px', fontWeight: 700, margin: 0, color: '#FFF' }}>
+            Established in 2016
+          </p>
+          <p style={{ fontFamily: 'Trap, Arial, sans-serif', fontSize: '12px', fontWeight: 700, margin: 0, color: 'var(--C2C-Green, #48BA86)' }}>
+            Code2Create 6.0
+          </p>
+        </div>
       </div>
     </div>
   );
-};export default Landing;
+};
+
+export default Landing;
