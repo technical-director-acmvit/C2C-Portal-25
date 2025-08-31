@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import React from 'react';
-import DotGrid from './DotGrid';
+import DotGrid from './dot-grid';
 
 const SponsorCard: React.FC<{ title?: string; role?: string; description?: string }> = ({ title = 'Sponsor Name', role = 'Title Sponsor', description }) => {
   return (
