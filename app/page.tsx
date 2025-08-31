@@ -1,9 +1,33 @@
-import Portal from '@/app/components/portal/portal';
+"use client";
 
-export default function Home() {
+import Landing from "./components/landing/landing";
+import { signIn } from "next-auth/react";
+import About from "./components/landing/about";
+import Topper from "./components/landing/topper";
+import Sponsors from "./components/landing/sponsors";
+import FAQs from "./components/landing/faqs";
+import Timeline from "./components/landing/timeline";
+
+export default function Page() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <Portal/>
-    </div>
+    <>
+      <Landing />
+      <Topper text="About C2C" />
+      <About />
+      <Topper text="sponsor" />
+      <Sponsors />
+      <Topper text="timeline" />
+      <Timeline />
+      <Topper text="FAQs" />
+      <FAQs />
+      <button
+        onClick={() => signIn('google', { callbackUrl: '/portal' })}
+        className="fixed bottom-6 right-6 px-4 py-2 rounded-md bg-[#48BA86] text-black font-semibold shadow-lg hover:opacity-90"
+        style={{ zIndex: 50 }}
+        aria-label="Apply Now"
+      >
+        Apply Now
+      </button>
+    </>
   );
 }
