@@ -4,7 +4,7 @@ import GradientBG from "./gradient-bg";
 import Topper from "./topper";
 
 const About = ({ children }: { children?: React.ReactNode }) => (
-  <div className="w-screen h-auto">
+  <div className="w-screen h-auto ">
     <GradientBG>
       <div className="w-full h-auto relative overflow-hidden">
         <Topper text="About ACM" />
@@ -20,7 +20,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
         </div>
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col items-center px-4 space-y-16 sm:space-y-20">
+        <div className="relative z-10 flex flex-col items-center px-4 space-y-16 sm:space-y-20 px-8">
           {/* Logo */}
           <Image
             src="/landing/acm-nature-logo.svg"

@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function TopBar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     // lock body scroll when mobile menu is open
-    if (typeof window !== 'undefined') {
-      document.body.style.overflow = menuOpen ? 'hidden' : '';
+    if (typeof window !== "undefined") {
+      document.body.style.overflow = menuOpen ? "hidden" : "";
     }
     return () => {
-      if (typeof window !== 'undefined') document.body.style.overflow = '';
+      if (typeof window !== "undefined") document.body.style.overflow = "";
     };
   }, [menuOpen]);
 
   const navLinks = [
-    { href: '#about', label: 'About', hasDropdown: false },
-    { href: '#stats', label: 'Stats', hasDropdown: false },
-    { href: '#tracks', label: 'Tracks', hasDropdown: false },
+    { href: "#about", label: "About", hasDropdown: false },
+    { href: "#stats", label: "Stats", hasDropdown: false },
+    { href: "#tracks", label: "Tracks", hasDropdown: false },
     // { href: '#timeline', label: 'Timeline', hasDropdown: false},
-    { href: '#sponsors', label: 'Sponsors', hasDropdown: false },
-    { href: '#speaker', label: 'Speakers', hasDropdown: false },
+    { href: "#sponsors", label: "Sponsors", hasDropdown: false },
+    { href: "#speaker", label: "Speakers", hasDropdown: false },
     // { href: '/prize-pool', label: 'Prize Pool', hasDropdown: false },
     // { href: '/contact', label: 'Contact us', hasDropdown: false },
   ];
@@ -44,21 +44,53 @@ export default function TopBar() {
           <ul className="flex gap-4 items-center h-full">
             {navLinks.map((link) => (
               <li key={link.href} className="min-w-0 flex items-center h-full">
-                {link.href.startsWith('#') ? (
-                  <a href={link.href} className="group inline-flex items-center justify-center h-full">
-                    <span className="flex items-center justify-center space-x-2 px-3 py-1 rounded-md transition-colors min-w-0" style={{ fontFamily: 'Trap, Arial, sans-serif' }}>
-                      <span className="text-white group-hover:text-gray-300 text-center leading-tight break-words">{link.label}</span>
+                {link.href.startsWith("#") ? (
+                  <a
+                    href={link.href}
+                    className="group inline-flex items-center justify-center h-full"
+                  >
+                    <span
+                      className="flex items-center justify-center space-x-2 px-3 py-1 rounded-md transition-colors min-w-0"
+                      style={{ fontFamily: "Trap, Arial, sans-serif" }}
+                    >
+                      <span className="text-white group-hover:text-gray-300 text-center leading-tight break-words">
+                        {link.label}
+                      </span>
                       {link.hasDropdown && (
-                        <Image src="/landing/down-arrow.svg" alt={`${link.label} dropdown`} width={10} height={10} className="h-auto flex-none" aria-hidden loading="lazy" />
+                        <Image
+                          src="/landing/down-arrow.svg"
+                          alt={`${link.label} dropdown`}
+                          width={10}
+                          height={10}
+                          className="h-auto flex-none"
+                          aria-hidden
+                          loading="lazy"
+                        />
                       )}
                     </span>
                   </a>
                 ) : (
-                  <Link href={link.href} className="group inline-flex items-center justify-center h-full">
-                    <span className="flex items-center justify-center space-x-2 px-3 py-1 rounded-md transition-colors min-w-0" style={{ fontFamily: 'Trap, Arial, sans-serif' }}>
-                      <span className="text-white group-hover:text-gray-300 text-center leading-tight break-words">{link.label}</span>
+                  <Link
+                    href={link.href}
+                    className="group inline-flex items-center justify-center h-full"
+                  >
+                    <span
+                      className="flex items-center justify-center space-x-2 px-3 py-1 rounded-md transition-colors min-w-0"
+                      style={{ fontFamily: "Trap, Arial, sans-serif" }}
+                    >
+                      <span className="text-white group-hover:text-gray-300 text-center leading-tight break-words">
+                        {link.label}
+                      </span>
                       {link.hasDropdown && (
-                        <Image src="/landing/down-arrow.svg" alt={`${link.label} dropdown`} width={10} height={10} className="h-auto flex-none" aria-hidden loading="lazy" />
+                        <Image
+                          src="/landing/down-arrow.svg"
+                          alt={`${link.label} dropdown`}
+                          width={10}
+                          height={10}
+                          className="h-auto flex-none"
+                          aria-hidden
+                          loading="lazy"
+                        />
                       )}
                     </span>
                   </Link>
@@ -76,15 +108,52 @@ export default function TopBar() {
             className="p-2 rounded-md text-white hover:bg-white/10 focus:outline-none focus:ring-white"
           >
             {menuOpen ? (
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path d="M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                <path d="M6 18L18 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden
+              >
+                <path
+                  d="M6 6L18 18"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M6 18L18 6"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
               </svg>
             ) : (
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path d="M3 6h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                <path d="M3 12h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                <path d="M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden
+              >
+                <path
+                  d="M3 6h18"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M3 12h18"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M3 18h18"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
               </svg>
             )}
           </button>
@@ -107,12 +176,12 @@ export default function TopBar() {
             <ul className="flex flex-col gap-3">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  {link.href.startsWith('#') ? (
+                  {link.href.startsWith("#") ? (
                     <a
                       href={link.href}
                       onClick={() => setMenuOpen(false)}
                       className="block w-full px-3 py-2 rounded text-white hover:bg-white/10 text-center"
-                      style={{ fontFamily: 'Trap, Arial, sans-serif' }}
+                      style={{ fontFamily: "Trap, Arial, sans-serif" }}
                     >
                       {link.label}
                     </a>
@@ -121,7 +190,7 @@ export default function TopBar() {
                       href={link.href}
                       onClick={() => setMenuOpen(false)}
                       className="block w-full px-3 py-2 rounded text-white hover:bg-white/10 text-center"
-                      style={{ fontFamily: 'Trap, Arial, sans-serif' }}
+                      style={{ fontFamily: "Trap, Arial, sans-serif" }}
                     >
                       {link.label}
                     </Link>

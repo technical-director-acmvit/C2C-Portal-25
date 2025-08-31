@@ -18,10 +18,13 @@ export default function Page() {
       <div className="fixed inset-0 -z-10 bg-gradient-to-b from-[#0a0a0a] via-[#161616] to-[#0a0a0a]" />
 
       <Landing />
-      <div className="h-screen flex items-center justify-between flex-col">
-        <About />
-        <QuotesBanner />
+      <div className="min-h-screen flex flex-col">
+        <div className="flex-1 w-full">
+          <About />
+        </div>
+        <QuotesBanner className="shrink-0" />
       </div>
+
       <div className=" flex items-center justify-between flex-col">
         <AboutACM />
       </div>
