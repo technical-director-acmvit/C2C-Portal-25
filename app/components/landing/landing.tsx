@@ -80,7 +80,7 @@ const Landing = () => {
 
         {/* Main logo positioned like rising sun from mountains - behind mountains */}
         <div
-          className="absolute top-[52%] left-4/7 transform -translate-x-1/2 -translate-y-1/2 animate-floating"
+          className="absolute top-[56%] left-4/7 transform -translate-x-1/2 -translate-y-1/2 animate-floating"
           style={{ zIndex: 1 }}
         >
           <Image 

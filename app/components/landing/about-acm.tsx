@@ -7,9 +7,9 @@ const About = ({ children }: { children?: React.ReactNode }) => (
     <GradientBG>
         <div className="w-full h-[400vh] relative overflow-hidden">
             <Topper text="About ACM" />
-            <DotGrid dotSize={3} gap={25} baseColor="#a3a3a3" className='z-50' />
+            <DotGrid dotSize={1.5} gap={25} baseColor="#a3a3a3" className='z-50' />
             {/* Absolutely center the text and ensure it's above the canvas */}
-            <div className="absolute inset-0 z-20 flex flex-col items-center pointer-events-none ">
+            <div className="absolute inset-0 z-20 flex flex-col items-center pointer-events-none px-4">
                 <Image
                     src="/landing/acm-nature-logo.svg"
                     alt="ACM Logo With Name"
@@ -20,7 +20,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
                     loading="lazy"
                 />
                 <div
-                    className="w-[794px] max-w-[calc(100%-2rem)] text-justify justify-start text-zinc-100 text-2xl font-thin leading-10 pointer-events-auto pt-8"
+                    className="w-full max-w-[794px] text-justify justify-start text-zinc-100 text-xl sm:text-2xl font-thin leading-8 md:leading-10 pointer-events-auto pt-8"
                     style={{ fontFamily: "DMSans-Regular, sans-serif" }}
                 >
                     Id qui cupidatat dolor veniam incididunt. Sint sit officia eu deserunt dolore officia anim labore deserunt incididunt consectetur do. Magna incididunt aliqua nisi Lorem. Pariatur sit non ex tempor est excepteur occaecat reprehenderit ex velit laboris esse cillum incididunt ullamco.
@@ -43,7 +43,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
                     We can be heroes everywhere we go,<br/>We can have all that we ever want.
                 </h1>
 
-                <div className="w-[900px] text-justify justify-start text-zinc-100 text-3xl font-normal font-['DM_Sans'] leading-10 pt-24">We can be heroes everywhere we go, not through capes or crowns, but through ideas that inspire change. At hackathons, and especially at Code2Create, this has always been the spirit: that we can have all that we ever want - the freedom to imagine, the courage to build, and the legacy of creating something larger than ourselves.”</div>
+                <div className="w-full max-w-[900px] px-0 md:px-0 text-justify justify-start text-zinc-100 text-xl sm:text-2xl md:text-3xl font-normal font-['DM_Sans'] leading-8 md:leading-10 pt-24">We can be heroes everywhere we go, not through capes or crowns, but through ideas that inspire change. At hackathons, and especially at Code2Create, this has always been the spirit: that we can have all that we ever want - the freedom to imagine, the courage to build, and the legacy of creating something larger than ourselves.”</div>
                 <div className="absolute left-0 bottom-0 z-10 pointer-events-none select-none my-200  ">
                     <svg width="361" height="810" viewBox="0 0 361 810" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <mask id="mask0_2996_62753" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="-270" y="13" width="617" height="732">

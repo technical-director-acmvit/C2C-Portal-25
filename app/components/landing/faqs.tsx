@@ -86,7 +86,7 @@ const FAQs = () => {
       <Topper text="FAQs" />
       {/* DotGrid positioned behind the content - same as About and Sponsors */}
       <div className="absolute inset-0 z-0">
-        <DotGrid dotSize={3} gap={25} baseColor="#a3a3a3" />
+        <DotGrid dotSize={1.5} gap={25} baseColor="#a3a3a3" />
       </div>
       
       {/* Content positioned above the dots */}

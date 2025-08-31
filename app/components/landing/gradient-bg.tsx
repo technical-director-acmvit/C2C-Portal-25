@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 
 const GradientBG = ({ children }: { children?: React.ReactNode }) => (
   <div className="w-full relative">
