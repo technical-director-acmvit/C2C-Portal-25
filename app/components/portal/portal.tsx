@@ -3,6 +3,7 @@ import External from './external';
 import Internal from './internal';
 import { useState } from 'react';
 import PortalButton from './ui/button';
+import Image from 'next/image';
 
 const Portal = () => {
     const [selected, setSelected] = useState<'internal' | 'external' | null>(null);
@@ -15,8 +16,10 @@ const Portal = () => {
     }
 
     return (
-        <div className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat bg-[url('/portal/bg1.svg')]">
-            <div className="flex flex-col items-center justify-center h-full px-4 text-center">
+        <div className="fixed inset-0 w-screen h-screen relative">
+            {/* Background image via next/image */}
+            <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" priority={false} />
+            <div className="flex flex-col items-center justify-center h-full px-4 text-center relative z-10">
                 <div className="flex items-center gap-3 mb-6">
                     {/* <BackChevron /> */}
                     <h1 className="text-white font-bold text-2xl sm:text-3xl md:text-4xl">Are you a VIT student?</h1>

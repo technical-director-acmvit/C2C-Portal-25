@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import JoinTeam from './join-team';
 import CreateTeam from './create-team';
 import PortalButton from './ui/button';
+import Image from 'next/image';
 
 const TeamUp = () => {
   const [selectedOption, setSelectedOption] = useState<'join' | 'create' | null>(null);
@@ -17,9 +18,11 @@ const TeamUp = () => {
   };
 
   return (
-    <div className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat overflow-hidden" style={{ backgroundImage: 'url(/portal/bg1.svg)' }}>
+    <div className="fixed inset-0 w-screen h-screen relative overflow-hidden">
+      {/* Background image via next/image */}
+      <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" />
       <div className={`absolute inset-0 transition-transform duration-300 ease-out ${selectedOption ? '-translate-x-full opacity-0' : 'translate-x-0 opacity-100'}`}>
-        <div className="flex flex-col items-center justify-center h-full px-4 text-center">
+        <div className="flex flex-col items-center justify-center h-full px-4 text-center relative z-10">
           <div className="flex items-center mb-6">
             <h1 
               className="flex-1 text-center text-white text-2xl sm:text-3xl md:text-4xl"

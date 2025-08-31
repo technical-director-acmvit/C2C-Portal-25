@@ -90,9 +90,9 @@ const About = ({ children }: { children?: React.ReactNode }) => (
               color: "transparent",
             }}
           >
-            We're back with a bang,
+            We&apos;re back with a bang,
             <br />
-            but let's flex first!
+            but let&apos;s flex first!
           </h1>
 
           {/* Stats Image */}

@@ -40,17 +40,15 @@ const QuotesBanner: React.FC<QuotesBannerProps> = ({
     <div
       className={`relative w-full overflow-hidden ${className} shrink-0 flex items-center justify-center min-h-12 sm:min-h-14 py-2`}
       aria-label="Community praise and sponsor banner"
+      style={{ backgroundColor: "#3F8F68" }}
     >
-      <div
-        className="absolute inset-0 z-10"
-        style={{
-          backgroundColor: "#3F8F68",
-          backgroundImage: "url(/landing/bg.svg)",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          maskImage: "radial-gradient(black, black)",
-        }}
+      <Image
+        src="/landing/bg.svg"
+        alt=""
+        aria-hidden
+        fill
+        className="object-cover"
+        priority={false}
       />
 
       <div className="w-full z-10 relative">

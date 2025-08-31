@@ -102,14 +102,16 @@ const Form = ({ onBack, requirePPT = false }: FormProps) => {
   };
 
   return (
-    <div className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/portal/bg1.svg)' }}>
+    <div className="fixed inset-0 w-screen h-screen relative">
+      {/* Background image via next/image */}
+      <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" />
       {/* Logo top left */}
-      <div className="absolute top-6 left-6 sm:left-8">
+      <div className="absolute top-6 left-6 sm:left-8 z-10">
         <Image src="/portal/logo.svg" alt="Logo" width={200} height={200} />
       </div>
       
       {/* Centered form */}
-      <div className="flex flex-col items-center justify-center h-full px-4">
+      <div className="flex flex-col items-center justify-center h-full px-4 relative z-10">
         <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 sm:p-8 w-full max-w-md border border-gray-600">
           <div className="flex items-center gap-3 mb-6">
             {onBack && <BackChevron onClick={onBack} />}

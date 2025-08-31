@@ -6,6 +6,7 @@ import PortalButton from './ui/button';
 import { signupInternal } from '../../actions/signup';
 import BackChevron from './ui/back-chevron';
 import Select from './ui/select';
+import Image from 'next/image';
 
 interface Props { onBack?: () => void }
 const Internal = ({ onBack }: Props) => {
@@ -58,11 +59,13 @@ const Internal = ({ onBack }: Props) => {
     }
 
     return (
-        <div className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/portal/bg1.svg)' }}>
+        <div className="fixed inset-0 w-screen h-screen relative">
+            {/* Background image via next/image */}
+            <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" />
             {/* <div className="absolute top-6 left-6 sm:left-8">
                 <Image src="/portal/logo.svg" alt="Logo" width={200} height={200} />
             </div> */}
-            <div className="flex items-center justify-center h-full">
+            <div className="flex items-center justify-center h-full relative z-10">
                 <div
                     className="w-full max-w-lg p-6 sm:p-8 rounded-2xl"
                     style={{

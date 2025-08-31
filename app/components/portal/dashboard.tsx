@@ -11,7 +11,7 @@ import { leaveTeam } from "@/app/actions/team";
 import PortalLoader from "./portal-loader";
 import BackChevron from "./ui/back-chevron";
 import { cleanName } from "./nameUtils";
-import Profile from "./profile";
+// import Profile from "./profile";
 
 interface DashboardProps {
   onTeamLeft?: () => void;
@@ -22,7 +22,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<DashboardResponse | null>(null);
   const [showForm, setShowForm] = useState(false);
-  const [showProfile, setShowProfile] = useState(false);
+  // const [showProfile, setShowProfile] = useState(false);
   const [leaveProcessing, setLeaveProcessing] = useState(false);
   const [showLeaveModal, setShowLeaveModal] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -134,10 +134,9 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
   // Full-screen Form view
   if (showForm) {
     return (
-      <div
-        className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url(/portal/bg1.svg)" }}
-      >
+      <div className="fixed inset-0 w-screen h-screen relative">
+        {/* Background image via next/image */}
+        <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" />
         <BackChevron className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10" />
         <div className="absolute top-6 right-6 sm:right-8 z-10">
           <button
@@ -149,7 +148,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
           </button>
         </div>
 
-        <div className="h-full w-full overflow-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="h-full w-full overflow-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 relative z-10">
           <div className="max-w-3xl mx-auto">
             <Form />
           </div>
@@ -159,9 +158,9 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
   }
 
   // Profile view
-  if (showProfile) {
-    return <Profile onBack={() => setShowProfile(false)} />;
-  }
+  // if (showProfile) {
+  //   return <Profile onBack={() => setShowProfile(false)} />;
+  // }
 
   if (loading) return <PortalLoader />;
 
@@ -173,15 +172,14 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
     );
 
   return (
-    <div
-      className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: "url(/portal/bg1.svg)" }}
-    >
+    <div className="fixed inset-0 w-screen h-screen relative">
+      {/* Background image via next/image */}
+      <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" />
       {/* Navigation buttons */}
       <BackChevron className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10" />
 
       {/* Profile button */}
-      <div className="absolute top-6 right-6 sm:right-8">
+      {/* <div className="absolute top-6 right-6 sm:right-8">
         <button
           type="button"
           onClick={() => setShowProfile(true)}
@@ -190,10 +188,10 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
         >
           <Image src="/portal/user.svg" alt="User" width={28} height={28} />
         </button>
-      </div>
+      </div> */}
 
       {/* Main content */}
-      <div className="flex flex-col items-center justify-center h-full px-4 sm:px-6 lg:px-8 py-16 sm:py-20 overflow-auto">
+      <div className="flex flex-col items-center justify-center h-full px-4 sm:px-6 lg:px-8 py-16 sm:py-20 overflow-auto relative z-10">
         <div className="w-full max-w-4xl mx-auto flex flex-col items-center">
           {/* Team Name */}
           <h1

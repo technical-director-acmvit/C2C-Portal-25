@@ -81,7 +81,6 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  themeColor: "#0a0a0a",
 };
 
 export const viewport: Viewport = {

@@ -55,6 +55,9 @@ const timelineData: TimelineItem[] = [
 const TIMELINE_COMING_SOON = true as const;
 
 const Timeline = () => {
+  const defaultItem = timelineData.find(t => t.id === "05") || timelineData[0];
+  const [selectedItem, setSelectedItem] = useState<TimelineItem>(defaultItem);
+
   if (TIMELINE_COMING_SOON) {
     return (
       <GradientBG>
@@ -87,9 +90,6 @@ const Timeline = () => {
       </GradientBG>
     );
   }
-
-  const defaultItem = timelineData.find(t => t.id === "05") || timelineData[0];
-  const [selectedItem, setSelectedItem] = useState<TimelineItem>(defaultItem); // Default to Speaker Session
 
   return (
     <GradientBG>

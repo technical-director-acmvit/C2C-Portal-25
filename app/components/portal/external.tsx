@@ -6,8 +6,22 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { signupExternal } from "../../actions/signup";
 import BackChevron from './ui/back-chevron';
 import Select from './ui/select';
+import Image from 'next/image';
 
 type College = { id?: string | number; name: string; state?: string };
+type CollegeJSON = string | { name?: unknown; state?: unknown } | null;
+
+function isRecord(v: unknown): v is Record<string, unknown> {
+  return typeof v === 'object' && v !== null;
+}
+
+function isCollegeJSONObject(v: unknown): v is { name: string; state?: string } {
+  if (!isRecord(v)) return false;
+  const name = v['name'];
+  if (typeof name !== 'string') return false;
+  const state = v['state'];
+  return state === undefined || typeof state === 'string';
+}
 
 // Toggle suggestions: 0 = plain/custom input, 1 = suggestions + fuzzy matching
 const SUGGESTIONS_ENABLED = 1;
@@ -122,17 +136,13 @@ const External = ({ onBack }: Props) => {
         const expires = parsed.expires as number;
         const list = parsed.list as unknown;
         if (expires && Date.now() < expires && Array.isArray(list)) {
-          const rawList = list as any[];
+          const rawList = list as CollegeJSON[];
           const items: College[] = [];
-          rawList.forEach((it: any, i: number) => {
+          rawList.forEach((it, i) => {
             if (typeof it === 'string') {
-              items.push({ name: it as string, id: i });
-            } else if (it && typeof it.name === 'string') {
-              items.push({
-                name: it.name as string,
-                state: typeof it.state === 'string' ? (it.state as string) : undefined,
-                id: i,
-              });
+              items.push({ name: it, id: i });
+            } else if (isCollegeJSONObject(it)) {
+              items.push({ name: it.name, state: it.state, id: i });
             }
           });
           if (items.length) {
@@ -274,12 +284,11 @@ const External = ({ onBack }: Props) => {
   if (submitted) return <TeamUp />;
 
   return (
-    <div
-      className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat overflow-y-auto"
-      style={{ backgroundImage: "url(/portal/bg1.svg)" }}
-    >
+    <div className="fixed inset-0 w-screen h-screen relative overflow-y-auto">
+      {/* Background image via next/image */}
+      <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" />
 
-      <div className="flex items-center justify-center h-full px-4 py-6 sm:py-8">
+      <div className="flex items-center justify-center h-full px-4 py-6 sm:py-8 relative z-10">
         <div
           className="w-full max-w-md sm:max-w-lg p-6 sm:p-8 rounded-2xl relative"
           style={{

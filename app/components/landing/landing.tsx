@@ -49,7 +49,7 @@ const Landing = () => {
             Turning what if
           </h1>
           <h1 className="text-center break-words hyphens-auto text-hollow text-4xl sm:text-5xl lg:text-7xl md:text-6xl">
-            into what's next
+            into what&apos;s next
           </h1>
         </div>
 

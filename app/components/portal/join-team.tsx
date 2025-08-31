@@ -5,6 +5,7 @@ import Dashboard from './dashboard';
 import PortalButton from './ui/button';
 import { joinTeam } from '../../actions/team';
 import BackChevron from './ui/back-chevron';
+import Image from 'next/image';
 
 interface Props { onBack?: () => void }
 const JoinTeam = ({ onBack }: Props) => {
@@ -36,10 +37,12 @@ const JoinTeam = ({ onBack }: Props) => {
   }
 
   return (
-    <div className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/portal/bg1.svg)' }}>
+    <div className="fixed inset-0 w-screen h-screen relative">
+      {/* Background image via next/image */}
+      <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" />
       
       {/* Centered card content */}
-  <div className="flex items-center justify-center h-full px-4">
+  <div className="flex items-center justify-center h-full px-4 relative z-10">
   <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl p-6 sm:p-8 rounded-2xl" style={{
           background: 'linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))',
           backdropFilter: 'blur(10px) saturate(120%)',
