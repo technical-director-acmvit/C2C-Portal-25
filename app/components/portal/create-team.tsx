@@ -4,9 +4,12 @@ import React, { useState } from "react";
 import Image from 'next/image';
 import Dashboard from './dashboard';
 import { createTeam } from '../../actions/team';
+import BackChevron from './ui/back-chevron';
 
-const CreateTeam = () => {
+interface Props { onBack?: () => void }
+const CreateTeam = ({ onBack }: Props) => {
   const [teamName, setTeamName] = useState('');
+  const [description, setDescription] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -15,12 +18,16 @@ const CreateTeam = () => {
     setTeamName(e.target.value);
   };
 
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.target.value);
+  };
+
   const handleProceed = async () => {
     if (!teamName.trim()) return;
     setLoading(true);
     setError(null);
     try {
-      await createTeam({ name: teamName });
+      await createTeam({ name: teamName, description: description ? description : null });
       setSubmitted(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to create team');
@@ -36,40 +43,47 @@ const CreateTeam = () => {
   return (
     <div className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/portal/bg1.svg)' }}>
       {/* Logo top left */}
-      <div className="absolute top-6 left-18">
+      <div className="absolute top-6 left-6 sm:left-8">
         <Image src="/portal/logo.svg" alt="Logo" width={200} height={200} />
       </div>
       
       {/* Centered content */}
-      <div className="flex flex-col items-center justify-center h-full">
-        <h1 
-          className="text-white mb-8 text-center"
-          style={{
-            fontSize: '48px',
-            fontFamily: "'Pilat Extended', Arial, sans-serif",
-            fontWeight: '700'
-          }}
-        >
-          Enter Team Name
-        </h1>
+      <div className="flex flex-col items-center justify-center h-full px-4">
+        <div className="w-full max-w-md mb-4">
+          <div className="flex items-center gap-3">
+            <BackChevron onClick={onBack} />
+            <h1 className="text-white text-2xl sm:text-3xl" style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontWeight: '700' }}>Enter Team Name</h1>
+          </div>
+        </div>
         
         {error && (
           <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded-md text-sm mb-4">
             {error}
           </div>
         )}
-        <div className="mb-6">
+        <div className="mb-4 w-full max-w-md">
           <input
             type="text"
             value={teamName}
             onChange={handleNameChange}
             placeholder="Team name"
-            className="px-6 py-4 rounded-full bg-gray-600/80 border-none text-white placeholder-gray-400 text-center focus:outline-none focus:ring-2 focus:ring-[#5EBF94] w-80"
+            className="px-6 py-4 rounded-full bg-gray-600/80 border-none text-white placeholder-gray-400 text-center focus:outline-none focus:ring-2 focus:ring-[#5EBF94] w-full"
             style={{
               fontFamily: "'Pilat Extended', Arial, sans-serif",
               fontSize: '16px',
               fontWeight: '400'
             }}
+          />
+        </div>
+
+        <div className="mb-6 w-full max-w-md">
+          <textarea
+            value={description}
+            onChange={handleDescriptionChange}
+            placeholder="Short description (optional)"
+            className="px-4 py-3 rounded-lg bg-gray-600/80 border-none text-white placeholder-gray-400 w-full focus:outline-none focus:ring-2 focus:ring-[#5EBF94]"
+            style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: '14px' }}
+            rows={3}
           />
         </div>
         

@@ -8,6 +8,8 @@ import LeaveTeamModal from './leave-team-modal';
 import { fetchDashboard, type DashboardResponse, type UserSummary } from '../../actions/dashboard';
 import { leaveTeam } from "@/app/actions/team";
 import PortalLoader from "./portal-loader";
+import { getCurrentSubmission, type Submission } from "@/app/actions/submission";
+import BackChevron from './ui/back-chevron';
 
 interface DashboardProps {
   onTeamLeft?: () => void;
@@ -18,6 +20,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<DashboardResponse | null>(null);
   const [showForm, setShowForm] = useState(false);
+  const [submission, setSubmission] = useState<Submission | null>(null);
   const [leaveProcessing, setLeaveProcessing] = useState(false);
   const [showLeaveModal, setShowLeaveModal] = useState(false);
 
@@ -38,6 +41,13 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
           setError(res.error || "Failed to load dashboard");
         } else {
           setData(res.data ?? null);
+          // If the user has a team, try to fetch current submission
+          if (res.data?.team) {
+            const sub = await getCurrentSubmission();
+            if (mounted && sub.ok) setSubmission(sub.data ?? null);
+          } else {
+            setSubmission(null);
+          }
         }
       } catch (err) {
         if (mounted)
@@ -66,8 +76,9 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
 
   const needsSubmission = useMemo(() => {
     if (!team) return false;
+    if (submission) return false;
     return !(team.github_url && team.figma_url && team.other && team.track_id);
-  }, [team]);
+  }, [team, submission]);
 
   const handleLeaveTeam = async () => {
     if (!team) return;
@@ -140,9 +151,10 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
       style={{ backgroundImage: "url(/portal/bg1.svg)" }}
     >
       {/* Logo top left */}
-      <div className="absolute top-6 left-18">
+      <div className="absolute top-6 left-6 sm:left-8">
         <Image src="/portal/logo.svg" alt="Logo" width={200} height={200} />
       </div>
+      <BackChevron className="absolute top-6 left-6" />
 
       {/* Centered content */}
       <div className="flex flex-col items-center justify-center h-full">

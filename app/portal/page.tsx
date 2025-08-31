@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import Portal from '@/app/components/portal/portal';
 import TeamUp from '../components/portal/team-up';
 import Dashboard from '../components/portal/dashboard';
@@ -18,25 +19,44 @@ export default function Home() {
     const failover = setTimeout(() => {
       if (mounted) setView('signup');
     }, 8000);
+
+    const commit = (v: View) => {
+      if (!mounted) return;
+      clearTimeout(failover);
+      setView(v);
+    };
     (async () => {
       try {
         const res = await fetchDashboard();
         if (!mounted) return;
         if (!res.ok) {
-            
-          if (res.status === 404) {
-            setView('signup');
-          } else if (res.status === 401) {
-            setView('signup');
+          if (res.status === 404 || res.status === 401) {
+            commit('signup');
           } else {
-            setView('error');
+            commit('error');
           }
           return;
         }
+
+        // Decide view based on profile completeness first, then team membership
+        const u = res.data?.user;
+        const isInternal = typeof u?.internal === 'boolean' ? u.internal : undefined;
+        const hasCoreFields = Boolean(u?.contact_number) && Boolean(u?.gender);
+        const hasInternalFields = Boolean(u?.reg_no);
+        const hasExternalFields = Boolean(u?.college_name);
+        const profileComplete =
+          hasCoreFields &&
+          (isInternal === true ? hasInternalFields : isInternal === false ? hasExternalFields : false);
+
+        if (!profileComplete) {
+          commit('signup');
+          return;
+        }
+
         const hasTeam = Boolean(res.data?.team);
-        setView(hasTeam ? 'dashboard' : 'team');
+        commit(hasTeam ? 'dashboard' : 'team');
       } catch {
-        if (mounted) setView('signup');
+        if (mounted) commit('signup');
       }
     })();
     return () => { mounted = false; clearTimeout(failover); };
@@ -48,6 +68,17 @@ export default function Home() {
 
   return (
     <AuthReauthGuard>
+      {/* Shared portal logo - centralized so size/position is consistent across portal views */}
+      <div className="absolute top-6 left-6 sm:left-8">
+        <Image
+          src="/portal/logo.svg"
+          alt="Logo"
+          width={200}
+          height={200}
+          className="bg-transparent block w-28 sm:w-40 h-auto"
+          draggable={false}
+        />
+      </div>
       {view === 'loading' && (
         <PortalLoader />
       )}

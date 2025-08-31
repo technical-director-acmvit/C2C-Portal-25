@@ -28,7 +28,7 @@ export default function TopBar() {
 
   return (
     <div className="w-full bg-transparent border-b border-white">
-      <div className="flex items-center justify-between px-4 md:px-0 py-2 md:py-0 md:h-14">
+      <div className="max-w-screen-xl mx-auto flex items-center justify-between px-4 md:px-6 py-2 md:py-0 md:h-14">
         {/* C2C Logo Section */}
         <div className="flex-shrink-0 border-r border-white pr-4 md:pr-8 py-1 flex items-center">
           <Image
