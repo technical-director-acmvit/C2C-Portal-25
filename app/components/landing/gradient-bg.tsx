@@ -1,6 +1,9 @@
 "use client";
 
-interface GradientBGProps { children?: React.ReactNode; darken?: boolean }
+interface GradientBGProps {
+  children?: React.ReactNode;
+  darken?: boolean;
+}
 
 const GradientBG = ({ children, darken = false }: GradientBGProps) => (
   <div className="w-full relative">
@@ -9,9 +12,7 @@ const GradientBG = ({ children, darken = false }: GradientBGProps) => (
     {darken && (
       <div className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-b from-black/20 via-black/55 to-black/20" />
     )}
-    <div className="relative z-10">
-      {children}
-    </div>
+    <div className="relative z-10">{children}</div>
   </div>
 );
 

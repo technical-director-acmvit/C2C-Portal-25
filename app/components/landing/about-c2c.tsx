@@ -1,30 +1,95 @@
-import Image from 'next/image';
-import DotGrid from './dot-grid';
-import GradientBG from './gradient-bg';
-import Topper from './topper';
+import Image from "next/image";
+import DotGrid from "./dot-grid";
+import GradientBG from "./gradient-bg";
+import Topper from "./topper";
 
 const About = ({ children }: { children?: React.ReactNode }) => (
+  <div className="h-screen w-screen">
     <GradientBG>
-        <div id="about" className="w-full h-[600px] relative overflow-hidden">
-            <Topper text="About C2C" />
-            <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" className='z-0' />
-            {/* Absolutely center the text and ensure it's above the canvas */}
-            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none px-4 transform translate-y-20">
-                <div className="w-full max-w-[994px] text-justify justify-start text-zinc-100 text-xl sm:text-2xl md:text-3xl font-normal leading-8 md:leading-10 pointer-events-auto" style={{ fontFamily: 'DM Sans, Arial, sans-serif' }}>
-                    Code2Create (C2C) is ACM-VIT's 48-hour national hackathon, open to participants from colleges across India. With multiple tracks, C2C challenges innovators of all levels, from beginners to pros, to tackle real-world problems, collaborate with peers, and learn from industry mentors. It’s a platform to showcase talent, build prototypes, and turn ideas into impact.
-                </div>
-                {children}
-            </div>
-                <Image
-                    src="/landing/hdmi.svg"
-                    alt="HDMI Decorative"
-                    width={450}
-                    height={355}
-                    className="hidden sm:block absolute right-0 bottom-0 z-30 pointer-events-none select-none"
-                    draggable={false}
-                />
+      {/* Use <section> for semantics + anchor target */}
+      <section id="about" className="relative w-full overflow-hidden h-[92vh]">
+        {/* Title */}
+        <Topper text="About C2C" />
+
+        {/* Background grid (kept behind content) */}
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <DotGrid
+            dotSize={2.5}
+            gap={25}
+            baseColor="#a3a3a3"
+            className="h-full w-full"
+          />
         </div>
+
+        {/* Content container */}
+        <div
+          className="
+          relative z-20
+          mx-auto
+          px-4 sm:px-6 lg:px-8
+          pb-16 sm:pb-20 lg:pb-28
+          flex flex-col items-center justify-center
+        "
+        >
+          <div
+            className="
+            w-full
+            max-w-prose md:max-w-[880px] lg:max-w-[994px]
+            text-zinc-100
+            text-pretty break-words hyphens-auto
+            text-base sm:text-lg md:text-xl lg:text-2xl
+            leading-[1.6] sm:leading-8 md:leading-9
+          "
+            style={{ fontFamily: "DM Sans, Arial, sans-serif" }}
+          >
+            <p className="mb-4">
+              Code2Create is ACM-VIT's flagship 48-hour national hackathon open
+              to participants from colleges across India. C2C is all about
+              pushing boundaries and building innovative projects.
+            </p>
+            <p className="mb-4">
+              With multiple tracks to suit diverse interests, the event brings
+              together participants to take on real-world challenges, team up
+              with peers and learn from industry mentors.
+            </p>
+            <p className="mb-4">
+              It's a space where creativity meets skill and young developers get
+              to showcase their talent.
+            </p>
+            <p className="mb-4">
+              Whether you're someone who's just beginning to build your skill
+              set or aiming to claim your next hackathon prize, C2C is the right
+              event for you.
+            </p>
+            <p>
+              Be part of a culture where we don't just code for the vibes, we
+              code to create.
+            </p>
+          </div>
+
+          {/* Optional extra content passed in */}
+          {children && (
+            <div className="mt-6 sm:mt-8 md:mt-10 w-full max-w-prose md:max-w-[880px] lg:max-w-[994px]">
+              {children}
+            </div>
+          )}
+        </div>
+
+        {/* Decorative HDMI image — responsive sizing via wrapper + fill */}
+        <div className="hidden sm:block absolute right-2 sm:right-4 bottom-2 sm:bottom-4 z-30 pointer-events-none select-none w-40 sm:w-56 md:w-72 lg:w-80 aspect-[450/355]">
+          <Image
+            src="/landing/hdmi.svg"
+            alt="HDMI Decorative"
+            fill
+            sizes="(min-width: 1024px) 320px, (min-width: 640px) 224px, 160px"
+            className="object-contain"
+            priority={false}
+            draggable={false}
+          />
+        </div>
+      </section>
     </GradientBG>
+  </div>
 );
 
 export default About;
