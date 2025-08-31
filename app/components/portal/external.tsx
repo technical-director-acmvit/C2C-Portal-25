@@ -106,9 +106,8 @@ const External = ({ onBack }: Props) => {
   const COLLEGE_CACHE_KEY = "c2c_colleges_v1";
 
   useEffect(() => {
-    if (!SUGGESTIONS_ENABLED) return; // skip fetching/caching when suggestions are off
+    if (!SUGGESTIONS_ENABLED) return;
 
-    // try cache first
     try {
       const raw = localStorage.getItem(COLLEGE_CACHE_KEY);
       if (raw) {
@@ -120,10 +119,8 @@ const External = ({ onBack }: Props) => {
         }
       }
     } catch {
-      // ignore
     }
 
-    // server action
     (async () => {
       setLoadingColleges(true);
       try {
@@ -186,7 +183,6 @@ const External = ({ onBack }: Props) => {
     }
   };
 
-  // blur handling so clicks can register before hiding
   const scheduleHide = () => {
     if (hideTimer.current) window.clearTimeout(hideTimer.current);
     hideTimer.current = window.setTimeout(() => setShowSuggestions(false), 120);
@@ -226,7 +222,6 @@ const External = ({ onBack }: Props) => {
       style={{ backgroundImage: "url(/portal/bg1.svg)" }}
     >
 
-      {/* Centered card */}
       <div className="flex items-center justify-center h-full">
         <div
           className="w-full max-w-lg p-8 rounded-2xl relative"

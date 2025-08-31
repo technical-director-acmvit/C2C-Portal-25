@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import PortalButton from './ui/button';
 
 interface LeaveTeamModalProps {
   isOpen: boolean;
@@ -27,62 +28,55 @@ const LeaveTeamModal: React.FC<LeaveTeamModalProps> = ({
         onClick={onClose}
       />
       
-      {/* Modal */}
-      <div className="relative bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-lg p-8 max-w-md mx-4">
-        <h2
-          className="text-white text-center mb-6"
-          style={{
-            fontSize: "24px",
-            fontFamily: "'Pilat Extended', Arial, sans-serif",
-            fontWeight: "700",
-            letterSpacing: "1px",
-          }}
-        >
-          Leave Team
-        </h2>
-        
-        <p
-          className="text-gray-300 text-center mb-8"
-          style={{
-            fontSize: "16px",
-            fontFamily: "'Pilat Extended', Arial, sans-serif",
-            fontWeight: "400",
-            lineHeight: "1.5",
-          }}
-        >
-          Are you sure you want to leave{" "}
-          {teamName && (
-            <span className="text-white font-semibold">&quot;{teamName}&quot;</span>
-          )}? This action cannot be undone.
-        </p>
-        
-        <div className="flex gap-4 justify-center">
-          <button
-            className="px-6 py-3 rounded-lg text-white cursor-pointer border-2 border-white/30 bg-transparent hover:bg-white/10 transition-colors"
+      {/* Centered card (match Join/Create) */}
+      <div className="flex items-center justify-center h-full px-4">
+        <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg p-4 sm:p-6 md:p-8 rounded-2xl" style={{
+          background: 'linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))',
+          backdropFilter: 'blur(10px) saturate(120%)',
+          boxShadow: '0 12px 40px rgba(0,0,0,0.55), 0 6px 24px rgba(72,186,134,0.06) inset, 0 1px 0 rgba(255,255,255,0.02) inset',
+          border: '1px solid rgba(255,255,255,0.10)'
+        }}>
+          <h2
+            className="text-white text-center mb-4 text-lg sm:text-xl"
             style={{
-              fontSize: "16px",
+              fontFamily: "'Pilat Extended', Arial, sans-serif",
+              fontWeight: "700",
+              letterSpacing: "1px",
+            }}
+          >
+            Leave Team
+          </h2>
+
+          <p
+            className="text-gray-300 text-center mb-6 text-sm sm:text-base"
+            style={{
               fontFamily: "'Pilat Extended', Arial, sans-serif",
               fontWeight: "400",
+              lineHeight: "1.5",
             }}
-            onClick={onClose}
-            disabled={isProcessing}
           >
-            Cancel
-          </button>
-          
-          <button
-            className="px-6 py-3 rounded-lg text-white cursor-pointer"
-            style={{
-              backgroundColor: "#ef4444",
-              fontSize: "16px",
-              fontFamily: "'Pilat Extended', Arial, sans-serif",
-              fontWeight: "400",
-            }}
-            onClick={onConfirm}
-            disabled={isProcessing}
-          >
-            {isProcessing ? "Leaving…" : "Leave Team"}
-          </button>
+            Are you sure you want to leave {teamName && (
+              <span className="text-white font-semibold">&quot;{teamName}&quot;</span>
+            )}? This action cannot be undone.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+            <PortalButton
+              onClick={onClose}
+              disabled={isProcessing}
+              // force smaller responsive text so PortalButton default doesn't dominate
+              className={`w-full sm:w-auto px-4 py-2 !text-[15px] sm:!text-[16px] md:!text-[16px] bg-transparent border border-white/20 text-white ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              Cancel
+            </PortalButton>
+            <PortalButton
+              onClick={onConfirm}
+              disabled={isProcessing}
+              className={`w-full sm:w-auto px-4 py-2 !text-[15px] sm:!text-[16px] md:!text-[16px] ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              {isProcessing ? 'Leaving…' : 'Leave Team'}
+            </PortalButton>
+          </div>
         </div>
       </div>
     </div>

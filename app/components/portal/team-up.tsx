@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from 'next/image';
 import JoinTeam from './join-team';
 import CreateTeam from './create-team';
 import PortalButton from './ui/button';
-import BackChevron from './ui/back-chevron';
 
 const TeamUp = () => {
   const [selectedOption, setSelectedOption] = useState<'join' | 'create' | null>(null);

@@ -59,9 +59,9 @@ const Internal = ({ onBack }: Props) => {
 
     return (
         <div className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/portal/bg1.svg)' }}>
-            <div className="absolute top-6 left-6 sm:left-8">
+            {/* <div className="absolute top-6 left-6 sm:left-8">
                 <Image src="/portal/logo.svg" alt="Logo" width={200} height={200} />
-            </div>
+            </div> */}
             <div className="flex items-center justify-center h-full">
                 <div
                     className="w-full max-w-lg p-6 sm:p-8 rounded-2xl"
