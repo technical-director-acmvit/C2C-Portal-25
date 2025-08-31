@@ -4,10 +4,10 @@ import TeamUp from "./team-up";
 import PortalButton from "./ui/button";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { signupExternal } from "../../actions/signup";
-import { getAisheColleges } from "../../actions/aishe";
 import BackChevron from './ui/back-chevron';
+import Select from './ui/select';
 
-type College = { id?: string | number; name: string };
+type College = { id?: string | number; name: string; state?: string };
 
 // Toggle suggestions: 0 = plain/custom input, 1 = suggestions + fuzzy matching
 const SUGGESTIONS_ENABLED = 1;
@@ -103,7 +103,14 @@ const External = ({ onBack }: Props) => {
   const listRef = useRef<HTMLUListElement | null>(null);
   const hideTimer = useRef<number | null>(null);
 
-  const COLLEGE_CACHE_KEY = "c2c_colleges_v1";
+  const GENDER_OPTIONS = [
+    { label: "Male", value: "male" },
+    { label: "Female", value: "female" },
+  ] as const;
+  // using shared <Select /> for gender for consistency & accessibility
+
+  // bump cache key since source changed to public/portal/unis.json
+  const COLLEGE_CACHE_KEY = "c2c_colleges_v3_unis";
 
   useEffect(() => {
     if (!SUGGESTIONS_ENABLED) return;
@@ -113,9 +120,25 @@ const External = ({ onBack }: Props) => {
       if (raw) {
         const parsed = JSON.parse(raw);
         const expires = parsed.expires as number;
-        if (expires && Date.now() < expires && Array.isArray(parsed.list)) {
-          setColleges(parsed.list.map((n: string, i: number) => ({ name: n, id: i })));
-          return;
+        const list = parsed.list as unknown;
+        if (expires && Date.now() < expires && Array.isArray(list)) {
+          const rawList = list as any[];
+          const items: College[] = [];
+          rawList.forEach((it: any, i: number) => {
+            if (typeof it === 'string') {
+              items.push({ name: it as string, id: i });
+            } else if (it && typeof it.name === 'string') {
+              items.push({
+                name: it.name as string,
+                state: typeof it.state === 'string' ? (it.state as string) : undefined,
+                id: i,
+              });
+            }
+          });
+          if (items.length) {
+            setColleges(items);
+            return;
+          }
         }
       }
     } catch {
@@ -124,33 +147,64 @@ const External = ({ onBack }: Props) => {
     (async () => {
       setLoadingColleges(true);
       try {
-        const names = await getAisheColleges();
-        if (Array.isArray(names) && names.length) {
-          const list = names.map((name, i) => ({ name, id: i }));
-          setColleges(list);
+        const res = await fetch("/portal/unis.json", { cache: "force-cache" });
+        if (!res.ok) throw new Error(`Failed to load universities: ${res.status}`);
+        const data: unknown = await res.json();
+        const items: College[] = [];
+        if (Array.isArray(data)) {
+          (data as Array<{ name?: string; state?: string } | null>).forEach((u, i) => {
+            if (u && typeof u.name === 'string') {
+              items.push({
+                name: u.name,
+                state: typeof u.state === 'string' ? u.state : undefined,
+                id: i,
+              });
+            }
+          });
+        }
+
+        if (items.length) {
+          setColleges(items);
           try {
+            // cache minimal shape to save space
+            const cacheList = items.map(({ name, state }) => ({ name, state }));
             localStorage.setItem(
               COLLEGE_CACHE_KEY,
               JSON.stringify({
                 expires: Date.now() + 1000 * 60 * 60 * 24, // 24h
-                list: names,
+                list: cacheList,
               })
             );
           } catch {
             // ignore
           }
         }
+      } catch {
+        // silently fail; user can still type custom value
       } finally {
         setLoadingColleges(false);
       }
     })();
   }, []);
 
-  const collegeNames = useMemo(() => colleges.map((c) => c.name), [colleges]);
+  // Build display names, appending state for duplicates of the same name
+  const { displayNames, displayToBase } = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const c of colleges) counts.set(c.name, (counts.get(c.name) || 0) + 1);
+    const map = new Map<string, string>();
+    const names: string[] = [];
+    for (const c of colleges) {
+      const isDup = (counts.get(c.name) || 0) > 1;
+      const display = isDup && c.state ? `${c.name} - ${c.state}` : c.name;
+      names.push(display);
+      if (!map.has(display)) map.set(display, c.name);
+    }
+    return { displayNames: names, displayToBase: map };
+  }, [colleges]);
 
   const suggestions = useMemo(() => {
-    return rankNames(formData.collegeName, collegeNames, 15);
-  }, [formData.collegeName, collegeNames]);
+    return rankNames(formData.collegeName, displayNames, 15);
+  }, [formData.collegeName, displayNames]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -162,7 +216,8 @@ const External = ({ onBack }: Props) => {
   };
 
   const pickSuggestion = (value: string) => {
-    setFormData((prev) => ({ ...prev, collegeName: value }));
+    const base = displayToBase.get(value) || value;
+    setFormData((prev) => ({ ...prev, collegeName: base }));
     setShowSuggestions(false);
     setActiveIndex(0);
   };
@@ -187,6 +242,8 @@ const External = ({ onBack }: Props) => {
     if (hideTimer.current) window.clearTimeout(hideTimer.current);
     hideTimer.current = window.setTimeout(() => setShowSuggestions(false), 120);
   };
+
+  // no-op
 
   const isFormValid = () => {
     return (
@@ -218,13 +275,13 @@ const External = ({ onBack }: Props) => {
 
   return (
     <div
-      className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat"
+      className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat overflow-y-auto"
       style={{ backgroundImage: "url(/portal/bg1.svg)" }}
     >
 
-      <div className="flex items-center justify-center h-full">
+      <div className="flex items-center justify-center h-full px-4 py-6 sm:py-8">
         <div
-          className="w-full max-w-lg p-8 rounded-2xl relative"
+          className="w-full max-w-md sm:max-w-lg p-6 sm:p-8 rounded-2xl relative"
           style={{
             background:
               "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))",
@@ -234,15 +291,15 @@ const External = ({ onBack }: Props) => {
             border: "1px solid rgba(255,255,255,0.10)",
           }}
         >
-          <div className="mb-4">
+          <div className="mb-6 flex items-center gap-3 min-w-0">
             <BackChevron onClick={onBack} />
+            <h2
+              className="flex-1 truncate text-xl sm:text-2xl md:text-3xl font-semibold text-white"
+              style={{ fontFamily: "'Pilat Extended', 'Trap', Arial, sans-serif" }}
+            >
+              External Participant
+            </h2>
           </div>
-          <h2
-            className="text-3xl font-semibold text-white mb-6"
-            style={{ fontFamily: "'Pilat Extended', 'Trap', Arial, sans-serif" }}
-          >
-            External Participant
-          </h2>
 
           {error && (
             <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded-md text-sm">
@@ -272,7 +329,7 @@ const External = ({ onBack }: Props) => {
               <ul
                 id="college-suggestions"
                 ref={listRef}
-                className="absolute z-20 mt-2 w-full max-h-64 overflow-auto rounded-xl border border-white/10 bg-[#0f1111]/95 backdrop-blur p-1 shadow-lg"
+                className="absolute z-20 mt-2 w-full max-h-64 overflow-auto rounded-xl border border-white/10 bg-[#0f1111]/95 backdrop-blur p-1 shadow-lg portal-scrollbar"
                 role="listbox"
               >
                 {suggestions.map((s, idx) => (
@@ -303,18 +360,13 @@ const External = ({ onBack }: Props) => {
           </div>
 
           <label className="text-sm text-gray-300 mt-3 mb-2">Gender</label>
-          <select
-            className="w-full bg-[#111213]/60 border border-white/10 rounded-full px-4 py-3 text-white placeholder-gray-400 focus:outline-none"
-            name="gender"
+          <Select
+            id="gender"
             value={formData.gender}
-            onChange={handleInputChange}
-          >
-            <option value="" disabled>
-              Gender
-            </option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
+            onChange={(val: string) => setFormData((prev) => ({ ...prev, gender: val }))}
+            options={GENDER_OPTIONS as unknown as { label: string; value: string }[]}
+            placeholder="Gender"
+          />
 
           <label className="text-sm text-gray-300 mt-3 mb-2">
             Contact Number
@@ -334,7 +386,7 @@ const External = ({ onBack }: Props) => {
               disabled={!isFormValid() || loading}
               className={`${
                 isFormValid() ? "" : "opacity-50 cursor-not-allowed"
-              } px-6 py-2 text-[20px]`}
+              } px-6 py-2 text-base sm:text-[20px]`}
             >
               {loading ? "Submitting…" : "Proceed"}
             </PortalButton>

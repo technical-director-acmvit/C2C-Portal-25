@@ -67,6 +67,22 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.portal-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.portal-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+}
+.portal-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+}
+.portal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
 /* Use Pilat Extended for display headings */
 h1,
 h2,
