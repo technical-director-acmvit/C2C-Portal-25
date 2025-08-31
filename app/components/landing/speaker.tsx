@@ -5,13 +5,13 @@ import GradientBG from './gradient-bg';
 const Speaker = ({ children }: { children?: React.ReactNode }) => (
   <GradientBG>
     <div id="speakers" className="relative w-full min-h-screen overflow-hidden">
-      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
-        <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" className="w-full h-full" />
-      </div>
-      <div className="relative z-10">
-        <Topper text="speaker" />
-        {children}
-      </div>
+        <div className="absolute inset-0 w-full h-full -z-1 pointer-events-none">
+            <DotGrid dotSize={1.5} gap={25} baseColor="#a3a3a3" className="w-full h-full" />
+        </div>
+        <div className="relative z-10">
+            <Topper text="speaker" />
+            {children}
+        </div>
 
       <div className="flex justify-center w-full px-4">
         <div className="flex flex-col md:flex-row justify-start items-center md:items-start gap-8 md:gap-14 max-w-6xl w-full">
