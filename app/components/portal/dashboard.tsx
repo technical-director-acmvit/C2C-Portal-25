@@ -4,11 +4,13 @@ import React, { useEffect, useMemo, useState } from "react";
 import Image from 'next/image';
 import { Copy } from 'lucide-react';
 import Form from './form';
+import PortalButton from './ui/button';
 import LeaveTeamModal from './leave-team-modal';
 import { fetchDashboard, type DashboardResponse, type UserSummary } from '../../actions/dashboard';
 import { leaveTeam } from "@/app/actions/team";
 import PortalLoader from "./portal-loader";
 import BackChevron from './ui/back-chevron';
+import { cleanName } from './nameUtils';
 
 interface DashboardProps {
   onTeamLeft?: () => void;
@@ -235,9 +237,8 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
                   <Image
                     src="/portal/user.svg"
                     alt="User Profile"
-                    width={32}
-                    height={32}
-                    className="opacity-80"
+                    width={48}
+                    height={48}
                   />
                 </div>
                 <span
@@ -248,7 +249,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
                     fontWeight: "400",
                   }}
                 >
-                  {m.name || m.email}
+                  {cleanName(m.name || m.email)}
                 </span>
               </div>
             ))}
@@ -322,19 +323,15 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
 
         {/* Leave Team Button */}
         {team && (
-          <button
-            className="px-8 py-4 rounded-lg text-white cursor-pointer"
-            style={{
-              backgroundColor: "#5EBF94",
-              fontSize: "20px",
-              fontFamily: "'Pilat Extended', Arial, sans-serif",
-              fontWeight: "400",
-            }}
-            onClick={() => setShowLeaveModal(true)}
-            disabled={leaveProcessing}
-          >
-            Leave team
-          </button>
+          <div>
+            <PortalButton
+              onClick={() => setShowLeaveModal(true)}
+              disabled={leaveProcessing}
+              className={`px-6 py-2 text-[20px] ${leaveProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              Leave team
+            </PortalButton>
+          </div>
         )}
 
         {/* Leave Team Modal */}
