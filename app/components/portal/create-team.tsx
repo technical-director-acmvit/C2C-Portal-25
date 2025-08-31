@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Dashboard from './dashboard';
 import { createTeam } from '../../actions/team';
 import BackChevron from './ui/back-chevron';
+import PortalButton from './ui/button';
 
 interface Props { onBack?: () => void }
 const CreateTeam = ({ onBack }: Props) => {
@@ -38,17 +39,13 @@ const CreateTeam = ({ onBack }: Props) => {
 
   return (
     <div className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/portal/bg1.svg)' }}>
-      {/* Logo top left */}
-      <div className="absolute top-6 left-6 sm:left-8">
-        <Image src="/portal/logo.svg" alt="Logo" width={200} height={200} />
-      </div>
-      
+
       {/* Centered content */}
       <div className="flex flex-col items-center justify-center h-full px-4">
-        <div className="w-full max-w-md mb-4">
+        <div className="w-full max-w-lg px-4 sm:px-0 mb-4">
           <div className="flex items-center gap-3">
             <BackChevron onClick={onBack} />
-            <h1 className="text-white text-2xl sm:text-3xl" style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontWeight: '700' }}>Enter Team Name</h1>
+            <h1 className="text-white text-xl sm:text-2xl md:text-3xl" style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontWeight: '700' }}>Enter Team Name</h1>
           </div>
         </div>
         
@@ -57,13 +54,13 @@ const CreateTeam = ({ onBack }: Props) => {
             {error}
           </div>
         )}
-        <div className="mb-4 w-full max-w-md">
+        <div className="mb-4 w-full max-w-lg">
           <input
             type="text"
             value={teamName}
             onChange={handleNameChange}
             placeholder="Team name"
-            className="px-6 py-4 rounded-full bg-gray-600/80 border-none text-white placeholder-gray-400 text-center focus:outline-none focus:ring-2 focus:ring-[#5EBF94] w-full"
+            className="px-4 sm:px-6 py-3 sm:py-4 rounded-full bg-gray-600/80 border-none text-white placeholder-gray-400 text-center focus:outline-none focus:ring-2 focus:ring-[#5EBF94] w-full"
             style={{
               fontFamily: "'Pilat Extended', Arial, sans-serif",
               fontSize: '16px',
@@ -74,7 +71,7 @@ const CreateTeam = ({ onBack }: Props) => {
 
         
         <p 
-          className="text-gray-400 text-center mb-8"
+          className="text-gray-400 text-center mb-6 sm:mb-8 max-w-lg"
           style={{
             fontSize: '14px',
             fontFamily: "'Pilat Extended', Arial, sans-serif",
@@ -83,24 +80,15 @@ const CreateTeam = ({ onBack }: Props) => {
         >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit
         </p>
-        
-        <button 
-          className={`px-8 py-3 rounded-lg text-white transition-all duration-200 active:scale-95 ${
-            teamName.trim() 
-              ? 'cursor-pointer hover:bg-[#4da577]' 
-              : 'cursor-not-allowed opacity-50'
-          }`}
-          style={{ 
-            backgroundColor: '#5EBF94',
-            fontSize: '18px',
-            fontFamily: "'Pilat Extended', Arial, sans-serif",
-            fontWeight: '400'
-          }}
-          onClick={handleProceed}
-          disabled={!teamName.trim() || loading}
-        >
-          {loading ? 'Creating…' : 'Proceed'}
-        </button>
+        <div className="w-full max-w-lg px-4 sm:px-0 flex justify-center">
+          <PortalButton 
+            onClick={handleProceed}
+            disabled={!teamName.trim() || loading}
+            className={`w-full text-lg sm:w-auto sm:px-12 ${teamName.trim() ? '' : 'opacity-50 pointer-events-none'}`}
+          >
+            {loading ? 'Creating…' : 'Proceed'}
+          </PortalButton>
+        </div>
       </div>
     </div>
   );

@@ -28,27 +28,21 @@ const TeamUp = () => {
 
   return (
     <div className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/portal/bg1.svg)' }}>
-      {/* Logo top left */}
-      <div className="absolute top-6 left-6 sm:left-8">
-        <Image src="/portal/logo.svg" alt="Logo" width={200} height={200} />
-      </div>
-      <BackChevron className="absolute top-6 left-6" />
-      {/* Centered text and buttons */}
       <div className="flex flex-col items-center justify-center h-full px-4 text-center">
-        <div className="flex items-center gap-3 mb-6">
+        <div className="flex items-center mb-6">
           <BackChevron />
           <h1 
-            className="text-white text-2xl sm:text-3xl"
+            className="flex-1 text-center text-white text-2xl sm:text-3xl md:text-4xl"
             style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontWeight: '700' }}
           >
             Team Up!
           </h1>
         </div>
-        <div className="flex gap-8">
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 justify-center">
           <PortalButton onClick={handleJoinTeam}>Join Team</PortalButton>
           <PortalButton onClick={handleCreateTeam}>Create Team</PortalButton>
         </div>
-        <p className="text-gray-400 text-center mt-8">
+        <p className="text-gray-400 text-center mt-6 sm:mt-8">
           Your dream team starts here. Make it count!
         </p>
       </div>

@@ -2,7 +2,7 @@ import Image from 'next/image';
 import DotGrid from './dot-grid';
 import GradientBG from './gradient-bg';
 import Topper from './topper';
-import Tracks from './tracks';
+// import Tracks from './tracks';
 
 const About = ({ children }: { children?: React.ReactNode }) => (
     <GradientBG>
@@ -94,7 +94,7 @@ With a culture built on trust and innovation, we&apos;re here to build tools, so
             </div>
             {/* Tracks section below stats image */}
             <div className="w-full pointer-events-auto">
-                <Tracks />
+                {/* <Tracks /> */}
             </div>
                 
                 {children}
