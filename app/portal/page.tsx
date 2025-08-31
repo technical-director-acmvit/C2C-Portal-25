@@ -37,9 +37,13 @@ export default function Home() {
     return () => { mounted = false; };
   }, []);
 
+  const handleTeamLeft = () => {
+    setView('team');
+  };
+
   if (view === 'loading') return <div className="min-h-screen grid place-items-center text-white">Loading…</div>;
   if (view === 'signup') return <Portal />; // Student info (internal/external)
   if (view === 'team') return <TeamUp />;   // Create/join team
-  if (view === 'dashboard') return <Dashboard />; // Team dashboard
+  if (view === 'dashboard') return <Dashboard onTeamLeft={handleTeamLeft} />; // Team dashboard
   return <div className="min-h-screen grid place-items-center text-red-400">Something went wrong. Please retry.</div>;
 }
