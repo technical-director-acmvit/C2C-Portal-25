@@ -22,7 +22,6 @@ export default function Page() {
         <div className="flex-1 w-full">
           <About />
         </div>
-        <QuotesBanner className="shrink-0" />
       </div>
 
       <div className=" flex items-center justify-between flex-col">
@@ -31,7 +30,7 @@ export default function Page() {
       <div className=" flex items-center justify-between flex-col">
         <Tracks />
       </div>
-      <div className="h-screen flex items-center justify-between flex-col">
+      <div className="min-h-screen flex items-center justify-between flex-col">
         <Speaker />
       </div>
       <div className="h-screen flex items-center justify-between flex-col">
