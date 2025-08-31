@@ -7,10 +7,12 @@ import Topper from './topper';
 const About = ({ children }: { children?: React.ReactNode }) => (
     <GradientBG>
         <div className="w-full h-[500vh] relative overflow-hidden">
+
             <Topper text="About ACM" />
-            <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" className='z-50' />
+
+            <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" />
             {/* Absolutely center the text and ensure it's above the canvas */}
-            <div className="absolute inset-0 z-20 flex flex-col items-center pointer-events-none px-4">
+            <div className="absolute inset-0 z-1 flex flex-col items-center pointer-events-none px-4">
                 <Image
                     src="/landing/acm-nature-logo.svg"
                     alt="ACM Logo With Name"
