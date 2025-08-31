@@ -140,7 +140,7 @@ const Landing = () => {
             style={{
               color: '#BEBEBE',
               fontFamily: 'Trap, Arial, sans-serif',
-              fontSize: 'clamp(14px, 3.2vw, 42px)',
+              fontSize: 'clamp(16px, 3.3vw, 44px)',
               fontWeight: '700',
               lineHeight: 'clamp(120%, 4vw, 130%)',
               opacity: 0.4,

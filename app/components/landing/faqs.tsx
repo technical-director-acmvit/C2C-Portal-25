@@ -33,22 +33,25 @@ const faqData: FAQItem[] = [
 
 const FAQItem: React.FC<{ faq: FAQItem; isOpen: boolean; onToggle: () => void }> = ({ faq, isOpen, onToggle }) => {
   return (
-    <div className="border-b border-gray-700 last:border-b-0">
+    <div className={`mb-4 bg-black/20 backdrop-blur-sm rounded-xl border overflow-hidden transition-all duration-300 ${
+      isOpen 
+        ? 'border-white/70 shadow-xl shadow-white/40 ring-2 ring-white/20' 
+        : 'border-white/30 shadow-lg shadow-white/20 hover:border-white/50 hover:shadow-white/30'
+    }`}>
       <button
         onClick={onToggle}
-        className="w-full flex justify-between items-center py-6 px-4 text-left hover:bg-gray-800/20 transition-colors duration-200"
-        aria-expanded={isOpen}
+        className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-white/5 transition-colors duration-200"
       >
         <h3 className="text-lg font-medium text-white pr-4" style={{ fontFamily: 'DM Sans, Arial, sans-serif' }}>
           {faq.question}
         </h3>
         <div className="flex-shrink-0">
           <div 
-            className={`w-6 h-6 rounded-full border-2 border-gray-400 flex items-center justify-center transition-transform duration-200 ${
-              isOpen ? 'rotate-45 border-[#4ade80]' : ''
+            className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
+              isOpen ? 'rotate-45 border-teal-400 shadow-sm shadow-teal-400/50' : 'border-gray-400'
             }`}
           >
-            <span className={`text-lg font-light ${isOpen ? 'text-[#4ade80]' : 'text-gray-400'}`}>
+            <span className={`text-lg font-light ${isOpen ? 'text-teal-400' : 'text-gray-400'}`}>
               +
             </span>
           </div>
@@ -60,8 +63,8 @@ const FAQItem: React.FC<{ faq: FAQItem; isOpen: boolean; onToggle: () => void }>
           isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
-        <div className="px-4 pb-6">
-          <p className="text-gray-300 leading-relaxed" style={{ fontFamily: 'DM Sans, Arial, sans-serif' }}>
+        <div className="px-6 pb-6 border-t border-teal-400/20">
+          <p className="text-gray-300 leading-relaxed pt-4" style={{ fontFamily: 'DM Sans, Arial, sans-serif' }}>
             {faq.answer}
           </p>
         </div>
@@ -89,7 +92,7 @@ const FAQs = () => {
         <div className="w-full max-w-7xl px-6 pointer-events-auto">
           {/* FAQ Items */}
           <div className="max-w-4xl mx-auto">
-            <div className="bg-black/10 backdrop-blur-sm rounded-2xl border border-white/10 transform -translate-y-15">
+            <div className="p-6">
               {faqData.map((faq, index) => (
                 <FAQItem
                   key={index}

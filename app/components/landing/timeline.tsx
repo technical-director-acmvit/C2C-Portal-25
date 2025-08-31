@@ -82,19 +82,19 @@ const Timeline = () => {
       
       {/* Content positioned above the dots */}
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
-        <div className="w-full max-w-7xl px-6 pointer-events-auto">
+        <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 pointer-events-auto">
           {/* Header */}
           
           
           {/* Timeline Content */}
-          <div className="flex flex-col lg:flex-row gap-12 items-start">
+          <div className="flex flex-col xl:flex-row gap-8 sm:gap-10 lg:gap-12 items-start">
             {/* Timeline Buttons */}
-            <div className="flex flex-col gap-4 w-full lg:w-auto">
+            <div className="flex flex-col sm:flex-row xl:flex-col gap-3 sm:gap-4 w-full xl:w-auto overflow-x-auto sm:overflow-x-visible">
               {timelineData.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => setSelectedItem(item)}
-                  className={`flex items-center gap-3 px-6 py-3 transition-all duration-300 ease-in-out text-left min-w-[250px] transform hover:scale-105 hover:shadow-lg hover:shadow-[#48BA86]/20 ${
+                  className={`flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 transition-all duration-300 ease-in-out text-left min-w-[200px] sm:min-w-[250px] transform hover:scale-105 hover:shadow-lg hover:shadow-[#48BA86]/20 flex-shrink-0 ${
                     selectedItem.id === item.id ? 'scale-105 shadow-lg shadow-[#48BA86]/30' : ''
                   }`}
                   style={{
@@ -117,11 +117,11 @@ const Timeline = () => {
                   }}
                 >
                   <span 
-                    className="font-bold transition-all duration-200"
+                    className="font-bold transition-all duration-200 text-sm sm:text-base"
                     style={{ 
                       color: '#48BA86',
                       fontFamily: 'Pilat Extended',
-                      fontSize: '15.6px',
+                      fontSize: 'clamp(12px, 2.5vw, 15.6px)',
                       fontStyle: 'normal',
                       fontWeight: 700,
                       lineHeight: 'normal'
@@ -130,11 +130,11 @@ const Timeline = () => {
                     {item.id}
                   </span>
                   <span 
-                    className="font-bold transition-all duration-200"
+                    className="font-bold transition-all duration-200 text-lg sm:text-xl"
                     style={{ 
                       color: '#48BA86',
                       fontFamily: 'Pilat Extended',
-                      fontSize: '24.6px',
+                      fontSize: 'clamp(18px, 4vw, 24.6px)',
                       fontStyle: 'normal',
                       fontWeight: 700,
                       lineHeight: 'normal'
@@ -147,13 +147,13 @@ const Timeline = () => {
             </div>
             
             {/* Selected Item Details */}
-            <div className="flex-1 bg-transparent rounded-2xl border-none p-8">
+            <div className="flex-1 bg-transparent rounded-2xl border-none p-4 sm:p-6 lg:p-8">
               <h3 
-                className="text-5xl font-bold mb-6"
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6"
                 style={{ 
                   color: '#4ade80',
                   fontFamily: 'Trap',
-                  fontSize: '50px',
+                  fontSize: 'clamp(28px, 6vw, 50px)',
                   fontStyle: 'normal',
                   fontWeight: 700,
                   lineHeight: 'normal',
@@ -163,13 +163,13 @@ const Timeline = () => {
                 {selectedItem.title}
               </h3>
               
-              <div className="space-y-13 mb-6">
+              <div className="space-y-8 sm:space-y-10 lg:space-y-13 mb-4 sm:mb-6">
                 <p 
-                  className="text-white"
+                  className="text-white text-lg sm:text-xl lg:text-2xl xl:text-3xl"
                   style={{ 
                     color: '#FFF',
                     fontFamily: 'DM Sans',
-                    fontSize: '30px',
+                    fontSize: 'clamp(18px, 4vw, 30px)',
                     fontStyle: 'normal',
                     fontWeight: 400,
                     lineHeight: 'normal',
@@ -179,11 +179,11 @@ const Timeline = () => {
                   {selectedItem.day}
                 </p>
                 <p 
-                  className="text-white"
+                  className="text-white text-lg sm:text-xl lg:text-2xl xl:text-3xl"
                   style={{ 
                     color: '#FFF',
                     fontFamily: 'DM Sans',
-                    fontSize: '30px',
+                    fontSize: 'clamp(18px, 4vw, 30px)',
                     fontStyle: 'normal',
                     fontWeight: 400,
                     lineHeight: 'normal',
@@ -193,11 +193,11 @@ const Timeline = () => {
                   {selectedItem.time}
                 </p>
                 <p 
-                  className="text-white"
+                  className="text-white text-lg sm:text-xl lg:text-2xl xl:text-3xl"
                   style={{ 
                     color: '#FFF',
                     fontFamily: 'DM Sans',
-                    fontSize: '30px',
+                    fontSize: 'clamp(18px, 4vw, 30px)',
                     fontStyle: 'normal',
                     fontWeight: 400,
                     lineHeight: 'normal',
