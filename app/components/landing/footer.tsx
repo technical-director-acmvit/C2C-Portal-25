@@ -274,7 +274,7 @@ const Footer = () => {
               C2C
             </h1>
             <h1
-              className="hidden md:block text-center break-words hyphens-auto py-16"
+              className="hidden md:block text-center break-words hyphens-auto py-14"
               style={{
                 WebkitTextStroke: "4px #ffffffff",
                 fontFamily: "Trap-Bold, Arial, sans-serif",
