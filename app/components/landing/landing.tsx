@@ -116,13 +116,13 @@ const Landing = () => {
             Don&apos;t just code for the vibes, Code2Create.
           </p>
 
-          <div className="hidden sm:flex mt-4 items-center gap-3">
-            <InteractiveHoverButton onClick={() => signIn("google", { callbackUrl: "/portal" })}>
+          <div className="hidden sm:flex mt-3">
+            <InteractiveHoverButton
+              onClick={() => signIn("google", { callbackUrl: "/portal" })}
+              className="text-xs sm:text-sm md:text-base px-4 py-2 sm:px-5 sm:py-2.5 md:px-6 md:py-3"
+            >
               Apply Now
             </InteractiveHoverButton>
-            {/* <CtaButton onClick={() => signIn("google", { callbackUrl: "/portal" })}>
-              Apply Now
-            </CtaButton> */}
           </div>
         </div>
 

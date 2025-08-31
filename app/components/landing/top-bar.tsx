@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import CTAButton from "@/app/components/portal/ui/button";
+import { InteractiveHoverButton } from "@/app/components/landing/ui/cta-button";
 import { signIn } from "next-auth/react";
 
 export default function TopBar() {
@@ -103,13 +103,13 @@ export default function TopBar() {
         </nav>
 
         <div className="flex items-center pl-3 md:pl-0 mr-3 md:mr-6 ml-2 md:ml-4 flex-shrink-0">
-          <CTAButton
+          <InteractiveHoverButton
             aria-label="Apply Now"
             onClick={() => signIn("google", { callbackUrl: "/portal" })}
-            className="whitespace-nowrap pointer-events-auto !px-3 !py-1.5 !text-xs sm:!px-4 sm:!py-2 sm:!text-sm md:!px-5 md:!py-2.5 md:!text-base"
+            className="whitespace-nowrap pointer-events-auto text-xs sm:text-sm md:text-base px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 md:py-2.5"
           >
             Apply Now
-          </CTAButton>
+          </InteractiveHoverButton>
         </div>
 
         <div className="md:hidden flex items-center">
