@@ -54,7 +54,7 @@ const Sponsors = () => (
       <Topper text="Sponsors" />
       {/* DotGrid positioned behind the cards */}
       <div className="absolute inset-0 z-0">
-        <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" />
+        <DotGrid dotSize={1.5} gap={25} baseColor="#a3a3a3" />
       </div>
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
         {/* move content a bit up: adjust -translate-y value as needed */}
