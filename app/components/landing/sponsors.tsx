@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import React from 'react';
 import DotGrid from './dot-grid';
+import GradientBG from './gradient-bg';
+import Topper from './topper';
 
 const SponsorCard: React.FC<{ title?: string; role?: string; description?: string; logoSrc?: string }> = ({ title = 'Sponsor Name', role = 'Title Sponsor', description, logoSrc }) => {
   return (
@@ -47,32 +49,35 @@ const SponsorCard: React.FC<{ title?: string; role?: string; description?: strin
 };
 
 const Sponsors = () => (
-	<div className="w-full h-screen relative overflow-hidden">
-		{/* DotGrid positioned behind the cards */}
-		<div className="absolute inset-0 z-0">
-			<DotGrid dotSize={3} gap={25} baseColor="#a3a3a3" />
-		</div>
-		{/* Content positioned above the dots */}
-		<div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
-			{/* move content a bit up: adjust -translate-y value as needed */}
-			<div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 pointer-events-auto transform -translate-y-8 sm:-translate-y-12 lg:-translate-y-14"> 				
-                <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 lg:gap-12 justify-center items-center">
-                    <SponsorCard 
-                        title="Runpod" 
-                        role="GPU Cloud Platform Sponsor"
-                        description="Runpod is a GPU cloud platform that makes high-performance computing simple, affordable, and scalable. Built by developers, for developers, it enables users to launch on-demand GPU instances in just a few clicks and create autoscaling serverless endpoints to run AI models in production. Trusted by over 300,000 developers worldwide, Runpod powers the training, deployment, and scaling of AI/ML workloads, seamlessly bridging experimentation and real-world applications."
-                        logoSrc="/landing/runpod.svg"
-                    />
-                    <SponsorCard 
-                        title="ElevenLabs" 
-                        role="AI Audio Technology Sponsor"
-                        description="ElevenLabs is an AI Audio research and deployment company creating models that generate realistic, versatile, and context-aware speech and sound. Their technology powers audiobooks, news articles, video games, film pre-production, social media, and advertising. It also restores voices for those who've lost them and supports accessibility needs - reshaping how people create, experience, and interact with sound."
-                        logoSrc="/landing/elevenlabs-logo-black.svg"
-                    />
-                </div>
-            </div>
+  <GradientBG>
+    <div id="sponsors" className="w-full min-h-screen relative overflow-hidden">
+      <Topper text="Sponsors" />
+      {/* DotGrid positioned behind the cards */}
+      <div className="absolute inset-0 z-0">
+        <DotGrid dotSize={3} gap={25} baseColor="#a3a3a3" />
+      </div>
+      {/* Content positioned above the dots */}
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
+        {/* move content a bit up: adjust -translate-y value as needed */}
+        <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 pointer-events-auto transform -translate-y-8 sm:-translate-y-12 lg:-translate-y-14"> 				
+          <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 lg:gap-12 justify-center items-center">
+            <SponsorCard 
+              title="Runpod" 
+              role="GPU Cloud Platform Sponsor"
+              description="Runpod is a GPU cloud platform that makes high-performance computing simple, affordable, and scalable. Built by developers, for developers, it enables users to launch on-demand GPU instances in just a few clicks and create autoscaling serverless endpoints to run AI models in production. Trusted by over 300,000 developers worldwide, Runpod powers the training, deployment, and scaling of AI/ML workloads, seamlessly bridging experimentation and real-world applications."
+              logoSrc="/landing/runpod.svg"
+            />
+            <SponsorCard 
+              title="ElevenLabs" 
+              role="AI Audio Technology Sponsor"
+              description="ElevenLabs is an AI Audio research and deployment company creating models that generate realistic, versatile, and context-aware speech and sound. Their technology powers audiobooks, news articles, video games, film pre-production, social media, and advertising. It also restores voices for those who've lost them and supports accessibility needs - reshaping how people create, experience, and interact with sound."
+              logoSrc="/landing/elevenlabs-logo-black.svg"
+            />
+          </div>
         </div>
+      </div>
     </div>
+  </GradientBG>
 );
 
 export default Sponsors;

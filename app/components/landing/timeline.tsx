@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import DotGrid from './dot-grid';
+import Topper from './topper';
 
 interface TimelineItem {
   id: string;
@@ -74,7 +75,10 @@ const Timeline = () => {
   const [selectedItem, setSelectedItem] = useState<TimelineItem>(timelineData[4]); // Default to Speaker Session
 
   return (
-    <div className="w-full min-h-screen relative overflow-hidden">
+    <div id="timeline" className="w-full min-h-screen relative overflow-hidden">
+      {/* Gradient background that blends with the page background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a]" />
+      <Topper text="Timeline" />
       {/* DotGrid positioned behind the content */}
       <div className="absolute inset-0 z-0">
         <DotGrid dotSize={3} gap={25} baseColor="#a3a3a3" />

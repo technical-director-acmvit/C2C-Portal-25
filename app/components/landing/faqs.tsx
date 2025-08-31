@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import DotGrid from './dot-grid';
+import Topper from './topper';
 
 interface FAQItem {
   question: string;
@@ -81,7 +82,8 @@ const FAQs = () => {
   };
 
   return (
-    <div className="w-full min-h-screen relative overflow-hidden">
+    <div id="faqs" className="w-full min-h-screen relative overflow-hidden">
+      <Topper text="FAQs" />
       {/* DotGrid positioned behind the content - same as About and Sponsors */}
       <div className="absolute inset-0 z-0">
         <DotGrid dotSize={3} gap={25} baseColor="#a3a3a3" />
