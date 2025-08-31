@@ -16,7 +16,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
 			alt="HDMI Decorative"
 			width={450}
 			height={355}
-			className="absolute right-0 bottom-0 z-30 pointer-events-none select-none"
+			className="absolute right-0 bottom-0 z-100 pointer-events-none select-none"
 			draggable={false}
 			priority
 		/>
