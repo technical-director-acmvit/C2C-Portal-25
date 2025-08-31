@@ -42,7 +42,7 @@ const QuotesBanner: React.FC<QuotesBannerProps> = ({ items, className = "" }) =>
       aria-label="Community praise and sponsor banner"
     >
       <div
-        className="absolute inset-0 -z-10"
+        className="absolute inset-0 z-10"
         style={{
           backgroundColor: "#3F8F68",
           backgroundImage: "url(/landing/bg.svg)",
@@ -54,7 +54,7 @@ const QuotesBanner: React.FC<QuotesBannerProps> = ({ items, className = "" }) =>
         }}
       />
 
-      <div className="w-full relative">
+      <div className="w-full z-10 relative">
         <div className="hidden md:grid grid-cols-3 items-center gap-x-10 py-2 px-6 lg:px-12">
           <div className="flex items-center gap-2 min-w-0">
             {content[0]?.icon && (

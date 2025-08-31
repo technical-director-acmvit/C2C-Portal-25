@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import DotGrid from './dot-grid';
 import Topper from './topper';
+import GradientBG from './gradient-bg';
 
 interface TimelineItem {
   id: string;
@@ -55,6 +56,7 @@ const Timeline = () => {
   const [selectedItem, setSelectedItem] = useState<TimelineItem>(defaultItem); // Default to Speaker Session
 
   return (
+    <GradientBG>
     <div id="timeline" className="w-full min-h-screen relative overflow-hidden">
       <div className="absolute inset-0 z-10">
         <Topper text="Timeline" />
@@ -225,6 +227,7 @@ const Timeline = () => {
           }
         `}</style>
     </div>
+    </GradientBG>
   );
 };
 

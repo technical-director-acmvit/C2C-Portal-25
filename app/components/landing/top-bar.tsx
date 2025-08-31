@@ -17,19 +17,18 @@ export default function TopBar() {
 
   const navLinks = [
     { href: '#about', label: 'About', hasDropdown: true },
-    { href: '/stats', label: 'Stats', hasDropdown: false },
+    { href: '#stats', label: 'Stats', hasDropdown: false },
     { href: '#tracks', label: 'Tracks', hasDropdown: true },
     { href: '#timeline', label: 'Timeline', hasDropdown: true },
     { href: '#sponsors', label: 'Sponsors', hasDropdown: false },
-    { href: '#speakers', label: 'Speakers', hasDropdown: true },
-    { href: '/prize-pool', label: 'Prize Pool', hasDropdown: false },
-    { href: '/contact', label: 'Contact us', hasDropdown: false },
+    { href: '#speaker', label: 'Speakers', hasDropdown: false },
+    // { href: '/prize-pool', label: 'Prize Pool', hasDropdown: false },
+    // { href: '/contact', label: 'Contact us', hasDropdown: false },
   ];
 
   return (
     <div className="w-full bg-transparent border-b border-white">
       <div className="max-w-screen-xl mx-auto flex items-center justify-between px-4 md:px-6 py-2 md:py-0 md:h-14">
-        {/* C2C Logo Section */}
         <div className="flex-shrink-0 border-r border-white pr-4 md:pr-8 py-1 flex items-center">
           <Image
             src="/landing/c2c-logo-with-name.svg"
@@ -41,7 +40,6 @@ export default function TopBar() {
           />
         </div>
 
-        {/* Desktop Navigation Links (hidden on small screens) */}
         <nav className="hidden md:flex flex-1 justify-center items-center px-4 md:h-full">
           <ul className="flex gap-4 items-center h-full">
             {navLinks.map((link) => (
@@ -70,7 +68,6 @@ export default function TopBar() {
           </ul>
         </nav>
 
-        {/* Mobile: Hamburger Button (visible on small screens) */}
         <div className="md:hidden flex items-center">
           <button
             aria-label="Toggle menu"
@@ -78,7 +75,6 @@ export default function TopBar() {
             onClick={() => setMenuOpen((s) => !s)}
             className="p-2 rounded-md text-white hover:bg-white/10 focus:outline-none focus:ring-white"
           >
-            {/* simple hamburger / close icon */}
             {menuOpen ? (
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
                 <path d="M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -94,7 +90,6 @@ export default function TopBar() {
           </button>
         </div>
 
-        {/* ACM Logo Section */}
         <div className="hidden md:flex flex-shrink-0 border-l border-white pl-4 md:pl-8 py-1 items-center">
           <Image
             src="/landing/acm-logo-with-name.svg"

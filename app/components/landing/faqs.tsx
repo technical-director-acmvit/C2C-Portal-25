@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import DotGrid from './dot-grid';
 import Topper from './topper';
+import GradientBG from './gradient-bg';
 
 interface FAQItem {
   question: string;
@@ -82,6 +83,7 @@ const FAQs = () => {
   };
 
   return (
+    <GradientBG>
     <div id="faqs" className="w-full min-h-screen relative overflow-hidden">
       <Topper text="FAQs" />
       {/* DotGrid positioned behind the content - same as About and Sponsors */}
@@ -108,6 +110,7 @@ const FAQs = () => {
         </div>
       </div>
     </div>
+    </GradientBG>
   );
 };
 

@@ -6,7 +6,7 @@ const Speaker = ({ children }: { children?: React.ReactNode }) => (
   <GradientBG>
     <div id="speakers" className="relative w-full min-h-screen overflow-hidden">
         <div className="absolute inset-0 w-full h-full -z-1 pointer-events-none">
-            <DotGrid dotSize={1.5} gap={25} baseColor="#a3a3a3" className="w-full h-full" />
+            <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" className="w-full h-full" />
         </div>
         <div className="relative z-10">
             <Topper text="speaker" />

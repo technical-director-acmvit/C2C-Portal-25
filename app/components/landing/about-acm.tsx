@@ -46,7 +46,7 @@ With a culture built on trust and innovation, we&apos;re here to build tools, so
                 </h1>
 
                 <div className="w-full max-w-[900px] px-0 md:px-0 text-justify justify-start text-zinc-100 text-xl sm:text-2xl md:text-3xl font-normal font-['DM_Sans'] leading-8 md:leading-10 pt-24">We can be heroes everywhere we go, not through capes or crowns, but through ideas that inspire change. At hackathons, and especially at Code2Create, this has always been the spirit: that we can have all that we ever want - the freedom to imagine, the courage to build, and the legacy of creating something larger than ourselves.</div>
-                <div className="absolute left-0 bottom-0 z-10 pointer-events-none select-none my-350">
+                <div className="absolute left-0 bottom-0 z-10 pointer-events-none select-none my-350 hidden md:block">
                     <svg width="361" height="810" viewBox="0 0 361 810" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <mask id="mask0_2996_62753" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="-270" y="13" width="617" height="732">
                             <rect x="-57.2065" y="13.7432" width="429.556" height="621.214" transform="rotate(20 -57.2065 13.7432)" fill="#C4C4C4"/>

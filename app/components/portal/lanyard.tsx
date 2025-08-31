@@ -25,6 +25,16 @@ const lanyard = "./portal/image.png";
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
+// TypeScript: add JSX intrinsic elements for MeshLine (loose typing for compatibility)
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      meshLineGeometry: any;
+      meshLineMaterial: any;
+    }
+  }
+}
+
 interface LanyardProps {
   position?: [number, number, number];
   gravity?: [number, number, number];
@@ -261,17 +271,6 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
                   .sub(vec.copy(card.current.translation()))
               );
             }}
-            onClick={() => {
-              if (card.current) {
-                const current = card.current.rotation();
-                card.current.setRotation({
-                  x: current.x,
-                  y: current.y + Math.PI / 2,
-                  z: current.z,
-                  w: current.w,
-                });
-              }
-            }}
           >
             <mesh geometry={nodes.card.geometry}>
               <meshPhysicalMaterial
@@ -281,17 +280,6 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
                 clearcoatRoughness={0.15}
                 roughness={0.9}
                 metalness={0.8}
-                side={THREE.FrontSide}
-                transparent={false}
-              />
-            </mesh>
-            <mesh geometry={nodes.card.geometry} position={[0, 0, 0.01]}>
-              <meshPhysicalMaterial
-                color={"#222"} // Solid color for the back
-                roughness={0.9}
-                metalness={0.8}
-                side={THREE.BackSide}
-                transparent={false}
               />
             </mesh>
             <mesh
@@ -303,7 +291,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
           </group>
         </RigidBody>
       </group>
-      <mesh ref={band}>
+      {/* <mesh ref={band}>
         <meshLineGeometry />
         <meshLineMaterial
           color="white"
@@ -314,7 +302,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
           repeat={[-4, 1]}
           lineWidth={1}
         />
-      </mesh>
+      </mesh> */}
     </>
   );
 }
