@@ -109,8 +109,8 @@ const Landing = () => {
             Don&apos;t just code for the vibes, Code2Create.
           </p>
 
-          {/* Reflected line */}
-          <p className="tagline reflected-text mt-2">
+          {/* Reflected line (invisible on mobile to preserve layout height) */}
+          <p className="tagline reflected-text mt-2 invisible sm:visible" aria-hidden="true">
             Don&apos;t just code for the vibes, Code2Create.
           </p>
         </div>
