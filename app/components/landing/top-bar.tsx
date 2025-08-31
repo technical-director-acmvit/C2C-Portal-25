@@ -16,14 +16,14 @@ export default function TopBar() {
   }, [menuOpen]);
 
   const navLinks = [
-    { href: '/about', label: 'About' },
-    { href: '/stats', label: 'Stats' },
-    { href: '/tracks', label: 'Tracks' },
-    { href: '/timeline', label: 'Timeline' },
-    { href: '/sponsors', label: 'Sponsors' },
-    { href: '/speakers', label: 'Speakers' },
-    { href: '/prize-pool', label: 'Prize Pool' },
-    { href: '/contact', label: 'Contact us' },
+    { href: '#about', label: 'About', hasDropdown: true },
+    { href: '/stats', label: 'Stats', hasDropdown: false },
+    { href: '#tracks', label: 'Tracks', hasDropdown: true },
+    { href: '#timeline', label: 'Timeline', hasDropdown: true },
+    { href: '#sponsors', label: 'Sponsors', hasDropdown: false },
+    { href: '#speakers', label: 'Speakers', hasDropdown: true },
+    { href: '/prize-pool', label: 'Prize Pool', hasDropdown: false },
+    { href: '/contact', label: 'Contact us', hasDropdown: false },
   ];
 
   return (
@@ -37,6 +37,7 @@ export default function TopBar() {
             width={150}
             height={40}
             className="h-8 md:h-10 w-auto"
+            loading="eager"
           />
         </div>
 
@@ -45,28 +46,25 @@ export default function TopBar() {
           <ul className="flex gap-4 items-center h-full">
             {navLinks.map((link) => (
               <li key={link.href} className="min-w-0 flex items-center h-full">
-                <Link
-                  href={link.href}
-                  className="group inline-flex items-center justify-center h-full"
-                >
-                  <span
-                    className="flex items-center justify-center space-x-2 px-3 py-1 rounded-md transition-colors min-w-0"
-                    style={{ fontFamily: 'Trap, Arial, sans-serif' }}
-                  >
-                    <span className="text-white group-hover:text-gray-300 text-center leading-tight break-words">
-                      {link.label}
+                {link.href.startsWith('#') ? (
+                  <a href={link.href} className="group inline-flex items-center justify-center h-full">
+                    <span className="flex items-center justify-center space-x-2 px-3 py-1 rounded-md transition-colors min-w-0" style={{ fontFamily: 'Trap, Arial, sans-serif' }}>
+                      <span className="text-white group-hover:text-gray-300 text-center leading-tight break-words">{link.label}</span>
+                      {link.hasDropdown && (
+                        <Image src="/landing/down-arrow.svg" alt={`${link.label} dropdown`} width={10} height={10} className="h-auto flex-none" aria-hidden loading="lazy" />
+                      )}
                     </span>
-
-                    <Image
-                      src="/landing/down-arrow.svg"
-                      alt={`${link.label} dropdown`}
-                      width={10}
-                      height={10}
-                      className="h-auto flex-none"
-                      aria-hidden
-                    />
-                  </span>
-                </Link>
+                  </a>
+                ) : (
+                  <Link href={link.href} className="group inline-flex items-center justify-center h-full">
+                    <span className="flex items-center justify-center space-x-2 px-3 py-1 rounded-md transition-colors min-w-0" style={{ fontFamily: 'Trap, Arial, sans-serif' }}>
+                      <span className="text-white group-hover:text-gray-300 text-center leading-tight break-words">{link.label}</span>
+                      {link.hasDropdown && (
+                        <Image src="/landing/down-arrow.svg" alt={`${link.label} dropdown`} width={10} height={10} className="h-auto flex-none" aria-hidden loading="lazy" />
+                      )}
+                    </span>
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
@@ -104,6 +102,7 @@ export default function TopBar() {
             width={110}
             height={40}
             className="h-8 md:h-10 w-auto"
+            loading="lazy"
           />
         </div>
       </div>
@@ -114,14 +113,25 @@ export default function TopBar() {
             <ul className="flex flex-col gap-3">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    onClick={() => setMenuOpen(false)}
-                    className="block w-full px-3 py-2 rounded text-white hover:bg-white/10 text-center"
-                    style={{ fontFamily: 'Trap, Arial, sans-serif' }}
-                  >
-                    {link.label}
-                  </Link>
+                  {link.href.startsWith('#') ? (
+                    <a
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="block w-full px-3 py-2 rounded text-white hover:bg-white/10 text-center"
+                      style={{ fontFamily: 'Trap, Arial, sans-serif' }}
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="block w-full px-3 py-2 rounded text-white hover:bg-white/10 text-center"
+                      style={{ fontFamily: 'Trap, Arial, sans-serif' }}
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

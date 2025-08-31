@@ -74,7 +74,7 @@ const Timeline = () => {
   const [selectedItem, setSelectedItem] = useState<TimelineItem>(timelineData[4]); // Default to Speaker Session
 
   return (
-    <div className="w-full min-h-screen relative overflow-hidden">
+    <div id="timeline" className="w-full min-h-screen relative overflow-hidden">
       {/* DotGrid positioned behind the content */}
       <div className="absolute inset-0 z-0">
         <DotGrid dotSize={3} gap={25} baseColor="#a3a3a3" />

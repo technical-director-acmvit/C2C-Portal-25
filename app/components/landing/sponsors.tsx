@@ -28,7 +28,7 @@ const SponsorCard: React.FC<{ title?: string; role?: string; description?: strin
 
 const Sponsors = () => (
   <GradientBG>
-    <div className="w-full h-screen relative overflow-hidden">
+    <div id="sponsors" className="w-full h-screen relative overflow-hidden">
       <Topper text="Sponsors" />
       {/* DotGrid positioned behind the cards */}
       <div className="absolute inset-0 z-0">

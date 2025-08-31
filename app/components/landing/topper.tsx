@@ -23,20 +23,22 @@ const Topper: React.FC<TopperProps> = ({ text, className = '' }) => (
                 }}
             >
                 <Image
-                    src="/Landing/footer-dock 1.svg"
+                    src="/landing/footer-dock 1.svg"
                     alt="Footer Dock"
                     width={1920}
                     height={200}
                     className="w-full h-auto"
                     style={{ filter: 'brightness(0.8)' }}
+                    loading="lazy"
                 />
             </div>
             <Image
-                src="/Landing/footer-dock 1.svg"
+                src="/landing/footer-dock 1.svg"
                 alt="Footer Dock"
                 width={1920}
                 height={200}
                 className="w-full h-auto"
+                loading="lazy"
             />
             <span
                 className="absolute pl-36 inset-0 z-10 flex items-center text-center whitespace-nowrap font-trap font-bold leading-none text-transparent"

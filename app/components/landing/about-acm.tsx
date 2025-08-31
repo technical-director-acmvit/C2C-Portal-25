@@ -17,7 +17,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
                     height={80}
                     className="mb-6 pointer-events-auto z-100 pt-64"
                     draggable={false}
-                    priority
+                    loading="lazy"
                 />
                 <div
                     className="w-[794px] max-w-[calc(100%-2rem)] text-justify justify-start text-zinc-100 text-2xl font-thin leading-10 pointer-events-auto pt-8"
