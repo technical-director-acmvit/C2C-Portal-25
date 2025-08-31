@@ -26,7 +26,7 @@ const Landing = () => {
           userSelect: "none"
         }}
       />
-      {/* Gradient Background */}
+      {/* Gradient Background
       <Image
         src="/landing/gradient.svg"
         alt="Gradient Background"
@@ -38,7 +38,7 @@ const Landing = () => {
           pointerEvents: "none",
           userSelect: "none"
         }}
-      />
+      /> */}
       {/* Main Content Container */}
       <div className="relative h-full flex flex-col items-center justify-center z-10">
         
