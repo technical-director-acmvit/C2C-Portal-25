@@ -91,7 +91,7 @@ const FAQs = () => {
       
       {/* Content positioned above the dots */}
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
-        <div className="w-full max-w-7xl px-6 pointer-events-auto">
+        <div className="w-full max-w-7xl px-6 pointer-events-auto transform translate-y-16 sm:translate-y-20 lg:translate-y-24">
           {/* FAQ Items */}
           <div className="max-w-4xl mx-auto">
             <div className="p-6">

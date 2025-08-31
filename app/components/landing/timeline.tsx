@@ -55,21 +55,17 @@ const Timeline = () => {
   const [selectedItem, setSelectedItem] = useState<TimelineItem>(defaultItem); // Default to Speaker Session
 
   return (
-    <>
     <div id="timeline" className="w-full min-h-screen relative overflow-hidden">
-      {/* Gradient background that blends with the page background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a]" />
-
       <div className="absolute inset-0 z-10">
-      <Topper text="Timeline" />
+        <Topper text="Timeline" />
       </div>
       {/* DotGrid positioned behind the content */}
       <div className="absolute inset-0 z-0">
         <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" />
       </div>
-      
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none my-120 mx-50">
-        <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 pointer-events-auto">
+        
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
+        <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 pointer-events-auto transform translate-y-16 sm:translate-y-20 lg:translate-y-24">
           {/* Header */}
           
           
@@ -213,23 +209,22 @@ const Timeline = () => {
             </div>
           </div>
         </div>
-      </div>
-  </div>
-  <style jsx>{`
-      @keyframes dash-rotate {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-      }
-      .dash-rotate { 
-        animation: dash-rotate 12s linear infinite; 
-        transform-origin: 50% 50%;
-        will-change: transform;
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .dash-rotate { animation: none; }
-      }
-    `}</style>
-  </>
+        </div>
+        <style jsx>{`
+          @keyframes dash-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+          }
+          .dash-rotate { 
+            animation: dash-rotate 12s linear infinite; 
+            transform-origin: 50% 50%;
+            will-change: transform;
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .dash-rotate { animation: none; }
+          }
+        `}</style>
+    </div>
   );
 };
 

@@ -49,7 +49,7 @@ const Landing = () => {
             style={{
               WebkitTextStroke: '2.41px #EFEFEF',
               fontFamily: 'Trap-Bold, Arial, sans-serif',
-              fontSize: 'clamp(24px, 5.2vw, 77px)',
+              fontSize: 'clamp(20px, 5.2vw, 72px)',
               fontWeight: '700',
               lineHeight: 'clamp(110%, 6vw, 130%)',
               color: 'transparent',
@@ -65,7 +65,7 @@ const Landing = () => {
             style={{
               WebkitTextStroke: '2.41px #EFEFEF',
               fontFamily: 'Trap-Bold, Arial, sans-serif',
-              fontSize: 'clamp(24px, 5.2vw, 77px)',
+              fontSize: 'clamp(20px, 5.2vw, 72px)',
               fontWeight: '700',
               lineHeight: 'clamp(110%, 6vw, 130%)',
               color: 'transparent',
@@ -80,7 +80,7 @@ const Landing = () => {
 
         {/* Main logo positioned like rising sun from mountains - behind mountains */}
         <div
-          className="absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 animate-floating"
+          className="absolute top-[50%] left-1/2 -translate-x-1/500 -translate-y-1/3 animate-floating"
           style={{ zIndex: 1 }}
         >
           <Image 
