@@ -4,7 +4,7 @@ import DotGrid from './dot-grid';
 const Speaker = ({ children }: { children?: React.ReactNode }) => (
     <div id="speakers" className="relative w-full min-h-screen overflow-hidden">
         <div className="absolute inset-0 w-full h-full -z-1 pointer-events-none" style={{ background: '#1e1e1e' }}>
-            <DotGrid dotSize={1.5} gap={25} baseColor="#a3a3a3" className="w-full h-full" />
+            <DotGrid dotSize={3} gap={25} baseColor="#a3a3a3" className="w-full h-full" />
         </div>
         <div className="relative z-10">
             <Topper text="speaker" />

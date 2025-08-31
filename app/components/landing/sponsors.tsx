@@ -33,7 +33,7 @@ const Sponsors = () => (
     <div id="sponsors" className="w-full min-h-screen relative overflow-hidden">
       <Topper text="sponsor" />
       <div className="absolute inset-0 z-0">
-        <DotGrid dotSize={1.5} gap={25} baseColor="#a3a3a3" />
+        <DotGrid dotSize={3} gap={25} baseColor="#a3a3a3" />
       </div>
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
         <div className="w-full max-w-7xl px-4 md:px-6 pointer-events-auto -translate-y-8">

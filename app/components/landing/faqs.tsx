@@ -81,7 +81,7 @@ const FAQs = () => {
     <div id="faqs" className="w-full min-h-screen relative overflow-hidden">
       {/* DotGrid positioned behind the content - same as About and Sponsors */}
       <div className="absolute inset-0 z-0">
-        <DotGrid dotSize={1.5} gap={25} baseColor="#a3a3a3" />
+        <DotGrid dotSize={3} gap={25} baseColor="#a3a3a3" />
       </div>
       
       {/* Content positioned above the dots */}

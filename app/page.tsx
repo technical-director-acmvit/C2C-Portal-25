@@ -38,7 +38,7 @@ export default function Page() {
       
       {/* <Tracks /> */}
       <Speaker />
-      <Topper text="timeline" />
+      
       <Timeline />
       <Sponsors />
       <Topper text="FAQs" />

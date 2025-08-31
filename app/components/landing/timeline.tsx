@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import DotGrid from './dot-grid';
+import Topper from './topper';
 
 interface TimelineItem {
   id: string;
@@ -75,8 +76,9 @@ const Timeline = () => {
 
   return (
     <div id="timeline" className="w-full min-h-screen relative overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <DotGrid dotSize={1.5} gap={25} baseColor="#a3a3a3" />
+      <Topper text="timeline" />
+      <div className="absolute inset-0 w-full h-full -z-1 pointer-events-none" style={{ background: '#1e1e1e' }}>
+        <DotGrid dotSize={3} gap={25} baseColor="#a3a3a3" />
       </div>
       
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
