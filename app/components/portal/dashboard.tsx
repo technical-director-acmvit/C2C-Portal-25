@@ -21,6 +21,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
   const [showForm, setShowForm] = useState(false);
   const [leaveProcessing, setLeaveProcessing] = useState(false);
   const [showLeaveModal, setShowLeaveModal] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -171,7 +172,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
       <div className="flex flex-col items-center justify-center h-full">
         {/* Team Name Section */}
         <h1
-          className="text-white mb-8"
+          className="text-white mb-4"
           style={{
             fontSize: "48px",
             fontFamily: "'Pilat Extended', Arial, sans-serif",
@@ -182,16 +183,20 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
           {team?.name || "Your Team"}
         </h1>
 
+        <div className="w-full flex justify-center mb-4">
+          <Image src="/portal/bar.svg" alt="separator" width={600} height={80} className="w-auto max-w-[280px] sm:max-w-[440px] md:max-w-[600px] h-6 sm:h-8 md:h-10" />
+        </div>
+
         {/* Team Code Section */}
         <div className="flex items-center gap-4 mb-12">
           <div
-            className="border-2 border-white px-6 py-3 flex items-center gap-4"
+            className="border-2 border-white px-4 sm:px-6 h-12 sm:h-14 flex items-center gap-4 rounded-md"
             style={{ backgroundColor: "transparent" }}
           >
             <span
-              className="text-white"
+              className="text-lg sm:text-xl"
               style={{
-                fontSize: "20px",
+                color: '#48BA86',
                 fontFamily: "'Pilat Extended', Arial, sans-serif",
                 fontWeight: "400",
               }}
@@ -199,12 +204,24 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
               {team?.code || "— — — —"}
             </span>
           </div>
-          <button
-            className="border-2 border-white p-3 bg-transparent hover:bg-white/10 transition-colors"
-            onClick={() => team?.code && navigator.clipboard?.writeText(team.code)}
-          >
-            <Copy className="w-5 h-5 text-white" />
-          </button>
+
+          <div className="relative">
+            <button
+              className="border-2 border-white px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-center bg-transparent hover:bg-white/10 transition-colors rounded-md"
+              onClick={async () => {
+                if (!team?.code) return;
+                try {
+                  await navigator.clipboard.writeText(team.code);
+                  setCopied(true);
+                  window.setTimeout(() => setCopied(false), 500);
+                } catch (err) {
+                }
+              }}
+              aria-label="Copy team code"
+            >
+              <Copy className={`w-5 h-5 ${copied ? 'text-[#48BA86]' : 'text-white'}`} />
+            </button>
+          </div>
         </div>
 
         {members.length > 1 ? (
@@ -214,7 +231,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
                 key={`${m.id || "member"}-${idx}`}
                 className="flex flex-col items-center"
               >
-                <div className="w-16 h-16 rounded-full border-2 border-white bg-transparent mb-2 flex items-center justify-center">
+                <div className="w-16 h-16 bg-transparent mb-2 flex items-center justify-center">
                   <Image
                     src="/portal/user.svg"
                     alt="User Profile"
@@ -245,7 +262,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
             {team?.code && (
               <p className="mt-2">
                 Share your team code{" "}
-                <span className="text-white font-semibold">{team.code}</span> to
+                <span className="font-semibold" style={{ color: '#48BA86' }}>{team.code}</span> to
                 invite others.
               </p>
             )}
