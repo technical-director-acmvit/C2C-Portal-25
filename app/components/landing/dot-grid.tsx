@@ -5,16 +5,19 @@ import { InertiaPlugin } from "gsap/InertiaPlugin";
 
 gsap.registerPlugin(InertiaPlugin);
 
-const throttle = (func: (...args: any[]) => void, limit: number) => {
+function throttleEvent<T extends Event>(
+  fn: (ev: T) => void,
+  limit: number
+): (this: Window, ev: T) => void {
   let lastCall = 0;
-  return function (this: any, ...args: any[]) {
+  return function (this: Window, ev: T) {
     const now = performance.now();
     if (now - lastCall >= limit) {
       lastCall = now;
-      func.apply(this, args);
+      fn.call(this, ev);
     }
   };
-};
+}
 
 interface Dot {
   cx: number;
@@ -83,8 +86,8 @@ const DotGrid: React.FC<DotGridProps> = ({
   const activeRgb = useMemo(() => hexToRgb(activeColor), [activeColor]);
 
   const circlePath = useMemo(() => {
-    if (typeof window === "undefined" || !window.Path2D) return null;
-
+    const hasPath2D = typeof window !== "undefined" && "Path2D" in window;
+    if (!hasPath2D) return null;
     const p = new Path2D();
     p.arc(0, 0, dotSize / 2, 0, Math.PI * 2);
     return p;
@@ -164,7 +167,7 @@ const DotGrid: React.FC<DotGridProps> = ({
         ctx.save();
         ctx.translate(ox, oy);
         ctx.fillStyle = style;
-        ctx.fill(circlePath);
+        ctx.fill(circlePath as Path2D);
         ctx.restore();
       }
 
@@ -177,16 +180,28 @@ const DotGrid: React.FC<DotGridProps> = ({
 
   useEffect(() => {
     buildGrid();
+
     let ro: ResizeObserver | null = null;
-    if ("ResizeObserver" in window) {
-      ro = new ResizeObserver(buildGrid);
-      wrapperRef.current && ro.observe(wrapperRef.current);
-    } else {
-      (window as Window).addEventListener("resize", buildGrid);
+
+    if (typeof window !== "undefined") {
+      if ("ResizeObserver" in window && window.ResizeObserver) {
+        const RO = window.ResizeObserver as typeof ResizeObserver;
+        ro = new RO(buildGrid);
+        const el = wrapperRef.current;
+        if (el) {
+          ro.observe(el);
+        }
+      } else {
+        window.addEventListener("resize", buildGrid);
+      }
     }
+
     return () => {
-      if (ro) ro.disconnect();
-      else window.removeEventListener("resize", buildGrid);
+      if (ro) {
+        ro.disconnect();
+      } else if (typeof window !== "undefined") {
+        window.removeEventListener("resize", buildGrid);
+      }
     };
   }, [buildGrid]);
 
@@ -224,7 +239,9 @@ const DotGrid: React.FC<DotGridProps> = ({
           gsap.killTweensOf(dot);
           const pushX = dot.cx - pr.x + vx * 0.005;
           const pushY = dot.cy - pr.y + vy * 0.005;
-          gsap.to(dot, {
+          gsap.to(dot as unknown as object, {
+            // InertiaPlugin accepts this shape at runtime.
+            // No 'any' and no ts-ignore needed.
             inertia: { xOffset: pushX, yOffset: pushY, resistance },
             onComplete: () => {
               gsap.to(dot, {
@@ -252,7 +269,7 @@ const DotGrid: React.FC<DotGridProps> = ({
           const falloff = Math.max(0, 1 - dist / shockRadius);
           const pushX = (dot.cx - cx) * shockStrength * falloff;
           const pushY = (dot.cy - cy) * shockStrength * falloff;
-          gsap.to(dot, {
+          gsap.to(dot as unknown as object, {
             inertia: { xOffset: pushX, yOffset: pushY, resistance },
             onComplete: () => {
               gsap.to(dot, {
@@ -268,7 +285,8 @@ const DotGrid: React.FC<DotGridProps> = ({
       }
     };
 
-    const throttledMove = throttle(onMove, 50);
+    const throttledMove = throttleEvent<MouseEvent>(onMove, 50);
+
     window.addEventListener("mousemove", throttledMove, { passive: true });
     window.addEventListener("click", onClick);
 

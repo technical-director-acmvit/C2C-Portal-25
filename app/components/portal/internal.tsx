@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import TeamUp from './teamUp';
+import TeamUp from './team-up';
 import { signupInternal } from '../../actions/signup';
 
 const Internal = () => {
@@ -8,8 +8,6 @@ const Internal = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
         registrationNumber: '',
         gender: '',
         contactNumber: ''
@@ -24,9 +22,7 @@ const Internal = () => {
     };
 
     const isFormValid = () => {
-        return formData.name.trim() !== '' &&
-               formData.email.trim() !== '' &&
-               formData.registrationNumber.trim() !== '' &&
+        return formData.registrationNumber.trim() !== '' &&
                formData.gender !== '' &&
                formData.contactNumber.trim() !== '';
     };
@@ -38,8 +34,6 @@ const Internal = () => {
             
             try {
                 await signupInternal({
-                    name: formData.name,
-                    email: formData.email,
                     contact_number: formData.contactNumber,
                     gender: formData.gender,
                     reg_no: formData.registrationNumber
@@ -75,23 +69,6 @@ const Internal = () => {
                         </div>
                     )}
                     
-                    <input 
-                        className="border rounded-md p-3" 
-                        type="text" 
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        placeholder="Name" 
-                        disabled={loading}
-                    />
-                    <input 
-                        className="border rounded-md p-3" 
-                        type="email" 
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        placeholder="Email" 
-                    />
                     <input 
                         className="border rounded-md p-3" 
                         type="text" 
