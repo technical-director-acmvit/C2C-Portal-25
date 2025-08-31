@@ -62,13 +62,13 @@ const JoinTeam = ({ onBack }: Props) => {
               type="text"
               value={teamCode}
               onChange={handleCodeChange}
-              placeholder="Enter the x-digit code"
+              placeholder="Enter the code"
               className="w-full px-5 py-3 rounded-full bg-[#111213]/60 border border-white/10 text-white placeholder-gray-400 text-center focus:outline-none focus:ring-2 focus:ring-[#48BA86]/40"
               style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: '16px', fontWeight: 400 }}
             />
           </div>
 
-          <p className="text-gray-400 text-center mb-6" style={{ fontSize: '14px', fontFamily: "'Pilat Regular', Arial, sans-serif", fontWeight: 400 }}>enter team Code to Create your team, get it?!</p>
+          <p className="text-gray-400 text-center mb-6" style={{ fontSize: '14px', fontFamily: "'Pilat Regular', Arial, sans-serif", fontWeight: 400 }}>Enter team code to join your team</p>
 
           <div className="flex justify-center">
             <PortalButton onClick={handleProceed} disabled={!teamCode.trim() || loading} className={`${teamCode.trim() ? '' : 'opacity-50 cursor-not-allowed'} px-6 py-2 text-[18px]`}>
