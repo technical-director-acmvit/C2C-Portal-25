@@ -5,6 +5,8 @@ import Portal from '@/app/components/portal/portal';
 import TeamUp from '../components/portal/team-up';
 import Dashboard from '../components/portal/dashboard';
 import { fetchDashboard } from '../actions/dashboard';
+import AuthReauthGuard from '@/components/auth-reauth-guard';
+import PortalLoader from "../components/portal/portal-loader";
 
 type View = 'loading' | 'signup' | 'team' | 'dashboard' | 'error';
 
@@ -13,6 +15,9 @@ export default function Home() {
 
   useEffect(() => {
     let mounted = true;
+    const failover = setTimeout(() => {
+      if (mounted) setView('signup');
+    }, 8000);
     (async () => {
       try {
         const res = await fetchDashboard();
@@ -34,16 +39,24 @@ export default function Home() {
         if (mounted) setView('signup');
       }
     })();
-    return () => { mounted = false; };
+    return () => { mounted = false; clearTimeout(failover); };
   }, []);
 
   const handleTeamLeft = () => {
     setView('team');
   };
 
-  if (view === 'loading') return <div className="min-h-screen grid place-items-center text-white">Loading…</div>;
-  if (view === 'signup') return <Portal />; // Student info (internal/external)
-  if (view === 'team') return <TeamUp />;   // Create/join team
-  if (view === 'dashboard') return <Dashboard onTeamLeft={handleTeamLeft} />; // Team dashboard
-  return <div className="min-h-screen grid place-items-center text-red-400">Something went wrong. Please retry.</div>;
+  return (
+    <AuthReauthGuard>
+      {view === 'loading' && (
+        <PortalLoader />
+      )}
+      {view === 'signup' && <Portal />}
+      {view === 'team' && <TeamUp />}
+      {view === 'dashboard' && <Dashboard onTeamLeft={handleTeamLeft} />}
+      {view === 'error' && (
+        <div className="min-h-screen grid place-items-center text-red-400">Something went wrong. Please retry.</div>
+      )}
+    </AuthReauthGuard>
+  );
 }
