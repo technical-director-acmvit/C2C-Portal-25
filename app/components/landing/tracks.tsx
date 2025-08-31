@@ -33,7 +33,7 @@ const TRACKS = [
 
 const Tracks = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <div className="relative w-full overflow-hidden">
+    <div id="tracks" className="relative w-full overflow-hidden">
       <GradientBG>
         <div className="relative z-10">
           <Topper text="Tracks" />

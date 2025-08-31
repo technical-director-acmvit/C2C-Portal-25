@@ -21,9 +21,9 @@ export default function TopBar() {
     { href: "#tracks", label: "Tracks", hasDropdown: false },
     // { href: '#timeline', label: 'Timeline', hasDropdown: false},
     { href: "#sponsors", label: "Sponsors", hasDropdown: false },
-    { href: "#speaker", label: "Speakers", hasDropdown: false },
-    // { href: '/prize-pool', label: 'Prize Pool', hasDropdown: false },
-    // { href: '/contact', label: 'Contact us', hasDropdown: false },
+    // { href: "#speaker", label: "Speakers", hasDropdown: false },
+    // { href: '#prize-pool', label: 'Prize Pool', hasDropdown: false },
+    // { href: '#contact', label: 'Contact us', hasDropdown: false },
   ];
 
   return (
