@@ -9,7 +9,6 @@ import BackChevron from './ui/back-chevron';
 interface Props { onBack?: () => void }
 const CreateTeam = ({ onBack }: Props) => {
   const [teamName, setTeamName] = useState('');
-  const [description, setDescription] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -18,16 +17,13 @@ const CreateTeam = ({ onBack }: Props) => {
     setTeamName(e.target.value);
   };
 
-  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDescription(e.target.value);
-  };
 
   const handleProceed = async () => {
     if (!teamName.trim()) return;
     setLoading(true);
     setError(null);
     try {
-      await createTeam({ name: teamName, description: description ? description : null });
+      await createTeam(teamName);
       setSubmitted(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to create team');
@@ -76,16 +72,6 @@ const CreateTeam = ({ onBack }: Props) => {
           />
         </div>
 
-        <div className="mb-6 w-full max-w-md">
-          <textarea
-            value={description}
-            onChange={handleDescriptionChange}
-            placeholder="Short description (optional)"
-            className="px-4 py-3 rounded-lg bg-gray-600/80 border-none text-white placeholder-gray-400 w-full focus:outline-none focus:ring-2 focus:ring-[#5EBF94]"
-            style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: '14px' }}
-            rows={3}
-          />
-        </div>
         
         <p 
           className="text-gray-400 text-center mb-8"

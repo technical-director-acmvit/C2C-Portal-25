@@ -1,6 +1,6 @@
 import { getIdToken } from './session';
 
-export async function createTeam(data: { name: string; description?: string | null }) {
+export async function createTeam(name: string) {
   const idToken = await getIdToken();
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/team/create`, {
     method: 'POST',
@@ -8,7 +8,7 @@ export async function createTeam(data: { name: string; description?: string | nu
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${idToken}`,
     },
-    body: JSON.stringify({ name: data.name, description: data.description ?? null }),
+    body: JSON.stringify({ name: name }),
   });
   if (!res.ok) {
     const e = await res.json().catch(() => ({}));
