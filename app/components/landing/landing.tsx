@@ -58,7 +58,7 @@ const Landing = () => {
               overflowWrap: 'break-word'
             }}
           >
-            Code2Create
+            Turning what if
           </h1>
           <h1 
             className="text-center break-words hyphens-auto"
@@ -74,6 +74,7 @@ const Landing = () => {
               overflowWrap: 'break-word'
             }}
           >
+            into what's next
           </h1>
         </div>
 
