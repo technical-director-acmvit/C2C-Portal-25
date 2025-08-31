@@ -18,6 +18,7 @@ export default function Home() {
         const res = await fetchDashboard();
         if (!mounted) return;
         if (!res.ok) {
+            
           if (res.status === 404) {
             setView('signup');
           } else if (res.status === 401) {
