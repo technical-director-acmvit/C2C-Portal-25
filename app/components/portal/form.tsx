@@ -4,8 +4,11 @@ import React, { useEffect, useState } from "react";
 import Image from 'next/image';
 import { getTracks, submitTeamSubmission, type Track } from '../../actions/submission';
 
-const Form = () => {
-  const [showDashboard, setShowDashboard] = useState(false);
+interface FormProps {
+  onBack?: () => void;
+}
+
+const Form = ({ onBack }: FormProps) => {
   const [formData, setFormData] = useState({
     track_id: '',
     github_url: '',
@@ -80,20 +83,20 @@ const Form = () => {
       </div>
       
       {/* Back button */}
-      <div className="absolute top-6 right-8">
-        <button 
-          className="px-6 py-2 rounded-lg text-white cursor-pointer transition-all duration-200 hover:bg-gray-700/50" 
-          style={{ 
-            backgroundColor: 'rgba(94, 191, 148, 0.8)',
-            fontSize: '16px',
-            fontFamily: "'Pilat Extended', Arial, sans-serif",
-            fontWeight: '400'
-          }}
-          onClick={handleBackToDashboard}
-        >
-          ← Back to Dashboard
-        </button>
-      </div>
+      {onBack && (
+        <div className="absolute top-6 right-6">
+          <button
+            className="text-white border border-white px-4 py-2 rounded bg-transparent hover:bg-white/10 transition-colors"
+            onClick={onBack}
+            style={{
+              fontFamily: "'Pilat Extended', Arial, sans-serif",
+              fontSize: '14px'
+            }}
+          >
+            Back to Dashboard
+          </button>
+        </div>
+      )}
       
       {/* Centered form */}
       <div className="flex flex-col items-center justify-center h-full">
@@ -127,8 +130,9 @@ const Form = () => {
                   fontFamily: "'Pilat Extended', Arial, sans-serif",
                   fontSize: '14px'
                 }}
+                disabled={loading}
               >
-                <option value="" className="text-gray-400">Select a Track</option>
+                <option value="" className="text-gray-400">{loading ? 'Loading tracks…' : 'Select a Track'}</option>
                 {tracks.map(t => (
                   <option key={t.id} value={t.id}>{t.title}</option>
                 ))}

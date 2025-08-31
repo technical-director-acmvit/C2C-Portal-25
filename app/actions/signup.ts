@@ -1,16 +1,12 @@
 import { getIdToken } from './session';
 
 export interface InternalSignupData {
-  name: string;
-  email: string;
   contact_number: string;
   gender: string;
   reg_no: string;
 }
 
 export interface ExternalSignupData {
-  name: string;
-  email: string;
   contact_number: string;
   gender: string;
   college_name: string;

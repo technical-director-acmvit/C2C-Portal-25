@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Portal from '@/app/components/portal/portal';
-import TeamUp from '../components/portal/teamUp';
+import TeamUp from '../components/portal/team-up';
 import Dashboard from '../components/portal/dashboard';
 import { fetchDashboard } from '../actions/dashboard';
 
@@ -18,6 +18,7 @@ export default function Home() {
         const res = await fetchDashboard();
         if (!mounted) return;
         if (!res.ok) {
+            
           if (res.status === 404) {
             setView('signup');
           } else if (res.status === 401) {
@@ -36,9 +37,13 @@ export default function Home() {
     return () => { mounted = false; };
   }, []);
 
+  const handleTeamLeft = () => {
+    setView('team');
+  };
+
   if (view === 'loading') return <div className="min-h-screen grid place-items-center text-white">Loading…</div>;
   if (view === 'signup') return <Portal />; // Student info (internal/external)
   if (view === 'team') return <TeamUp />;   // Create/join team
-  if (view === 'dashboard') return <Dashboard />; // Team dashboard
+  if (view === 'dashboard') return <Dashboard onTeamLeft={handleTeamLeft} />; // Team dashboard
   return <div className="min-h-screen grid place-items-center text-red-400">Something went wrong. Please retry.</div>;
 }

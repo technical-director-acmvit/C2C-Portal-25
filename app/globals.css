@@ -1,6 +1,12 @@
+@font-face {
+  font-family: 'DM Sans';
+  src: url('/fonts/DMSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 @import "tailwindcss";
 
-/* Pilat Extended font from local files */
 @font-face {
   font-family: 'Pilat Extended';
   src: url('/fonts/PilatExtended-Bold.ttf') format('truetype');
@@ -17,13 +23,20 @@
   font-display: swap;
 }
 
-/* Trap font from local files */
 @font-face {
-  font-family: 'Trap';
+  font-family: 'Trap-Bold';
   src: url('/fonts/Trap-Bold.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
+}
+
+
+@font-face {
+  font-family: 'Trap';
+  src: url('/fonts/Trap-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
 }
 
 :root {
@@ -49,4 +62,9 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Use Pilat Extended for display headings */
+h1,h2,h3,h4 {
+  font-family: 'Pilat Extended', 'Trap', Arial, sans-serif;
 }
