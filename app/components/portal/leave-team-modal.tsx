@@ -52,7 +52,7 @@ const LeaveTeamModal: React.FC<LeaveTeamModalProps> = ({
         >
           Are you sure you want to leave{" "}
           {teamName && (
-            <span className="text-white font-semibold">"{teamName}"</span>
+            <span className="text-white font-semibold">&quot;{teamName}&quot;</span>
           )}? This action cannot be undone.
         </p>
         

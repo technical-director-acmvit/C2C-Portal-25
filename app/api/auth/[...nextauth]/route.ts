@@ -28,6 +28,15 @@ declare module "next-auth/jwt" {
   }
 }
 
+function hasExpiresIn(value: unknown): value is { expires_in: number } {
+  return (
+    !!value &&
+    typeof value === 'object' &&
+    'expires_in' in (value as Record<string, unknown>) &&
+    typeof (value as { expires_in?: unknown }).expires_in === 'number'
+  );
+}
+
 const handler = NextAuth({
   providers: [
     GoogleProvider({
@@ -54,8 +63,9 @@ const handler = NextAuth({
         if (account.refresh_token) token.refreshToken = account.refresh_token as string;
         if (typeof account.expires_at === 'number') {
           token.accessTokenExpires = account.expires_at * 1000;
-        } else if (typeof (account as any).expires_in === 'number') {
-          token.accessTokenExpires = Date.now() + ((account as any).expires_in as number) * 1000;
+        } else if (hasExpiresIn(account)) {
+          const expiresIn = account.expires_in;
+          token.accessTokenExpires = Date.now() + expiresIn * 1000;
         } else {
           token.accessTokenExpires = Date.now() + 55 * 60 * 1000;
         }
@@ -98,7 +108,7 @@ const handler = NextAuth({
         if (refreshed.refresh_token) token.refreshToken = refreshed.refresh_token;
         delete token.error;
         return token;
-      } catch (err) {
+      } catch {
         token.error = 'RefreshAccessTokenError';
         return token;
       }

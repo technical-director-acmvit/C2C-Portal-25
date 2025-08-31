@@ -77,8 +77,11 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
       const res = await leaveTeam();
 
       // If leaveTeam returns an object with .ok, respect it
-      if (res && typeof res === "object" && "ok" in res && !res.ok) {
-        throw new Error((res as any).error || "Failed to leave team");
+      if (res && typeof res === "object" && "ok" in res && !(res as { ok: unknown }).ok) {
+        const msg = ("error" in (res as Record<string, unknown>) && typeof (res as Record<string, unknown>).error === 'string')
+          ? (res as Record<string, unknown>).error as string
+          : "Failed to leave team";
+        throw new Error(msg);
       }
 
       setShowLeaveModal(false);

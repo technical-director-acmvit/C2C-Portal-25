@@ -7,7 +7,7 @@ export default function PortalLoader({ size = 240 }: { size?: number }) {
   return (
     <div className="min-h-screen grid place-items-center">
       <div style={{ width: size, height: size }}>
-        <Lottie animationData={animationData as any} loop autoplay />
+        <Lottie animationData={animationData as object} loop autoplay />
       </div>
     </div>
   );

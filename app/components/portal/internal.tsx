@@ -97,15 +97,15 @@ const Internal = () => {
                     />
                     <button 
                         className={`px-8 py-4 rounded-lg text-white text-xl font-semibold mt-4 ${
-                            isFormValid() 
+                            isFormValid() && !loading
                                 ? 'cursor-pointer' 
                                 : 'cursor-not-allowed opacity-50'
                         }`}
                         style={{ backgroundColor: '#5EBF94' }}
                         onClick={handleSubmit}
-                        disabled={!isFormValid()}
+                        disabled={!isFormValid() || loading}
                     >
-                        Submit
+                        {loading ? 'Submitting…' : 'Submit'}
                     </button>
                 </div>
             </div>

@@ -30,7 +30,6 @@ const Topper: React.FC<TopperProps> = ({ text, className = '' }) => (
                     height={200}
                     className="w-full h-auto"
                     style={{ filter: 'brightness(0.8)' }}
-                    loading="lazy"
                 />
             </div>
             <Image
@@ -39,7 +38,6 @@ const Topper: React.FC<TopperProps> = ({ text, className = '' }) => (
                 width={1920}
                 height={200}
                 className="w-full h-auto"
-                loading="lazy"
             />
             <span
                 className="absolute inset-0 z-10 flex items-center text-center whitespace-normal md:whitespace-nowrap px-8 md:pl-36 font-trap font-bold leading-none text-transparent"

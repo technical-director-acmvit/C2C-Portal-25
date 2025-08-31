@@ -4,7 +4,6 @@ import Landing from "./components/landing/landing";
 import { signIn } from "next-auth/react";
 import About from "./components/landing/about-c2c";
 import QuotesBanner from "./components/landing/quotes-banner";
-import Topper from "./components/landing/topper";
 import Speaker from "./components/landing/speaker";import Sponsors from "./components/landing/sponsors";
 import FAQs from "./components/landing/faqs";
 import Timeline from "./components/landing/timeline";

@@ -102,7 +102,6 @@ export default function TopBar() {
             width={110}
             height={40}
             className="h-8 md:h-10 w-auto"
-            loading="lazy"
           />
         </div>
       </div>
