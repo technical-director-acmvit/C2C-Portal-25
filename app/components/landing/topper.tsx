@@ -14,7 +14,8 @@ function getFontSize(text: string) {
 
 const Topper: React.FC<TopperProps> = ({ text, className = '' }) => (
     <div className={`relative flex justify-left pb-12 ${className}`}>
-        <div className="relative w-2/3">
+        {/* Full width on small screens to prevent overflow; match desktop at md+ */}
+        <div className="relative w-full md:w-2/3 overflow-hidden">
             <div
                 className="absolute inset-0 z-10 pointer-events-none"
                 style={{
@@ -41,7 +42,7 @@ const Topper: React.FC<TopperProps> = ({ text, className = '' }) => (
                 loading="lazy"
             />
             <span
-                className="absolute pl-36 inset-0 z-10 flex items-center text-center whitespace-nowrap font-trap font-bold leading-none text-transparent"
+                className="absolute inset-0 z-10 flex items-center text-center whitespace-normal md:whitespace-nowrap px-8 md:pl-36 font-trap font-bold leading-none text-transparent"
                 style={{
                     WebkitTextStroke: '2.41px #EFEFEF',
                     fontSize: getFontSize(text),

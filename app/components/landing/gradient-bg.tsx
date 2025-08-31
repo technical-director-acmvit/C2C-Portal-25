@@ -1,8 +1,7 @@
 "use client";
-import Image from "next/image";
 
 const GradientBG = ({ children }: { children?: React.ReactNode }) => (
-  <div className="w-full relative bg-[#1e1e1e]">
+  <div className="w-full relative bg-[#1e1e1e] overflow-hidden">
     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none w-[700px] h-[700px] bg-[conic-gradient(from_153deg_at_50%_50%,_#5EBF94_96deg,_#6DB1E2_263deg,_#29A37A_360deg)] rounded-full blur-[350px]" />
     {children}
   </div>

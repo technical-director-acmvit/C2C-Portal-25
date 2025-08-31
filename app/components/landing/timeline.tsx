@@ -75,20 +75,15 @@ const Timeline = () => {
 
   return (
     <div id="timeline" className="w-full min-h-screen relative overflow-hidden">
-      {/* DotGrid positioned behind the content */}
       <div className="absolute inset-0 z-0">
-        <DotGrid dotSize={3} gap={25} baseColor="#a3a3a3" />
+        <DotGrid dotSize={1.5} gap={25} baseColor="#a3a3a3" />
       </div>
       
-      {/* Content positioned above the dots */}
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
-        <div className="w-full max-w-7xl px-6 pointer-events-auto">
-          {/* Header */}
+        <div className="w-full max-w-7xl px-4 md:px-6 pointer-events-auto">
           
           
-          {/* Timeline Content */}
           <div className="flex flex-col lg:flex-row gap-12 items-start">
-            {/* Timeline Buttons */}
             <div className="flex flex-col gap-4 w-full lg:w-auto">
               {timelineData.map((item) => (
                 <button
@@ -147,13 +142,13 @@ const Timeline = () => {
             </div>
             
             {/* Selected Item Details */}
-            <div className="flex-1 bg-transparent rounded-2xl border-none p-8">
+            <div className="flex-1 bg-transparent rounded-2xl border-none p-6 md:p-8">
               <h3 
-                className="text-5xl font-bold mb-6"
+                className="text-3xl md:text-5xl font-bold mb-6"
                 style={{ 
                   color: '#4ade80',
                   fontFamily: 'Trap',
-                  fontSize: '50px',
+                  fontSize: 'clamp(28px,4vw,50px)',
                   fontStyle: 'normal',
                   fontWeight: 700,
                   lineHeight: 'normal',
@@ -165,11 +160,11 @@ const Timeline = () => {
               
               <div className="space-y-13 mb-6">
                 <p 
-                  className="text-white"
+                  className="text-white text-xl md:text-2xl"
                   style={{ 
                     color: '#FFF',
                     fontFamily: 'DM Sans',
-                    fontSize: '30px',
+                    fontSize: 'clamp(18px,3vw,30px)',
                     fontStyle: 'normal',
                     fontWeight: 400,
                     lineHeight: 'normal',
@@ -179,11 +174,11 @@ const Timeline = () => {
                   {selectedItem.day}
                 </p>
                 <p 
-                  className="text-white"
+                  className="text-white text-xl md:text-2xl"
                   style={{ 
                     color: '#FFF',
                     fontFamily: 'DM Sans',
-                    fontSize: '30px',
+                    fontSize: 'clamp(18px,3vw,30px)',
                     fontStyle: 'normal',
                     fontWeight: 400,
                     lineHeight: 'normal',
@@ -193,11 +188,11 @@ const Timeline = () => {
                   {selectedItem.time}
                 </p>
                 <p 
-                  className="text-white"
+                  className="text-white text-xl md:text-2xl"
                   style={{ 
                     color: '#FFF',
                     fontFamily: 'DM Sans',
-                    fontSize: '30px',
+                    fontSize: 'clamp(18px,3vw,30px)',
                     fontStyle: 'normal',
                     fontWeight: 400,
                     lineHeight: 'normal',
