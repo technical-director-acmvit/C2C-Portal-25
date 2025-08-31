@@ -7,7 +7,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
   <div className="h-screen w-screen">
     <GradientBG>
       {/* Use <section> for semantics + anchor target */}
-      <section id="about" className="relative w-full overflow-hidden h-[92vh]">
+      <section id="about" className="relative w-full overflow-hidden ">
         {/* Title */}
         <Topper text="About C2C" />
 
@@ -29,6 +29,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
           px-4 sm:px-6 lg:px-8
           pb-16 sm:pb-20 lg:pb-28
           flex flex-col items-center justify-center
+          min-h-[60svh] lg:min-h-0
         "
         >
           <div
@@ -39,6 +40,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
             text-pretty break-words hyphens-auto
             text-base sm:text-lg md:text-xl lg:text-2xl
             leading-[1.6] sm:leading-8 md:leading-9
+            flex items-start justify-center flex-col
           "
             style={{ fontFamily: "DM Sans, Arial, sans-serif" }}
           >
@@ -61,7 +63,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
               set or aiming to claim your next hackathon prize, C2C is the right
               event for you.
             </p>
-            <p>
+            <p className="">
               Be part of a culture where we don't just code for the vibes, we
               code to create.
             </p>

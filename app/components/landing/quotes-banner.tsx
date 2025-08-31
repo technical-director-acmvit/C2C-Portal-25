@@ -38,7 +38,7 @@ const QuotesBanner: React.FC<QuotesBannerProps> = ({
 
   return (
     <div
-      className={`relative w-full overflow-hidden ${className} h-[8vh]`}
+      className={`relative w-full overflow-hidden ${className} shrink-0 flex items-center justify-center min-h-12 sm:min-h-14 py-2`}
       aria-label="Community praise and sponsor banner"
     >
       <div
