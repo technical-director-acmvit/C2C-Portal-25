@@ -6,6 +6,7 @@ import TeamUp from './team-up';
 import PortalButton from './ui/button';
 import { signupInternal } from '../../actions/signup';
 import BackChevron from './ui/back-chevron';
+import Select from './ui/select';
 
 interface Props { onBack?: () => void }
 const Internal = ({ onBack }: Props) => {
@@ -94,16 +95,17 @@ const Internal = ({ onBack }: Props) => {
                     />
 
                     <label className="text-sm text-gray-300 mt-3 mb-2">Gender</label>
-                    <select
-                        className="w-full bg-[#111213]/60 border border-white/10 rounded-full px-4 py-3 text-white placeholder-gray-400 focus:outline-none"
-                        name="gender"
+                    <Select
+                        id="gender"
                         value={formData.gender}
-                        onChange={handleInputChange}
-                    >
-                        <option value="" disabled>Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
+                        onChange={(val: string) => setFormData(prev => ({ ...prev, gender: val }))}
+                        options={[
+                            { label: 'Male', value: 'male' },
+                            { label: 'Female', value: 'female' },
+                        ]}
+                        placeholder="Gender"
+                        className=""
+                    />
 
                     <label className="text-sm text-gray-300 mt-3 mb-2">Contact Number</label>
                     <input

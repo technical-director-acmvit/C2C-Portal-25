@@ -30,9 +30,9 @@ export default function Page() {
       <div className=" flex items-center justify-between flex-col">
         <Tracks />
       </div>
-      <div className="min-h-screen flex items-center justify-between flex-col">
+      {/* <div className="min-h-screen flex items-center justify-between flex-col">
         <Speaker />
-      </div>
+      </div>  */}
       <div className="h-screen flex items-center justify-between flex-col">
         <Timeline />
       </div>
