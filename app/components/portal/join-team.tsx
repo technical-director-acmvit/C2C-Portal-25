@@ -38,10 +38,6 @@ const JoinTeam = ({ onBack }: Props) => {
 
   return (
     <div className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/portal/bg1.svg)' }}>
-      {/* Logo top left */}
-      <div className="absolute top-6 left-6 sm:left-8">
-        <Image src="/portal/logo.svg" alt="Logo" width={200} height={200} />
-      </div>
       
       {/* Centered card content */}
   <div className="flex items-center justify-center h-full px-4">

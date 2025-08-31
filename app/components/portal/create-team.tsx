@@ -39,55 +39,46 @@ const CreateTeam = ({ onBack }: Props) => {
 
   return (
     <div className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/portal/bg1.svg)' }}>
-
-      {/* Centered content */}
-      <div className="flex flex-col items-center justify-center h-full px-4">
-        <div className="w-full max-w-lg px-4 sm:px-0 mb-4">
-          <div className="flex items-center gap-3">
+      
+      {/* Centered card content (match JoinTeam) */}
+      <div className="flex items-center justify-center h-full px-4">
+        <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl p-6 sm:p-8 rounded-2xl" style={{
+          background: 'linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))',
+          backdropFilter: 'blur(10px) saturate(120%)',
+          boxShadow: '0 12px 40px rgba(0,0,0,0.55), 0 6px 24px rgba(72,186,134,0.06) inset, 0 1px 0 rgba(255,255,255,0.02) inset',
+          border: '1px solid rgba(255,255,255,0.10)'
+        }}>
+          <div className="flex items-center gap-3 mb-6">
             <BackChevron onClick={onBack} />
-            <h1 className="text-white text-xl sm:text-2xl md:text-3xl" style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontWeight: '700' }}>Enter Team Name</h1>
+            <h1 className="text-white text-2xl sm:text-3xl" style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontWeight: 700 }}>Enter Team Name</h1>
           </div>
-        </div>
-        
-        {error && (
-          <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded-md text-sm mb-4">
-            {error}
-          </div>
-        )}
-        <div className="mb-4 w-full max-w-lg">
-          <input
-            type="text"
-            value={teamName}
-            onChange={handleNameChange}
-            placeholder="Team name"
-            className="px-4 sm:px-6 py-3 sm:py-4 rounded-full bg-gray-600/80 border-none text-white placeholder-gray-400 text-center focus:outline-none focus:ring-2 focus:ring-[#5EBF94] w-full"
-            style={{
-              fontFamily: "'Pilat Extended', Arial, sans-serif",
-              fontSize: '16px',
-              fontWeight: '400'
-            }}
-          />
-        </div>
 
-        
-        <p 
-          className="text-gray-400 text-center mb-6 sm:mb-8 max-w-lg"
-          style={{
-            fontSize: '14px',
-            fontFamily: "'Pilat Extended', Arial, sans-serif",
-            fontWeight: '400'
-          }}
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit
-        </p>
-        <div className="w-full max-w-lg px-4 sm:px-0 flex justify-center">
-          <PortalButton 
-            onClick={handleProceed}
-            disabled={!teamName.trim() || loading}
-            className={`w-full text-lg sm:w-auto sm:px-12 ${teamName.trim() ? '' : 'opacity-50 pointer-events-none'}`}
-          >
-            {loading ? 'Creating…' : 'Proceed'}
-          </PortalButton>
+          {error && (
+            <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded-md text-sm mb-4">
+              {error}
+            </div>
+          )}
+
+          <div className="mb-4">
+            <input
+              type="text"
+              value={teamName}
+              onChange={handleNameChange}
+              placeholder="Team name"
+              className="w-full px-5 py-3 rounded-full bg-[#111213]/60 border border-white/10 text-white placeholder-gray-400 text-center focus:outline-none focus:ring-2 focus:ring-[#48BA86]/40"
+              style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: '16px', fontWeight: 400 }}
+            />
+          </div>
+
+          <p className="text-gray-400 text-center mb-6" style={{ fontSize: '14px', fontFamily: "'Pilat Regular', Arial, sans-serif", fontWeight: 400 }}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit
+          </p>
+
+          <div className="flex justify-center">
+            <PortalButton onClick={handleProceed} disabled={!teamName.trim() || loading} className={`${teamName.trim() ? '' : 'opacity-50 cursor-not-allowed'} px-6 py-2 text-[18px]`}>
+              {loading ? 'Creating…' : 'Proceed'}
+            </PortalButton>
+          </div>
         </div>
       </div>
     </div>

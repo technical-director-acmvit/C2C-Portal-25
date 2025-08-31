@@ -68,8 +68,7 @@ export default function Home() {
 
   return (
     <AuthReauthGuard>
-      {/* Shared portal logo - centralized so size/position is consistent across portal views */}
-      <div className="absolute top-6 left-6 sm:left-8">
+      <div className="absolute top-6 left-6 z-100 sm:left-8">
         <Image
           src="/portal/logo.svg"
           alt="Logo"

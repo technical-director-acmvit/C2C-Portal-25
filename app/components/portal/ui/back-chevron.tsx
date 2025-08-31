@@ -14,21 +14,17 @@ export default function BackChevron({ onClick, className = "", label = "Back" }:
   const [canGoBack, setCanGoBack] = useState(false);
 
   useEffect(() => {
-    // If an explicit onClick is provided, always render the button
     if (onClick) {
       setCanGoBack(true);
       return;
     }
 
-    // Browser environment checks
     if (typeof window !== 'undefined') {
-      // window.history.length > 1 generally indicates there's a previous entry
       if (window.history.length > 1) {
         setCanGoBack(true);
         return;
       }
 
-      // As a fallback, if there's a document.referrer (user navigated from another page), allow
       if (document.referrer) {
         setCanGoBack(true);
         return;
@@ -38,7 +34,6 @@ export default function BackChevron({ onClick, className = "", label = "Back" }:
     setCanGoBack(false);
   }, [onClick]);
 
-  // Do not render the chevron if there's nothing to go back to and no onClick provided
   if (!canGoBack) return null;
 
   const handle = () => {

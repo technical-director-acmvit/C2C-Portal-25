@@ -30,7 +30,6 @@ const TeamUp = () => {
     <div className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/portal/bg1.svg)' }}>
       <div className="flex flex-col items-center justify-center h-full px-4 text-center">
         <div className="flex items-center mb-6">
-          <BackChevron />
           <h1 
             className="flex-1 text-center text-white text-2xl sm:text-3xl md:text-4xl"
             style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontWeight: '700' }}
