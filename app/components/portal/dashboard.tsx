@@ -60,17 +60,36 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
   const team = data?.team ?? null;
   const track = data?.track ?? null;
   const currentUser = data?.user ?? null;
-  const teammatesRef = data?.teammates; // keep raw reference; no default []
+  const teammatesRef = data?.teammates; 
+  const minTeamMembers = Number(data?.minmembercount ?? 2);
+  const submissionOpen = Boolean(data?.submissionOpen);
+
 
   const members = useMemo<UserSummary[]>(() => {
     const arr: UserSummary[] = currentUser ? [currentUser] : [];
     return teammatesRef ? arr.concat(teammatesRef) : arr;
   }, [currentUser, teammatesRef]);
-
+  
   const needsSubmission = useMemo(() => {
     if (!team) return false;
-    return !(team.github_url && team.figma_url && team.other && team.track_id);
+    const hasGithub =
+      typeof team.github_url === "string"
+        ? team.github_url.trim().length > 0
+        : Boolean(team.github_url);
+    const hasFigma =
+      typeof team.figma_url === "string"
+        ? team.figma_url.trim().length > 0
+        : Boolean(team.figma_url);
+    const hasOther =
+      typeof team.other === "string"
+        ? team.other.trim().length > 0
+        : Boolean(team.other);
+    const hasTrack = Boolean(team.track_id);
+    return !(hasGithub && hasFigma && hasOther && hasTrack);
   }, [team]);
+
+    console.log( minTeamMembers, submissionOpen, members.length );
+
 
   const handleLeaveTeam = async () => {
     if (!team) return;
@@ -247,25 +266,29 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
               No track selected yet
             </p>
           )}
-          {!needsSubmission ? (
-            <p
-              className="text-green-300"
-              style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}
-            >
-              Submission completed
-            </p>
-          ) : (
-            <p
-              className="text-red-300"
-              style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}
-            >
-              Submission pending
-            </p>
-          )}
+
+          {/* Only show submission status when submissions are open */}
+          {submissionOpen ? (
+            (members.length >= minTeamMembers && !needsSubmission) ? (
+              <p
+                className="text-green-300"
+                style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}
+              >
+                Submission completed
+              </p>
+            ) : (
+              <p
+                className="text-red-300"
+                style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}
+              >
+                Submission pending
+              </p>
+            )
+          ) : null}
         </div>
 
         {/* Go to Form Button */}
-        {needsSubmission && (
+        {(members.length >= minTeamMembers && submissionOpen && needsSubmission) && (
           <button
             className="px-8 py-4 rounded-lg text-white cursor-pointer mb-4"
             style={{

@@ -36,6 +36,8 @@ export type DashboardResponse = {
   team?: TeamInfo | null;
   teammates?: UserSummary[];
   track?: TrackInfo | null;
+  minmembercount?: number;
+  submissionOpen?: boolean;
 };
 
 export async function fetchDashboard(): Promise<{ ok: boolean; status: number; data?: DashboardResponse; error?: string }> {
@@ -54,6 +56,7 @@ export async function fetchDashboard(): Promise<{ ok: boolean; status: number; d
     return { ok: false, status: res.status, error: err };
   }
   const r = (raw ?? {}) as {
+    minmembercount?: number;
     user?: UserSummary;
     team?: TeamInfo | null;
     teammates?: unknown;
@@ -69,6 +72,8 @@ export async function fetchDashboard(): Promise<{ ok: boolean; status: number; d
     team: r.team ?? null,
     teammates,
     track,
+    minmembercount: r.minmembercount,
+    submissionOpen: process.env.NEXT_PUBLIC_SUBMISSION_OPEN === 'true',
   };
   return { ok: true, status: res.status, data: cooked };
 }
