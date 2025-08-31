@@ -1,47 +1,78 @@
-
 "use client";
-import { useState } from 'react';
-import Topper from './topper';
-import RevolvingCards, { cardsData } from './RevolvingCards';
+import Image from "next/image";
+import Topper from "./topper";
 
-
+const TRACKS = [
+  {
+    number: 1,
+    title: "Web Development",
+    desc: "Learn modern web technologies",
+  },
+  { number: 2, title: "App Development", desc: "Create mobile applications" },
+  { number: 3, title: "Cloud Computing", desc: "Master cloud infrastructure" },
+  { number: 4, title: "AI & ML", desc: "Explore artificial intelligence" },
+  { number: 5, title: "Cybersecurity", desc: "Secure digital systems" },
+];
 
 const Tracks = ({ children }: { children?: React.ReactNode }) => {
-    const [currentTrack, setCurrentTrack] = useState(0);
+  return (
+    <div className="relative w-full overflow-hidden">
+      <div className="relative z-10">
+        <Topper text="Tracks" />
+        {children}
+      </div>
 
-    return (
-        <div className="relative w-full min-h-screen overflow-hidden">
-            <div className="relative z-10">
-                <Topper text="Tracks" />
-                {children}
-            </div>
-
-            <div className="w-full max-w-[1080px] min-h-[500px] bg-white/10 rounded-[20px] overflow-hidden flex flex-col md:flex-row items-stretch justify-between mx-auto mt-8 px-6 md:px-8 py-8 gap-8 border border-green-900/40">
-                {/* Left Side */}
-                <div className="flex flex-col justify-between md:w-[55%]">
-                    <div>
-                        <div className="justify-start">
-                            <span className="text-white text-5xl md:text-7xl lg:text-8xl font-bold font-['Trap'] leading-tight md:leading-[90px]">{cardsData[currentTrack].title.split(' ')[0]} </span>
-                            <span className="text-[#48BA86] text-5xl md:text-7xl lg:text-8xl font-bold font-['Trap'] leading-tight md:leading-[90px]">{cardsData[currentTrack].title.split(' ')[1] ?? ''}</span>
-                        </div>
-                        <div className="mt-4 max-w-[600px] text-white text-xl md:text-2xl font-normal font-['DM_Sans']">{cardsData[currentTrack].desc}</div>
-                    </div>
-                    <div className="flex flex-wrap items-center gap-4 md:gap-6 mt-8">
-                        {cardsData.map((c, idx) => (
-                            <button
-                                key={c.title}
-                                onClick={() => setCurrentTrack(idx)}
-                                className={`pb-1 border-b-2 transition-colors ${idx === currentTrack ? 'text-green-400 border-green-400' : 'text-white/90 border-transparent hover:border-green-400'}`}
-                            >
-                                {c.title}
-                            </button>
-                        ))}
-                    </div>
+      <div className="w-full max-w-[1080px] mx-auto mt-6 sm:mt-8 px-4 sm:px-6">
+        <div className="flex flex-col gap-4 sm:gap-6">
+          {TRACKS.map((card) => (
+            <article
+              key={card.number}
+              className="
+                bg-[#efefef] border border-green-900/40 rounded-[16px] sm:rounded-[20px]
+                overflow-hidden
+                flex flex-col md:flex-row items-stretch justify-between
+                p-4 sm:p-6 md:p-8 gap-4 sm:gap-6 md:gap-8
+              "
+            >
+              {/* Left: text */}
+              <div className="flex-1 flex flex-col justify-center">
+                <div className="flex items-center gap-3 sm:gap-4 mb-2 sm:mb-3">
+                  <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#48BA86]">
+                    #{card.number}
+                  </span>
+                  <h3 className="text-[#1e1e1e] font-bold font-['Trap'] text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
+                    {card.title}
+                  </h3>
                 </div>
-                <RevolvingCards currentTrack={currentTrack} />
-            </div>
+                <p className="text-[#1e1e1e] font-['DM_Sans'] text-base sm:text-lg md:text-xl">
+                  {card.desc}
+                </p>
+              </div>
+
+              {/* Right: image */}
+              <div
+                className="
+                  relative
+                  w-full md:w-[42%]
+                  aspect-[5/3] sm:aspect-[4/3] md:aspect-[1/1]
+                  self-center md:self-auto
+                "
+              >
+                <Image
+                  src="/landing/track.svg"
+                  alt={`${card.title} illustration`}
+                  fill
+                  className="object-contain"
+                  sizes="(min-width: 1024px) 45vw, (min-width: 768px) 40vw, 100vw"
+                  priority={card.number === 1}
+                />
+              </div>
+            </article>
+          ))}
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Tracks;

@@ -14,31 +14,31 @@ interface QuotesBannerProps {
   className?: string;
 }
 
-const QuotesBanner: React.FC<QuotesBannerProps> = ({ items, className = "" }) => {
-  const content: BannerItem[] =
-    items ?? [
-      {
-        text:
-          "Year-in and year-out, Code2Create has received praise and applause - it is all thanks to the student body that works tirelessly for the smooth sailing of the event.",
-        icon: "/landing/google.svg",
-        iconAlt: "Google icon",
-      },
-      {
-        text: "Heart-felt Congratulations to your successful event",
-        icon: "/landing/github.svg",
-        iconAlt: "GitHub icon",
-      },
-      {
-        text:
-          "Celebrating the dedication you've shown on the way to this achievement. You've earned every bit of the success you're enjoying.",
-        icon: "/landing/coding-blocks.svg",
-        iconAlt: "Coding Blocks logo",
-      },
-    ];
+const QuotesBanner: React.FC<QuotesBannerProps> = ({
+  items,
+  className = "",
+}) => {
+  const content: BannerItem[] = items ?? [
+    {
+      text: "Year-in and year-out, Code2Create has received praise and applause - it is all thanks to the student body that works tirelessly for the smooth sailing of the event.",
+      icon: "/landing/google.svg",
+      iconAlt: "Google icon",
+    },
+    {
+      text: "Heart-felt Congratulations to your successful event",
+      icon: "/landing/github.svg",
+      iconAlt: "GitHub icon",
+    },
+    {
+      text: "Celebrating the dedication you've shown on the way to this achievement. You've earned every bit of the success you're enjoying.",
+      icon: "/landing/coding-blocks.svg",
+      iconAlt: "Coding Blocks logo",
+    },
+  ];
 
   return (
     <div
-      className={`relative w-full overflow-hidden ${className}`}
+      className={`relative w-full overflow-hidden ${className} h-[8vh]`}
       aria-label="Community praise and sponsor banner"
     >
       <div
@@ -49,8 +49,7 @@ const QuotesBanner: React.FC<QuotesBannerProps> = ({ items, className = "" }) =>
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
-          maskImage:
-            "radial-gradient(black, black)",
+          maskImage: "radial-gradient(black, black)",
         }}
       />
 
@@ -58,18 +57,36 @@ const QuotesBanner: React.FC<QuotesBannerProps> = ({ items, className = "" }) =>
         <div className="hidden md:grid grid-cols-3 items-center gap-x-10 py-2 px-6 lg:px-12">
           <div className="flex items-center gap-2 min-w-0">
             {content[0]?.icon && (
-              <Image src={content[0].icon!} alt={content[0].iconAlt ?? "icon"} width={22} height={22} className="w-5 h-5 shrink-0" />
+              <Image
+                src={content[0].icon!}
+                alt={content[0].iconAlt ?? "icon"}
+                width={22}
+                height={22}
+                className="w-5 h-5 shrink-0"
+              />
             )}
-            <p className="m-0 text-sm text-black/90 italic leading-tight" style={{ fontFamily: "DM Sans, Arial, sans-serif" }}>
+            <p
+              className="m-0 text-sm text-black/90 italic leading-tight"
+              style={{ fontFamily: "DM Sans, Arial, sans-serif" }}
+            >
               “{content[0]?.text}”
             </p>
           </div>
 
           <div className="flex items-center gap-2 min-w-0">
             {content[1]?.icon && (
-              <Image src={content[1].icon!} alt={content[1].iconAlt ?? "icon"} width={22} height={22} className="w-5 h-5 shrink-0" />
+              <Image
+                src={content[1].icon!}
+                alt={content[1].iconAlt ?? "icon"}
+                width={22}
+                height={22}
+                className="w-5 h-5 shrink-0"
+              />
             )}
-            <p className="m-0 text-sm text-black/90 italic leading-tight" style={{ fontFamily: "DM Sans, Arial, sans-serif" }}>
+            <p
+              className="m-0 text-sm text-black/90 italic leading-tight"
+              style={{ fontFamily: "DM Sans, Arial, sans-serif" }}
+            >
               “{content[1]?.text}”
             </p>
           </div>
@@ -84,7 +101,10 @@ const QuotesBanner: React.FC<QuotesBannerProps> = ({ items, className = "" }) =>
                 className="w-8 h-8 lg:w-10 lg:h-10 shrink-0"
               />
             )}
-            <p className="m-0 text-sm text-black/90 italic leading-tight" style={{ fontFamily: "DM Sans, Arial, sans-serif" }}>
+            <p
+              className="m-0 text-sm text-black/90 italic leading-tight"
+              style={{ fontFamily: "DM Sans, Arial, sans-serif" }}
+            >
               “{content[2]?.text}”
             </p>
           </div>
@@ -97,12 +117,23 @@ const QuotesBanner: React.FC<QuotesBannerProps> = ({ items, className = "" }) =>
                 <Image
                   src={q.icon}
                   alt={q.iconAlt ?? "icon"}
-                  width={q && q.icon && q.icon.includes('coding-blocks') ? 28 : 18}
-                  height={q && q.icon && q.icon.includes('coding-blocks') ? 28 : 18}
-                  className={q && q.icon && q.icon.includes('coding-blocks') ? 'w-4 h-7 shrink-0' : 'w-5 h-5 shrink-0'}
+                  width={
+                    q && q.icon && q.icon.includes("coding-blocks") ? 28 : 18
+                  }
+                  height={
+                    q && q.icon && q.icon.includes("coding-blocks") ? 28 : 18
+                  }
+                  className={
+                    q && q.icon && q.icon.includes("coding-blocks")
+                      ? "w-4 h-7 shrink-0"
+                      : "w-5 h-5 shrink-0"
+                  }
                 />
               )}
-              <p className="m-0 text-[11px] text-black/90 italic leading-tight flex-1" style={{ fontFamily: "DM Sans, Arial, sans-serif" }}>
+              <p
+                className="m-0 text-[11px] text-black/90 italic leading-tight flex-1"
+                style={{ fontFamily: "DM Sans, Arial, sans-serif" }}
+              >
                 “{q?.text}”
               </p>
             </div>

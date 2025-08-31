@@ -1,48 +1,47 @@
 @font-face {
-  font-family: 'DM Sans';
-  src: url('/fonts/DMSans-Regular.ttf') format('truetype');
+  font-family: "DM Sans";
+  src: url("/fonts/DMSans-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @import "tailwindcss";
 
-@font-face{
-  font-family: 'Pilat Regular';
-  src: url('/fonts/PilatExtended-Regular.ttf') format('truetype');
+@font-face {
+  font-family: "Pilat Regular";
+  src: url("/fonts/PilatExtended-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Pilat Extended';
-  src: url('/fonts/PilatExtended-Bold.ttf') format('truetype');
+  font-family: "Pilat Extended";
+  src: url("/fonts/PilatExtended-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Pilat Extended';
-  src: url('/fonts/PilatExtended-Bold.ttf') format('truetype');
+  font-family: "Pilat Extended";
+  src: url("/fonts/PilatExtended-Bold.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Trap-Bold';
-  src: url('/fonts/Trap-Bold.otf') format('opentype');
+  font-family: "Trap-Bold";
+  src: url("/fonts/Trap-Bold.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
-
 @font-face {
-  font-family: 'Trap';
-  src: url('/fonts/Trap-Regular.otf') format('opentype');
+  font-family: "Trap";
+  src: url("/fonts/Trap-Regular.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
 }
@@ -52,7 +51,6 @@
   --foreground: #ededed;
 }
 
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #1e1e1e;
@@ -60,7 +58,9 @@
   }
 }
 
-html { background-color: #1e1e1e; }
+html {
+  background-color: #1e1e1e;
+}
 body {
   background: var(--background);
   color: var(--foreground);
@@ -68,6 +68,59 @@ body {
 }
 
 /* Use Pilat Extended for display headings */
-h1,h2,h3,h4 {
-  font-family: 'Pilat Extended', 'Trap', Arial, sans-serif;
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Pilat Extended", "Trap", Arial, sans-serif;
+}
+
+.text-glow {
+  /* Make the text transparent */
+  color: transparent;
+
+  /* Create the hollow effect with text-stroke */
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.9);
+
+  /* Add the outer glow */
+  text-shadow:
+        /* Bright border glow */
+        /* 0 0 5px rgba(255, 255, 255, 0.8),
+    0 0 10px rgba(255, 255, 255, 0.6), */
+
+        /* Outer glow fade */ 0
+      0 15px rgba(255, 255, 255, 0.4),
+    0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.text-hollow {
+  /* Make the text transparent */
+  color: transparent;
+  /* Create the hollow effect with text-stroke */
+  -webkit-text-stroke: 1px rgb(255, 255, 255);
+}
+.text-hollow-text {
+  /* Make the text transparent */
+  color: transparent;
+  /* Create the hollow effect with text-stroke */
+  -webkit-text-stroke: 0.5px rgb(255, 255, 255);
+}
+.tagline {
+  color: #bebebe;
+  font-family: Trap-Bold, Arial, sans-serif;
+  font-weight: 700;
+  text-align: center;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+.reflected-text {
+  transform: scaleY(-1);
+  opacity: 0.35;
+  filter: blur(0.6px);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.9),
+    rgba(0, 0, 0, 0)
+  );
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
 }
