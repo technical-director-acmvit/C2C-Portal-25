@@ -8,7 +8,6 @@ import LeaveTeamModal from './leave-team-modal';
 import { fetchDashboard, type DashboardResponse, type UserSummary } from '../../actions/dashboard';
 import { leaveTeam } from "@/app/actions/team";
 import PortalLoader from "./portal-loader";
-import { getCurrentSubmission, type Submission } from "@/app/actions/submission";
 import BackChevron from './ui/back-chevron';
 
 interface DashboardProps {
@@ -20,7 +19,6 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<DashboardResponse | null>(null);
   const [showForm, setShowForm] = useState(false);
-  const [submission, setSubmission] = useState<Submission | null>(null);
   const [leaveProcessing, setLeaveProcessing] = useState(false);
   const [showLeaveModal, setShowLeaveModal] = useState(false);
 
@@ -40,14 +38,8 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
         if (!res.ok) {
           setError(res.error || "Failed to load dashboard");
         } else {
+          setError(null);
           setData(res.data ?? null);
-          // If the user has a team, try to fetch current submission
-          if (res.data?.team) {
-            const sub = await getCurrentSubmission();
-            if (mounted && sub.ok) setSubmission(sub.data ?? null);
-          } else {
-            setSubmission(null);
-          }
         }
       } catch (err) {
         if (mounted)
@@ -56,6 +48,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
           );
       } finally {
         if (mounted) setLoading(false);
+        clearTimeout(failover);
       }
     })();
     return () => {
@@ -76,9 +69,8 @@ const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
 
   const needsSubmission = useMemo(() => {
     if (!team) return false;
-    if (submission) return false;
     return !(team.github_url && team.figma_url && team.other && team.track_id);
-  }, [team, submission]);
+  }, [team]);
 
   const handleLeaveTeam = async () => {
     if (!team) return;
