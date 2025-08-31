@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer className="relative w-full h-[1300px] overflow-hidden">
+    <footer className="relative w-full h-auto md:h-[1300px] overflow-hidden">
       {/* Background image behind all content */}
       <div className="absolute inset-0 -z-10">
         <Image
@@ -26,18 +26,18 @@ const Footer = () => {
         />
       </div>
 
-      {/* Divider line */}
-      <div className="w-[1438.01px] h-0 outline outline-1 outline-offset-[-0.5px] outline-white mx-auto"></div>
+  {/* Divider line */}
+  <div className="w-full md:w-[1438.01px] h-0 outline outline-1 outline-offset-[-0.5px] outline-white mx-auto" />
 
       {/* Logo row under divider */}
-      <div className="w-full flex items-center justify-center py-8">
-        <div className="flex items-center justify-center gap-6 sm:gap-8">
+      <div className="w-full flex items-center justify-center py-6 md:py-8 px-4">
+        <div className="flex items-center justify-center gap-4 sm:gap-6 md:gap-8 flex-wrap">
           <Image
             src="/footer/c2c-logo-art.svg"
             alt="Code2Create with name"
             width={160}
             height={40}
-            className="h-8 sm:h-10 w-auto"
+            className="h-7 sm:h-8 md:h-10 w-auto"
             priority
           />
           <Image
@@ -45,7 +45,7 @@ const Footer = () => {
             alt="ACM green logo"
             width={78}
             height={78}
-            className="h-9 sm:h-10 w-auto"
+            className="h-8 sm:h-9 md:h-10 w-auto"
             priority
           />
           <Image
@@ -53,7 +53,7 @@ const Footer = () => {
             alt="Hand icon"
             width={62}
             height={85}
-            className="h-10 sm:h-12 w-auto"
+            className="h-9 sm:h-10 md:h-12 w-auto"
             priority
           />
         </div>
@@ -61,23 +61,23 @@ const Footer = () => {
 
       {/* Footer Content */}
       <div className="relative z-10 flex flex-col min-h-[60vh] pb-0">
-        <div className="flex-grow flex items-start justify-between px-6 sm:px-10 md:px-16 pt-6">
+        <div className="flex-grow flex flex-col md:flex-row items-start md:items-start justify-between px-4 sm:px-6 md:px-16 pt-6 gap-8">
           {/* Left Section */}
-          <div className="flex-shrink-0">
-            <div className="text-[#48ba86] text-xl font-bold leading-tight" style={{ fontFamily: "Trap" }}>
+          <div className="flex-shrink-0 w-full md:w-auto">
+            <div className="text-[#48ba86] text-lg md:text-xl font-bold leading-tight text-center md:text-left" style={{ fontFamily: "Trap" }}>
               Code2Create
             </div>
 
             {/* Status pill */}
-            <div className="w-fit my-4 relative flex items-center border border-zinc-100 rounded-full px-2 pr-4">
-              <div className="w-4 h-4 bg-green-400 rounded-full shadow-[0_0_8px_2px_rgba(72,186,134,1)] animate-[pulse_1.5s_ease-in-out_infinite]"></div>
-              <div className="ml-2 text-zinc-100 text-sm font-thin font-['PolySans_Trial'] whitespace-nowrap">
+            <div className="w-fit mx-auto md:mx-0 my-4 relative flex items-center border border-zinc-100 rounded-full px-2 pr-4">
+              <div className="w-3 h-3 md:w-4 md:h-4 bg-green-400 rounded-full shadow-[0_0_8px_2px_rgba(72,186,134,1)] animate-[pulse_1.5s_ease-in-out_infinite]"></div>
+              <div className="ml-2 text-zinc-100 text-xs md:text-sm font-thin font-['PolySans_Trial'] whitespace-nowrap">
                 All systems online
               </div>
             </div>
 
             {/* Map */}
-            <div className="mt-6 relative w-52 h-36">
+            <div className="mt-6 relative w-48 h-32 md:w-52 md:h-36 mx-auto md:mx-0">
               <a
               href="https://w3w.co/static.grips.limelight"
               target="_blank"
@@ -89,19 +89,19 @@ const Footer = () => {
                 fill
                 className="object-cover rounded-lg shadow-lg border border-zinc-700"
               />
-              <div className="absolute inset-0 w-52 h-36 opacity-50 bg-gradient-to-b from-white to-green-400 rounded-lg pointer-events-none" />
+              <div className="absolute inset-0 w-full h-full opacity-50 bg-gradient-to-b from-white to-green-400 rounded-lg pointer-events-none" />
               </a>
             </div>
           </div>
 
           {/* Navigation Sections */}
-          <div className="flex justify-start items-start gap-8 flex-wrap">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 md:gap-8 md:flex md:flex-wrap md:justify-start w-full md:w-auto">
             {/* ABOUT */}
-            <div className="w-24 flex flex-col gap-4">
-              <div className="text-[#48ba86] text-base font-light font-['PolySans_Trial'] uppercase">ABOUT</div>
-              <div className="flex flex-col gap-2">
+            <div className="w-full sm:w-40 md:w-24 flex flex-col gap-3 md:gap-4">
+              <div className="text-[#48ba86] text-sm md:text-base font-light font-['PolySans_Trial'] uppercase">ABOUT</div>
+              <div className="flex flex-col gap-1.5 md:gap-2">
                 {["C2C", "ACM", "TRACKS"].map((item) => (
-                  <a key={item} href="#" className="text-white text-base font-light font-['PolySans_Trial'] uppercase hover:text-yellow-50 transition-colors">
+                  <a key={item} href="#" className="text-white text-sm md:text-base font-light font-['PolySans_Trial'] uppercase hover:text-yellow-50 transition-colors">
                     {item}
                   </a>
                 ))}
@@ -109,11 +109,11 @@ const Footer = () => {
             </div>
 
             {/* TRACKS */}
-            <div className="w-44 flex flex-col gap-4">
-              <div className="text-[#48ba86] text-base font-light font-['PolySans_Trial'] uppercase">TRACKS</div>
-              <div className="flex flex-col gap-2">
+            <div className="w-full sm:w-48 md:w-44 flex flex-col gap-3 md:gap-4">
+              <div className="text-[#48ba86] text-sm md:text-base font-light font-['PolySans_Trial'] uppercase">TRACKS</div>
+              <div className="flex flex-col gap-1.5 md:gap-2">
               {["Al SOLUTONS", "ART ATTACK", "DIGITAL DAWN", "I CAN DO IT BETTER", "GAME OVER"].map((item) => (
-                <span key={item} className="text-white text-base font-light font-['PolySans_Trial'] uppercase">
+                <span key={item} className="text-white text-sm md:text-base font-light font-['PolySans_Trial'] uppercase">
                 {item}
                 </span>
               ))}
@@ -121,11 +121,11 @@ const Footer = () => {
             </div>
 
             {/* GUESTS */}
-            <div className="w-36 flex flex-col gap-4">
-              <div className="text-[#48ba86] text-base font-light font-['PolySans_Trial'] uppercase">GUESTS</div>
-              <div className="flex flex-col gap-2">
+            <div className="w-full sm:w-40 md:w-36 flex flex-col gap-3 md:gap-4">
+              <div className="text-[#48ba86] text-sm md:text-base font-light font-['PolySans_Trial'] uppercase">GUESTS</div>
+              <div className="flex flex-col gap-1.5 md:gap-2">
               {["DJ ISAAC", "H M EHRZAAD", "MEENAKSHI"].map((item) => (
-                <span key={item} className="text-white text-base font-light font-['PolySans_Trial'] uppercase">
+                <span key={item} className="text-white text-sm md:text-base font-light font-['PolySans_Trial'] uppercase">
                 {item}
                 </span>
               ))}
@@ -133,11 +133,11 @@ const Footer = () => {
             </div>
 
             {/* OUR PRODUCTS */}
-            <div className="w-28 flex flex-col gap-4">
-              <div className="text-[#48ba86] text-base font-light font-['PolySans_Trial'] uppercase">OUR PRODUCTS</div>
-              <div className="flex flex-col gap-2">
+            <div className="w-full sm:w-40 md:w-28 flex flex-col gap-3 md:gap-4">
+              <div className="text-[#48ba86] text-sm md:text-base font-light font-['PolySans_Trial'] uppercase">OUR PRODUCTS</div>
+              <div className="flex flex-col gap-1.5 md:gap-2">
                 {["ACMONE", "CLI-RPG", "EXAMCOOKER", "CLITOP", "LOCALHOST", "os", "UNIPOOL"].map((item) => (
-                  <a key={item} href="#" className="text-white text-base font-light font-['PolySans_Trial'] uppercase hover:text-yellow-50 transition-colors">
+                  <a key={item} className="text-white text-sm md:text-base font-light font-['PolySans_Trial'] uppercase hover:text-yellow-50 transition-colors">
                     {item}
                   </a>
                 ))}
@@ -157,11 +157,11 @@ const Footer = () => {
             </div> */}
 
             {/* SPONSORS */}
-            <div className="w-20 flex flex-col gap-4">
-              <div className="text-[#48ba86] text-base font-light font-['PolySans_Trial'] uppercase">SPONSORS</div>
-              <div className="flex flex-col gap-2">
+            <div className="w-full sm:w-28 md:w-20 flex flex-col gap-3 md:gap-4">
+              <div className="text-[#48ba86] text-sm md:text-base font-light font-['PolySans_Trial'] uppercase">SPONSORS</div>
+              <div className="flex flex-col gap-1.5 md:gap-2">
                 {["ABOUT W", "EVENTS"].map((item) => (
-                  <a key={item} href="#" className="text-white text-base font-light font-['PolySans_Trial'] uppercase hover:text-yellow-50 transition-colors">
+                  <a key={item} href="#" className="text-white text-sm md:text-base font-light font-['PolySans_Trial'] uppercase hover:text-yellow-50 transition-colors">
                     {item}
                   </a>
                 ))}
@@ -172,14 +172,14 @@ const Footer = () => {
       </div>
 
       {/* Bottom Section */}
-      <div className="w-full flex flex-col items-center justify-center relative">
+      <div className="w-full flex flex-col items-center justify-center relative px-4">
         <div className="flex flex-col items-center justify-center mb-4 z-30 relative">
-          <p className="text-white text-xl mb-12">
+          <p className="text-white text-sm md:text-xl mb-8 md:mb-12 text-center">
             © 2025 ACM-VIT. All rights reserved.
           </p>
 
           {/* Social Icons */}
-          <div className="flex flex-row items-center gap-4 mb-12">
+          <div className="flex flex-row items-center gap-3 md:gap-4 mb-10 md:mb-12 flex-wrap justify-center">
             {[
               {
                 href: "https://www.facebook.com/acmvitvellore",
@@ -235,41 +235,55 @@ const Footer = () => {
                   alt={alt}
                   width={w}
                   height={h}
-                  className={`${
-                    alt === "YouTube" ? "rounded" : ""
-                  } hover:scale-110 transition-transform`}
+                  className={`${alt === "YouTube" ? "rounded" : ""} hover:scale-110 transition-transform w-8 h-auto md:w-auto`}
                 />
               </a>
             ))}
           </div>
 
-            <div className="flex items-center gap-3 pt-8">
+            <div className="flex items-center gap-2 md:gap-3 pt-6 md:pt-8">
               <Image
               src="/footer/pixel-heart.svg"
               alt="pixel heart"
               width={36}
               height={36}
-              className="w-9 h-9"
+              className="w-6 h-6 md:w-9 md:h-9"
               />
               <span
-              className="text-white text-4xl"
+              className="text-white text-xl md:text-4xl text-center"
               style={{ fontFamily: "Trap-Bold" }}
               >
               crafted with love by ACM-VIT
               </span>
             </div>
 
+            {/* C2C heading: mobile-optimized and desktop-original */}
             <h1
-              className="text-center break-words hyphens-auto py-16"
+              className="text-center break-words hyphens-auto py-10 md:hidden"
               style={{
-              WebkitTextStroke: "4px #ffffffff",
-              fontFamily: "Trap-Bold, Arial, sans-serif",
-              fontSize: "clamp(200px, 35vw, 600px)",
-              fontWeight: "200",
-              lineHeight: "clamp(110%, 8vw, 100%)",
-              color: "transparent",
-              letterSpacing: "0.05em",
-              textShadow: "0 12px 48px rgba(0,0,0,0.25)",
+                WebkitTextStroke: "3px #ffffffff",
+                fontFamily: "Trap-Bold, Arial, sans-serif",
+                fontSize: "clamp(96px, 22vw, 200px)",
+                fontWeight: "200",
+                lineHeight: "1",
+                color: "transparent",
+                letterSpacing: "0.05em",
+                textShadow: "0 8px 32px rgba(0,0,0,0.25)",
+              }}
+            >
+              C2C
+            </h1>
+            <h1
+              className="hidden md:block text-center break-words hyphens-auto py-16"
+              style={{
+                WebkitTextStroke: "4px #ffffffff",
+                fontFamily: "Trap-Bold, Arial, sans-serif",
+                fontSize: "clamp(200px, 35vw, 600px)",
+                fontWeight: "200",
+                lineHeight: "clamp(110%, 8vw, 100%)",
+                color: "transparent",
+                letterSpacing: "0.05em",
+                textShadow: "0 12px 48px rgba(0,0,0,0.25)",
               }}
             >
               C2C
@@ -278,7 +292,7 @@ const Footer = () => {
 
         {/* Big background text */}
         <div
-          className="absolute left-1/2 -translate-x-1/2 -bottom-28 -z-10 text-neutral-400 text-[568.78px] font-bold font-['PolySans_Trial'] leading-none opacity-100 select-none pointer-events-none"
+          className="absolute left-1/2 -translate-x-1/2 -bottom-20 md:-bottom-28 -z-10 text-neutral-400 text-[160px] sm:text-[240px] md:text-[568.78px] font-bold font-['PolySans_Trial'] leading-none opacity-100 select-none pointer-events-none"
           style={{ lineHeight: "0.8" }}
         >
           acm
