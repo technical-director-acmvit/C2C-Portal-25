@@ -1,0 +1,4387 @@
+[
+  {
+    "state": "Andaman and Nicobar Islands",
+    "category": "Central Government",
+    "name": "Central Tribal University of Andhra Pradesh (CTU AP)"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Acharya Nagarjuna University"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Acharya NG Ranga Agricultural University (ANGRAU)"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Adikavi Nannaya University (AKNU)"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Andhra University"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "Central Government",
+    "name": "Central University of Andhra Pradesh (CU Andhra Pradesh)"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "Central Government",
+    "name": "Coir Board"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Damodaram Sanjivayya National Law University (DSNLU)"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Dhanamanjuri University"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Dr BRAmbedkar University Srikakulam"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Dr NTR University of Health Sciences"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Dr YSR Architecture and Fine Arts University (YSRAFU)"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Dravidian University"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "Deemed (Private)",
+    "name": "Gandhi Institute of Technology and Management"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "Private",
+    "name": "Gitam University"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "Central Government",
+    "name": "Indian Maritime University (IMU)"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Jawaharlal Nehru Technological University Anantapur (JNTUA)"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Jawaharlal Nehru Technological University Hyderabad (JNTUH)"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Jawaharlal Nehru Technological University Kakinada (JNTUK)"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "Deemed (Private)",
+    "name": "K L University"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Karnataka State Akkamahadevi Women University (KSAWU)"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Krishna University"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "Private",
+    "name": "Maharishi University of Management and Technology"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "Central Government",
+    "name": "National Sanskrit University (NSKTU Tirupati)"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Rajiv Gandhi University of Knowledge Technologies (RGUKT)"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "Private",
+    "name": "Rayalaseema University"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Sri Krishnadevaraya University (SK University)"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Sri Padmavati Mahila Visvavidyalayam (SPMVV)"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "Private",
+    "name": "Sri Sathya Sai University"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Sri Venkateswara Institute of Medical Sciences (SVIMS)"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Sri Venkateswara University (SVU Tirupati)"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Sri Venkateswara Vedic University (SVVU)"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Sri Venkateswara Veterinary University (SVVU)"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "Deemed (Private)",
+    "name": "SRM University"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "Deemed (Private)",
+    "name": "Vignan University"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Vikrama Simhapuri University"
+  },
+  {
+    "state": "Andhra Pradesh",
+    "category": "State Government",
+    "name": "Yogi Vemana University (YVU)"
+  },
+  {
+    "state": "Arunachal Pradesh",
+    "category": "Private",
+    "name": "Arunachal Universuty of Studies"
+  },
+  {
+    "state": "Arunachal Pradesh",
+    "category": "Private",
+    "name": "Arunodaya University"
+  },
+  {
+    "state": "Arunachal Pradesh",
+    "category": "State Government",
+    "name": "Himalayan University"
+  },
+  {
+    "state": "Arunachal Pradesh",
+    "category": "Private",
+    "name": "Indira Gandhi Technological and Medical Sciences University"
+  },
+  {
+    "state": "Arunachal Pradesh",
+    "category": "Private",
+    "name": "North East Frontier Technical University"
+  },
+  {
+    "state": "Arunachal Pradesh",
+    "category": "Deemed (Government)",
+    "name": "North Eastern Regional Institute of Science and Technology (NERIST)"
+  },
+  {
+    "state": "Arunachal Pradesh",
+    "category": "State Government",
+    "name": "Rajiv Gandhi University (RGU)"
+  },
+  {
+    "state": "Arunachal Pradesh",
+    "category": "Private",
+    "name": "Venkateshwara Open University"
+  },
+  {
+    "state": "Assam",
+    "category": "Central Government",
+    "name": "Assam Agricultural University (AAU)"
+  },
+  {
+    "state": "Assam",
+    "category": "Private",
+    "name": "Assam Don Bosco University (ADBU)"
+  },
+  {
+    "state": "Assam",
+    "category": "Private",
+    "name": "Assam Down Town University"
+  },
+  {
+    "state": "Assam",
+    "category": "State Government",
+    "name": "Assam Rajiv Gandhi University of Cooperative Management (ARGUCOM)"
+  },
+  {
+    "state": "Assam",
+    "category": "State Government",
+    "name": "Assam Science and Technology University (ASTU)"
+  },
+  {
+    "state": "Assam",
+    "category": "Central Government",
+    "name": "Assam University (AU Silchar)"
+  },
+  {
+    "state": "Assam",
+    "category": "State Government",
+    "name": "Assam Womens University (AWU)"
+  },
+  {
+    "state": "Assam",
+    "category": "State Government",
+    "name": "Bhattadev University"
+  },
+  {
+    "state": "Assam",
+    "category": "State Government",
+    "name": "Bodoland University"
+  },
+  {
+    "state": "Assam",
+    "category": "Central Government",
+    "name": "Centre for Development of Advanced Computing (CDAC)"
+  },
+  {
+    "state": "Assam",
+    "category": "State Government",
+    "name": "Cotton University"
+  },
+  {
+    "state": "Assam",
+    "category": "State Government",
+    "name": "Dibrugarh University"
+  },
+  {
+    "state": "Assam",
+    "category": "State Government",
+    "name": "Gauhati University"
+  },
+  {
+    "state": "Assam",
+    "category": "Central Government",
+    "name": "Indian Oil Corporation Limited (IOCL)"
+  },
+  {
+    "state": "Assam",
+    "category": "Private",
+    "name": "Kaziranga University"
+  },
+  {
+    "state": "Assam",
+    "category": "State Government",
+    "name": "Krishna Kanta Handiqui State Open University (KKHSOU)"
+  },
+  {
+    "state": "Assam",
+    "category": "State Government",
+    "name": "Kumar Bhaskar Varma Sanskrit and Ancient Studies University (KBVSASUN)"
+  },
+  {
+    "state": "Assam",
+    "category": "State Government",
+    "name": "Madhabdev University"
+  },
+  {
+    "state": "Assam",
+    "category": "Private",
+    "name": "Mahapurusha Srimanta Sankaradeva Viswavidyalaya (MSSV)"
+  },
+  {
+    "state": "Assam",
+    "category": "State Government",
+    "name": "National Law University and Judicial Academy Assam (NLUJA Assam)"
+  },
+  {
+    "state": "Assam",
+    "category": "Private",
+    "name": "Royal Global University"
+  },
+  {
+    "state": "Assam",
+    "category": "State Government",
+    "name": "Sri Sri Aniruddhadeva Sports University (SASU)"
+  },
+  {
+    "state": "Assam",
+    "category": "State Government",
+    "name": "Srimanta Sankaradeva University of Health Sciences (SSUHS)"
+  },
+  {
+    "state": "Assam",
+    "category": "Central Government",
+    "name": "Tezpur University (TEZU)"
+  },
+  {
+    "state": "Bihar",
+    "category": "Private",
+    "name": "Amity University"
+  },
+  {
+    "state": "Bihar",
+    "category": "State Government",
+    "name": "Aryabhatta Knowledge University (AKU Bihar)"
+  },
+  {
+    "state": "Bihar",
+    "category": "State Government",
+    "name": "Babasaheb Bhimrao Ambedkar Bihar University (BRABU)"
+  },
+  {
+    "state": "Bihar",
+    "category": "State Government",
+    "name": "Bhupendra Narayan Mandal University (BNMU)"
+  },
+  {
+    "state": "Bihar",
+    "category": "State Government",
+    "name": "Bihar Agricultural University (BAU)"
+  },
+  {
+    "state": "Bihar",
+    "category": "State Government",
+    "name": "Bihar Animal Sciences University (BASU)"
+  },
+  {
+    "state": "Bihar",
+    "category": "Deemed (Private)",
+    "name": "Bihar School of Yoga (Bihar Yoga Bharti)"
+  },
+  {
+    "state": "Bihar",
+    "category": "Central Government",
+    "name": "Central University of South Bihar (CUSB)"
+  },
+  {
+    "state": "Bihar",
+    "category": "Central Government",
+    "name": "Centre for Development of Advanced Computing (CDAC)"
+  },
+  {
+    "state": "Bihar",
+    "category": "State Government",
+    "name": "Chanakya National Law University (CNLU)"
+  },
+  {
+    "state": "Bihar",
+    "category": "Central Government",
+    "name": "Dr Rajendra Prasad Central Agricultural University (RPCAU)"
+  },
+  {
+    "state": "Bihar",
+    "category": "Central Government",
+    "name": "Indian Oil Corporation Limited (IOCL)"
+  },
+  {
+    "state": "Bihar",
+    "category": "State Government",
+    "name": "Jai Prakash University (JPU)"
+  },
+  {
+    "state": "Bihar",
+    "category": "Private",
+    "name": "K K University"
+  },
+  {
+    "state": "Bihar",
+    "category": "State Government",
+    "name": "Kameshwar Singh Darbhanga Sanskrit University (KSDSU)"
+  },
+  {
+    "state": "Bihar",
+    "category": "State Government",
+    "name": "Lalit Narayan Mithila University (LNMU)"
+  },
+  {
+    "state": "Bihar",
+    "category": "State Government",
+    "name": "Magadh University"
+  },
+  {
+    "state": "Bihar",
+    "category": "Central Government",
+    "name": "Mahatma Gandhi Central University Bihar (MGCUB)"
+  },
+  {
+    "state": "Bihar",
+    "category": "State Government",
+    "name": "Maulana Mazharul Haque Arabic and Persian University (MMHAPU)"
+  },
+  {
+    "state": "Bihar",
+    "category": "State Government",
+    "name": "Munger University"
+  },
+  {
+    "state": "Bihar",
+    "category": "State Government",
+    "name": "Nalanda Open University"
+  },
+  {
+    "state": "Bihar",
+    "category": "Central Government",
+    "name": "Nalanda University"
+  },
+  {
+    "state": "Bihar",
+    "category": "State Government",
+    "name": "Nava Nalanda Mahavihara (NNM)"
+  },
+  {
+    "state": "Bihar",
+    "category": "State Government",
+    "name": "Patna University"
+  },
+  {
+    "state": "Bihar",
+    "category": "State Government",
+    "name": "Tilka Manjhi Bhagalpur University (TMBU)"
+  },
+  {
+    "state": "Bihar",
+    "category": "State Government",
+    "name": "Veer Kunwar Singh University (VKSU)"
+  },
+  {
+    "state": "Chandigarh",
+    "category": "Private",
+    "name": "Chandigarh University"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "Private",
+    "name": "Amity University"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "State Government",
+    "name": "Atal Bihari Vajpayee Bilaspur University (ABVV)"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "State Government",
+    "name": "Chhattisgarh Kamdhenu Vishwavidyalaya (CGKV)"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "State Government",
+    "name": "Chhattisgarh Swami Vivekanand Technical University (CSVTU)"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "Private",
+    "name": "Dr C V Raman University"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "State Government",
+    "name": "Durg University"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "Central Government",
+    "name": "Guru Ghasidas University (GGU Bilaspur)"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "State Government",
+    "name": "Hidayatullah National Law University (HNLU)"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "Private",
+    "name": "ICFAI University"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "State Government",
+    "name": "Indira Gandhi Agricultural University (IGAU)"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "State Government",
+    "name": "Indira Kala Sangeet Vishwavidyalaya (IKSV)"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "Private",
+    "name": "ISBM University"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "Private",
+    "name": "ITM University"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "Private",
+    "name": "Kalinga University"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "State Government",
+    "name": "Kushabhau Thakre Patrakarita Avam Jansanchar Vishwavidyalaya (KTUJM)"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "Private",
+    "name": "MATS University"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "Private",
+    "name": "OP Jindal University"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "State Government",
+    "name": "Pandit Ravishankar Shukla University (PRSU)"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "State Government",
+    "name": "Pandit Sundarlal Sharma University Chhattisgarh (PSSOU)"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "State Government",
+    "name": "Pt Deendayal Upadhyay Memorial Health Sciences and Ayush University of Chhattisgarh"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "State Government",
+    "name": "Sarguja University"
+  },
+  {
+    "state": "Chhattisgarh",
+    "category": "State Government",
+    "name": "Shaheed Mahendra Karma Vishwavidyalaya (Bastar University)"
+  },
+  {
+    "state": "Delhi",
+    "category": "State Government",
+    "name": "Ambedkar University Delhi"
+  },
+  {
+    "state": "Delhi",
+    "category": "Central Government",
+    "name": "Central Council for Research in Ayurvedic Sciences (CCRAS)"
+  },
+  {
+    "state": "Delhi",
+    "category": "Deemed (Government)",
+    "name": "Central Sanskrit University"
+  },
+  {
+    "state": "Delhi",
+    "category": "Central Government",
+    "name": "Centre for Development of Advanced Computing (CDAC)"
+  },
+  {
+    "state": "Delhi",
+    "category": "Central Government",
+    "name": "Coir Board"
+  },
+  {
+    "state": "Delhi",
+    "category": "State Government",
+    "name": "Delhi Pharmaceutical Sciences and Research University (DPSRU)"
+  },
+  {
+    "state": "Delhi",
+    "category": "State Government",
+    "name": "Delhi Skill and Entrepreneurship University (DSEU)"
+  },
+  {
+    "state": "Delhi",
+    "category": "State Government",
+    "name": "Delhi Technological University (DTU)"
+  },
+  {
+    "state": "Delhi",
+    "category": "State Government",
+    "name": "Guru Gobind Singh Indraprastha University (GGSIPU)"
+  },
+  {
+    "state": "Delhi",
+    "category": "State Government",
+    "name": "Indira Gandhi Delhi Technical University For Women (IGDTUW)"
+  },
+  {
+    "state": "Delhi",
+    "category": "Private",
+    "name": "International Management Institute Delhi (IMI Delhi)"
+  },
+  {
+    "state": "Delhi",
+    "category": "Deemed (Government)",
+    "name": "Jamia Hamdard"
+  },
+  {
+    "state": "Delhi",
+    "category": "Central Government",
+    "name": "Jamia Millia Islamia (JMI)"
+  },
+  {
+    "state": "Delhi",
+    "category": "Central Government",
+    "name": "Jawaharlal Nehru University (JNU)"
+  },
+  {
+    "state": "Delhi",
+    "category": "Central Government",
+    "name": "National Institute of Educational Planning and Administration (NIEPA)"
+  },
+  {
+    "state": "Delhi",
+    "category": "State Government",
+    "name": "National Law University Delhi (NLU Delhi)"
+  },
+  {
+    "state": "Delhi",
+    "category": "Central Government",
+    "name": "National University of Educational Planning and Administration (NUEPA)"
+  },
+  {
+    "state": "Delhi",
+    "category": "State Government",
+    "name": "Netaji Subhas University of Technology (NSIT)"
+  },
+  {
+    "state": "Delhi",
+    "category": "Central Government",
+    "name": "Rashtriya Ayurveda Vidyapeeth (RAV Delhi)"
+  },
+  {
+    "state": "Delhi",
+    "category": "Deemed (Government)",
+    "name": "Shri Lal Bahadur Shastri Rashtriya Sanskrit Vidyapeetha (SLBSRSV)"
+  },
+  {
+    "state": "Delhi",
+    "category": "Central Government",
+    "name": "South Asian University (SAU)"
+  },
+  {
+    "state": "Delhi",
+    "category": "Deemed (Private)",
+    "name": "SRM University"
+  },
+  {
+    "state": "Delhi",
+    "category": "Deemed (Government)",
+    "name": "TERI University"
+  },
+  {
+    "state": "Delhi",
+    "category": "Central Government",
+    "name": "University of Delhi (Delhi University)"
+  },
+  {
+    "state": "Goa",
+    "category": "Private",
+    "name": "CEPT University"
+  },
+  {
+    "state": "Goa",
+    "category": "Central Government",
+    "name": "Goa University"
+  },
+  {
+    "state": "Goa",
+    "category": "Private",
+    "name": "Gujarat Maritime University (GMU)"
+  },
+  {
+    "state": "Goa",
+    "category": "Deemed (Government)",
+    "name": "Gujarat Vidyapith"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "Ahmedabad University"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Anand Agricultural University (AAU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "AURO University"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Bhakta Kavi Narsinh Mehta University (BNKMU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Birsa Munda Tribal University (BMTU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "Calorx Teachers University"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Central Government",
+    "name": "Central University of Gujarat (CUG)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Deemed (Private)",
+    "name": "Charotar University of Science and Technology (CHARUSAT)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Children University Gujarat"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "Dharamsinh Desai University (DDIT)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Dharmsinh Desai University (DDU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "Dhirubhai Ambani Institute of Information and Communication Technology (DA-IICT)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Dr Babasaheb Ambedkar Open University (BAOU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "Ganpat University"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Deemed (Government)",
+    "name": "Gati Shakti Vishwavidyalaya (GSV)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Gujarat Ayurved University (GAU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Gujarat National Law University (GNLU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Gujarat Technological University (GTU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Gujarat University"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Gujarat University of Transplantation Sciences (GUTS)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Hemchandracharya North Gujarat University (NGU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Indian Institute of Teacher Education (IITE Gandhinagar)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Central Government",
+    "name": "Indian Oil Corporation Limited (IOCL)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "Indrashil University"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "Indus University"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Institute of Infrastructure Technology Research and Management (IITRAM)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "ITM Vocational University"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Junagadh Agricultural University (JAU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "Kadi Sarva Vishwavidyalaya"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Kamdhenu University (KU Gandhinagar)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "Karnavati University"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Krantiguru Shyamji Krishna Verma Kachchh University (KSKVKU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Maharaja Krishnakumarsinhji Bhavnagar University (MKBU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Maharaja Sayajirao University Baroda (MSU Baroda)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "Marwadi University"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "National Forensic Sciences University (NFSU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Navsari Agricultural University (NAU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "Nirma University"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "P P Savani University"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Pandit Deendayal Petroleum University (PDPU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "Parul University"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "Plastindia International University"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Rashtriya Raksha University (RRU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "RK University"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "Sage University"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Sardar Patel University Vallabh Vidyanagar (SPUVVN)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Sardarkrushinagar Dantiwada Agricultural University (SDAU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Saurashtra University"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Shree Somnath Sanskrit University (SSSU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Shri Govind Guru University (SGGU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "State University of Performing and Visual Arts (SUPVA)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Swarnim Gujarat Sports University (SGSU)"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "Swarnim Startup and Innovation University"
+  },
+  {
+    "state": "Gujarat",
+    "category": "Private",
+    "name": "Uka Tarsadia University"
+  },
+  {
+    "state": "Gujarat",
+    "category": "State Government",
+    "name": "Veer Narmad South Gujarat University (VNSGU)"
+  },
+  {
+    "state": "Haryana",
+    "category": "Private",
+    "name": "Al-Falah University"
+  },
+  {
+    "state": "Haryana",
+    "category": "Private",
+    "name": "Amity University"
+  },
+  {
+    "state": "Haryana",
+    "category": "Private",
+    "name": "Ansal University"
+  },
+  {
+    "state": "Haryana",
+    "category": "Private",
+    "name": "Apeejay Stya University"
+  },
+  {
+    "state": "Haryana",
+    "category": "Private",
+    "name": "Ashoka University"
+  },
+  {
+    "state": "Haryana",
+    "category": "Private",
+    "name": "Baba Mast Nath University"
+  },
+  {
+    "state": "Haryana",
+    "category": "State Government",
+    "name": "Bhagat Phool Singh Women University Sonepat (BPS Women University)"
+  },
+  {
+    "state": "Haryana",
+    "category": "Deemed (Private)",
+    "name": "Bharati Vidyapeeth"
+  },
+  {
+    "state": "Haryana",
+    "category": "Private",
+    "name": "BML Munjal University"
+  },
+  {
+    "state": "Haryana",
+    "category": "Central Government",
+    "name": "Central University of Haryana (CUH)"
+  },
+  {
+    "state": "Haryana",
+    "category": "State Government",
+    "name": "Chaudhary Bansi Lal University (CBLU)"
+  },
+  {
+    "state": "Haryana",
+    "category": "State Government",
+    "name": "Chaudhary Charan Singh Haryana Agricultural University (CCS HAU)"
+  },
+  {
+    "state": "Haryana",
+    "category": "State Government",
+    "name": "Chaudhary Devi Lal University (CDLU)"
+  },
+  {
+    "state": "Haryana",
+    "category": "State Government",
+    "name": "Chaudhary Ranbir Singh University (CRSU)"
+  },
+  {
+    "state": "Haryana",
+    "category": "State Government",
+    "name": "Deenbandhu Chhotu Ram University of Science and Technology (DCRUSTM)"
+  },
+  {
+    "state": "Haryana",
+    "category": "Private",
+    "name": "GD Goenka University"
+  },
+  {
+    "state": "Haryana",
+    "category": "Private",
+    "name": "Geeta University"
+  },
+  {
+    "state": "Haryana",
+    "category": "State Government",
+    "name": "Guru Jambheshwar University of Science and Technology (GJUST)"
+  },
+  {
+    "state": "Haryana",
+    "category": "State Government",
+    "name": "Gurugram University"
+  },
+  {
+    "state": "Haryana",
+    "category": "State Government",
+    "name": "Haryana Institute of Civil Aviation (HICA)"
+  },
+  {
+    "state": "Haryana",
+    "category": "Private",
+    "name": "IILM University"
+  },
+  {
+    "state": "Haryana",
+    "category": "Central Government",
+    "name": "Indian Oil Corporation Limited (IOCL)"
+  },
+  {
+    "state": "Haryana",
+    "category": "State Government",
+    "name": "Indira Gandhi University Meerpur (IGU Meerpur)"
+  },
+  {
+    "state": "Haryana",
+    "category": "Private",
+    "name": "Jagannath University Bahadurgarh"
+  },
+  {
+    "state": "Haryana",
+    "category": "State Government",
+    "name": "JC Bose University of Science and Technology (YMCA)"
+  },
+  {
+    "state": "Haryana",
+    "category": "Private",
+    "name": "KR Mangalam University"
+  },
+  {
+    "state": "Haryana",
+    "category": "State Government",
+    "name": "Kurukshetra University"
+  },
+  {
+    "state": "Haryana",
+    "category": "State Government",
+    "name": "Lala Lajpat Rai University of Veterinary and Animal Sciences (LUVAS)"
+  },
+  {
+    "state": "Haryana",
+    "category": "Deemed (Private)",
+    "name": "Lingyas University"
+  },
+  {
+    "state": "Haryana",
+    "category": "State Government",
+    "name": "Maharana Pratap Horticultural University (MHU)"
+  },
+  {
+    "state": "Haryana",
+    "category": "Deemed (Private)",
+    "name": "Maharishi Markandeshwar University Mullana (MMU)"
+  },
+  {
+    "state": "Haryana",
+    "category": "State Government",
+    "name": "Maharshi Dayanand University Rohtak (MDU Rohtak)"
+  },
+  {
+    "state": "Haryana",
+    "category": "Deemed (Private)",
+    "name": "Manav Rachna International University"
+  },
+  {
+    "state": "Haryana",
+    "category": "Private",
+    "name": "MVN University"
+  },
+  {
+    "state": "Haryana",
+    "category": "Private",
+    "name": "NIILM University"
+  },
+  {
+    "state": "Haryana",
+    "category": "Private",
+    "name": "O P Jindal Global University"
+  },
+  {
+    "state": "Haryana",
+    "category": "State Government",
+    "name": "Pandit Bhagwat Dayal Sharma University of Health Sciences Rohtak (UHSR Rohtak)"
+  },
+  {
+    "state": "Haryana",
+    "category": "State Government",
+    "name": "Pandit Lakhmi Chand State University of Performing and Visual Arts (PLC Supva)"
+  },
+  {
+    "state": "Haryana",
+    "category": "Private",
+    "name": "PDM University"
+  },
+  {
+    "state": "Haryana",
+    "category": "State Government",
+    "name": "Sardar Patel University Mandi (SPU Mandi)"
+  },
+  {
+    "state": "Haryana",
+    "category": "Private",
+    "name": "Shree Guru Gobind Singh Tricentenary University"
+  },
+  {
+    "state": "Haryana",
+    "category": "State Government",
+    "name": "Shri Vishwakarma Skill University (SVSU)"
+  },
+  {
+    "state": "Haryana",
+    "category": "Deemed (Private)",
+    "name": "SRM University"
+  },
+  {
+    "state": "Haryana",
+    "category": "Private",
+    "name": "Starex University"
+  },
+  {
+    "state": "Haryana",
+    "category": "Private",
+    "name": "The Northcap University"
+  },
+  {
+    "state": "Himachal Pradesh",
+    "category": "Private",
+    "name": "Alakh Prakash Goyal Shimla University"
+  },
+  {
+    "state": "Himachal Pradesh",
+    "category": "Private",
+    "name": "Arni University"
+  },
+  {
+    "state": "Himachal Pradesh",
+    "category": "Private",
+    "name": "Baddi University of Emerging Sciences and Technologies (BUEST)"
+  },
+  {
+    "state": "Himachal Pradesh",
+    "category": "Private",
+    "name": "Bahra University"
+  },
+  {
+    "state": "Himachal Pradesh",
+    "category": "Central Government",
+    "name": "Central University of Himachal Pradesh (CU Himachal Pradesh)"
+  },
+  {
+    "state": "Himachal Pradesh",
+    "category": "State Government",
+    "name": "Chaudhary Sarwan Kumar Himachal Pradesh Krishi Vishvavidyalaya (CSKHPKV)"
+  },
+  {
+    "state": "Himachal Pradesh",
+    "category": "Private",
+    "name": "Chitkara University"
+  },
+  {
+    "state": "Himachal Pradesh",
+    "category": "State Government",
+    "name": "Dr Yashwant Singh Parmar University of Horticulture and Forestry (YSP University)"
+  },
+  {
+    "state": "Himachal Pradesh",
+    "category": "Private",
+    "name": "Eternal University"
+  },
+  {
+    "state": "Himachal Pradesh",
+    "category": "State Government",
+    "name": "Himachal Pradesh Board of School Education (HPBOSE)"
+  },
+  {
+    "state": "Himachal Pradesh",
+    "category": "State Government",
+    "name": "Himachal Pradesh National Law University Shimla (HPNLU Shimla)"
+  },
+  {
+    "state": "Himachal Pradesh",
+    "category": "State Government",
+    "name": "Himachal Pradesh Technical University (HIMTU)"
+  },
+  {
+    "state": "Himachal Pradesh",
+    "category": "State Government",
+    "name": "Himachal Pradesh University (HPU)"
+  },
+  {
+    "state": "Himachal Pradesh",
+    "category": "Private",
+    "name": "ICFAI University"
+  },
+  {
+    "state": "Himachal Pradesh",
+    "category": "Private",
+    "name": "IEC University"
+  },
+  {
+    "state": "Himachal Pradesh",
+    "category": "Private",
+    "name": "Maharaja Agrasen University"
+  },
+  {
+    "state": "Himachal Pradesh",
+    "category": "Private",
+    "name": "Manav Bharti University"
+  },
+  {
+    "state": "Himachal Pradesh",
+    "category": "Private",
+    "name": "Shoolini University"
+  },
+  {
+    "state": "Himachal Pradesh",
+    "category": "Private",
+    "name": "Sri Sai University"
+  },
+  {
+    "state": "Jammu and Kashmir",
+    "category": "State Government",
+    "name": "Baba Ghulam Shah Badshah University (BGSBU)"
+  },
+  {
+    "state": "Jammu and Kashmir",
+    "category": "Central Government",
+    "name": "Central University of Jammu (CU Jammu)"
+  },
+  {
+    "state": "Jammu and Kashmir",
+    "category": "Central Government",
+    "name": "Central University of Kashmir (CUK)"
+  },
+  {
+    "state": "Jammu and Kashmir",
+    "category": "State Government",
+    "name": "Cluster University of Jammu"
+  },
+  {
+    "state": "Jammu and Kashmir",
+    "category": "State Government",
+    "name": "Cluster University Srinagar (CU Srinagar)"
+  },
+  {
+    "state": "Jammu and Kashmir",
+    "category": "State Government",
+    "name": "Islamic University of Science and Technology (IUST)"
+  },
+  {
+    "state": "Jammu and Kashmir",
+    "category": "State Government",
+    "name": "Jammu and Kashmir Board of Professional Entrance Examinations (JK BOPEE)"
+  },
+  {
+    "state": "Jammu and Kashmir",
+    "category": "Private",
+    "name": "Netaji Subhas University (NSU)"
+  },
+  {
+    "state": "Jammu and Kashmir",
+    "category": "State Government",
+    "name": "Shere Kashmir University of Agricultural Sciences and Technology (SKUAST Kashmir)"
+  },
+  {
+    "state": "Jammu and Kashmir",
+    "category": "State Government",
+    "name": "Shere Kashmir University of Agricultural Sciences and Technology Jammu (SKUAST Jammu)"
+  },
+  {
+    "state": "Jammu and Kashmir",
+    "category": "Central Government",
+    "name": "Shri Mata Vaishno Devi University (SMVDU)"
+  },
+  {
+    "state": "Jammu and Kashmir",
+    "category": "State Government",
+    "name": "University of Jammu (Jammu University)"
+  },
+  {
+    "state": "Jammu and Kashmir",
+    "category": "State Government",
+    "name": "University of Kashmir (Kashmir University)"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "Private",
+    "name": "Amity University"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "Private",
+    "name": "Arka Jain University"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "State Government",
+    "name": "Binod Bihari Mahto Koyalanchal University (BBMKU)"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "Deemed (Private)",
+    "name": "Birla Institute of Technology Mesra (BIT Mesra)"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "State Government",
+    "name": "Birsa Agricultural University Ranchi (BAU Ranchi)"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "Central Government",
+    "name": "Central University of Jharkhand (CUJ)"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "Private",
+    "name": "ICFAI University"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "Private",
+    "name": "Jharkhand Rai University"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "State Government",
+    "name": "Jharkhand Raksha Shakti University (JRSU)"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "State Government",
+    "name": "Kolhan University"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "State Government",
+    "name": "National University of Study and Research in Law Ranchi (NUSRL Ranchi)"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "State Government",
+    "name": "Nilamber Pitamber University (NPU)"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "Private",
+    "name": "Radha Govind University"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "Deemed (Government)",
+    "name": "Ramakrishna Mission Vivekananda Educational and Research Institute (RKMVU)"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "State Government",
+    "name": "Ranchi University"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "Private",
+    "name": "Sai Nath University"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "Private",
+    "name": "Sarala Birla University (SBU Ranchi)"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "State Government",
+    "name": "Sido Kanhu Murmu University (SKMU)"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "Private",
+    "name": "Usha Martin University"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "State Government",
+    "name": "Vinoba Bhave University (VBU)"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "Private",
+    "name": "Xavier School of Management (XLRI)"
+  },
+  {
+    "state": "Jharkhand",
+    "category": "Private",
+    "name": "YBN University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Private",
+    "name": "Alliance University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Private",
+    "name": "Azim Premji University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Bangalore University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Deemed (Private)",
+    "name": "BLDE University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Central Government",
+    "name": "Central University of Karnataka (CUK)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Central Government",
+    "name": "Centre for Development of Advanced Computing (CDAC)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Deemed (Private)",
+    "name": "Christ University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Private",
+    "name": "CMR University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Central Government",
+    "name": "Coir Board"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Davangere University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Private",
+    "name": "Dayananda Sagar University (DSU)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Dr BR Ambedkar School of Economics University (BASE University)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Private",
+    "name": "Gitam University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Gulbarga University (GUG)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Deemed (Government)",
+    "name": "Indian Institute of Science Bangalore (IISC)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Deemed (Private)",
+    "name": "Jagadguru Sri Shivarathreeswara University (JSS University)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Deemed (Private)",
+    "name": "Jain University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Deemed (Government)",
+    "name": "Jawaharlal Nehru Centre for Advanced Scientific Research (JNCASR)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Kannada University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Karnataka Folklore University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Karnataka Samskrit University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Karnataka Samskrit University (KSU)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Karnataka State Dr Gangubhai Hangal Music and Performing Arts University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Karnataka State Law University (KSLU)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Karnataka State Open University (KSOU)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Karnataka State Rural Development and Panchayat Raj University (KSRDPRU)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Karnataka State Women University (KSWU)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Karnataka University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Karnataka Veterinary Animal and Fisheries Sciences University (KVAFSU)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Deemed (Private)",
+    "name": "KLE University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Kuvempu University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Private",
+    "name": "M S Ramaiah University of Applied Sciences"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Mangalore University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Deemed (Private)",
+    "name": "Manipal University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Deemed (Private)",
+    "name": "Narsee Monjee Institute of Management Studies (NMIMS)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "National Law School of India University Bengaluru (NLSIU)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Deemed (Private)",
+    "name": "Nitte University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Private",
+    "name": "PES University (PESU)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Private",
+    "name": "Presidency University Bangalore"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Private",
+    "name": "Rai Technology University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Rajiv Gandhi University of Health Sciences (RGUHS)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Deemed (Government)",
+    "name": "Ramakrishna Mission Vivekananda Educational and Research Institute (RKMVU)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Rani Channamma University (RCUB)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Private",
+    "name": "REVA University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Deemed (Private)",
+    "name": "Sri Devaraj Urs Academy of Higher Education and Research"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Deemed (Private)",
+    "name": "Sri Siddhartha Academy of Higher Education"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Deemed (Private)",
+    "name": "Swami Vivekananda Yoga Anusandhana Samsthana (SVYASA)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Private",
+    "name": "The University of Trans-Disciplinary Health Sciences and Technology (TDU)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Tumkur University"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "University of Agricultural and Horticultural Sciences Shimoga (UHS Shimoga)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "University of Agricultural Sciences Bangalore (UAS Bangalore)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "University of Agricultural Sciences Dharwad (UAS Dharwad)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "University of Agricultural Sciences Raichur (UAS Raichur)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "University of Horticultural Sciences Bagalkot (UHS Bagalkot)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "University of Mysore (Uni Mysore)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Vijayanagara Sri Krishnadevaraya University (VSKU)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "State Government",
+    "name": "Visvesvaraya Technological University (VTU)"
+  },
+  {
+    "state": "Karnataka",
+    "category": "Deemed (Private)",
+    "name": "Yenepoya University"
+  },
+  {
+    "state": "Kerala",
+    "category": "Central Government",
+    "name": "Central University of Kerala (CU Kerala)"
+  },
+  {
+    "state": "Kerala",
+    "category": "Central Government",
+    "name": "Centre for Development of Advanced Computing (CDAC)"
+  },
+  {
+    "state": "Kerala",
+    "category": "State Government",
+    "name": "Cochin University of Science and Technology (CUSAT)"
+  },
+  {
+    "state": "Kerala",
+    "category": "Central Government",
+    "name": "Coir Board"
+  },
+  {
+    "state": "Kerala",
+    "category": "Private",
+    "name": "Darul Huda Islamic University (DHIU)"
+  },
+  {
+    "state": "Kerala",
+    "category": "Central Government",
+    "name": "Indian Maritime University (IMU)"
+  },
+  {
+    "state": "Kerala",
+    "category": "State Government",
+    "name": "Kannur University"
+  },
+  {
+    "state": "Kerala",
+    "category": "State Government",
+    "name": "Kerala Agricultural University (KAU)"
+  },
+  {
+    "state": "Kerala",
+    "category": "Deemed (Private)",
+    "name": "Kerala Kalamandalam"
+  },
+  {
+    "state": "Kerala",
+    "category": "State Government",
+    "name": "Kerala University"
+  },
+  {
+    "state": "Kerala",
+    "category": "State Government",
+    "name": "Kerala University of Digital Sciences Innovation and Technology (Digital University Kerala)"
+  },
+  {
+    "state": "Kerala",
+    "category": "State Government",
+    "name": "Kerala University of Fisheries and Ocean Studies (KUFOS)"
+  },
+  {
+    "state": "Kerala",
+    "category": "State Government",
+    "name": "Kerala University of Health Sciences (KUHS)"
+  },
+  {
+    "state": "Kerala",
+    "category": "State Government",
+    "name": "Kerala Veterinary and Animal Sciences University (KVASU)"
+  },
+  {
+    "state": "Kerala",
+    "category": "State Government",
+    "name": "Mahatma Gandhi University Kerala (MGU Kerala)"
+  },
+  {
+    "state": "Kerala",
+    "category": "State Government",
+    "name": "National University of Advanced Legal Studies (NUALS)"
+  },
+  {
+    "state": "Kerala",
+    "category": "State Government",
+    "name": "Sree Sankaracharya University of Sanskrit (SSUS)"
+  },
+  {
+    "state": "Kerala",
+    "category": "State Government",
+    "name": "Thunchath Ezhuthachan Malayalam University"
+  },
+  {
+    "state": "Kerala",
+    "category": "State Government",
+    "name": "University of Calicut"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Private",
+    "name": "AISECT University"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Private",
+    "name": "AKS University"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Private",
+    "name": "Amity University"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Atal Bihari Vajpayee Hindi Vishwavidyalaya (ABVHV)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Awadhesh Pratap Singh University (APSU)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Barkatullah University"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Devi Ahilya University (DAUNIV)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Dr BR Ambedkar University of Social Sciences (BRAUSS)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Central Government",
+    "name": "Dr Hari Singh Gour University (DHSGSU)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Private",
+    "name": "G H Raisoni University"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Private",
+    "name": "IES University"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Central Government",
+    "name": "Indira Gandhi National Tribal University (IGNTU)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Private",
+    "name": "ITM University Gwalior"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Private",
+    "name": "Jagran Lakecity University"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Jawaharlal Nehru Krishi Vishwavidyalaya (JNKVV)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Jiwaji University"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Madhya Pradesh Bhoj Open University (MPBOU)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Madhya Pradesh Medical Science University (MPMSU)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Maharaja Chhatrasal Bundelkhand University Chhatarpur (MCBU Chhatarpur)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Maharishi Mahesh Yogi Vedic University (MMYVU)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Maharishi Panini Sanskrit Evam Vedic Vishwavidyalaya (MPSVV Ujjain)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Maharishi Sandipani Rashtriya Ved Vidya Pratishthan (MSRVVP)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Mahatma Gandhi Chitrakoot Gramoday Vishwavidyalaya (MGCGV Chitrakoot)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Makhanlal Chaturvedi Rashtriya Patrakarita Avam Sanchar Vishwavidyalaya (MCU Bhopal)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Private",
+    "name": "Mandsaur University"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Private",
+    "name": "Mangalayatan University Jabalpur"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Deemed (Private)",
+    "name": "MGM University of Health Sciences Mumbai (MGMUHS)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Nanaji Deshmukh Veterinary Science University (NDVSU)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Deemed (Private)",
+    "name": "Narsee Monjee Institute of Management Studies (NMIMS)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Deemed (Government)",
+    "name": "National Institute of Construction Management and Research (NICMAR)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "National Law Institute University (NLIU Bhopal)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "North Eastern Indira Gandhi Regional Institute of Health and Medical Sciences (NEIGRIHMS)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Private",
+    "name": "Oriental University"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Private",
+    "name": "Peoples University Bhopal"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Private",
+    "name": "PK University"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Private",
+    "name": "Rabindranath Tagore University (RNTU Bhopal)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Raja Mansingh Tomar Music and Arts University"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Rajiv Gandhi Proudyogiki Vishwavidyalaya (RGPV)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Rajmata Vijayaraje Scindia Krishi Vishwa Vidyalaya (RVSKVV)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Rani Durgavati Vishwavidyalaya (RDV Jabalpur)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Private",
+    "name": "RKDF University"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Sanchi University of Buddhist Indic Studies (Sanchi University)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Private",
+    "name": "Sarvepalli Radhakrishnan University (SRKU)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Private",
+    "name": "Swami Vivekanand University (SVNU Sagar)"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "Private",
+    "name": "Techno Global University"
+  },
+  {
+    "state": "Madhya Pradesh",
+    "category": "State Government",
+    "name": "Vikram University Ujjain"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Private",
+    "name": "Ajeenkya D Y Patil University (ADYPU)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Private",
+    "name": "Akhil Bharatiya Gandharva Mahavidyalaya Mandal (ABGMVM)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Private",
+    "name": "Amity University"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Private",
+    "name": "Apex University"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Private",
+    "name": "Bharati Vidyapeeth"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Central Government",
+    "name": "Centre for Development of Advanced Computing (CDAC)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Private",
+    "name": "Chhatrapati Shivaji Maharaj University (CSMU)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Deemed (Private)",
+    "name": "Chinmaya Vishwavidyapeeth"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Deemed (Private)",
+    "name": "Datta Meghe Institute of Medical Sciences (DMIMSU)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Deemed (Private)",
+    "name": "Deccan College Post-Graduate and Research Institute"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Deemed (Government)",
+    "name": "Defence Institute of Advanced Technology (DIAT Pune)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Dr Babasaheb Ambedkar Marathwada University (BAMU)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Dr Babasaheb Ambedkar Technological University (DBATU)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Dr Balasaheb Sawant Konkan Krishi Vidyapeeth (DBSKKV)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Dr Homi Bhabha State University"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Dr Panjabrao Deshmukh Krishi Vidyapeeth Akola (PDKV)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Deemed (Private)",
+    "name": "DY Patil University"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Private",
+    "name": "FLAME University"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Deemed (Private)",
+    "name": "Gokhale Institute of Politics and Economics (GIPE)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Gondwana University"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Deemed (Government)",
+    "name": "Homi Bhabha National Institute (HBNI)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "HSNC University"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Private",
+    "name": "Indian Institute of Science Education and Research Pune (IISER Pune)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Central Government",
+    "name": "Indian Maritime University (IMU)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Deemed (Government)",
+    "name": "Indira Gandhi Institute of Development Research (IGIDR)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Deemed (Government)",
+    "name": "Institute of Chemical Technology Mumbai (ICT Mumbai)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Deemed (Government)",
+    "name": "International Institute for Population Sciences (IIPS)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Kavayitri Bahinabai Chaudhari North Maharashtra University (NMU)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Kavikulaguru Kalidas Sanskrit University (KKSU)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Deemed (Private)",
+    "name": "Krishna Institute of Medical Sciences (KIMS)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Maharashtra Animal and Fishery Sciences University (MAFSU)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Maharashtra National Law University Aurangabad (MNLU Aurangabad)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Maharashtra National Law University Mumbai (MNLU Mumbai)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Maharashtra National Law University Nagpur (MNLU Nagpur)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Maharashtra University of Health Sciences (MUHS)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Central Government",
+    "name": "Mahatma Gandhi Antarrashtriya Hindi Vishwavidyalaya (MGAHV)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Mahatma Phule Krishi Vidyapeeth (MPKV)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Deemed (Private)",
+    "name": "MGM University of Health Sciences"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Private",
+    "name": "MIT - ADT University"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Deemed (Private)",
+    "name": "Narsee Monjee Institute of Management Studies (NMIMS)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Deemed (Private)",
+    "name": "Pravara Institute of Medical Sciences"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Rashtrasant Tukadoji Maharaj Nagpur University (RTMNU)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Private",
+    "name": "Sandip University"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Sant Gadge Baba Amravati University (SGBAU)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Savitribai Phule Pune University (SBPPU)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Shivaji University"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Shreemati Nathibai Damodar Thackersey Women University (SNDT University)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Solapur University"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Private",
+    "name": "SP Jain Institute of Management and Research (SPJIMR)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Swami Ramanand Teerth Marathwada University (SRTMUN)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Deemed (Private)",
+    "name": "Symbiosis International University"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Deemed (Government)",
+    "name": "Tata Institute of Fundamental Research (TIFR)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Deemed (Government)",
+    "name": "Tata Institute of Social Sciences (TISS)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Deemed (Government)",
+    "name": "Tilak Maharashtra University (TMU)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Private",
+    "name": "Tolani Maritime Institute (TMI Pune)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "University of Mumbai (Mumbai University)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Vasantrao Naik Marathwada Krishi Vidyapeeth (VNMKV)"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "Private",
+    "name": "Whistling Woods International"
+  },
+  {
+    "state": "Maharashtra",
+    "category": "State Government",
+    "name": "Yashwantrao Chavan Maharashtra Open University (YCMOU)"
+  },
+  {
+    "state": "Manipur",
+    "category": "Central Government",
+    "name": "Central Agricultural University (CAU)"
+  },
+  {
+    "state": "Manipur",
+    "category": "State Government",
+    "name": "Manipur Technical University"
+  },
+  {
+    "state": "Manipur",
+    "category": "Central Government",
+    "name": "Manipur University"
+  },
+  {
+    "state": "Manipur",
+    "category": "State Government",
+    "name": "Manipur University Of Culture (MUC)"
+  },
+  {
+    "state": "Manipur",
+    "category": "Central Government",
+    "name": "National Sports University Manipur (NSU Manipur)"
+  },
+  {
+    "state": "Manipur",
+    "category": "Private",
+    "name": "Sangai International University (SIU Manipur)"
+  },
+  {
+    "state": "Meghalaya",
+    "category": "Private",
+    "name": "CMJ University"
+  },
+  {
+    "state": "Meghalaya",
+    "category": "Central Government",
+    "name": "English and Foreign Languages University (EFL)"
+  },
+  {
+    "state": "Meghalaya",
+    "category": "Private",
+    "name": "ICFAI University"
+  },
+  {
+    "state": "Meghalaya",
+    "category": "Private",
+    "name": "Mahatma Gandhi University Meghalaya (MGU Meghalaya)"
+  },
+  {
+    "state": "Meghalaya",
+    "category": "Private",
+    "name": "Martin Luther Christian University (MLCU)"
+  },
+  {
+    "state": "Meghalaya",
+    "category": "Central Government",
+    "name": "North Eastern Hill University (NEHU)"
+  },
+  {
+    "state": "Meghalaya",
+    "category": "Private",
+    "name": "Techno Global University"
+  },
+  {
+    "state": "Meghalaya",
+    "category": "Private",
+    "name": "University of Science and Technology (USTM)"
+  },
+  {
+    "state": "Meghalaya",
+    "category": "Private",
+    "name": "University of Technology and Management (UTM)"
+  },
+  {
+    "state": "Meghalaya",
+    "category": "Private",
+    "name": "William Carey University (WCU Shillong)"
+  },
+  {
+    "state": "Mizoram",
+    "category": "Private",
+    "name": "ICFAI University"
+  },
+  {
+    "state": "Mizoram",
+    "category": "Central Government",
+    "name": "Mizoram University (MZU)"
+  },
+  {
+    "state": "Nagaland",
+    "category": "Private",
+    "name": "Global Open University"
+  },
+  {
+    "state": "Nagaland",
+    "category": "Private",
+    "name": "ICFAI University"
+  },
+  {
+    "state": "Nagaland",
+    "category": "Central Government",
+    "name": "Nagaland University"
+  },
+  {
+    "state": "Nagaland",
+    "category": "Private",
+    "name": "St Joseph University Nagaland"
+  },
+  {
+    "state": "National",
+    "category": "Central Government",
+    "name": "Indira Gandhi National Open University (IGNOU)"
+  },
+  {
+    "state": "Odisha",
+    "category": "State Government",
+    "name": "All India Institute of Medical Sciences Bhubaneswar (AIIMS Bhubaneswar)"
+  },
+  {
+    "state": "Odisha",
+    "category": "Private",
+    "name": "ASBM University"
+  },
+  {
+    "state": "Odisha",
+    "category": "State Government",
+    "name": "Berhampur University"
+  },
+  {
+    "state": "Odisha",
+    "category": "State Government",
+    "name": "Biju Patnaik University of Technology (BPUT)"
+  },
+  {
+    "state": "Odisha",
+    "category": "Private",
+    "name": "Birla Global University (BGU)"
+  },
+  {
+    "state": "Odisha",
+    "category": "Central Government",
+    "name": "Central University of Orissa (CU Orissa)"
+  },
+  {
+    "state": "Odisha",
+    "category": "Private",
+    "name": "Centurion University"
+  },
+  {
+    "state": "Odisha",
+    "category": "Central Government",
+    "name": "Coir Board"
+  },
+  {
+    "state": "Odisha",
+    "category": "State Government",
+    "name": "Fakir Mohan University (FMU)"
+  },
+  {
+    "state": "Odisha",
+    "category": "State Government",
+    "name": "Gangadhar Meher University (GMU Sambalpur)"
+  },
+  {
+    "state": "Odisha",
+    "category": "Central Government",
+    "name": "Indian Oil Corporation Limited (IOCL)"
+  },
+  {
+    "state": "Odisha",
+    "category": "Private",
+    "name": "International Management Institute Bhubaneswar (IMI Bhubaneswar)"
+  },
+  {
+    "state": "Odisha",
+    "category": "Deemed (Private)",
+    "name": "Kalinga Institute of Industrial Technology (KIIT)"
+  },
+  {
+    "state": "Odisha",
+    "category": "Deemed (Private)",
+    "name": "Kalinga Institute of Social Sciences (KISS)"
+  },
+  {
+    "state": "Odisha",
+    "category": "State Government",
+    "name": "Khallikote University"
+  },
+  {
+    "state": "Odisha",
+    "category": "State Government",
+    "name": "Maharaja Sriram Chandra Bhanjadeo University (MSCBU)"
+  },
+  {
+    "state": "Odisha",
+    "category": "State Government",
+    "name": "National Law University Odisha (NLUO)"
+  },
+  {
+    "state": "Odisha",
+    "category": "State Government",
+    "name": "Odisha State Open University (OSOU)"
+  },
+  {
+    "state": "Odisha",
+    "category": "State Government",
+    "name": "Orissa University of Agriculture and Technology (OUAT)"
+  },
+  {
+    "state": "Odisha",
+    "category": "State Government",
+    "name": "Rama Devi Women University"
+  },
+  {
+    "state": "Odisha",
+    "category": "State Government",
+    "name": "Ravenshaw University"
+  },
+  {
+    "state": "Odisha",
+    "category": "State Government",
+    "name": "Sambalpur University"
+  },
+  {
+    "state": "Odisha",
+    "category": "State Government",
+    "name": "Shri Jagannath Sanskrit Vishvavidyalaya (SJSV)"
+  },
+  {
+    "state": "Odisha",
+    "category": "Deemed (Private)",
+    "name": "Siksha O Anusandhan"
+  },
+  {
+    "state": "Odisha",
+    "category": "Private",
+    "name": "Sri Sri University"
+  },
+  {
+    "state": "Odisha",
+    "category": "State Government",
+    "name": "Utkal University"
+  },
+  {
+    "state": "Odisha",
+    "category": "State Government",
+    "name": "Utkal University of Culture (UUC)"
+  },
+  {
+    "state": "Odisha",
+    "category": "State Government",
+    "name": "Veer Surendra Sai University of Technology (VSSUT)"
+  },
+  {
+    "state": "Odisha",
+    "category": "Private",
+    "name": "Xavier University Bhubaneswar"
+  },
+  {
+    "state": "Puducherry",
+    "category": "Private",
+    "name": "Pondicherry Institute of Medical Sciences (PIMS)"
+  },
+  {
+    "state": "Puducherry",
+    "category": "Central Government",
+    "name": "Pondicherry University"
+  },
+  {
+    "state": "Puducherry",
+    "category": "Deemed (Private)",
+    "name": "Sri Balaji Vidyapeeth (SBV)"
+  },
+  {
+    "state": "Punjab",
+    "category": "Private",
+    "name": "Adesh University"
+  },
+  {
+    "state": "Punjab",
+    "category": "Private",
+    "name": "Akal University"
+  },
+  {
+    "state": "Punjab",
+    "category": "State Government",
+    "name": "Baba Farid University of Health Sciences (BFUHS)"
+  },
+  {
+    "state": "Punjab",
+    "category": "Central Government",
+    "name": "Central University of Punjab (CUP)"
+  },
+  {
+    "state": "Punjab",
+    "category": "Central Government",
+    "name": "Centre for Development of Advanced Computing (CDAC)"
+  },
+  {
+    "state": "Punjab",
+    "category": "Private",
+    "name": "Chitkara University"
+  },
+  {
+    "state": "Punjab",
+    "category": "Private",
+    "name": "CT University"
+  },
+  {
+    "state": "Punjab",
+    "category": "Private",
+    "name": "Desh Bhagat University"
+  },
+  {
+    "state": "Punjab",
+    "category": "Private",
+    "name": "GNA University"
+  },
+  {
+    "state": "Punjab",
+    "category": "State Government",
+    "name": "Guru Angad Dev Veterinary and Animal Sciences University (GADVASU)"
+  },
+  {
+    "state": "Punjab",
+    "category": "Private",
+    "name": "Guru Kashi University"
+  },
+  {
+    "state": "Punjab",
+    "category": "State Government",
+    "name": "Guru Nanak Dev University (GNDU)"
+  },
+  {
+    "state": "Punjab",
+    "category": "State Government",
+    "name": "Guru Ravidas Ayurved University (GRAU Punjab)"
+  },
+  {
+    "state": "Punjab",
+    "category": "State Government",
+    "name": "I K Gujral Punjab Technical University (IKGPTU)"
+  },
+  {
+    "state": "Punjab",
+    "category": "Private",
+    "name": "IEC University"
+  },
+  {
+    "state": "Punjab",
+    "category": "State Government",
+    "name": "Jagat Guru Nanak Dev Punjab State Open University (PSOU)"
+  },
+  {
+    "state": "Punjab",
+    "category": "Private",
+    "name": "Lovely Professional University (LPU)"
+  },
+  {
+    "state": "Punjab",
+    "category": "State Government",
+    "name": "Maharaja Ranjit Singh Punjab Technical University (MRSPTU)"
+  },
+  {
+    "state": "Punjab",
+    "category": "State Government",
+    "name": "Panjab University"
+  },
+  {
+    "state": "Punjab",
+    "category": "State Government",
+    "name": "Punjab Agricultural University (PAU)"
+  },
+  {
+    "state": "Punjab",
+    "category": "State Government",
+    "name": "Punjabi University"
+  },
+  {
+    "state": "Punjab",
+    "category": "State Government",
+    "name": "Rajiv Gandhi National University of Law (RGNUL)"
+  },
+  {
+    "state": "Punjab",
+    "category": "Private",
+    "name": "Rayat Bahra University"
+  },
+  {
+    "state": "Punjab",
+    "category": "Private",
+    "name": "Sant Baba Bhag Singh University"
+  },
+  {
+    "state": "Punjab",
+    "category": "Deemed (Government)",
+    "name": "Sant Longowal Institute of Engineering and Technology (SLIET Longowal)"
+  },
+  {
+    "state": "Punjab",
+    "category": "State Government",
+    "name": "Sardar Beant Singh State University (SBSSU Gurdaspur)"
+  },
+  {
+    "state": "Punjab",
+    "category": "Private",
+    "name": "Sri Guru Granth Sahib World University"
+  },
+  {
+    "state": "Punjab",
+    "category": "Private",
+    "name": "Sri Sai University"
+  },
+  {
+    "state": "Punjab",
+    "category": "Deemed (Private)",
+    "name": "Thapar Institute of Engineering and Technology"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Agriculture University Jodhpur"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Agriculture University Kota"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "All India Institute of Medical Sciences Jodhpur (AIIMS Jodhpur)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Amity University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Deemed (Private)",
+    "name": "Banasthali Vidyapith"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Bhagwant University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Deemed (Private)",
+    "name": "Birla Institute of Technology and Science Pilani (BITS Pilani)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Career Point University Kota"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Central Government",
+    "name": "Central University of Rajasthan (CURAJ)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Dr KNModi University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Dr Sarvepalli Radhakrishnan Rajasthan Ayurved University Jodhpur (RAU Jodhpur)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Geetanjali University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Govind Guru Tribal University (GGTU)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Haridev Joshi University of Journalism and Mass Communication (HJUJ)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "ICFAI University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "IEC University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Deemed (Private)",
+    "name": "IIS University Jaipur"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Deemed (Private)",
+    "name": "Institute of Advanced Studies in Education"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Jagadguru Ramanandacharya Rajasthan Sanskrit University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Jagannath University Jaipur"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Jai Narain Vyas University (JNVU)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Deemed (Private)",
+    "name": "Jain Vishva Bharati University (JVBI)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Jaipur National University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Deemed (Private)",
+    "name": "Janardan Rai Nagar Rajasthan Vidyapeeth University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Jayoti Vidyapeeth Womens University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "JECRC University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "JK Lakshmipat University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Jodhpur National University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Deemed (Private)",
+    "name": "LNM Institute of Information Technology (LNMIIT)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Madhav University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Maharaja Ganga Singh University (MGSU)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Maharaja Surajmal Brij University (MSBU)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Maharana Pratap University of Agriculture and Technology (MPUAT)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Maharishi Arvind University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Maharshi Dayanand Saraswati University (MDSU)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Mewar University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Mody University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Mohanlal Sukhadia University (MLSU)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "National Law University Jodhpur (NLU Jodhpur)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "NIIT University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "NIMS University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Nirwan University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "OPJS University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Pacific University Udaipur"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Pandit Deendayal Upadhyaya Shekhawati University (PDUSU)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Poornima University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Raj Rishi Bhartrihari Matsya University (RRBMU)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Rajasthan Sports University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Rajasthan Technical University (RTU)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Rajasthan University of Health Sciences (RUHS)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Rajasthan University of Veterinary and Animal Sciences (RAJUVAS)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "RNB Global University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Sangam University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Sardar Patel University of Police Security and Criminal Justice"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Shri Jagdishprasad Jhabrmal Tibrewala University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Shridhar University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Singhania University"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Sir Padampat Singhania University (SPSU)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Sri Karan Narendra Agriculture University (SKNAU)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Suresh Gyan Vihar University (SGVU)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Swami Keshwanand Rajasthan Agricultural University (SKRAU)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "University of Kota (UOK)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "University of Rajasthan (UNIRAJ)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "State Government",
+    "name": "Vardhaman Mahaveer Open University (VMOU)"
+  },
+  {
+    "state": "Rajasthan",
+    "category": "Private",
+    "name": "Vivekananda Global University"
+  },
+  {
+    "state": "Sikkim",
+    "category": "Private",
+    "name": "Eastern Institute for Integrated Learning in Management University"
+  },
+  {
+    "state": "Sikkim",
+    "category": "Private",
+    "name": "ICFAI University"
+  },
+  {
+    "state": "Sikkim",
+    "category": "Deemed (Private)",
+    "name": "Manipal University"
+  },
+  {
+    "state": "Sikkim",
+    "category": "Private",
+    "name": "Sikkim Manipal University"
+  },
+  {
+    "state": "Sikkim",
+    "category": "Private",
+    "name": "Sikkim Professional University"
+  },
+  {
+    "state": "Sikkim",
+    "category": "Central Government",
+    "name": "Sikkim University"
+  },
+  {
+    "state": "Sikkim",
+    "category": "Deemed (Private)",
+    "name": "SRM University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Alagappa University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "AMET University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Private",
+    "name": "Amrita Vishwa Vidyapeetham"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Anna University (AU Chennai)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Annamalai University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Government)",
+    "name": "Avinashilingam University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Private",
+    "name": "Bharat University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "Bharath University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Bharathiar University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Bharathidasan University (BDU Tiruchirappalli)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Private",
+    "name": "BS Abdur Rahman Crescent - Institute of Science"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Central Government",
+    "name": "Central University of Tamil Nadu (CUTN)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Central Government",
+    "name": "Centre for Development of Advanced Computing (CDAC)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Government)",
+    "name": "Chennai Mathematical Institute (CMI)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "Chettinad Academy of Research and Education (CARE)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Central Government",
+    "name": "Coir Board"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Private",
+    "name": "Divine Hands International University (DHIU)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "Dr MGR Educational and Research Institute"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Government)",
+    "name": "Gandhigram Rural Institute (GRI)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "Hindustan Institute of Technology and Science (HITS)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Central Government",
+    "name": "Indian Maritime University (IMU)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Private",
+    "name": "Kalasalingam University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "Karpagam Academy of Higher Education (KAHE)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "Karunya University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Madurai Kamaraj University (MKU)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Manonmaniam Sundaranar University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Private",
+    "name": "Meenakshi Academy of Higher Education and Research"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Private",
+    "name": "MGR Educational and Research Institute"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Mother Teresa Womens University (MTWU)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Central Government",
+    "name": "National Institute for Empowerment of Persons with Multiple Disablities (NIEPMD)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "Noorul Islam University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "Periyar Maniammai University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Periyar University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "Ponnaiyah Ramajayam Institute of Science and Technology (PRIST University)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Government)",
+    "name": "Ramakrishna Mission Vivekananda Educational and Research Institute (RKMVU)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "SASTRA University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "Sathyabama University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Private",
+    "name": "Saveetha University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "Sri Chandrasekharendra Saraswathi Viswa Mahavidyalaya"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "Sri Ramachandra Medical College and Research Institute"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "SRM University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "St Peter Institute of Higher Education and Research (SPIHER)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Tamil Nadu Agricultural University (TNAU)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Tamil Nadu Dr Ambedkar Law University (TNDALU)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Tamil Nadu Dr J Jayalalithaa Fisheries University (TNJFU)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Tamil Nadu Dr MGR Medical University (TNMGRMU)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Tamil Nadu Horticulture University (TNHU)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Tamil Nadu Music and Fine Arts University (TNMAFU)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Tamil Nadu Open University (TNOU)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Tamil Nadu Physical Education and Sports University (TNPESU)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Tamil Nadu Teachers Education University (TNTEU)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Tamil Nadu Veterinary and Animal Sciences University (TANUVAS)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Tamil University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "Thiruvalluvar University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "State Government",
+    "name": "University of Madras (UNOM)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "Vel Tech Rangarajan Dr Sagunthala RD Institute of Science and Technology (Vel Tech University)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "Vellore Institute of Technology (VIT University)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "Vels University"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Deemed (Private)",
+    "name": "Vinayaka Missions Research Foundation (VMRF)"
+  },
+  {
+    "state": "Tamilnadu",
+    "category": "Private",
+    "name": "Woxsen University"
+  },
+  {
+    "state": "Telangana",
+    "category": "Central Government",
+    "name": "Centre for Development of Advanced Computing (CDAC)"
+  },
+  {
+    "state": "Telangana",
+    "category": "State Government",
+    "name": "Dr B R Ambedkar Open University (BRAOU)"
+  },
+  {
+    "state": "Telangana",
+    "category": "Private",
+    "name": "Gitam University"
+  },
+  {
+    "state": "Telangana",
+    "category": "State Government",
+    "name": "Jamia Nizamia"
+  },
+  {
+    "state": "Telangana",
+    "category": "State Government",
+    "name": "Kakatiya University"
+  },
+  {
+    "state": "Telangana",
+    "category": "State Government",
+    "name": "Kaloji Narayana Rao University of Health Sciences (KNRUHS)"
+  },
+  {
+    "state": "Telangana",
+    "category": "State Government",
+    "name": "Mahatma Gandhi University Nalgonda (MGU Nalgonda)"
+  },
+  {
+    "state": "Telangana",
+    "category": "Central Government",
+    "name": "Maulana Azad National Urdu University (MANUU)"
+  },
+  {
+    "state": "Telangana",
+    "category": "Private",
+    "name": "Mewar University"
+  },
+  {
+    "state": "Telangana",
+    "category": "Deemed (Private)",
+    "name": "Narsee Monjee Institute of Management Studies (NMIMS)"
+  },
+  {
+    "state": "Telangana",
+    "category": "State Government",
+    "name": "National Academy of Legal Study and Research University of Law Hyderabad (NALSAR)"
+  },
+  {
+    "state": "Telangana",
+    "category": "State Government",
+    "name": "Osmania University"
+  },
+  {
+    "state": "Telangana",
+    "category": "State Government",
+    "name": "Palamuru University"
+  },
+  {
+    "state": "Telangana",
+    "category": "State Government",
+    "name": "Potti Sreeramulu Telugu University"
+  },
+  {
+    "state": "Telangana",
+    "category": "State Government",
+    "name": "Professor Jayashankar Telangana State Agricultural University (PJTSAU)"
+  },
+  {
+    "state": "Telangana",
+    "category": "State Government",
+    "name": "PV Narasimha Rao Telangana Veterinary University (PVNRTVU)"
+  },
+  {
+    "state": "Telangana",
+    "category": "State Government",
+    "name": "Satavahana University"
+  },
+  {
+    "state": "Telangana",
+    "category": "State Government",
+    "name": "Sri Konda Laxman Telangana State Horticultural University (SKLTSHU)"
+  },
+  {
+    "state": "Telangana",
+    "category": "State Government",
+    "name": "Telangana University"
+  },
+  {
+    "state": "Telangana",
+    "category": "Central Government",
+    "name": "University of Hyderabad (UOHYD)"
+  },
+  {
+    "state": "Tripura",
+    "category": "State Government",
+    "name": "Agartala Government Medical College"
+  },
+  {
+    "state": "Tripura",
+    "category": "Private",
+    "name": "ICFAI University"
+  },
+  {
+    "state": "Tripura",
+    "category": "State Government",
+    "name": "Maharaja Bir Bikram University (MBBU)"
+  },
+  {
+    "state": "Tripura",
+    "category": "Central Government",
+    "name": "Tripura University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Acharya Narendra Dev University of Agriculture and Technology (NDUAT)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Central Government",
+    "name": "Aligarh Muslim University (AMU)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Amity University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Atal Bihari Vajpayee Medical University (ABVMU)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Central Government",
+    "name": "Babasaheb Bhimrao Ambedkar University (BBAU)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Babu Banarasi Das University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Central Government",
+    "name": "Banaras Hindu University (BHU)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Banda University of Agriculture and Technology (BUAT)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Bennett University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Deemed (Private)",
+    "name": "Bhatkhande Music Institute"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Bundelkhand University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Deemed (Government)",
+    "name": "Central University for Tibetan Studies (CUTS)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Central Government",
+    "name": "Centre for Development of Advanced Computing (CDAC)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Chandra Shekhar Azad University of Agriculture and Technology (CSAUK)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Chaudhary Charan Singh University (CCS University)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Chhatrapati Shahu Ji Maharaj University Kanpur (CSJMU Kanpur)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Deemed (Private)",
+    "name": "Dayalbagh Educational Institute"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Deen Dayal Upadhyay Gorakhpur University (DDUGU)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Dr APJ Abdul Kalam Technical University (AKTU)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Dr Bhim Rao Ambedkar University (DBRAU)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Dr Ram Manohar Lohia Avadh University (RMLAU)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Dr Shakuntala Misra National Rehabilitation University (DSMRU)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Central Government",
+    "name": "English and Foreign Languages University (EFL)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Era University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Galgotias University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Gautam Buddha University (GBU)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "GLA University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Glocal University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Harcourt Butler Technical University (HBTU)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "IEC University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "IFTM University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "IIMT University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Central Government",
+    "name": "Indian Oil Corporation Limited (IOCL)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Deemed (Government)",
+    "name": "Indian Veterinary Research Institute (IVRI)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Central Government",
+    "name": "Indira Gandhi Rashtriya Uran Akademi (IGRUA)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Institute of Management Technology Ghaziabad (IMT Ghaziabad)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Integral University Lucknow"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Invertis University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Jagadguru Rambhadracharya Handicapped University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Jananayak Chandrashekhar University (JNCU)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Deemed (Private)",
+    "name": "Jaypee University of Information Technology"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "JS University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Khwaja Moinuddin Chishti Urdu Arabi Farsi University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "King Georges Medical University (KGMU)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Maa Shakumbhari University (MSU Saharanpur)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Madan Mohan Malaviya University of Technology (MMMUT)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Maharaja Suhel Dev State University Azamgarh (MSDSU)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Maharishi University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Mahatma Gandhi Kashi Vidyapith (MGKVP)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Mahatma Jyotiba Phule Rohilkhand University (MJPRU)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Mangalayatan University Aligarh"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Mewar University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Mohammad Ali Jauhar University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Monad University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Nehru Gram Bharti University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Noida International University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Prof Rajendra Singh University (Rajju Bhaiya University Prayagraj)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Raja Mahendra Pratap Singh State University (RMPSSU Aligarh)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Central Government",
+    "name": "Rajiv Gandhi National Aviation University (RGNAU)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Ram Manohar Lohiya National Law University (RMLNLU)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Rama University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Central Government",
+    "name": "Rani Lakshmi Bai Central Agricultural University (RLBCAU)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Deemed (Government)",
+    "name": "Sam Higginbottom Institute of Agriculture Technology and Sciences (SHUATS)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Sampurnanand Sanskrit University (SSVV)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Sanskriti University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Deemed (Private)",
+    "name": "Santosh University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Sardar Vallabhbhai Patel University of Agriculture and Technology (SVBP Meerut)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Sharda University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Shiv Nadar University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Shobhit University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Shri Venkateshwara University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Siddharth University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Swami Vivekanand Subharti University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Private",
+    "name": "Teerthanker Mahaveer University"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "Central Government",
+    "name": "University of Allahabad"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "University of Lucknow (Lucknow University)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "UP Pt Deen Dayal Upadhyay Pashu Chikitsa Vigyan Vishwavidyalaya Evam Go-Ansundhan Sansthan (UPVETUNIV)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Uttar Pradesh Rajarshi Tandon Open University (UPRTOU)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Uttar Pradesh University of Medical Sciences (UPUMS)"
+  },
+  {
+    "state": "Uttar Pradesh",
+    "category": "State Government",
+    "name": "Veer Bahadur Singh Purvanchal University (VBSPU)"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Private",
+    "name": "Dev Sanskriti Vishwavidyalaya (DSVV)"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Private",
+    "name": "DIT University"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "State Government",
+    "name": "Doon University"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Deemed (Government)",
+    "name": "Forest Research Institute Dehradun (FRI Dehradun)"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "State Government",
+    "name": "Govind Ballabh Pant University of Agriculture and Technology (GBPUAT)"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Private",
+    "name": "Graphic Era Hill University (GEHU)"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Private",
+    "name": "Graphic Era University"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Deemed (Government)",
+    "name": "Gurukul Kangri Vishwavidyalaya (GKV)"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Private",
+    "name": "Haridwar University"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Central Government",
+    "name": "Hemwati Nandan Bahuguna Garhwal University (HNBGU)"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "State Government",
+    "name": "Hemwati Nandan Bahuguna Uttarakhand Medical Education University (HNBUMU)"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Private",
+    "name": "Himalayan Garhwal University"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Private",
+    "name": "Himgiri Zee University (HZU)"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Private",
+    "name": "ICFAI University"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Private",
+    "name": "IMS Unison University"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "State Government",
+    "name": "Kumaun University"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Private",
+    "name": "Motherhood University"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Private",
+    "name": "Quantum University"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Private",
+    "name": "Shri Guru Ram Rai University"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Private",
+    "name": "Shri Guru Ram Rai University (SGRRU)"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "State Government",
+    "name": "Sri Dev Suman Uttarakhand University (SDSUV)"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Private",
+    "name": "Swami Rama Himalayan University (SRHU)"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Private",
+    "name": "University of Patanjali"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Private",
+    "name": "University of Petroleum and Energy Studies (UPES)"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "State Government",
+    "name": "Uttarakhand Aawasiya Vishwavidyalaya"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "State Government",
+    "name": "Uttarakhand Ayurveda University (UAU)"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "State Government",
+    "name": "Uttarakhand Open University (UOU)"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "State Government",
+    "name": "Uttarakhand Sanskrit University (USVV)"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "State Government",
+    "name": "Uttarakhand Technical University (UKTECH)"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "State Government",
+    "name": "Uttarakhand University of Horticulture and Forestry (UUHF)"
+  },
+  {
+    "state": "Uttaranchal",
+    "category": "Private",
+    "name": "Uttaranchal University"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "Adamas University"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "Aliah University"
+  },
+  {
+    "state": "West Bengal",
+    "category": "Private",
+    "name": "Amity University"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "Bankura University"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "Bidhan Chandra Krishi Viswavidyalaya (BCKV)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "Private",
+    "name": "Brainware University"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "Calcutta University (CALUNIV)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "Central Government",
+    "name": "Centre for Development of Advanced Computing (CDAC)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "Cooch Behar Panchanan Barma University (CBPBU)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "Diamond Harbour Womens University"
+  },
+  {
+    "state": "West Bengal",
+    "category": "Deemed (Government)",
+    "name": "Indian Association for the Cultivation of Science (IACS)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "Central Government",
+    "name": "Indian Institute of Engineering Science and Technology Shibpur (IIEST Shibpur)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "Indian Institute of Science Education and Research Kolkata (IISER Kolkata)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "Central Government",
+    "name": "Indian Maritime University (IMU)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "Central Government",
+    "name": "Indian Oil Corporation Limited (IOCL)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "Jadavpur University"
+  },
+  {
+    "state": "West Bengal",
+    "category": "Private",
+    "name": "JIS University"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "Kazi Nazrul University (KNU)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "Maulana Abul Kalam Azad University of Technology (MAKAUT)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "Netaji Subhas Open University (NSOU)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "Presidency University"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "Rabindra Bharati University (RBU)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "Raiganj University"
+  },
+  {
+    "state": "West Bengal",
+    "category": "Deemed (Government)",
+    "name": "Ramakrishna Mission Vivekananda Educational and Research Institute (RKMVU)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "Private",
+    "name": "Seacom Skills University"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "Senate of Serampore College (University)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "Sidho Kanho Birsha University (SKBU)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "Private",
+    "name": "St Xaviers University"
+  },
+  {
+    "state": "West Bengal",
+    "category": "Private",
+    "name": "Techno India University"
+  },
+  {
+    "state": "West Bengal",
+    "category": "Private",
+    "name": "The Neotia University"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "The Sanskrit College and University"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "University of Burdwan"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "University of Engineering and Management"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "University of Gour Banga (UGB)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "University of Kalyani"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "University of North Bengal (NBU)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "Uttar Banga Krishi Vishwavidyalaya (UBKV)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "Vidyasagar University"
+  },
+  {
+    "state": "West Bengal",
+    "category": "Central Government",
+    "name": "Visva Bharati University (VBU)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "West Bengal National University of Juridical Sciences (WBNUJS)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "West Bengal State University (WBSU)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "West Bengal University of Animal and Fishery Sciences (WBUAFS)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "West Bengal University of Health Sciences (WBUHS)"
+  },
+  {
+    "state": "West Bengal",
+    "category": "State Government",
+    "name": "West Bengal University of Teachers Training Education Planning and Administration (WBUTTEPA)"
+  }
+]

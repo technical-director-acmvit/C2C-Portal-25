@@ -6,7 +6,7 @@ interface TopperProps {
 }
 
 const Topper: React.FC<TopperProps> = ({ text, className = "" }) => (
-  <div className={`relative flex justify-left pb-12 ${className} z-20`}>
+  <div className={`relative flex justify-left pb-12 ${className} z-20 pt-6`}>
     {/* Responsive width: full on mobile, wider on desktop to increase spacing between bulbs */}
     <div className="relative w-fit overflow-hidden">
       <Image

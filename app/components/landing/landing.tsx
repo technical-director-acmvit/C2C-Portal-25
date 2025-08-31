@@ -116,35 +116,20 @@ const Landing = () => {
         </div>
 
         {/* Footer text - left */}
-        <div
-          className="absolute bottom-4 left-3 sm:bottom-6 sm:left-6"
-          style={{ zIndex: 20 }}
-        >
+        <div className="absolute bottom-4 left-3 sm:bottom-6 sm:left-6 z-20">
           <p
+            className="font-bold text-[11px] sm:text-[13px] md:text-[14px] lg:text-[16px] text-white leading-tight m-0"
             style={{
               fontFamily: "Trap-Bold, Arial, sans-serif",
-              fontSize: "clamp(9px, 1.8vw, 12px)",
-              fontWeight: 700,
-              margin: 0,
-              color: "#FFF",
-              lineHeight: "1.3",
             }}
           >
             We are not just another{" "}
-            <span
-              style={{ color: "var(--C2C-Green, #48BA86)", fontWeight: 700 }}
-            >
-              hackathon
-            </span>
+            <span className="text-[#48BA86] font-bold">hackathon</span>
           </p>
           <p
+            className="font-normal text-[11px] sm:text-[13px] md:text-[14px] lg:text-[16px] text-white leading-tight m-0"
             style={{
               fontFamily: "Trap-Bold, Arial, sans-serif",
-              fontSize: "clamp(9px, 1.8vw, 12px)",
-              fontWeight: 400,
-              margin: 0,
-              color: "#FFF",
-              lineHeight: "1.3",
             }}
           >
             We are the conspiracy that actually works
@@ -152,30 +137,19 @@ const Landing = () => {
         </div>
 
         {/* Footer text - right */}
-        <div
-          className="absolute bottom-4 right-3 sm:bottom-6 sm:right-6 text-right"
-          style={{ zIndex: 20 }}
-        >
+        <div className="absolute bottom-4 right-3 sm:bottom-6 sm:right-6 text-right z-20">
           <p
+            className="font-bold text-[11px] sm:text-[13px] md:text-[14px] lg:text-[16px] text-white leading-tight m-0"
             style={{
               fontFamily: "Trap-Bold, Arial, sans-serif",
-              fontSize: "clamp(9px, 1.8vw, 12px)",
-              fontWeight: 700,
-              margin: 0,
-              color: "#FFF",
-              lineHeight: "1.3",
             }}
           >
             Established in 2016
           </p>
           <p
+            className="font-bold text-[11px] sm:text-[13px] md:text-[14px] lg:text-[16px] text-[#48BA86] leading-tight m-0"
             style={{
               fontFamily: "Trap-Bold, Arial, sans-serif",
-              fontSize: "clamp(9px, 1.8vw, 12px)",
-              fontWeight: 700,
-              margin: 0,
-              color: "var(--C2C-Green, #48BA86)",
-              lineHeight: "1.3",
             }}
           >
             Code2Create 6.0
