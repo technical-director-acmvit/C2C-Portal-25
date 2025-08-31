@@ -4,7 +4,7 @@ import GradientBG from "./gradient-bg";
 import Topper from "./topper";
 
 const About = ({ children }: { children?: React.ReactNode }) => (
-  <div className="w-screen h-auto ">
+  <div className="w-screen h-auto">
     <GradientBG>
       <div className="w-full h-auto relative overflow-hidden">
         <Topper text="About ACM" />
@@ -20,7 +20,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
         </div>
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col items-center px-4 space-y-16 sm:space-y-20 px-8">
+        <div className="relative z-10 flex flex-col items-center px-4 space-y-16 sm:space-y-20">
           {/* Logo */}
           <Image
             src="/landing/acm-nature-logo.svg"
@@ -49,9 +49,9 @@ const About = ({ children }: { children?: React.ReactNode }) => (
 
           {/* First Hero Line */}
           <h1
-            className="text-center break-words hyphens-auto"
+            className="text-center break-words hyphens-auto text-hollow"
             style={{
-              WebkitTextStroke: "2.41px #48ba86",
+              WebkitTextStroke: "1.5px #48ba86",
               fontFamily: "Trap-Bold, Arial, sans-serif",
               fontSize: "clamp(24px, 5.2vw, 77px)",
               fontWeight: "700",
@@ -82,7 +82,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
           <h1
             className="text-center break-words hyphens-auto"
             style={{
-              WebkitTextStroke: "2.41px #48ba86",
+              WebkitTextStroke: "1.5px #48ba86",
               fontFamily: "Trap-Bold, Arial, sans-serif",
               fontSize: "clamp(24px, 5.2vw, 77px)",
               fontWeight: "700",

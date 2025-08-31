@@ -2,17 +2,20 @@ import Image from "next/image";
 import DotGrid from "./dot-grid";
 import GradientBG from "./gradient-bg";
 import Topper from "./topper";
-
+import QuotesBanner from "./quotes-banner";
 const About = ({ children }: { children?: React.ReactNode }) => (
-  <div className="h-screen w-screen">
+  <div className="h-full w-full pt-3">
     <GradientBG>
       {/* Use <section> for semantics + anchor target */}
-      <section id="about" className="relative w-full overflow-hidden ">
+      <section
+        id="about"
+        className="relative w-full overflow-hidden min-h-[100svh] flex flex-col justify-between"
+      >
+        {" "}
         {/* Title */}
         <Topper text="About C2C" />
-
         {/* Background grid (kept behind content) */}
-        <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="pointer-events-none absolute inset-0 -z-10 h-full">
           <DotGrid
             dotSize={2.5}
             gap={25}
@@ -20,7 +23,6 @@ const About = ({ children }: { children?: React.ReactNode }) => (
             className="h-full w-full"
           />
         </div>
-
         {/* Content container */}
         <div
           className="
@@ -76,7 +78,6 @@ const About = ({ children }: { children?: React.ReactNode }) => (
             </div>
           )}
         </div>
-
         {/* Decorative HDMI image — responsive sizing via wrapper + fill */}
         <div className="hidden sm:block absolute right-2 sm:right-4 bottom-2 sm:bottom-4 z-30 pointer-events-none select-none w-40 sm:w-56 md:w-72 lg:w-80 aspect-[450/355]">
           <Image
@@ -89,6 +90,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
             draggable={false}
           />
         </div>
+        <QuotesBanner className="shrink-0" />
       </section>
     </GradientBG>
   </div>
