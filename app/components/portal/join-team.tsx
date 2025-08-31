@@ -12,7 +12,7 @@ const JoinTeam = () => {
   const [error, setError] = useState<string | null>(null);
 
   const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTeamCode(e.target.value);
+    setTeamCode(e.target.value.toUpperCase());
   };
 
   const handleProceed = async () => {

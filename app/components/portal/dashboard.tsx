@@ -2,14 +2,42 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import Image from 'next/image';
+import { Copy } from 'lucide-react';
 import Form from './form';
+import LeaveTeamModal from './leave-team-modal';
 import { fetchDashboard, type DashboardResponse, type UserSummary } from '../../actions/dashboard';
+import { leaveTeam } from "@/app/actions/team";
 
-const Dashboard = () => {
+interface DashboardProps {
+  onTeamLeft?: () => void;
+}
+
+const Dashboard: React.FC<DashboardProps> = ({ onTeamLeft }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<DashboardResponse | null>(null);
   const [showForm, setShowForm] = useState(false);
+  const [leaveProcessing, setLeaveProcessing] = useState(false);
+  const [showLeaveModal, setShowLeaveModal] = useState(false);
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const res = await fetchDashboard();
+      if (!res.ok) {
+        setError(res.error || "Failed to load dashboard");
+      } else {
+        setData(res.data ?? null);
+        setError(null);
+      }
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Failed to load dashboard"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -52,7 +80,46 @@ const Dashboard = () => {
     return !(team.github_url && team.figma_url && team.other && team.track_id);
   }, [team]);
 
-  if (showForm) return <Form />;
+  const handleLeaveTeam = async () => {
+    if (!team) return;
+    setLeaveProcessing(true);
+    setError(null);
+    try {
+      const res = await leaveTeam();
+
+      // If leaveTeam returns an object with .ok, respect it
+      if (res && typeof res === "object" && "ok" in res && !res.ok) {
+        throw new Error((res as any).error || "Failed to leave team");
+      }
+
+      // Update local state so dashboard reflects that the team is gone
+      setData((prev) => (prev ? { ...prev, team: null } : null));
+
+      // Close modal, notify parent, and emit an event for extra robustness
+      setShowLeaveModal(false);
+      onTeamLeft?.();
+
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("team-left"));
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to leave team");
+    } finally {
+      setLeaveProcessing(false);
+    }
+  };
+
+  if (showForm)
+    return (
+      <div
+        className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url(/portal/bg1.svg)" }}
+      >
+        <div className="flex items-center justify-center h-full">
+          <Form onBack={() => setShowForm(false)} />
+        </div>
+      </div>
+    );
   if (loading)
     return (
       <div className="min-h-screen grid place-items-center text-white">
@@ -112,7 +179,7 @@ const Dashboard = () => {
             className="border-2 border-white p-3 bg-transparent hover:bg-white/10 transition-colors"
             onClick={() => team?.code && navigator.clipboard?.writeText(team.code)}
           >
-            <div className="w-5 h-5 border border-white"></div>
+            <Copy className="w-5 h-5 text-white" />
           </button>
         </div>
 
@@ -195,7 +262,7 @@ const Dashboard = () => {
         {/* Go to Form Button */}
         {needsSubmission && (
           <button
-            className="px-8 py-4 rounded-lg text-white cursor-pointer"
+            className="px-8 py-4 rounded-lg text-white cursor-pointer mb-4"
             style={{
               backgroundColor: "#5EBF94",
               fontSize: "20px",
@@ -207,6 +274,32 @@ const Dashboard = () => {
             Go to form
           </button>
         )}
+
+        {/* Leave Team Button */}
+        {team && (
+          <button
+            className="px-8 py-4 rounded-lg text-white cursor-pointer"
+            style={{
+              backgroundColor: "#5EBF94",
+              fontSize: "20px",
+              fontFamily: "'Pilat Extended', Arial, sans-serif",
+              fontWeight: "400",
+            }}
+            onClick={() => setShowLeaveModal(true)}
+            disabled={leaveProcessing}
+          >
+            Leave team
+          </button>
+        )}
+
+        {/* Leave Team Modal */}
+        <LeaveTeamModal
+          isOpen={showLeaveModal}
+          onClose={() => setShowLeaveModal(false)}
+          onConfirm={handleLeaveTeam}
+          teamName={team?.name}
+          isProcessing={leaveProcessing}
+        />
       </div>
     </div>
   );
