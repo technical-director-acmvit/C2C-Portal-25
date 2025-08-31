@@ -4,7 +4,11 @@ import React, { useEffect, useState } from "react";
 import Image from 'next/image';
 import { getTracks, submitTeamSubmission, type Track } from '../../actions/submission';
 
-const Form = () => {
+interface FormProps {
+  onBack?: () => void;
+}
+
+const Form = ({ onBack }: FormProps) => {
   const [formData, setFormData] = useState({
     track_id: '',
     github_url: '',
@@ -69,6 +73,22 @@ const Form = () => {
       <div className="absolute top-6 left-18">
         <Image src="/portal/logo.svg" alt="Logo" width={200} height={200} />
       </div>
+      
+      {/* Back button */}
+      {onBack && (
+        <div className="absolute top-6 right-6">
+          <button
+            className="text-white border border-white px-4 py-2 rounded bg-transparent hover:bg-white/10 transition-colors"
+            onClick={onBack}
+            style={{
+              fontFamily: "'Pilat Extended', Arial, sans-serif",
+              fontSize: '14px'
+            }}
+          >
+            Back to Dashboard
+          </button>
+        </div>
+      )}
       
       {/* Centered form */}
       <div className="flex flex-col items-center justify-center h-full">

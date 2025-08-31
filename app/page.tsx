@@ -3,6 +3,7 @@
 import Landing from "./components/landing/landing";
 import { signIn } from "next-auth/react";
 import About from "./components/landing/about-c2c";
+import QuotesBanner from "./components/landing/quotes-banner";
 import Topper from "./components/landing/topper";
 import Tracks from "./components/landing/tracks";
 import Speaker from "./components/landing/speaker";import Sponsors from "./components/landing/sponsors";
@@ -21,6 +22,7 @@ export default function Page() {
       
 
       <About />
+      <QuotesBanner />
       
       <AboutACM />
       

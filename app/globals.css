@@ -7,7 +7,6 @@
 }
 @import "tailwindcss";
 
-/* Pilat Extended font from local files */
 @font-face {
   font-family: 'Pilat Extended';
   src: url('/fonts/PilatExtended-Bold.ttf') format('truetype');
@@ -24,7 +23,6 @@
   font-display: swap;
 }
 
-/* Trap font from local files */
 @font-face {
   font-family: 'Trap-Bold';
   src: url('/fonts/Trap-Bold.otf') format('opentype');

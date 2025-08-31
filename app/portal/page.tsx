@@ -5,6 +5,7 @@ import Portal from '@/app/components/portal/portal';
 import TeamUp from '../components/portal/team-up';
 import Dashboard from '../components/portal/dashboard';
 import { fetchDashboard } from '../actions/dashboard';
+import AuthReauthGuard from '@/components/auth-reauth-guard';
 
 type View = 'loading' | 'signup' | 'team' | 'dashboard' | 'error';
 
@@ -37,9 +38,21 @@ export default function Home() {
     return () => { mounted = false; };
   }, []);
 
-  if (view === 'loading') return <div className="min-h-screen grid place-items-center text-white">Loading…</div>;
-  if (view === 'signup') return <Portal />; // Student info (internal/external)
-  if (view === 'team') return <TeamUp />;   // Create/join team
-  if (view === 'dashboard') return <Dashboard />; // Team dashboard
-  return <div className="min-h-screen grid place-items-center text-red-400">Something went wrong. Please retry.</div>;
+  const handleTeamLeft = () => {
+    setView('team');
+  };
+
+  return (
+    <AuthReauthGuard>
+      {view === 'loading' && (
+        <div className="min-h-screen grid place-items-center text-white">Loading…</div>
+      )}
+      {view === 'signup' && <Portal />}
+      {view === 'team' && <TeamUp />}
+      {view === 'dashboard' && <Dashboard onTeamLeft={handleTeamLeft} />}
+      {view === 'error' && (
+        <div className="min-h-screen grid place-items-center text-red-400">Something went wrong. Please retry.</div>
+      )}
+    </AuthReauthGuard>
+  );
 }
