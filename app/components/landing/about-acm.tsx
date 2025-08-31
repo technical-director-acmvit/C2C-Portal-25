@@ -43,7 +43,7 @@ With a culture built on trust and innovation, we&apos;re here to build tools, so
                 </h1>
 
                 <div className="w-full max-w-[900px] px-0 md:px-0 text-justify justify-start text-zinc-100 text-xl sm:text-2xl md:text-3xl font-normal font-['DM_Sans'] leading-8 md:leading-10 pt-24">We can be heroes everywhere we go, not through capes or crowns, but through ideas that inspire change. At hackathons, and especially at Code2Create, this has always been the spirit: that we can have all that we ever want - the freedom to imagine, the courage to build, and the legacy of creating something larger than ourselves.</div>
-                <div className="absolute left-0 bottom-0 z-10 pointer-events-none select-none my-200  ">
+                <div className="absolute left-0 bottom-0 z-10 pointer-events-none select-none my-200">
                     <svg width="361" height="810" viewBox="0 0 361 810" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <mask id="mask0_2996_62753" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="-270" y="13" width="617" height="732">
                             <rect x="-57.2065" y="13.7432" width="429.556" height="621.214" transform="rotate(20 -57.2065 13.7432)" fill="#C4C4C4"/>
@@ -59,7 +59,38 @@ With a culture built on trust and innovation, we&apos;re here to build tools, so
                             <path d="M134.574 327.177L143.193 345.728L163.573 347.482L-78.4189 693.135L-107.418 672.83L134.574 327.177Z" fill="#48BA86"/>
                         </g>
                     </svg>
+
+                    
                 </div>
+
+                <h1 
+                    className="text-center break-words hyphens-auto mb-2 pt-48 sm:mb-4"
+                    style={{
+                    WebkitTextStroke: '2.41px #48ba86',
+                    fontFamily: 'Trap-Bold, Arial, sans-serif',
+                    fontSize: 'clamp(24px, 5.2vw, 77px)',
+                    fontWeight: '700',
+                    lineHeight: 'clamp(110%, 6vw, 130%)',
+                    color: 'transparent',
+                    textAlign: 'center',
+                    wordBreak: 'break-word',
+                    overflowWrap: 'break-word'
+                    }}
+                >
+                    We're back with a bang,<br/>but let's flex first!
+                </h1>
+
+            <div className="w-full flex justify-center items-center pt-24 pb-12">
+                <Image
+                    src="/landing/stats.png"
+                    alt="ACM Stats"
+                    width={1600}
+                    height={1000}
+                    className="w-full max-w-5xl h-auto pointer-events-auto"
+                    draggable={false}
+                    priority
+                />
+            </div>
                 
                 {children}
             </div>
