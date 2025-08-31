@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import DotGrid from './DotGrid';
+import DotGrid from './dot-grid';
 
 interface FAQItem {
   question: string;
