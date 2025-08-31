@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer className="relative w-full overflow-hidden">
+    <footer className="relative w-full h-[1300px] overflow-hidden">
       {/* Background image behind all content */}
       <div className="absolute inset-0 -z-10">
         <Image
@@ -15,18 +15,57 @@ const Footer = () => {
         />
       </div>
 
+      {/* Foreground overlay of the same background (above base bg, below content) */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <Image
+          src="/footer/footer-hills 1.png"
+          alt="Footer Background Overlay"
+          fill
+          className="w-full h-full object-cover opacity-100 pt-84"
+          priority
+        />
+      </div>
+
       {/* Divider line */}
       <div className="w-[1438.01px] h-0 outline outline-1 outline-offset-[-0.5px] outline-white mx-auto"></div>
+
+      {/* Logo row under divider */}
+      <div className="w-full flex items-center justify-center py-8">
+        <div className="flex items-center justify-center gap-6 sm:gap-8">
+          <Image
+            src="/footer/c2c-logo-art.svg"
+            alt="Code2Create with name"
+            width={160}
+            height={40}
+            className="h-8 sm:h-10 w-auto"
+            priority
+          />
+          <Image
+            src="/footer/ACM-logo-green.svg"
+            alt="ACM green logo"
+            width={78}
+            height={78}
+            className="h-9 sm:h-10 w-auto"
+            priority
+          />
+          <Image
+            src="/footer/Hand.svg"
+            alt="Hand icon"
+            width={62}
+            height={85}
+            className="h-10 sm:h-12 w-auto"
+            priority
+          />
+        </div>
+      </div>
 
       {/* Footer Content */}
       <div className="relative z-10 flex flex-col min-h-[60vh] pb-0">
         <div className="flex-grow flex items-start justify-between px-6 sm:px-10 md:px-16 pt-6">
           {/* Left Section */}
           <div className="flex-shrink-0">
-            <div className="text-yellow-50 text-xl font-bold font-['PolySans_Trial'] leading-tight">
-              association for
-              <br />
-              computing machinery
+            <div className="text-[#48ba86] text-xl font-bold leading-tight" style={{ fontFamily: "Trap" }}>
+              Code2Create
             </div>
 
             {/* Status pill */}
@@ -40,159 +79,92 @@ const Footer = () => {
             {/* Map */}
             <div className="mt-6 relative w-52 h-36">
               <a
-                href="https://w3w.co/static.grips.limelight"
-                target="_blank"
-                rel="noopener noreferrer"
+              href="https://w3w.co/static.grips.limelight"
+              target="_blank"
+              rel="noopener noreferrer"
               >
-                <Image
-                  src="/footer/VIT-Map.png"
-                  alt="VIT Map"
-                  fill
-                  className="object-cover rounded-lg shadow-lg border border-zinc-700"
-                />
+              <Image
+                src="/footer/VIT-Map.png"
+                alt="VIT Map"
+                fill
+                className="object-cover rounded-lg shadow-lg border border-zinc-700"
+              />
+              <div className="absolute inset-0 w-52 h-36 opacity-50 bg-gradient-to-b from-white to-green-400 rounded-lg pointer-events-none" />
               </a>
-              <div className="absolute inset-0 opacity-30 bg-gradient-to-b from-white to-red-500 rounded-lg pointer-events-none"></div>
             </div>
           </div>
 
           {/* Navigation Sections */}
           <div className="flex justify-start items-start gap-8 flex-wrap">
-            {/* About */}
-            <div className="w-16 flex flex-col gap-4">
-              <div className="text-yellow-50 text-base font-light font-['PolySans_Trial'] uppercase">
-                About
-              </div>
+            {/* ABOUT */}
+            <div className="w-24 flex flex-col gap-4">
+              <div className="text-[#48ba86] text-base font-light font-['PolySans_Trial'] uppercase">ABOUT</div>
               <div className="flex flex-col gap-2">
-                {["ACM-VIT", "VIT", "ACM"].map((item) => (
-                  <a
-                    key={item}
-                    href="#"
-                    className="text-white text-base font-light font-['PolySans_Trial'] uppercase hover:text-yellow-50 transition-colors"
-                  >
+                {["C2C", "ACM", "TRACKS"].map((item) => (
+                  <a key={item} href="#" className="text-white text-base font-light font-['PolySans_Trial'] uppercase hover:text-yellow-50 transition-colors">
                     {item}
                   </a>
                 ))}
               </div>
             </div>
 
-            {/* Domains */}
+            {/* TRACKS */}
             <div className="w-44 flex flex-col gap-4">
-              <div className="text-yellow-50 text-base font-light font-['PolySans_Trial'] uppercase">
-                Domains
-              </div>
+              <div className="text-[#48ba86] text-base font-light font-['PolySans_Trial'] uppercase">TRACKS</div>
               <div className="flex flex-col gap-2">
-                {[
-                  "App",
-                  "competitive coding",
-                  "design",
-                  "management",
-                  "research",
-                  "web",
-                ].map((item) => (
-                  <a
-                    key={item}
-                    href="#"
-                    className="text-white text-base font-light font-['PolySans_Trial'] uppercase hover:text-yellow-50 transition-colors"
-                  >
-                    {item}
-                  </a>
-                ))}
+              {["Al SOLUTONS", "ART ATTACK", "DIGITAL DAWN", "I CAN DO IT BETTER", "GAME OVER"].map((item) => (
+                <span key={item} className="text-white text-base font-light font-['PolySans_Trial'] uppercase">
+                {item}
+                </span>
+              ))}
               </div>
             </div>
 
-            {/* Events */}
+            {/* GUESTS */}
             <div className="w-36 flex flex-col gap-4">
-              <div className="text-yellow-50 text-base font-light font-['PolySans_Trial'] uppercase">
-                Events
-              </div>
+              <div className="text-[#48ba86] text-base font-light font-['PolySans_Trial'] uppercase">GUESTS</div>
               <div className="flex flex-col gap-2">
-                {[
-                  "Code2CREATE",
-                  "CRYPTIC HUNT",
-                  "REVERSE CODING",
-                  "CODEX CRYPTUM",
-                  "FORKTOBER",
-                  "THE TINY HACK",
-                  "APPTITUDE",
-                ].map((item) => (
-                  <a
-                    key={item}
-                    href="#"
-                    className="text-white text-base font-light font-['PolySans_Trial'] uppercase hover:text-yellow-50 transition-colors"
-                  >
-                    {item}
-                  </a>
-                ))}
-                <a
-                  href="#"
-                  className="text-red-500 text-base font-light font-['PolySans_Trial'] uppercase hover:text-red-400 transition-colors"
-                >
-                  MORE
-                </a>
+              {["DJ ISAAC", "H M EHRZAAD", "MEENAKSHI"].map((item) => (
+                <span key={item} className="text-white text-base font-light font-['PolySans_Trial'] uppercase">
+                {item}
+                </span>
+              ))}
               </div>
             </div>
 
-            {/* Projects */}
-            <div className="w-24 flex flex-col gap-4">
-              <div className="text-yellow-50 text-base font-light font-['PolySans_Trial'] uppercase">
-                Projects
-              </div>
+            {/* OUR PRODUCTS */}
+            <div className="w-28 flex flex-col gap-4">
+              <div className="text-[#48ba86] text-base font-light font-['PolySans_Trial'] uppercase">OUR PRODUCTS</div>
               <div className="flex flex-col gap-2">
-                {[
-                  "ACMONE",
-                  "CLI-RPG",
-                  "EXAMCOOKER",
-                  "CLITOP",
-                  "LOCALHOST",
-                  "OS",
-                  "UNIPOOL",
-                ].map((item) => (
-                  <a
-                    key={item}
-                    href="#"
-                    className="text-white text-base font-light font-['PolySans_Trial'] uppercase hover:text-yellow-50 transition-colors"
-                  >
+                {["ACMONE", "CLI-RPG", "EXAMCOOKER", "CLITOP", "LOCALHOST", "os", "UNIPOOL"].map((item) => (
+                  <a key={item} href="#" className="text-white text-base font-light font-['PolySans_Trial'] uppercase hover:text-yellow-50 transition-colors">
                     {item}
                   </a>
                 ))}
               </div>
             </div>
 
-            {/* ACM-W */}
-            <div className="w-16 flex flex-col gap-4">
-              <div className="text-yellow-50 text-base font-light font-['PolySans_Trial'] uppercase">
-                ACM-W
-              </div>
+            {/* TIMELINE */}
+            {/* <div className="w-28 flex flex-col gap-4">
+              <div className="text-[#48ba86] text-base font-light font-['PolySans_Trial'] uppercase">TIMELINE</div>
               <div className="flex flex-col gap-2">
-                {["about w", "events"].map((item) => (
-                  <a
-                    key={item}
-                    href="#"
-                    className="text-white text-base font-light font-['PolySans_Trial'] uppercase hover:text-yellow-50 transition-colors"
-                  >
+                {["ACMONE", "CLI-RPG", "EXAMCOOKER", "CLITOP", "LOCALHOST", "os", "UNIPOOL"].map((item) => (
+                  <a key={item} href="#" className="text-white text-base font-light font-['PolySans_Trial'] uppercase hover:text-yellow-50 transition-colors">
                     {item}
                   </a>
                 ))}
               </div>
-            </div>
+            </div> */}
 
-            {/* More */}
-            <div className="w-24 flex flex-col gap-4">
-              <div className="text-red-500 text-base font-light font-['PolySans_Trial'] uppercase">
-                More
-              </div>
+            {/* SPONSORS */}
+            <div className="w-20 flex flex-col gap-4">
+              <div className="text-[#48ba86] text-base font-light font-['PolySans_Trial'] uppercase">SPONSORS</div>
               <div className="flex flex-col gap-2">
-                {["team", "blogs", "partners", "gallery", "contact us"].map(
-                  (item) => (
-                    <a
-                      key={item}
-                      href="#"
-                      className="text-white text-base font-light font-['PolySans_Trial'] uppercase hover:text-yellow-50 transition-colors"
-                    >
-                      {item}
-                    </a>
-                  )
-                )}
+                {["ABOUT W", "EVENTS"].map((item) => (
+                  <a key={item} href="#" className="text-white text-base font-light font-['PolySans_Trial'] uppercase hover:text-yellow-50 transition-colors">
+                    {item}
+                  </a>
+                ))}
               </div>
             </div>
           </div>
@@ -271,18 +243,38 @@ const Footer = () => {
             ))}
           </div>
 
-          <div className="flex items-center gap-2">
-            <Image
+            <div className="flex items-center gap-3 pt-8">
+              <Image
               src="/footer/pixel-heart.svg"
               alt="pixel heart"
-              width={24}
-              height={24}
-            />
-            <span className="text-white text-base font-['PolySans_Trial']">
+              width={36}
+              height={36}
+              className="w-9 h-9"
+              />
+              <span
+              className="text-white text-4xl"
+              style={{ fontFamily: "Trap-Bold" }}
+              >
               crafted with love by ACM-VIT
-            </span>
+              </span>
+            </div>
+
+            <h1
+              className="text-center break-words hyphens-auto py-16"
+              style={{
+              WebkitTextStroke: "4px #ffffffff",
+              fontFamily: "Trap-Bold, Arial, sans-serif",
+              fontSize: "clamp(200px, 35vw, 600px)",
+              fontWeight: "200",
+              lineHeight: "clamp(110%, 8vw, 100%)",
+              color: "transparent",
+              letterSpacing: "0.05em",
+              textShadow: "0 12px 48px rgba(0,0,0,0.25)",
+              }}
+            >
+              C2C
+            </h1>
           </div>
-        </div>
 
         {/* Big background text */}
         <div
