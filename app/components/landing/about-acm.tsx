@@ -7,7 +7,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
     <GradientBG>
         <div className="w-full h-[400vh] relative overflow-hidden">
             <Topper text="About ACM" />
-            <DotGrid dotSize={3} gap={25} baseColor="#a3a3a3" className='z-50' />
+            <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" className='z-50' />
             {/* Absolutely center the text and ensure it's above the canvas */}
             <div className="absolute inset-0 z-20 flex flex-col items-center pointer-events-none px-4">
                 <Image
@@ -17,14 +17,13 @@ const About = ({ children }: { children?: React.ReactNode }) => (
                     height={80}
                     className="mb-6 pointer-events-auto z-100 pt-64"
                     draggable={false}
-                    loading="lazy"
                 />
                 <div
                     className="w-full max-w-[794px] text-justify justify-start text-zinc-100 text-xl sm:text-2xl font-thin leading-8 md:leading-10 pointer-events-auto pt-8"
                     style={{ fontFamily: "DMSans-Regular, sans-serif" }}
                 >
-                    Id qui cupidatat dolor veniam incididunt. Sint sit officia eu deserunt dolore officia anim labore deserunt incididunt consectetur do. Magna incididunt aliqua nisi Lorem. Pariatur sit non ex tempor est excepteur occaecat reprehenderit ex velit laboris esse cillum incididunt ullamco.
-                </div>
+As the official student chapter of the Association for Computing Machinery at VIT Vellore, we&apos;ve been pushing boundaries and challenging conventions since 2009. From research and development to open-source contributions and unorthodox events, we turn ideas into real-world impact. We don&apos;t just write code - we ask questions, build with purpose, and learn together.
+With a culture built on trust and innovation, we&apos;re here to build tools, solve problems, and grow as a community - because technology, at its best, brings people together.                </div>
                 <div className="h-[320px]" />
                 <h1 
                     className="text-center break-words hyphens-auto mb-2 sm:mb-4"
@@ -43,7 +42,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
                     We can be heroes everywhere we go,<br/>We can have all that we ever want.
                 </h1>
 
-                <div className="w-full max-w-[900px] px-0 md:px-0 text-justify justify-start text-zinc-100 text-xl sm:text-2xl md:text-3xl font-normal font-['DM_Sans'] leading-8 md:leading-10 pt-24">We can be heroes everywhere we go, not through capes or crowns, but through ideas that inspire change. At hackathons, and especially at Code2Create, this has always been the spirit: that we can have all that we ever want - the freedom to imagine, the courage to build, and the legacy of creating something larger than ourselves.”</div>
+                <div className="w-full max-w-[900px] px-0 md:px-0 text-justify justify-start text-zinc-100 text-xl sm:text-2xl md:text-3xl font-normal font-['DM_Sans'] leading-8 md:leading-10 pt-24">We can be heroes everywhere we go, not through capes or crowns, but through ideas that inspire change. At hackathons, and especially at Code2Create, this has always been the spirit: that we can have all that we ever want - the freedom to imagine, the courage to build, and the legacy of creating something larger than ourselves.</div>
                 <div className="absolute left-0 bottom-0 z-10 pointer-events-none select-none my-200  ">
                     <svg width="361" height="810" viewBox="0 0 361 810" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <mask id="mask0_2996_62753" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="-270" y="13" width="617" height="732">

@@ -58,7 +58,7 @@ const Landing = () => {
               overflowWrap: 'break-word'
             }}
           >
-            We are the hackathon
+            Code2Create
           </h1>
           <h1 
             className="text-center break-words hyphens-auto"
@@ -74,13 +74,12 @@ const Landing = () => {
               overflowWrap: 'break-word'
             }}
           >
-            Everyone dreams of
           </h1>
         </div>
 
         {/* Main logo positioned like rising sun from mountains - behind mountains */}
         <div
-          className="absolute top-[56%] left-4/7 transform -translate-x-1/2 -translate-y-1/2 animate-floating"
+          className="absolute top-[52%] left-4/7 transform -translate-x-1/2 -translate-y-1/2 animate-floating"
           style={{ zIndex: 1 }}
         >
           <Image 
@@ -153,7 +152,7 @@ const Landing = () => {
             style={{
               color: '#BEBEBE',
               fontFamily: 'Trap, Arial, sans-serif',
-              fontSize: 'clamp(14px, 3.2vw, 42px)',
+              fontSize: 'clamp(16px, 3.3vw, 44px)',
               fontWeight: '700',
               lineHeight: 'clamp(120%, 4vw, 130%)',
               opacity: 0.4,

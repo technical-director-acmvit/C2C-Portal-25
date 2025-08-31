@@ -15,7 +15,8 @@ export default function AuthReauthGuard({ children }: PropsWithChildren) {
       return;
     }
     if (status === 'authenticated') {
-      const error = (data as any)?.error as string | undefined;
+      type SessionMaybeWithError = { error?: string } | null;
+      const error = (data as SessionMaybeWithError)?.error;
       if (error === 'RefreshAccessTokenError') {
         const callbackUrl = window.location.href;
         void signIn('google', { callbackUrl });

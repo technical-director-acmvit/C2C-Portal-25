@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import DotGrid from './dot-grid';
 import Topper from './topper';
+import Topper from './topper';
 
 interface TimelineItem {
   id: string;
@@ -76,22 +77,28 @@ const Timeline = () => {
 
   return (
     <div id="timeline" className="w-full min-h-screen relative overflow-hidden">
-      <Topper text="timeline" />
-      <div className="absolute inset-0 w-full h-full -z-1 pointer-events-none" style={{ background: '#1e1e1e' }}>
-        <DotGrid dotSize={3} gap={25} baseColor="#a3a3a3" />
+      {/* Gradient background that blends with the page background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a]" />
+      <Topper text="Timeline" />
+      {/* DotGrid positioned behind the content */}
+      <div className="absolute inset-0 z-0">
+        <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" />
       </div>
       
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
-        <div className="w-full max-w-7xl px-4 md:px-6 pointer-events-auto">
+        <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 pointer-events-auto">
+          {/* Header */}
           
           
-          <div className="flex flex-col lg:flex-row gap-12 items-start">
-            <div className="flex flex-col gap-4 w-full lg:w-auto">
+          {/* Timeline Content */}
+          <div className="flex flex-col xl:flex-row gap-8 sm:gap-10 lg:gap-12 items-start">
+            {/* Timeline Buttons */}
+            <div className="flex flex-col sm:flex-row xl:flex-col gap-3 sm:gap-4 w-full xl:w-auto overflow-x-auto sm:overflow-x-visible">
               {timelineData.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => setSelectedItem(item)}
-                  className={`flex items-center gap-3 px-6 py-3 transition-all duration-300 ease-in-out text-left min-w-[250px] transform hover:scale-105 hover:shadow-lg hover:shadow-[#48BA86]/20 ${
+                  className={`flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 transition-all duration-300 ease-in-out text-left min-w-[200px] sm:min-w-[250px] transform hover:scale-105 hover:shadow-lg hover:shadow-[#48BA86]/20 flex-shrink-0 ${
                     selectedItem.id === item.id ? 'scale-105 shadow-lg shadow-[#48BA86]/30' : ''
                   }`}
                   style={{
@@ -114,11 +121,11 @@ const Timeline = () => {
                   }}
                 >
                   <span 
-                    className="font-bold transition-all duration-200"
+                    className="font-bold transition-all duration-200 text-sm sm:text-base"
                     style={{ 
                       color: '#48BA86',
                       fontFamily: 'Pilat Extended',
-                      fontSize: '15.6px',
+                      fontSize: 'clamp(12px, 2.5vw, 15.6px)',
                       fontStyle: 'normal',
                       fontWeight: 700,
                       lineHeight: 'normal'
@@ -127,11 +134,11 @@ const Timeline = () => {
                     {item.id}
                   </span>
                   <span 
-                    className="font-bold transition-all duration-200"
+                    className="font-bold transition-all duration-200 text-lg sm:text-xl"
                     style={{ 
                       color: '#48BA86',
                       fontFamily: 'Pilat Extended',
-                      fontSize: '24.6px',
+                      fontSize: 'clamp(18px, 4vw, 24.6px)',
                       fontStyle: 'normal',
                       fontWeight: 700,
                       lineHeight: 'normal'
@@ -144,13 +151,13 @@ const Timeline = () => {
             </div>
             
             {/* Selected Item Details */}
-            <div className="flex-1 bg-transparent rounded-2xl border-none p-6 md:p-8">
+            <div className="flex-1 bg-transparent rounded-2xl border-none p-4 sm:p-6 lg:p-8">
               <h3 
-                className="text-3xl md:text-5xl font-bold mb-6"
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6"
                 style={{ 
                   color: '#4ade80',
                   fontFamily: 'Trap',
-                  fontSize: 'clamp(28px,4vw,50px)',
+                  fontSize: 'clamp(28px, 6vw, 50px)',
                   fontStyle: 'normal',
                   fontWeight: 700,
                   lineHeight: 'normal',
@@ -160,13 +167,13 @@ const Timeline = () => {
                 {selectedItem.title}
               </h3>
               
-              <div className="space-y-13 mb-6">
+              <div className="space-y-8 sm:space-y-10 lg:space-y-13 mb-4 sm:mb-6">
                 <p 
-                  className="text-white text-xl md:text-2xl"
+                  className="text-white text-lg sm:text-xl lg:text-2xl xl:text-3xl"
                   style={{ 
                     color: '#FFF',
                     fontFamily: 'DM Sans',
-                    fontSize: 'clamp(18px,3vw,30px)',
+                    fontSize: 'clamp(18px, 4vw, 30px)',
                     fontStyle: 'normal',
                     fontWeight: 400,
                     lineHeight: 'normal',
@@ -176,11 +183,11 @@ const Timeline = () => {
                   {selectedItem.day}
                 </p>
                 <p 
-                  className="text-white text-xl md:text-2xl"
+                  className="text-white text-lg sm:text-xl lg:text-2xl xl:text-3xl"
                   style={{ 
                     color: '#FFF',
                     fontFamily: 'DM Sans',
-                    fontSize: 'clamp(18px,3vw,30px)',
+                    fontSize: 'clamp(18px, 4vw, 30px)',
                     fontStyle: 'normal',
                     fontWeight: 400,
                     lineHeight: 'normal',
@@ -190,11 +197,11 @@ const Timeline = () => {
                   {selectedItem.time}
                 </p>
                 <p 
-                  className="text-white text-xl md:text-2xl"
+                  className="text-white text-lg sm:text-xl lg:text-2xl xl:text-3xl"
                   style={{ 
                     color: '#FFF',
                     fontFamily: 'DM Sans',
-                    fontSize: 'clamp(18px,3vw,30px)',
+                    fontSize: 'clamp(18px, 4vw, 30px)',
                     fontStyle: 'normal',
                     fontWeight: 400,
                     lineHeight: 'normal',
