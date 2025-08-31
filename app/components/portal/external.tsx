@@ -8,8 +8,6 @@ const External = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
         collegeName: '',
         gender: '',
         contactNumber: ''
@@ -24,9 +22,7 @@ const External = () => {
     };
 
     const isFormValid = () => {
-        return formData.name.trim() !== '' &&
-               formData.email.trim() !== '' &&
-               formData.collegeName.trim() !== '' &&
+        return formData.collegeName.trim() !== '' &&
                formData.gender !== '' &&
                formData.contactNumber.trim() !== '';
     };
@@ -37,8 +33,6 @@ const External = () => {
         setError(null);
         try {
             await signupExternal({
-                name: formData.name,
-                email: formData.email,
                 contact_number: formData.contactNumber,
                 gender: formData.gender,
                 college_name: formData.collegeName,
@@ -70,22 +64,6 @@ const External = () => {
                             {error}
                         </div>
                     )}
-                    <input 
-                        className="border rounded-md p-3" 
-                        type="text" 
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        placeholder="Name" 
-                    />
-                    <input 
-                        className="border rounded-md p-3" 
-                        type="email" 
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        placeholder="Email" 
-                    />
                     <input 
                         className="border rounded-md p-3" 
                         type="text" 
