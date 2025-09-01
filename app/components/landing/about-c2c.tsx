@@ -3,6 +3,7 @@ import DotGrid from "./dot-grid";
 import GradientBG from "./gradient-bg";
 import Topper from "./topper";
 import QuotesBanner from "./quotes-banner";
+import HeadingText from "./HeadingText";
 const About = ({ children }: { children?: React.ReactNode }) => (
   <div className="h-full w-full pt-3">
     <GradientBG>
@@ -11,10 +12,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
         id="about"
         className="relative w-full overflow-hidden min-h-[100svh] flex flex-col justify-between"
       >
-        {" "}
-        {/* Title */}
-        <Topper text="About C2C" />
-        {/* Background grid (kept behind content) */}
+        <HeadingText text="About Code2Create" />
         <div className="pointer-events-none absolute inset-0 -z-10 h-full">
           <DotGrid
             dotSize={2.5}
