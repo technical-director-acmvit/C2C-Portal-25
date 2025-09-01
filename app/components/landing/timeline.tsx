@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import DotGrid from './dot-grid';
 import Topper from './topper';
 import GradientBG from './gradient-bg';
+import HeadingText from './HeadingText';
 
 interface TimelineItem {
   id: string;
@@ -63,7 +64,7 @@ const Timeline = () => {
       <GradientBG>
         <div id="timeline" className="w-full min-h-screen relative overflow-hidden">
           <div className="absolute inset-0 z-10">
-            <Topper text="Timeline" />
+            <HeadingText text="Timeline" />
           </div>
           <div className="absolute inset-0 z-0">
             <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" />
@@ -95,7 +96,27 @@ const Timeline = () => {
     <GradientBG>
     <div id="timeline" className="w-full min-h-screen relative overflow-hidden">
       <div className="absolute inset-0 z-10">
-        <Topper text="Timeline" />
+        {/* <Topper text="Timeline" /> */}
+        <h1
+          className="
+            text-center 
+            break-words 
+            hyphens-auto 
+            text-hollow 
+            py-8 sm:py-16 md:py-24 lg:py-32
+            px-4
+          "
+          style={{
+            WebkitTextStroke: "2px #ffffff",
+            fontFamily: "Trap-Bold, Arial, sans-serif",
+            fontSize: "clamp(2rem, 8vw, 6rem)", // 24px → ~77px
+            fontWeight: 700,
+            lineHeight: "clamp(110%, 6vw, 130%)",
+            color: "transparent",
+          }}
+        >
+          Timeline
+        </h1>
       </div>
       {/* DotGrid positioned behind the content */}
       <div className="absolute inset-0 z-0">

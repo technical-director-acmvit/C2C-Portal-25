@@ -1,6 +1,7 @@
 import Topper from "./topper";
 import DotGrid from "./dot-grid";
 import GradientBG from "./gradient-bg";
+import HeadingText from "./HeadingText";
 
 const Speaker = ({ children }: { children?: React.ReactNode }) => (
   <GradientBG darken>
@@ -14,7 +15,7 @@ const Speaker = ({ children }: { children?: React.ReactNode }) => (
         />
       </div>
       <div className="relative z-10">
-        <Topper text="Speaker" />
+        <HeadingText text="Speaker" />
         {children}
       </div>
       <div className="flex flex-col gap-16 mb-20 mt-10">

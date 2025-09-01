@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import DotGrid from './dot-grid';
 import Topper from './topper';
 import GradientBG from './gradient-bg';
+import HeadingText from './HeadingText';
 
 interface FAQItem {
   question: string;
@@ -79,51 +80,55 @@ const FAQs = () => {
 
   return (
     <GradientBG>
-    <div id="faqs" className="w-full min-h-screen relative overflow-hidden">
-      <Topper text="FAQs" />
-      {/* DotGrid positioned behind the content - same as About and Sponsors */}
-      <div className="absolute inset-0 z-0">
-        <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" />
-      </div>
-      
-      {/* Content positioned above the dots */}
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
-        <div className="w-full max-w-7xl px-4 sm:px-6 pointer-events-auto transform translate-y-12 sm:translate-y-16 md:translate-y-20 lg:translate-y-24">
+      <div id="faqs" className="w-full min-h-screen relative overflow-hidden">
+        {/* Dots in the background */}
+        <div className="absolute inset-0 z-0">
+          <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" />
+        </div>
+
+        {/* Content layer */}
+        <div className="relative z-10 flex flex-col items-center w-full max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20 lg:py-28">
+          {/* Heading */}
+          <HeadingText text="FAQs" />
+
           {/* FAQ Items */}
-          <div className="w-full max-w-5xl lg:max-w-6xl mx-auto">
-            <div className="p-2 sm:p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-              {/* Left column */}
-              <div className="space-y-3 sm:space-y-4">
-                {leftFAQs.map((faq, index) => (
+         <div className="mt-10 sm:mt-14 lg:mt-20 w-full max-w-5xl lg:max-w-6xl pb-32 sm:pb-40 lg:pb-48">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
+            {/* Left column */}
+            <div className="space-y-3 sm:space-y-4">
+              {leftFAQs.map((faq, index) => (
+                <FAQItem
+                  key={index}
+                  faq={faq}
+                  isOpen={openIndex === index}
+                  onToggle={() => toggleFAQ(index)}
+                />
+              ))}
+            </div>
+
+            {/* Right column */}
+            <div className="space-y-3 sm:space-y-4">
+              {rightFAQs.map((faq, idx) => {
+                const globalIndex = mid + idx;
+                return (
                   <FAQItem
-                    key={index}
+                    key={globalIndex}
                     faq={faq}
-                    isOpen={openIndex === index}
-                    onToggle={() => toggleFAQ(index)}
+                    isOpen={openIndex === globalIndex}
+                    onToggle={() => toggleFAQ(globalIndex)}
                   />
-                ))}
-              </div>
-              {/* Right column */}
-              <div className="space-y-3 sm:space-y-4">
-                {rightFAQs.map((faq, idx) => {
-                  const globalIndex = mid + idx;
-                  return (
-                    <FAQItem
-                      key={globalIndex}
-                      faq={faq}
-                      isOpen={openIndex === globalIndex}
-                      onToggle={() => toggleFAQ(globalIndex)}
-                    />
-                  );
-                })}
-              </div>
+                );
+              })}
             </div>
           </div>
         </div>
+
+
+
+        </div>
       </div>
-    </div>
     </GradientBG>
   );
-};
+}; 
 
 export default FAQs;

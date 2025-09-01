@@ -3,6 +3,7 @@ import Image from "next/image";
 import Topper from "./topper";
 import GradientBG from "./gradient-bg";
 import DotGrid from "./dot-grid";
+import HeadingText from "./HeadingText";
 const TRACKS = [
   {
     number: 1,
@@ -36,7 +37,7 @@ const Tracks = ({ children }: { children?: React.ReactNode }) => {
     <div id="tracks" className="relative w-full overflow-hidden">
       <GradientBG>
         <div className="relative z-10">
-          <Topper text="Tracks" />
+          <HeadingText text="Tracks" />
           {children}
         </div>
         <div className="pointer-events-none absolute inset-0 -z-10">
