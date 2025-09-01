@@ -480,27 +480,6 @@ const External = ({ onBack }: Props) => {
             )}
           </div>
 
-          <label className="text-sm text-gray-300 mt-3 mb-2">Gender</label>
-          <Select
-            id="gender"
-            value={formData.gender}
-            onChange={(val: string) => setFormData((prev) => ({ ...prev, gender: val }))}
-            options={GENDER_OPTIONS as unknown as { label: string; value: string }[]}
-            placeholder="Gender"
-          />
-
-          <label className="text-sm text-gray-300 mt-3 mb-2">
-            Contact Number
-          </label>
-          <input
-            className="w-full bg-[#111213]/60 border border-white/10 rounded-full px-4 py-3 text-white placeholder-gray-400 focus:outline-none"
-            type="tel"
-            name="contactNumber"
-            value={formData.contactNumber}
-            onChange={handleInputChange}
-            placeholder="Contact Number"
-          />
-
           <label className="text-sm text-gray-300 mt-3 mb-2">College Name</label>
           <div className="relative">
             {/* Replaced Select with fuzzy-searchable input + dropdown for colleges */}
@@ -558,6 +537,29 @@ const External = ({ onBack }: Props) => {
               </ul>
             )}
           </div>
+
+          <label className="text-sm text-gray-300 mt-3 mb-2">Gender</label>
+          <Select
+            id="gender"
+            value={formData.gender}
+            onChange={(val: string) => setFormData((prev) => ({ ...prev, gender: val }))}
+            options={GENDER_OPTIONS as unknown as { label: string; value: string }[]}
+            placeholder="Gender"
+          />
+
+          <label className="text-sm text-gray-300 mt-3 mb-2">
+            Contact Number
+          </label>
+          <input
+            className="w-full bg-[#111213]/60 border border-white/10 rounded-full px-4 py-3 text-white placeholder-gray-400 focus:outline-none"
+            type="tel"
+            name="contactNumber"
+            value={formData.contactNumber}
+            onChange={handleInputChange}
+            placeholder="Contact Number"
+          />
+
+          
 
           <div className="flex justify-center mt-6">
             <PortalButton
