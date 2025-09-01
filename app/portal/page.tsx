@@ -1,44 +1,56 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import Portal from '@/app/components/portal/portal';
 import TeamUp from '../components/portal/team-up';
 import Dashboard from '../components/portal/dashboard';
-import { fetchDashboard } from '../actions/dashboard';
-
-type View = 'loading' | 'signup' | 'team' | 'dashboard' | 'error';
+import { usePortalStore } from "@/app/stores/portal";
+import AuthReauthGuard from '@/components/auth-reauth-guard';
+import PortalLoader from "../components/portal/portal-loader";
+import { signOut } from 'next-auth/react';
+import { LogOut } from 'lucide-react';
 
 export default function Home() {
-  const [view, setView] = useState<View>('loading');
+  const view = usePortalStore((s) => s.view);
+  const initialize = usePortalStore((s) => s.initialize);
+  useEffect(() => { void initialize(); }, [initialize]);
 
-  useEffect(() => {
-    let mounted = true;
-    (async () => {
-      try {
-        const res = await fetchDashboard();
-        if (!mounted) return;
-        if (!res.ok) {
-          if (res.status === 404) {
-            setView('signup');
-          } else if (res.status === 401) {
-            setView('signup');
-          } else {
-            setView('error');
-          }
-          return;
-        }
-        const hasTeam = Boolean(res.data?.team);
-        setView(hasTeam ? 'dashboard' : 'team');
-      } catch {
-        if (mounted) setView('signup');
-      }
-    })();
-    return () => { mounted = false; };
-  }, []);
-
-  if (view === 'loading') return <div className="min-h-screen grid place-items-center text-white">Loading…</div>;
-  if (view === 'signup') return <Portal />; // Student info (internal/external)
-  if (view === 'team') return <TeamUp />;   // Create/join team
-  if (view === 'dashboard') return <Dashboard />; // Team dashboard
-  return <div className="min-h-screen grid place-items-center text-red-400">Something went wrong. Please retry.</div>;
+  return (
+    <AuthReauthGuard>
+      <div className="absolute top-6 left-6 z-100 sm:left-8">
+        <Link href="/">
+          <Image
+            src="/portal/logo.svg"
+            alt="Logo"
+            width={200}
+            height={200}
+            className="bg-transparent block w-28 sm:w-40 h-auto"
+            draggable={false}
+          />
+        </Link>
+      </div>
+      <div className="absolute top-6 right-6 z-100 sm:right-8">
+        <button
+          type="button"
+          aria-label="Log out"
+          title="Log out"
+          onClick={() => signOut({ callbackUrl: '/' })}
+          className="group inline-flex items-center justify-center rounded-full border border-white/10 bg-black/30 hover:bg-black/50 text-white p-2 sm:p-3 transition-colors focus:outline-none focus:ring-2 focus:ring-white/30"
+        >
+          <LogOut className="h-5 w-5 sm:h-6 sm:w-6 opacity-90 group-hover:opacity-100" />
+        </button>
+      </div>
+      {view === 'loading' && (
+        <PortalLoader />
+      )}
+      {view === 'signup' && <Portal />}
+      {view === 'team' && <TeamUp />}
+      {view === 'dashboard' && <Dashboard />}
+      {view === 'error' && (
+        <div className="min-h-screen grid place-items-center text-red-400">Something went wrong. Please retry.</div>
+      )}
+    </AuthReauthGuard>
+  );
 }

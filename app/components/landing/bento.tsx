@@ -1,34 +1,44 @@
 import React from "react";
+import DotGrid from "./dot-grid";
+import BentoSquareKiss from "./bento-square-kiss";
+import BentoRect from "./bento-rectangle";
 
 const Bento = () => {
+  const dim =
+    typeof window !== "undefined" ? Math.round(window.innerHeight * 0.3) : 500;
+  const rectDim = dim; // keep same size (adjust if you want different)
+
   return (
-    <div className="flex h-[50vh] w-full items-center justify-center">
-      <div className="grid h-full w-full gap-4 bg-gray-200 p-2 grid-cols-6 grid-rows-2 rounded-lg shadow-md">
-        <div className="col-span-2 row-span-1 bg-pink-200 rounded-full aspect-square h-full shadow-md flex items-center justify-center ml-auto">
-          <p>Salmon</p>
+    <>
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" className="w-full" />
+      </div>
+
+      <div className="min-h-screen relative" style={{ background: "transparent" }}>
+        {/* Square (left) */}
+        <div
+          style={{
+            position: "absolute",
+            left: "10vw",
+            top: "50vh",
+            transform: "translateY(-50%)",
+          }}
+        >
+          <BentoSquareKiss dim={dim} />
         </div>
 
-        <div className="col-span-3 row-span-1 bg-lime-200 rounded-lg shadow-md flex items-center justify-center">
-          <p>Broccoli</p>
-        </div>
-
-        <div className="col-span-1 row-span-1 bg-yellow-200 rounded-lg shadow-md flex items-center justify-center">
-          <p>Tamago</p>
-        </div>
-
-        <div className="col-span-2 row-span-1 bg-red-200 rounded-lg shadow-md flex items-center justify-center">
-          <p>Pork</p>
-        </div>
-
-        <div className="col-span-1 row-span-1 bg-green-200 rounded-lg shadow-md flex items-center justify-center">
-          <p>Edamame</p>
-        </div>
-
-        <div className="col-span-3 row-span-1 bg-red-200 rounded-lg shadow-md flex items-center justify-center">
-          <p>Tomato</p>
+        <div
+          style={{
+            position: "absolute",
+            left: `calc(9.4vw + ${dim}px )`,
+            top: "64.5vh", 
+            transform: "translateY(-50%)",
+          }}
+        >
+          <BentoRect dim={rectDim-65} />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

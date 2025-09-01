@@ -1,16 +1,13 @@
 import { getIdToken } from './session';
 
 export interface InternalSignupData {
-  name: string;
-  email: string;
   contact_number: string;
   gender: string;
   reg_no: string;
+  hosteller?: boolean;
 }
 
 export interface ExternalSignupData {
-  name: string;
-  email: string;
   contact_number: string;
   gender: string;
   college_name: string;
@@ -30,6 +27,7 @@ export async function signupInternal(data: InternalSignupData) {
       reg_no: data.reg_no,
       role: 'participant',
       internal: true,
+      hosteller: Boolean(data.hosteller),
       college_name: '',
     }),
   });

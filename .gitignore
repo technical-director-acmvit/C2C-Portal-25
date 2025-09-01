@@ -41,3 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 client_secret.json
+
+server.js
+
+reload.txt
