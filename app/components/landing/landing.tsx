@@ -41,10 +41,10 @@ const Landing = () => {
           className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 w-full max-w-screen-xl"
           style={{ zIndex: 10 }}
         >
-          <h1 className="text-center text-hollow text-4xl sm:text-6xl lg:text-7xl md:text-6xl break-words hyphens-auto mb-2 sm:mb-4">
+          <h1 className="text-center text-hollow text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl break-words hyphens-auto mb-1 xs:mb-2 sm:mb-4">
             Turning what if
           </h1>
-          <h1 className="text-center break-words hyphens-auto text-hollow text-4xl sm:text-5xl lg:text-7xl md:text-6xl">
+          <h1 className="text-center break-words hyphens-auto text-hollow text-2xl xs:text-3xl sm:text-4xl md:text-6xl lg:text-7xl">
             into what&apos;s next
           </h1>
         </div>
@@ -97,7 +97,7 @@ const Landing = () => {
 
         {/* Main tagline */}
         <div
-          className="absolute left-1/2 -translate-x-1/2 px-4 w-full max-w-screen-xl flex flex-col items-center text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
+          className="absolute left-1/2 -translate-x-1/2 px-4 w-full max-w-screen-xl flex flex-col items-center text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
           style={{ zIndex: 10, bottom: "8%" }}
         >
           {/* Top line */}
@@ -125,7 +125,7 @@ const Landing = () => {
         {/* Footer text - left */}
         <div className="absolute bottom-4 left-3 sm:bottom-6 sm:left-6 z-20">
           <p
-            className="font-bold text-[11px] sm:text-[13px] md:text-[14px] lg:text-[16px] text-white leading-tight m-0"
+            className="font-bold text-[10px] xs:text-[11px] sm:text-[13px] md:text-[14px] lg:text-[16px] text-white leading-tight m-0"
             style={{
               fontFamily: "Trap-Bold, Arial, sans-serif",
             }}
@@ -134,7 +134,7 @@ const Landing = () => {
             <span className="text-[#48BA86] font-bold">hackathon</span>
           </p>
           <p
-            className="font-normal text-[11px] sm:text-[13px] md:text-[14px] lg:text-[16px] text-white leading-tight m-0"
+            className="font-normal text-[10px] xs:text-[11px] sm:text-[13px] md:text-[14px] lg:text-[16px] text-white leading-tight m-0"
             style={{
               fontFamily: "Trap-Bold, Arial, sans-serif",
             }}
@@ -146,7 +146,7 @@ const Landing = () => {
         {/* Footer text - right */}
         <div className="absolute bottom-4 right-3 sm:bottom-6 sm:right-6 text-right z-20">
           <p
-            className="font-bold text-[11px] sm:text-[13px] md:text-[14px] lg:text-[16px] text-white leading-tight m-0"
+            className="font-bold text-[10px] xs:text-[11px] sm:text-[13px] md:text-[14px] lg:text-[16px] text-white leading-tight m-0"
             style={{
               fontFamily: "Trap-Bold, Arial, sans-serif",
             }}
@@ -154,7 +154,7 @@ const Landing = () => {
             Established in 2016
           </p>
           <p
-            className="font-bold text-[11px] sm:text-[13px] md:text-[14px] lg:text-[16px] text-[#48BA86] leading-tight m-0"
+            className="font-bold text-[10px] xs:text-[11px] sm:text-[13px] md:text-[14px] lg:text-[16px] text-[#48BA86] leading-tight m-0"
             style={{
               fontFamily: "Trap-Bold, Arial, sans-serif",
             }}
