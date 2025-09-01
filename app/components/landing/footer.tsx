@@ -268,13 +268,13 @@ const Footer = () => {
             </h1>
           </div>
 
-        {/* Big background text */}
+        {/* Big background text
         <div
           className="absolute left-1/2 -translate-x-1/2 -bottom-20 md:-bottom-28 -z-10 text-neutral-400 text-[80px] sm:text-[120px] md:text-[160px] lg:text-[240px] xl:text-[568.78px] font-bold leading-none opacity-100 select-none pointer-events-none"
           style={{ lineHeight: "0.8", fontFamily: 'PolySans Trial, Arial, sans-serif' }}
         >
           acm
-        </div>
+        </div> */}
       </div>
     </footer>
   );

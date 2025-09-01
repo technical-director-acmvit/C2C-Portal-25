@@ -18,13 +18,13 @@ const SponsorCard: React.FC<{
   logoSrc,
 }) => {
   return (
-    <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto">
+  <div className="w-full max-w-[18rem] sm:max-w-md lg:max-w-lg mx-auto">
       <div
-        className="bg-black/20 backdrop-blur-sm rounded-2xl border border-white/10 p-4 sm:p-6 lg:p-8"
+    className="bg-black/20 backdrop-blur-sm rounded-2xl border border-white/10 p-3 sm:p-6 lg:p-8"
         style={{ backdropFilter: "blur(4px)" }}
       >
         {/* Logo */}
-        <div className="h-16 sm:h-20 lg:h-24 rounded-lg mb-4 sm:mb-5 lg:mb-6 flex items-center justify-center bg-white/40 p-3">
+    <div className="h-14 sm:h-20 lg:h-24 rounded-lg mb-3 sm:mb-5 lg:mb-6 flex items-center justify-center bg-white/40 p-2 sm:p-3">
           {logoSrc ? (
             <Image
               src={logoSrc}
@@ -39,7 +39,7 @@ const SponsorCard: React.FC<{
           )}
         </div>
         <h3
-          className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-2"
+          className="text-base sm:text-xl lg:text-2xl font-bold text-white mb-2"
           style={{ fontFamily: '"Pilat Extended", Arial, sans-serif' }}
         >
           {title}
@@ -70,9 +70,9 @@ const Sponsors = () => (
       <div className="absolute inset-0 z-0">
         <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" />
       </div>
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
-        {/* move content lower: increased translate-y values */}
-        <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 pointer-events-auto transform translate-y-16 sm:translate-y-20 lg:translate-y-24">
+      <div className="relative md:absolute md:inset-0 z-10 flex flex-col items-center md:justify-center pointer-events-none">
+        {/* move content lower on md+, natural flow on mobile */}
+        <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 pointer-events-auto md:transform md:translate-y-16 lg:translate-y-24 pt-8 sm:pt-10 md:pt-0">
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 lg:gap-12 justify-center items-center">
             <SponsorCard
               title="Runpod"
