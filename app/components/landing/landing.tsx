@@ -36,6 +36,16 @@ const Landing = () => {
       /> */}
       {/* Main Content Container */}
       <div className="relative h-full flex flex-col items-center justify-center z-10">
+        {/* Mobile CTA above heading */}
+        <div className="absolute md:hidden left-1/2 -translate-x-1/2 top-[18%] z-10">
+          <InteractiveHoverButton
+            variant="simple"
+            onClick={() => signIn("google", { callbackUrl: "/portal" })}
+            className="w-[150px] xs:w-[160px] text-[12px] px-3 py-1.5 min-h-[32px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors"
+          >
+            Register
+          </InteractiveHoverButton>
+        </div>
         {/* Main Heading with stroke - positioned above logo */}
         <div
           className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 w-full max-w-screen-xl"
@@ -110,20 +120,11 @@ const Landing = () => {
             Don&apos;t just code for the vibes, Code2Create.
           </p>
 
-        <div className="hidden sm:flex mt-3">
-            <InteractiveHoverButton
-            onClick={() => signIn("google", { callbackUrl: "/portal" })}
-            className="w-[280px] sm:w-[280px] md:w-[280px] text-sm sm:text-base md:text-lg px-4 py-0 min-h-[48px] rounded-lg bg-black text-white font-bold flex items-center justify-center
-                shadow-[0_0_20px_rgba(72,186,134,0.55)] hover:shadow-[0_0_28px_rgba(72,186,134,0.85)] transition-all duration-300"
-            style={{ boxShadow: "0 0 20px rgba(72,186,134,0.55), 0 0 40px rgba(72,186,134,0.18)" }}
-            >
-            Register
-            </InteractiveHoverButton>
-        </div>
+        {/* CTA moved to app/page.tsx for better control on responsiveness and scroll behavior */}
         </div>
 
         {/* Footer text - left */}
-        <div className="absolute bottom-4 left-3 sm:bottom-6 sm:left-6 z-20">
+        {/* <div className="absolute bottom-4 left-3 sm:bottom-6 sm:left-6 z-20">
           <p
             className="font-bold text-[10px] xs:text-[11px] sm:text-[13px] md:text-[14px] lg:text-[16px] text-white leading-tight m-0"
             style={{
@@ -141,7 +142,7 @@ const Landing = () => {
           >
             We are the conspiracy that actually works
           </p>
-        </div>
+        </div> */}
 
         {/* Footer text - right */}
         <div className="absolute bottom-4 right-3 sm:bottom-6 sm:right-6 text-right z-20">
