@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://c2c.acmvit.in";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -44,13 +44,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "/",
-    title: "Code2Create — ACM-VIT Hackathon",
+    title: "Code2Create - ACM-VIT Hackathon",
     description:
       "ACM-VIT's flagship 48-hour national hackathon at VIT Vellore featuring tracks like Build for Bharat, Art Attack, Game Over, I Can Do It Better, and AI Solutions.",
     siteName: "Code2Create",
     images: [
       {
-        url: "/og.png",
+        url: "/opengraph.png",
         width: 1200,
         height: 630,
         alt: "Code2Create by ACM-VIT",
@@ -60,10 +60,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Code2Create — ACM-VIT Hackathon",
+    title: "Code2Create - ACM-VIT Hackathon",
     description:
-      "Build across tracks like Build for Bharat, Art Attack, Game Over, I Can Do It Better, and AI Solutions — with partners RunPod and ElevenLabs.",
-    images: ["/og.png"],
+      "Build across tracks like Build for Bharat, Art Attack, Game Over, I Can Do It Better, and AI Solutions - with partners RunPod and ElevenLabs.",
+    images: ["/opengraph.png"],
   },
   alternates: {
     canonical: "/",
