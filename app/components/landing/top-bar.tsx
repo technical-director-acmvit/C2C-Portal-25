@@ -104,11 +104,11 @@ export default function TopBar() {
 
         <div className="flex items-center pl-3 md:pl-0 mr-3 md:mr-6 ml-2 md:ml-4 flex-shrink-0">
           <InteractiveHoverButton
-            aria-label="Apply Now"
+            aria-label="Register"
             onClick={() => signIn("google", { callbackUrl: "/portal" })}
-            className="whitespace-nowrap pointer-events-auto text-xs sm:text-sm md:text-base px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 md:py-2.5"
+            className="whitespace-nowrap pointer-events-auto text-xs sm:text-sm md:text-base px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 md:py-2.5 rounded-[12px]"
           >
-            Apply Now
+            Register
           </InteractiveHoverButton>
         </div>
 

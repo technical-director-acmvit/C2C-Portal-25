@@ -119,9 +119,9 @@ const Landing = () => {
           <div className="hidden sm:flex mt-3">
             <InteractiveHoverButton
               onClick={() => signIn("google", { callbackUrl: "/portal" })}
-              className="text-xs sm:text-sm md:text-base px-4 py-2 sm:px-5 sm:py-2.5 md:px-6 md:py-3"
+              className="text-xs sm:text-sm md:text-base px-4 py-2 sm:px-5 sm:py-2.5 md:px-6 md:py-3 rounded-[12px]"
             >
-              Apply Now
+              Register
             </InteractiveHoverButton>
           </div>
         </div>
