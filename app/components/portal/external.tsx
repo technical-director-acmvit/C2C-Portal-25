@@ -235,8 +235,19 @@ const External = ({ onBack }: Props) => {
     return rankNames(formData.universityName, displayNames, 15);
   }, [formData.universityName, displayNames]);
 
-  // NEW: college names & suggestions using same ranker
-  const collegeNames = useMemo(() => colleges.map((c) => c.name), [colleges]);
+  // NEW: college names & suggestions using same ranker (deduplicated by name)
+  const collegeNames = useMemo(() => {
+    const seen = new Set<string>();
+    const out: string[] = [];
+    for (const c of colleges) {
+      const k = (c.name || "").toLowerCase();
+      if (!k) continue;
+      if (seen.has(k)) continue;
+      seen.add(k);
+      out.push(c.name);
+    }
+    return out;
+  }, [colleges]);
   const collegeSuggestions = useMemo(() => {
     return rankNames(formData.collegeName, collegeNames, 15);
   }, [formData.collegeName, collegeNames]);
@@ -293,7 +304,17 @@ const External = ({ onBack }: Props) => {
             });
           }
         }
-        setColleges(items);
+        // Deduplicate colleges by name (case-insensitive) to avoid duplicate keys and confusion
+        const seen = new Set<string>();
+        const deduped: College[] = [];
+        for (const it of items) {
+          const k = (it.name || '').toLowerCase();
+          if (!k) continue;
+          if (seen.has(k)) continue;
+          seen.add(k);
+          deduped.push(it);
+        }
+        setColleges(deduped);
       } catch {
         // ignore — user won't be able to select a college if fetch fails
         setColleges([]);
@@ -509,7 +530,7 @@ const External = ({ onBack }: Props) => {
               >
                 {collegeSuggestions.map((s, idx) => (
                   <li
-                    key={s.name}
+                    key={`${s.name}-${idx}`}
                     role="option"
                     aria-selected={idx === activeCollegeIndex}
                     onMouseDown={(e) => e.preventDefault()}
