@@ -69,8 +69,8 @@ const Footer = () => {
             </div>
 
             {/* Status pill */}
-            <div className="w-fit mx-auto md:mx-0 my-4 relative flex items-center border border-zinc-100 rounded-full px-2 pr-4">
-              <div className="w-3 h-3 md:w-4 md:h-4 bg-green-400 rounded-full shadow-[0_0_8px_2px_rgba(72,186,134,1)] animate-[pulse_1.5s_ease-in-out_infinite]"></div>
+            <div className="w-fit mx-auto md:mx-0 p-1 my-4 relative flex items-center border border-zinc-100 rounded-full px-2 pr-4">
+              <div className="w-3 h-3 bg-green-400 rounded-full shadow-[0_0_8px_2px_rgba(72,186,134,1)] animate-[pulse_1.5s_ease-in-out_infinite]"></div>
               <div className="ml-2 text-zinc-100 text-xs md:text-sm font-thin font-['PolySans_Trial'] whitespace-nowrap">
                 All systems online
               </div>
@@ -192,8 +192,8 @@ const Footer = () => {
                 href: "https://x.com/acm_vit",
                 src: "/footer/Twitter.svg",
                 alt: "Twitter",
-                w: 40,
-                h: 32,
+                w: 22,
+                h: 22,
               },
               {
                 href: "https://www.instagram.com/acmvit",
@@ -235,7 +235,7 @@ const Footer = () => {
                   alt={alt}
                   width={w}
                   height={h}
-                  className={`${alt === "YouTube" ? "rounded" : ""} hover:scale-110 transition-transform w-8 h-auto md:w-auto`}
+                  className={`${alt === "YouTube" ? "rounded" : ""} hover:scale-110 transition-transform w-8  md:w-auto`}
                 />
               </a>
             ))}
