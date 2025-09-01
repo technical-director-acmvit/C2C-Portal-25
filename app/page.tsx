@@ -54,10 +54,10 @@ export default function Page() {
       <div className="h-screen flex items-center justify-between flex-col">
         <Timeline />
       </div>
-      <div className="h-screen flex items-center justify-between flex-col">
+      <div className="min-h-screen flex items-center justify-between flex-col">
         <Sponsors />
       </div>
-      <div className="h-screen flex items-center justify-between flex-col">
+      <div className="flex items-center justify-between flex-col py-16">
         <FAQs />
       </div>
       

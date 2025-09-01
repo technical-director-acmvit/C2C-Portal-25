@@ -121,18 +121,20 @@ const Dashboard: React.FC<DashboardProps> = () => {
       </div> */}
 
       {/* Main content */}
-      <div className="flex flex-col items-center justify-center h-full px-4 sm:px-6 lg:px-8 py-16 sm:py-20 overflow-auto relative z-10">
-        <div className="w-full max-w-4xl mx-auto flex flex-col items-center">
+      <div className="flex flex-col items-center justify-center h-full px-3 sm:px-6 lg:px-8 py-10 sm:py-20 overflow-auto relative z-10">
+        <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
+          <div className="w-full bg-black/30 backdrop-blur-sm border border-white/10 rounded-2xl p-4 sm:p-0 sm:bg-transparent sm:border-0 sm:backdrop-blur-0">
           {/* Team Name */}
           {team && (
             <h1
-              className="text-white mb-6 sm:mb-8 text-center leading-tight"
+              className="text-white mb-4 sm:mb-6 text-center leading-tight max-w-[92vw] sm:max-w-3xl px-2 break-words"
               style={{
-                fontSize: "clamp(28px, 8vw, 48px)",
+                fontSize: "clamp(22px, 7vw, 44px)",
                 fontFamily: "'Pilat Extended', Arial, sans-serif",
                 fontWeight: 700,
-                letterSpacing: "1px",
+                letterSpacing: "0.5px",
               }}
+              title={team.name}
             >
               {team.name}
             </h1>
@@ -140,7 +142,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
           {/* Team Code (centered directly under team name) */}
           {team && (
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-2 mb-6 sm:mb-8 w-full max-w-md">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-1 mb-6 sm:mb-8 w-full max-w-md">
+              <div className="text-white/80 text-xs uppercase tracking-wide text-center sm:text-left">Team Code</div>
               <div
                 className="border-2 border-white px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-center rounded-md flex-1 sm:flex-none min-w-0"
                 style={{ backgroundColor: "transparent" }}
@@ -165,7 +168,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                     try {
                       await navigator.clipboard.writeText(team.code);
                       setCopied(true);
-                      window.setTimeout(() => setCopied(false), 500);
+                      window.setTimeout(() => setCopied(false), 900);
                     } catch {
                       // noop
                     }
@@ -174,12 +177,15 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 >
                   <Copy className={`w-4 h-4 sm:w-5 sm:h-5 ${copied ? "text-[#48BA86]" : "text-white"}`} />
                 </button>
+                <div className="absolute left-1/2 -translate-x-1/2 mt-1 text-[11px] text-gray-300" aria-live="polite">
+                  {copied ? "Copied" : ""}
+                </div>
               </div>
             </div>
           )}
 
           {/* Separator */}
-          <div className="w-full flex justify-center mb-6 sm:mb-8">
+          <div className="w-full flex justify-center mb-4 sm:mb-8">
             <Image
               src="/portal/bar.svg"
               alt="separator"
@@ -191,19 +197,19 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
           {/* Members */}
           {team && members.length > 1 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:flex lg:justify-center gap-6 sm:gap-8 lg:gap-12 mb-8 sm:mb-12 w-full">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5 sm:gap-7 lg:gap-8 mb-8 sm:mb-12 w-full px-1 sm:px-2">
               {members.map((m: UserSummary, idx: number) => (
-                <div key={`${m.id || "member"}-${idx}`} className="flex flex-col items-center">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-transparent mb-2 sm:mb-3 flex items-center justify-center">
+                <div key={`${m.id || "member"}-${idx}`} className="flex flex-col items-center text-center">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-transparent mb-2 sm:mb-3 flex items-center justify-center shrink-0">
                     <Image src="/portal/user.svg" alt="User Profile" width={32} height={32} className="sm:w-10 sm:h-10 lg:w-12 lg:h-12" />
                   </div>
                   <span
-                    className="text-white text-center leading-tight text-sm sm:text-base"
+                    className="text-white text-center leading-tight text-xs sm:text-sm md:text-base max-w-[36vw] sm:max-w-[180px] break-words"
                     style={{
                       fontFamily: "'Pilat Extended', Arial, sans-serif",
                       fontWeight: 400,
-                      wordBreak: "break-word",
                     }}
+                    title={cleanName(m.name || m.email)}
                   >
                     {cleanName(m.name || m.email)}
                   </span>
@@ -228,10 +234,13 @@ const Dashboard: React.FC<DashboardProps> = () => {
           )}
 
           {/* Track & Submission Status */}
-          <div className="text-gray-300 text-center mb-6 sm:mb-8 px-4 max-w-lg">
+          <div className="text-gray-300 text-center mb-6 sm:mb-10 px-4 max-w-xl">
             {track?.title ? (
               <p className="text-sm sm:text-base mb-2" style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}>
-                Track: <span className="text-white break-words">{track.title}</span>
+                <span className="text-white/80 mr-1">Track:</span>
+                <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/10 text-white break-words max-w-full">
+                  {track.title}
+                </span>
               </p>
             ) : (
               <p style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }} className="text-yellow-300 text-sm sm:text-base mb-2">
@@ -241,22 +250,22 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
             {submissionOpen ? (
               members.length >= minTeamMembers && !needsSubmission ? (
-                <p className="text-green-300 text-sm sm:text-base" style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}>
+                <span className="inline-flex items-center px-3 py-1 rounded-full bg-green-500/20 text-green-300 text-xs sm:text-sm" style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}>
                   Submission completed
-                </p>
+                </span>
               ) : (
-                <p className="text-red-300 text-sm sm:text-base" style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}>
+                <span className="inline-flex items-center px-3 py-1 rounded-full bg-red-500/20 text-red-300 text-xs sm:text-sm" style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}>
                   Submission pending
-                </p>
+                </span>
               )
             ) : null}
           </div>
 
           {/* Actions */}
-          <div className="flex flex-col items-center gap-4 sm:gap-6 w-full max-w-sm">
+          <div className="flex flex-col items-center gap-3 sm:gap-6 w-full max-w-sm sm:static sticky bottom-4">
             {(members.length >= minTeamMembers && submissionOpen && needsSubmission) && (
               <button
-                className="w-full px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-white cursor-pointer transition-all hover:scale-105 active:scale-95"
+                className="w-full px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-white cursor-pointer transition-all hover:scale-[1.02] active:scale-95"
                 style={{
                   backgroundColor: "#5EBF94",
                   fontSize: "clamp(16px, 4vw, 20px)",
@@ -274,15 +283,16 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 onClick={() => setShowLeaveModal(true)}
                 disabled={isLeaving}
                 className={`w-full sm:w-auto px-6 sm:px-8 py-2 sm:py-3 text-base sm:text-lg lg:text-[20px] transition-all ${
-                  isLeaving ? "opacity-50 cursor-not-allowed" : "hover:scale-105 active:scale-95"
+                  isLeaving ? "opacity-50 cursor-not-allowed" : "hover:scale-[1.02] active:scale-95"
                 }`}
               >
                 Leave team
               </PortalButton>
             )}
           </div>
+          </div>
         </div>
-
+      
         {/* Leave Team Modal */}
         <LeaveTeamModal
           isOpen={showLeaveModal}

@@ -92,7 +92,7 @@ const FAQs = () => {
           <HeadingText text="FAQs" />
 
           {/* FAQ Items */}
-         <div className="mt-10 sm:mt-14 lg:mt-20 w-full max-w-5xl lg:max-w-6xl pb-32 sm:pb-40 lg:pb-48">
+         <div className="mt-10 sm:mt-14 lg:mt-20 w-full max-w-5xl lg:max-w-6xl pb-8 sm:pb-12 lg:pb-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
             {/* Left column */}
             <div className="space-y-3 sm:space-y-4">

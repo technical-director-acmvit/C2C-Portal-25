@@ -61,7 +61,7 @@ const Footer = () => {
             {/* Status pill */}
             <div className="w-fit mx-auto md:mx-0 p-1 my-4 relative flex items-center border border-zinc-100 rounded-full px-2 pr-4">
               <div className="w-3 h-3 bg-green-400 rounded-full shadow-[0_0_8px_2px_rgba(72,186,134,1)] animate-[pulse_1.5s_ease-in-out_infinite]"></div>
-              <div className="ml-2 text-zinc-100 text-xs md:text-sm font-thin font-['PolySans_Trial'] whitespace-nowrap">
+              <div className="ml-2 text-zinc-100 text-xs md:text-sm font-thin whitespace-nowrap" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
                 All systems online
               </div>
             </div>
@@ -88,10 +88,10 @@ const Footer = () => {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 md:gap-8 md:flex md:flex-wrap md:justify-start w-full md:w-auto">
             {/* ABOUT */}
             <div className="w-full sm:w-40 md:w-24 flex flex-col gap-3 md:gap-4">
-              <div className="text-[#48ba86] text-sm md:text-base font-light font-['PolySans_Trial'] uppercase">ABOUT</div>
+              <div className="text-[#48ba86] text-sm md:text-base font-light uppercase" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>ABOUT</div>
               <div className="flex flex-col gap-1.5 md:gap-2">
                 {["C2C", "ACM", "TRACKS"].map((item) => (
-                  <a key={item} href="#" className="text-white text-sm md:text-base font-light font-['PolySans_Trial'] uppercase hover:text-yellow-50 transition-colors">
+                  <a key={item} href="#" className="text-white text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
                     {item}
                   </a>
                 ))}
@@ -100,10 +100,10 @@ const Footer = () => {
 
             {/* TRACKS */}
             <div className="w-full sm:w-48 md:w-44 flex flex-col gap-3 md:gap-4">
-              <div className="text-[#48ba86] text-sm md:text-base font-light font-['PolySans_Trial'] uppercase">TRACKS</div>
+              <div className="text-[#48ba86] text-sm md:text-base font-light uppercase" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>TRACKS</div>
               <div className="flex flex-col gap-1.5 md:gap-2">
               {["AI SOLUTONS", "ART ATTACK", "DIGITAL DAWN", "I CAN DO IT BETTER", "GAME OVER"].map((item) => (
-                <span key={item} className="text-white text-sm md:text-base font-light font-['PolySans_Trial'] uppercase">
+                <span key={item} className="text-white text-sm md:text-base font-light uppercase" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
                 {item}
                 </span>
               ))}
@@ -124,10 +124,10 @@ const Footer = () => {
 
             {/* OUR PRODUCTS */}
             <div className="w-full sm:w-40 md:w-28 flex flex-col gap-3 md:gap-4">
-              <div className="text-[#48ba86] text-sm md:text-base font-light font-['PolySans_Trial'] uppercase">OUR PROJECTS</div>
+              <div className="text-[#48ba86] text-sm md:text-base font-light uppercase" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>OUR PROJECTS</div>
               <div className="flex flex-col gap-1.5 md:gap-2">
                 {["ACMONE", "CLI-RPG", "EXAMCOOKER", "CLITOP", "LOCALHOST", "OCS", "UNIPOOL"].map((item) => (
-                  <a key={item} className="text-white text-sm md:text-base font-light font-['PolySans_Trial'] uppercase hover:text-yellow-50 transition-colors">
+                  <a key={item} className="text-white text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
                     {item}
                   </a>
                 ))}
@@ -148,10 +148,10 @@ const Footer = () => {
 
             {/* SPONSORS */}
             <div className="w-full sm:w-28 md:w-20 flex flex-col gap-3 md:gap-4">
-              <div className="text-[#48ba86] text-sm md:text-base font-light font-['PolySans_Trial'] uppercase">SPONSORS</div>
+              <div className="text-[#48ba86] text-sm md:text-base font-light uppercase" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>SPONSORS</div>
               <div className="flex flex-col gap-1.5 md:gap-2">
                 {["RUNPOD", "ElevenLabs"].map((item) => (
-                  <a key={item} href="#" className="text-white text-sm md:text-base font-light font-['PolySans_Trial'] uppercase hover:text-yellow-50 transition-colors">
+                  <a key={item} href="#" className="text-white text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
                     {item}
                   </a>
                 ))}
@@ -282,8 +282,8 @@ const Footer = () => {
 
         {/* Big background text */}
         <div
-          className="absolute left-1/2 -translate-x-1/2 -bottom-20 md:-bottom-28 -z-10 text-neutral-400 text-[160px] sm:text-[240px] md:text-[568.78px] font-bold font-['PolySans_Trial'] leading-none opacity-100 select-none pointer-events-none"
-          style={{ lineHeight: "0.8" }}
+          className="absolute left-1/2 -translate-x-1/2 -bottom-20 md:-bottom-28 -z-10 text-neutral-400 text-[160px] sm:text-[240px] md:text-[568.78px] font-bold leading-none opacity-100 select-none pointer-events-none"
+          style={{ lineHeight: "0.8", fontFamily: 'PolySans Trial, Arial, sans-serif' }}
         >
           acm
         </div>
