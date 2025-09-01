@@ -36,19 +36,9 @@ const Landing = () => {
       /> */}
       {/* Main Content Container */}
       <div className="relative h-full flex flex-col items-center justify-center z-10">
-        {/* Mobile CTA above heading */}
-        <div className="absolute md:hidden left-1/2 -translate-x-1/2 top-[18%] z-10">
-          <InteractiveHoverButton
-            variant="simple"
-            onClick={() => signIn("google", { callbackUrl: "/portal" })}
-            className="w-[150px] xs:w-[160px] text-[12px] px-3 py-1.5 min-h-[32px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors"
-          >
-            Register
-          </InteractiveHoverButton>
-        </div>
         {/* Main Heading with stroke - positioned above logo */}
         <div
-          className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 w-full max-w-screen-xl"
+          className="absolute top-1/3 md:top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 w-full max-w-screen-xl"
           style={{ zIndex: 10 }}
         >
           <h1 className="text-center text-hollow text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl break-words hyphens-auto mb-1 xs:mb-2 sm:mb-4">
@@ -107,8 +97,8 @@ const Landing = () => {
 
         {/* Main tagline */}
         <div
-          className="absolute left-1/2 -translate-x-1/2 px-4 w-full max-w-screen-xl flex flex-col items-center text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
-          style={{ zIndex: 10, bottom: "8%" }}
+          className="absolute left-1/2 -translate-x-1/2 px-4 w-full max-w-screen-xl flex flex-col items-center text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl bottom-[2%] md:bottom-[15%]"
+          style={{ zIndex: 10 }}
         >
           {/* Top line */}
           <p className="tagline">
@@ -119,6 +109,17 @@ const Landing = () => {
           <p className="tagline reflected-text mt-2 invisible sm:visible" aria-hidden="true">
             Don&apos;t just code for the vibes, Code2Create.
           </p>
+
+          {/* Mobile CTA at bottom */}
+          <div className="md:hidden mb-10">
+            <InteractiveHoverButton
+              variant="simple"
+              onClick={() => signIn("google", { callbackUrl: "/portal" })}
+              className="w-[150px] xs:w-[160px] text-[12px] px-3 py-1.5 min-h-[32px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors mb-2 mt-[-10%]"
+            >
+              Register
+            </InteractiveHoverButton>
+          </div>
 
         {/* CTA moved to app/page.tsx for better control on responsiveness and scroll behavior */}
         </div>

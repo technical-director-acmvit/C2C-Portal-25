@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { InteractiveHoverButton } from "@/app/components/landing/ui/cta-button";
+import { signIn } from "next-auth/react";
 
 export default function TopBar() {
   const [menuOpen, setMenuOpen] = useState(false);

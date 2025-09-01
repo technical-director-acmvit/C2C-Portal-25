@@ -51,12 +51,12 @@ export default function Page() {
             <Landing />
             {/* Desktop CTA overlay - moves with page content */}
             <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 bottom-[8%] z-40">
-              <InteractiveHoverButton
-                onClick={() => signIn("google", { callbackUrl: "/portal" })}
-                className="w-[280px] text-lg px-5 py-2 min-h-[48px] rounded-full font-bold flex items-center justify-center bg-[#48BA86] hover:bg-[#3aa874] text-black border border-[#48BA86] transition-colors"
-              >
-                Register
-              </InteractiveHoverButton>
+          <InteractiveHoverButton
+            onClick={() => signIn("google", { callbackUrl: "/portal" })}
+            className="w-[280px] text-lg px-5 py-2 min-h-[48px] rounded-full font-bold flex items-center justify-center bg-[#48BA86] hover:bg-[#3aa874] text-black border border-[#48BA86] transition-colors"
+          >
+            Register
+          </InteractiveHoverButton>
             </div>
           </div>
 
