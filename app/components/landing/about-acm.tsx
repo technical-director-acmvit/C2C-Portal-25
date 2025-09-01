@@ -37,7 +37,6 @@ const About = ({ children }: { children?: React.ReactNode }) => (
           {/* Intro paragraph */}
           <div
             className="w-full max-w-[794px] text-justify text-zinc-100 text-lg sm:text-xl md:text-2xl leading-7 sm:leading-8 md:leading-9 font-thin"
-            style={{ fontFamily: "DMSans-Regular, sans-serif" }}
           >
             As the official student chapter of the Association for Computing
             Machinery at VIT Vellore, we&apos;ve been pushing boundaries and
