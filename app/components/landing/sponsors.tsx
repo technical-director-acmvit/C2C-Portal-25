@@ -18,19 +18,19 @@ const SponsorCard: React.FC<{
   logoSrc,
 }) => {
   return (
-  <div className="w-full max-w-[18rem] sm:max-w-md lg:max-w-lg mx-auto">
+    <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl mx-auto">
       <div
-    className="bg-black/20 backdrop-blur-sm rounded-2xl border border-white/10 p-3 sm:p-6 lg:p-8"
-        style={{ backdropFilter: "blur(4px)" }}
+        className="bg-black/30 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-white/10 p-3 sm:p-5 lg:p-7 transition-all duration-300 hover:bg-black/40 hover:border-white/20"
+        style={{ backdropFilter: "blur(8px)" }}
       >
         {/* Logo */}
-    <div className="h-14 sm:h-20 lg:h-24 rounded-lg mb-3 sm:mb-5 lg:mb-6 flex items-center justify-center bg-white/40 p-2 sm:p-3">
+        <div className="h-12 sm:h-16 lg:h-20 xl:h-24 rounded-lg mb-3 sm:mb-4 lg:mb-5 flex items-center justify-center bg-white/50 p-2 sm:p-3">
           {logoSrc ? (
             <Image
               src={logoSrc}
               alt={`${title} logo`}
-              width={160}
-              height={80}
+              width={200}
+              height={100}
               className="max-w-full max-h-full object-contain filter brightness-100 contrast-100"
               style={{ maxWidth: "90%", maxHeight: "90%" }}
               loading="lazy"
@@ -40,19 +40,19 @@ const SponsorCard: React.FC<{
           )}
         </div>
         <h3
-          className="text-base sm:text-xl lg:text-2xl font-bold text-white mb-2"
+          className="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold text-white mb-1 sm:mb-2"
           style={{ fontFamily: '"Pilat Extended", Arial, sans-serif' }}
         >
           {title}
         </h3>
         <p
-          className="text-gray-300 text-xs sm:text-sm mb-3 sm:mb-4"
+          className="text-gray-300 text-xs sm:text-sm lg:text-base mb-2 sm:mb-3 lg:mb-4"
           style={{ fontFamily: '"DM Sans", Arial, sans-serif' }}
         >
           {role}
         </p>
         <p
-          className="text-gray-400 text-xs sm:text-sm leading-relaxed"
+          className="text-gray-400 text-xs sm:text-sm lg:text-base leading-relaxed"
           style={{ fontFamily: '"DM Sans", Arial, sans-serif' }}
         >
           {description ??
@@ -67,26 +67,32 @@ const Sponsors = () => (
   <GradientBG>
     <div className="w-full min-h-screen relative overflow-hidden">
       <HeadingText text="Sponsors" />
+      
       {/* DotGrid positioned behind the cards */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" />
       </div>
-      <div className="relative md:absolute md:inset-0 z-10 flex flex-col items-center md:justify-center pointer-events-none">
-        {/* move content lower on md+, natural flow on mobile */}
-        <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 pointer-events-auto md:transform md:translate-y-16 lg:translate-y-24 pt-8 sm:pt-10 md:pt-0">
-          <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 lg:gap-12 justify-center items-center">
-            <SponsorCard
-              title="Runpod"
-              role="GPU Cloud Platform Sponsor"
-              description="Runpod is a GPU cloud platform that makes high-performance computing simple, affordable, and scalable. Built by developers, for developers, it enables users to launch on-demand GPU instances in just a few clicks and create autoscaling serverless endpoints to run AI models in production. Trusted by over 300,000 developers worldwide, Runpod powers the training, deployment, and scaling of AI/ML workloads, seamlessly bridging experimentation and real-world applications."
-              logoSrc="/landing/runpod.svg"
-            />
-            {/* <SponsorCard
-              title="ElevenLabs"
-              role="AI Audio Technology Sponsor"
-              description="ElevenLabs is an AI Audio research and deployment company creating models that generate realistic, versatile, and context-aware speech and sound. Their technology powers audiobooks, news articles, video games, film pre-production, social media, and advertising. It also restores voices for those who've lost them and supports accessibility needs - reshaping how people create, experience, and interact with sound."
-              logoSrc="/landing/elevenlabs-logo-black.svg"
-            /> */}
+      
+      {/* Main content container */}
+      <div className="relative z-10 flex items-center justify-center min-h-screen px-3 sm:px-6 lg:px-8">
+        <div className="w-full max-w-7xl mx-auto">
+          {/* Content wrapper with minimal spacing */}
+          <div className="pt-2 sm:pt-8 md:pt-12 lg:pt-16 pb-2 sm:pb-6 md:pb-8 lg:pb-12">
+            <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-12 xl:gap-16 justify-center items-center lg:items-stretch">
+              <SponsorCard
+                title="Runpod"
+                role="GPU Cloud Platform Sponsor"
+                description="Runpod is a GPU cloud platform that makes high-performance computing simple, affordable, and scalable. Built by developers, for developers, it enables users to launch on-demand GPU instances in just a few clicks and create autoscaling serverless endpoints to run AI models in production. Trusted by over 300,000 developers worldwide, Runpod powers the training, deployment, and scaling of AI/ML workloads, seamlessly bridging experimentation and real-world applications."
+                logoSrc="/landing/runpod.svg"
+              />
+              {/* Uncomment when adding more sponsors */}
+              {/* <SponsorCard
+                title="ElevenLabs"
+                role="AI Audio Technology Sponsor"
+                description="ElevenLabs is an AI Audio research and deployment company creating models that generate realistic, versatile, and context-aware speech and sound. Their technology powers audiobooks, news articles, video games, film pre-production, social media, and advertising. It also restores voices for those who've lost them and supports accessibility needs - reshaping how people create, experience, and interact with sound."
+                logoSrc="/landing/elevenlabs-logo-black.svg"
+              /> */}
+            </div>
           </div>
         </div>
       </div>
