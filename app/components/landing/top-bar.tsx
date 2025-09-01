@@ -98,10 +98,26 @@ export default function TopBar() {
                 )}
               </li>
             ))}
+            <li className="flex items-center h-full ml-4">
+              <InteractiveHoverButton
+                variant="simple"
+                onClick={() => signIn("google", { callbackUrl: "/portal" })}
+                className="w-[120px] text-[12px] px-3 py-1.5 min-h-[32px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors"
+              >
+                Register
+              </InteractiveHoverButton>
+            </li>
           </ul>
         </nav>
 
-        <div className="md:hidden flex items-center">
+        <div className="md:hidden flex items-center gap-2">
+          <InteractiveHoverButton
+            variant="simple"
+            onClick={() => signIn("google", { callbackUrl: "/portal" })}
+            className="w-[100px] text-[11px] px-2 py-1 min-h-[28px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors"
+          >
+            Register
+          </InteractiveHoverButton>
           <button
             aria-label="Toggle menu"
             aria-expanded={menuOpen}
