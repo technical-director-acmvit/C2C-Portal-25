@@ -100,7 +100,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
           {/* Stats Image */}
           <div id="stats" className="w-full flex justify-center items-center">
             <Image
-              src="/landing/stats.png"
+              src="/landing/statistics.png"
               alt="ACM Stats"
               width={1800}
               height={1200}
