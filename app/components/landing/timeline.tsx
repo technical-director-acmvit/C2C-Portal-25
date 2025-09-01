@@ -61,7 +61,7 @@ const Timeline = () => {
   if (TIMELINE_COMING_SOON) {
     return (
       <GradientBG>
-        <div id="timeline" className="w-full min-h-screen relative overflow-hidden">
+        <div className="w-full min-h-screen relative overflow-hidden">
           <div className="absolute inset-0 z-10">
             <HeadingText text="Timeline" />
           </div>
@@ -93,7 +93,7 @@ const Timeline = () => {
 
   return (
     <GradientBG>
-    <div id="timeline" className="w-full min-h-screen relative overflow-hidden">
+    <div className="w-full min-h-screen relative overflow-hidden">
       <div className="absolute inset-0 z-10">
         {/* <Topper text="Timeline" /> */}
         <h1

@@ -39,7 +39,7 @@ const TRACKS = [
 
 const Tracks = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <div id="tracks" className="relative w-full overflow-hidden">
+    <div className="relative w-full overflow-hidden">
       <GradientBG>
         <div className="relative z-10">
           <HeadingText text="Tracks" />
@@ -93,6 +93,7 @@ const Tracks = ({ children }: { children?: React.ReactNode }) => {
                     className="object-contain"
                     sizes="(min-width: 1024px) 45vw, (min-width: 768px) 40vw, 100vw"
                     priority={card.number === 1}
+                    loading={card.number === 1 ? "eager" : "lazy"}
                   />
                 </div>
               </article>

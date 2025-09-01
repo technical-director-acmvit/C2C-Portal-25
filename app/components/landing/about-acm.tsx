@@ -31,6 +31,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
             height={80}
             className="pointer-events-auto"
             draggable={false}
+            loading="lazy"
           />
 
           {/* Intro paragraph */}
@@ -96,19 +97,6 @@ const About = ({ children }: { children?: React.ReactNode }) => (
             <br />
             but let&apos;s flex first!
           </h1>
-
-          {/* Stats Image */}
-          <div id="stats" className="w-full flex justify-center items-center">
-            <Image
-              src="/landing/statistics.png"
-              alt="ACM Stats"
-              width={1800}
-              height={1200}
-              className="w-full max-w-8xl h-auto pointer-events-auto py-12"
-              draggable={false}
-              priority
-            />
-          </div>
 
           {/* Children (Tracks) */}
           {children}

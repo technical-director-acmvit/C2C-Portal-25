@@ -6,7 +6,7 @@ import HeadingText from "./HeadingText";
 
 const Speaker = ({ children }: { children?: React.ReactNode }) => (
   <GradientBG darken>
-    <div id="speakers" className="relative w-full min-h-screen overflow-hidden">
+    <div className="relative w-full min-h-screen overflow-hidden">
       <div className="absolute inset-0 w-full h-full -z-1 pointer-events-none">
         <DotGrid
           dotSize={2.5}

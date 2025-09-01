@@ -60,6 +60,7 @@ const Landing = () => {
             width={180}
             height={180}
             className="opacity-200 w-[40vw] h-[40vw] lg:w-[10vw] lg:h-[10vw] md:w-[20vw] md:h-[20vw] sm:w-[28vw] sm:h-[28vw] xs:w-[20vw] xs:h-[20vw]"
+            priority
           />
         </div>
         <style jsx global>{`
@@ -92,6 +93,7 @@ const Landing = () => {
               filter: "brightness(0.72) contrast(0.95)",
               minHeight: "180px",
             }}
+            priority
           />
         </div>
 
@@ -115,9 +117,9 @@ const Landing = () => {
             <InteractiveHoverButton
               variant="simple"
               onClick={() => signIn("google", { callbackUrl: "/portal" })}
-              className="w-[150px] xs:w-[160px] text-[12px] px-3 py-1.5 min-h-[32px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors mb-2 mt-[-10%]"
+              className="w-auto text-[12px] px-3 py-1.5 min-h-[32px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors mb-2 mt-[-10%]"
             >
-              Register
+              Form your team
             </InteractiveHoverButton>
           </div>
 

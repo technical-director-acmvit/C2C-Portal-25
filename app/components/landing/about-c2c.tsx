@@ -86,6 +86,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
             sizes="(min-width: 1024px) 320px, (min-width: 640px) 224px, 160px"
             className="object-contain"
             priority={false}
+            loading="lazy"
             draggable={false}
           />
         </div>
