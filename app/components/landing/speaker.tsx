@@ -1,4 +1,3 @@
-import Topper from "./topper";
 import DotGrid from "./dot-grid";
 import GradientBG from "./gradient-bg";
 import HeadingText from "./HeadingText";

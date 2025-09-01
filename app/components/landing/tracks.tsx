@@ -1,34 +1,38 @@
 "use client";
 import Image from "next/image";
-import Topper from "./topper";
 import GradientBG from "./gradient-bg";
 import DotGrid from "./dot-grid";
 import HeadingText from "./HeadingText";
 const TRACKS = [
   {
     number: 1,
-    title: "Build for Bharat",
-    desc: "Create solutions that uniquely solve Indian challenges at scale, focusing on affordable and inclusive technology for the next billion users.",
+    title: "I Can Do It Better",
+    desc: "Reimagine and improve widely used software by enhancing usability, adding desired features, or optimizing performance.",
+    svgPath: "/tracks/CanDoBetter.svg",
   },
   {
     number: 2,
     title: "Art Attack",
     desc: "Build tools that reimagine creative expression through technologies that help create music, art, or media in new and exciting ways.",
+    svgPath: "/tracks/Art_Attack.svg",
   },
   {
     number: 3,
     title: "Game Over",
     desc: "Create experiences that redefine gaming through original games and technologies that improve gameplay, performance, or game development.",
+    svgPath: "/tracks/Game_Over.svg",
   },
   {
     number: 4,
-    title: "I Can Do It Better",
-    desc: "Reimagine and improve widely used software by enhancing usability, adding desired features, or optimizing performance.",
+    title: "Digital Dawn",
+    desc: "Create solutions that uniquely solve Indian challenges at scale, focusing on affordable and inclusive technology for the next billion users.",
+    svgPath: "/tracks/Digital_Dawn.svg",
   },
   {
     number: 5,
     title: "AI Solutions",
     desc: "Build intelligent systems using RunPod's compute services to create practical and scalable AI solutions for real-world problems.",
+    svgPath: "/tracks/ai_solutions.svg",
   },
 ];
 
@@ -82,7 +86,7 @@ const Tracks = ({ children }: { children?: React.ReactNode }) => {
                 "
                 >
                   <Image
-                    src="/landing/track.svg"
+                    src={card.svgPath}
                     alt={`${card.title} illustration`}
                     fill
                     className="object-contain"
