@@ -98,11 +98,11 @@ const About = ({ children }: { children?: React.ReactNode }) => (
           {/* Stats Image */}
           <div id="stats" className="w-full flex justify-center items-center">
             <Image
-              src="/landing/stats.png"
+              src="/Landing/stats.png"
               alt="ACM Stats"
-              width={1600}
-              height={1000}
-              className="w-full max-w-5xl h-auto pointer-events-auto"
+              width={1800}
+              height={1200}
+              className="w-full max-w-8xl h-auto pointer-events-auto py-12"
               draggable={false}
               priority
             />

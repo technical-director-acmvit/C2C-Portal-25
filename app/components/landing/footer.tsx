@@ -157,64 +157,31 @@ const Footer = () => {
           </p>
 
           {/* Social Icons */}
-          <div className="flex flex-row items-center gap-3 sm:gap-4 md:gap-6 mb-8 sm:mb-10 md:mb-12 flex-wrap justify-center">
+          <div className="flex flex-row items-center gap-4 sm:gap-5 md:gap-6 mb-8 sm:mb-10 md:mb-12 flex-wrap justify-center">
             {[
-              {
-                href: "https://www.facebook.com/acmvitvellore",
-                src: "/footer/Facebook.svg",
-                alt: "Facebook",
-                w: 72,
-                h: 60,
-              },
-              {
-                href: "https://x.com/acm_vit",
-                src: "/footer/Twitter.svg",
-                alt: "Twitter",
-                w: 56,
-                h: 56,
-              },
-              {
-                href: "https://www.instagram.com/acmvit",
-                src: "/footer/Instagram.svg",
-                alt: "Instagram",
-                w: 72,
-                h: 60,
-              },
-              {
-                href: "https://medium.com/acmvit",
-                src: "/footer/Medium.svg",
-                alt: "Medium",
-                w: 72,
-                h: 60,
-              },
-              {
-                href: "https://www.linkedin.com/company/acmvit",
-                src: "/footer/Linkedin.svg",
-                alt: "Linkedin",
-                w: 72,
-                h: 60,
-              },
-              {
-                href: "https://www.youtube.com/@acm_vit",
-                src: "/footer/youtube icon.svg",
-                alt: "YouTube",
-                w: 56,
-                h: 56,
-              },
-            ].map(({ href, src, alt, w, h }) => (
+              { href: "https://www.facebook.com/acmvitvellore", src: "/footer/Facebook.svg", alt: "Facebook" },
+              { href: "https://x.com/acm_vit", src: "/footer/Twitter.svg", alt: "Twitter" },
+              { href: "https://www.instagram.com/acmvit", src: "/footer/Instagram.svg", alt: "Instagram" },
+              { href: "https://medium.com/acmvit", src: "/footer/Medium.svg", alt: "Medium" },
+              { href: "https://www.linkedin.com/company/acmvit", src: "/footer/Linkedin.svg", alt: "Linkedin" },
+              { href: "https://www.youtube.com/@acm_vit", src: "/footer/youtube icon.svg", alt: "YouTube" },
+            ].map(({ href, src, alt }) => (
               <a
                 key={alt}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="group"
               >
-                <Image
-                  src={src}
-                  alt={alt}
-                  width={w}
-                  height={h}
-                  className={`${alt === "YouTube" ? "rounded" : ""} hover:scale-110 transition-transform w-8 h-8 sm:w-10 sm:h-10 md:w-auto md:h-auto`}
-                />
+                <div className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16">
+                  <Image
+                    src={src}
+                    alt={alt}
+                    fill
+                    className={`object-contain ${alt === "YouTube" ? "rounded" : ""} transition-transform group-hover:scale-110`}
+                    sizes="(min-width:1024px) 56px, (min-width:640px) 48px, 40px"
+                  />
+                </div>
               </a>
             ))}
           </div>
@@ -268,13 +235,13 @@ const Footer = () => {
             </h1>
           </div>
 
-        {/* Big background text */}
+        {/* Big background text
         <div
           className="absolute left-1/2 -translate-x-1/2 -bottom-20 md:-bottom-28 -z-10 text-neutral-400 text-[80px] sm:text-[120px] md:text-[160px] lg:text-[240px] xl:text-[568.78px] font-bold leading-none opacity-100 select-none pointer-events-none"
           style={{ lineHeight: "0.8", fontFamily: 'PolySans Trial, Arial, sans-serif' }}
         >
           acm
-        </div>
+        </div> */}
       </div>
     </footer>
   );
