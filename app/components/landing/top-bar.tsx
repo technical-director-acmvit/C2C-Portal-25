@@ -120,7 +120,7 @@ export default function TopBar() {
               <InteractiveHoverButton
                 variant="compact"
                 onClick={() => signIn("google", { callbackUrl: "/portal" })}
-                className="w-auto text-[12px] px-3 py-1.5 min-h-[32px] rounded-full font-semibold flex items-center justify-center bg-[#48BA86] hover:bg-[#3aa874] text-black border border-[#48BA86] transition-colors"
+                className="w-auto text-[12px] px-6 py-1.5 min-h-[32px] rounded-full font-semibold flex items-center justify-center bg-[#48BA86] hover:bg-[#3aa874] text-black border border-[#48BA86] transition-colors"
               >
                 Form your team
               </InteractiveHoverButton>

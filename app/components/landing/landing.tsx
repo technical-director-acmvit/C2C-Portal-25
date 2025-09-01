@@ -38,7 +38,7 @@ const Landing = () => {
       <div className="relative h-full flex flex-col items-center justify-center z-10">
         {/* Main Heading with stroke - positioned above logo */}
         <div
-          className="absolute top-1/3 md:top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 w-full max-w-screen-xl"
+          className="absolute top-[28%] md:top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 w-full max-w-screen-xl"
           style={{ zIndex: 10 }}
         >
           <h1 className="text-center text-hollow text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl break-words hyphens-auto mb-1 xs:mb-2 sm:mb-4">
