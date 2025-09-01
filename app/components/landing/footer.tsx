@@ -4,16 +4,6 @@ import Image from "next/image";
 const Footer = () => {
   return (
     <footer className="relative w-full h-auto md:h-[1300px] overflow-hidden">
-      {/* Background image behind all content */}
-      <div className="absolute inset-0 -z-10">
-        <Image
-          src="/footer/footer-background.svg"
-          alt="Footer Background"
-          fill
-          className="w-full h-full object-cover"
-          priority
-        />
-      </div>
 
       {/* Foreground overlay of the same background (above base bg, below content) */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -179,49 +169,49 @@ const Footer = () => {
           </p>
 
           {/* Social Icons */}
-          <div className="flex flex-row items-center gap-3 md:gap-4 mb-10 md:mb-12 flex-wrap justify-center">
+          <div className="flex flex-row items-center gap-4 md:gap-6 mb-10 md:mb-12 flex-wrap justify-center">
             {[
               {
                 href: "https://www.facebook.com/acmvitvellore",
                 src: "/footer/Facebook.svg",
                 alt: "Facebook",
-                w: 56,
-                h: 48,
+                w: 72,
+                h: 60,
               },
               {
                 href: "https://x.com/acm_vit",
                 src: "/footer/Twitter.svg",
                 alt: "Twitter",
-                w: 22,
-                h: 22,
+                w: 56,
+                h: 56,
               },
               {
                 href: "https://www.instagram.com/acmvit",
                 src: "/footer/Instagram.svg",
                 alt: "Instagram",
-                w: 56,
-                h: 48,
+                w: 72,
+                h: 60,
               },
               {
                 href: "https://medium.com/acmvit",
                 src: "/footer/Medium.svg",
                 alt: "Medium",
-                w: 56,
-                h: 48,
+                w: 72,
+                h: 60,
               },
               {
                 href: "https://www.linkedin.com/company/acmvit",
                 src: "/footer/Linkedin.svg",
                 alt: "Linkedin",
-                w: 56,
-                h: 48,
+                w: 72,
+                h: 60,
               },
               {
                 href: "https://www.youtube.com/@acm_vit",
-                src: "/footer/youtube icon.png",
+                src: "/footer/youtube icon.svg",
                 alt: "YouTube",
-                w: 28,
-                h: 28,
+                w: 56,
+                h: 56,
               },
             ].map(({ href, src, alt, w, h }) => (
               <a
@@ -235,7 +225,7 @@ const Footer = () => {
                   alt={alt}
                   width={w}
                   height={h}
-                  className={`${alt === "YouTube" ? "rounded" : ""} hover:scale-110 transition-transform w-8  md:w-auto`}
+                  className={`${alt === "YouTube" ? "rounded" : ""} hover:scale-110 transition-transform`}
                 />
               </a>
             ))}

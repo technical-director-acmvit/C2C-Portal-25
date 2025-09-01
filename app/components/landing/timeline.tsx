@@ -73,7 +73,7 @@ const Timeline = () => {
               <h3
                 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6"
                 style={{
-                  color: '#4ade80',
+                  color: '#48ba86',
                   fontFamily: 'Trap-Bold, Trap, Arial, sans-serif',
                   fontSize: 'clamp(28px, 6vw, 50px)',
                   fontStyle: 'normal',
