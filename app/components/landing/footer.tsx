@@ -208,7 +208,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="group"
               >
-                <div className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16">
+                <div className={`relative ${alt === "Twitter" || alt === "YouTube" ? "w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-10 lg:h-10" : "w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16"}`}>
                   <Image
                     src={src}
                     alt={alt}
