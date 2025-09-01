@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import DotGrid from "./dot-grid";
 import GradientBG from "./gradient-bg";
