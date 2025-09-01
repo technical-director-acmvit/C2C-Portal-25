@@ -11,26 +11,18 @@ interface FAQItem {
 }
 
 const faqData: FAQItem[] = [
-  {
-    question: "What is C2C?",
-    answer: "C2C is a comprehensive platform designed to connect students, professionals, and organizations in the tech community. We provide resources, networking opportunities, and career development support."
-  },
-  {
-    question: "How do I apply?",
-    answer: "You can apply by clicking the 'Apply Now' button and filling out our application form. Make sure to provide all required information and any relevant portfolio or project links."
-  },
-  {
-    question: "What are the eligibility criteria?",
-    answer: "We welcome applications from students, recent graduates, and early-career professionals in technology fields. No specific degree requirements, but passion for tech and willingness to learn are essential."
-  },
-  {
-    question: "Is there an application fee?",
-    answer: "No, our application process is completely free. We believe in making opportunities accessible to everyone regardless of their financial situation."
-  },
-  {
-    question: "When is the application deadline?",
-    answer: "Application deadlines vary by program. Please check our website regularly for updated timelines, or reach out to our team for specific program deadlines."
-  }
+  { question: "Who all can register?", answer: "Students from all over the country are eligible to participate in Code2Create. Everybody is welcome to make a difference." },
+  { question: "What will the hackathon cost me?", answer: "Nothing, it's absolutely free. You cannot put a price on groundbreaking ideas." },
+  { question: "Can I implement my idea in hardware?", answer: "Sure! There's no bias between sofware and hardware. But you'll have to bring your own hardware." },
+  { question: "What kind of a hackathon is Code2Create?", answer: "Code2Create is a tech-based hackathon." },
+  { question: "How many members can constitute a team?", answer: "There should be a minimum of 2 members and can be up to 5 members in a team." },
+  { question: "Will there be accommodation for external participants?", answer: "Yes we will provide accomodation at VIT." },
+  { question: "How do I choose my track?", answer: "You will get the option while registering." },
+  { question: "Can I start working on my hack before the hackathon?", answer: "No, you are not permitted to work on pre-existing projects in the hackathon. To maintain fair standards of judgment you will begin working on your hack after reporting to the venue." },
+  { question: "Is the hackathon only about technology?", answer: "We are tech enthusiasts but we believe ‘All work and no play makes Jack a dull boy.’ We have numerous fun activities planned for you." },
+  { question: "What will be the judging criteria?", answer: "The judging criteria will be declared after the commencement of the hack." },
+  { question: "How will I benefit from attending this hackathon?", answer: "Code2Create is a place for innovators to create and make a difference. You will get an opportunity to interact with ingenious minds. In addition, we have cash prizes, licenses, schwags, cloud credits and goodies for the winner." },
+  { question: "Will there be travel reimbursements provided?", answer: "We do not provide reimbursements for external participants for travel expenses." },
 ];
 
 const FAQItem: React.FC<{ faq: FAQItem; isOpen: boolean; onToggle: () => void }> = ({ faq, isOpen, onToggle }) => {
@@ -81,6 +73,9 @@ const FAQs = () => {
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+  const mid = Math.ceil(faqData.length / 2);
+  const leftFAQs = faqData.slice(0, mid);
+  const rightFAQs = faqData.slice(mid);
 
   return (
     <GradientBG>
@@ -95,16 +90,33 @@ const FAQs = () => {
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
         <div className="w-full max-w-7xl px-6 pointer-events-auto transform translate-y-16 sm:translate-y-20 lg:translate-y-24">
           {/* FAQ Items */}
-          <div className="max-w-4xl mx-auto">
-            <div className="p-6">
-              {faqData.map((faq, index) => (
-                <FAQItem
-                  key={index}
-                  faq={faq}
-                  isOpen={openIndex === index}
-                  onToggle={() => toggleFAQ(index)}
-                />
-              ))}
+          <div className="w-full max-w-5xl lg:max-w-6xl mx-auto">
+            <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              {/* Left column */}
+              <div className="space-y-4">
+                {leftFAQs.map((faq, index) => (
+                  <FAQItem
+                    key={index}
+                    faq={faq}
+                    isOpen={openIndex === index}
+                    onToggle={() => toggleFAQ(index)}
+                  />
+                ))}
+              </div>
+              {/* Right column */}
+              <div className="space-y-4">
+                {rightFAQs.map((faq, idx) => {
+                  const globalIndex = mid + idx;
+                  return (
+                    <FAQItem
+                      key={globalIndex}
+                      faq={faq}
+                      isOpen={openIndex === globalIndex}
+                      onToggle={() => toggleFAQ(globalIndex)}
+                    />
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
