@@ -2,18 +2,12 @@
 
 import React from "react";
 import Image from "next/image";
-import TopBar from "./top-bar";
 import { InteractiveHoverButton } from "@/app/components/landing/ui/cta-button";
 import { signIn } from "next-auth/react";
 
 const Landing = () => {
   return (
     <div className="min-h-[640px] h-screen w-full relative overflow-hidden bg-transparent">
-      {/* Top Bar */}
-      <div className="absolute top-0 left-0 w-full z-30">
-        <TopBar />
-      </div>
-
       {/* Gradient Background */}
       <Image
         src="/landing/gradient.svg"

@@ -10,6 +10,7 @@ import Timeline from "./components/landing/timeline";
 import AboutACM from "./components/landing/about-acm";
 import Tracks from "./components/landing/tracks";
 import Footer from "./components/landing/footer";
+import TopBar from "./components/landing/top-bar";
 // import Bento from "./components/landing/bento";
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -32,7 +33,13 @@ export default function Page() {
       {/* Page-wide gradient background to unify section transitions */}
       <div className="fixed inset-0 -z-10 bg-gradient-to-b from-[#0a0a0a] via-[#161616] to-[#0a0a0a]" />
 
-      <Landing />
+      {/* Top Bar - part of normal document flow */}
+      <TopBar />
+
+      {/* Landing with negative margin to overlap with TopBar */}
+      <div className="-mt-14 md:-mt-14 relative z-10">
+        <Landing />
+      </div>
       <div className="min-h-screen flex flex-col">
         <div className="flex-1 w-full">
           <About />
