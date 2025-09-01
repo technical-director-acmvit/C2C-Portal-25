@@ -16,7 +16,8 @@ const Internal = ({ onBack }: Props) => {
     const [formData, setFormData] = useState({
         registrationNumber: '',
         gender: '',
-        contactNumber: ''
+        contactNumber: '',
+        hosteller: false,
     });
     // field-level validation messages
     const [fieldErrors, setFieldErrors] = useState({
@@ -82,7 +83,8 @@ const Internal = ({ onBack }: Props) => {
                 await signupInternal({
                     contact_number: formData.contactNumber,
                     gender: formData.gender,
-                    reg_no: formData.registrationNumber
+                    reg_no: formData.registrationNumber,
+                    hosteller: Boolean(formData.hosteller),
                 });
                 
                 setSubmitted(true);
@@ -164,6 +166,37 @@ const Internal = ({ onBack }: Props) => {
                     {fieldErrors.contactNumber && (
                         <div className="text-red-300 text-sm mt-2">{fieldErrors.contactNumber}</div>
                     )}
+
+                    {/* Hosteller / Dayscholar switch */}
+                    <label className="text-sm text-gray-300 mt-4 mb-2">Residence</label>
+                    <div className="flex w-full bg-[#111213]/60 border border-white/10 rounded-full p-1">
+                      <button
+                        type="button"
+                        aria-pressed={formData.hosteller}
+                        onClick={() => setFormData(prev => ({ ...prev, hosteller: true }))}
+                        className={`flex-1 rounded-full py-2 text-center transition-colors ${
+                          formData.hosteller
+                            ? 'bg-[#48BA86] text-black'
+                            : 'bg-transparent text-white hover:bg-white/10'
+                        }`}
+                        style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: '14px' }}
+                      >
+                        Hosteller
+                      </button>
+                      <button
+                        type="button"
+                        aria-pressed={!formData.hosteller}
+                        onClick={() => setFormData(prev => ({ ...prev, hosteller: false }))}
+                        className={`flex-1 rounded-full py-2 text-center transition-colors ${
+                          !formData.hosteller
+                            ? 'bg-[#48BA86] text-black'
+                            : 'bg-transparent text-white hover:bg-white/10'
+                        }`}
+                        style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: '14px' }}
+                      >
+                        Dayscholar
+                      </button>
+                    </div>
 
                     <div className="flex justify-center mt-6">
                         <PortalButton onClick={handleSubmit} disabled={!isFormValid() || loading} className={`px-6 py-2 text-[20px] ${isFormValid() && !loading ? '' : 'opacity-50 cursor-not-allowed'}`}>
