@@ -13,9 +13,7 @@ import { cleanName } from "./nameUtils";
 import { usePortalStore } from "@/app/stores/portal";
 // import Profile from "./profile";
 
-interface DashboardProps {}
-
-const Dashboard: React.FC<DashboardProps> = () => {
+const Dashboard: React.FC = () => {
   const view = usePortalStore((s) => s.view);
   const data = usePortalStore((s) => s.dashboard);
   const error = usePortalStore((s) => s.error);
