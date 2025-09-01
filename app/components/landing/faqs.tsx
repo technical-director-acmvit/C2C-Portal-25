@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import DotGrid from './dot-grid';
-import Topper from './topper';
 import GradientBG from './gradient-bg';
 import HeadingText from './HeadingText';
 

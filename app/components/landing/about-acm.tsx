@@ -1,7 +1,6 @@
 import Image from "next/image";
 import DotGrid from "./dot-grid";
 import GradientBG from "./gradient-bg";
-import Topper from "./topper";
 import HeadingText from "./HeadingText";
 
 const About = ({ children }: { children?: React.ReactNode }) => (

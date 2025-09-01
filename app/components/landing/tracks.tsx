@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import Topper from "./topper";
 import GradientBG from "./gradient-bg";
 import DotGrid from "./dot-grid";
 import HeadingText from "./HeadingText";
