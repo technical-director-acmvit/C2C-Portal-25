@@ -19,7 +19,7 @@ const Statistics = () => {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-1 md:px-4">
           {/* Stats Image */}
           <div className="w-full flex justify-center items-center">
             <Image
@@ -27,7 +27,7 @@ const Statistics = () => {
               alt="ACM Stats"
               width={1800}
               height={1200}
-              className="w-full max-w-8xl h-auto pointer-events-auto py-12"
+              className="w-full max-w-8xl h-auto pointer-events-auto py-0 md:py-12"
               draggable={false}
               loading="lazy"
               placeholder="blur"
