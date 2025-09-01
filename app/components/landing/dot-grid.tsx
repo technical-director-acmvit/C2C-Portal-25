@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useEffect, useCallback, useMemo } from "react";
+import React, { useRef, useEffect, useCallback, useMemo, useState } from "react";
 import { gsap } from "gsap";
 import { InertiaPlugin } from "gsap/InertiaPlugin";
 
@@ -41,6 +41,11 @@ export interface DotGridProps {
   returnDuration?: number;
   className?: string;
   style?: React.CSSProperties;
+  // Performance controls
+  maxDots?: number;           // soft cap for total dots; grid sampling reduces density when exceeded
+  fps?: number;               // target redraw rate; defaults to 45
+  maxDevicePixelRatio?: number; // clamp canvas DPR (e.g., 1.5) to reduce pixel workload
+  disableOnMobile?: boolean;  // do not render on small screens
 }
 
 function hexToRgb(hex: string) {
@@ -67,10 +72,19 @@ const DotGrid: React.FC<DotGridProps> = ({
   returnDuration = 1.5,
   className = "",
   style,
+  maxDots = 1200,
+  fps = 45,
+  maxDevicePixelRatio = 1.5,
+  disableOnMobile = true,
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dotsRef = useRef<Dot[]>([]);
+  const rafRef = useRef<number | null>(null);
+  const lastDrawRef = useRef<number>(0);
+  const visibleRef = useRef<boolean>(false);
+  const circlePathRef = useRef<Path2D | null>(null);
+  const startDrawRef = useRef<(() => void) | null>(null);
   const pointerRef = useRef({
     x: 0,
     y: 0,
@@ -82,16 +96,32 @@ const DotGrid: React.FC<DotGridProps> = ({
     lastY: 0,
   });
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(max-width: 767px)');
+    const set = () => setIsMobile(mq.matches);
+    set();
+    mq.addEventListener ? mq.addEventListener('change', set) : mq.addListener(set);
+    return () => {
+      mq.removeEventListener ? mq.removeEventListener('change', set) : mq.removeListener(set);
+    };
+  }, []);
+
   const baseRgb = useMemo(() => hexToRgb(baseColor), [baseColor]);
   const activeRgb = useMemo(() => hexToRgb(activeColor), [activeColor]);
 
-  const circlePath = useMemo(() => {
+  // Update circle path when effective dot size changes
+  const setCirclePath = useCallback((size: number) => {
     const hasPath2D = typeof window !== "undefined" && "Path2D" in window;
-    if (!hasPath2D) return null;
+    if (!hasPath2D) {
+      circlePathRef.current = null;
+      return;
+    }
     const p = new Path2D();
-    p.arc(0, 0, dotSize / 2, 0, Math.PI * 2);
-    return p;
-  }, [dotSize]);
+    p.arc(0, 0, size / 2, 0, Math.PI * 2);
+    circlePathRef.current = p;
+  }, []);
 
   const buildGrid = useCallback(() => {
     const wrap = wrapperRef.current;
@@ -99,7 +129,7 @@ const DotGrid: React.FC<DotGridProps> = ({
     if (!wrap || !canvas) return;
 
     const { width, height } = wrap.getBoundingClientRect();
-    const dpr = window.devicePixelRatio || 1;
+    const dpr = Math.min(maxDevicePixelRatio, window.devicePixelRatio || 1);
 
     canvas.width = width * dpr;
     canvas.height = height * dpr;
@@ -108,9 +138,20 @@ const DotGrid: React.FC<DotGridProps> = ({
     const ctx = canvas.getContext("2d");
     if (ctx) ctx.scale(dpr, dpr);
 
-    const cols = Math.floor((width + gap) / (dotSize + gap));
-    const rows = Math.floor((height + gap) / (dotSize + gap));
-    const cell = dotSize + gap;
+    const baseCell = dotSize + gap;
+    let cols = Math.floor((width + gap) / baseCell);
+    let rows = Math.floor((height + gap) / baseCell);
+    let sample = 1;
+    const estimatedDots = rows * cols;
+    if (estimatedDots > maxDots) {
+      sample = Math.ceil(Math.sqrt(estimatedDots / maxDots));
+    }
+    const cell = baseCell * sample; // effectively spaces dots out when sampling
+    // recompute columns/rows with the sampled cell size
+    cols = Math.max(1, Math.floor((width + gap) / cell));
+    rows = Math.max(1, Math.floor((height + gap) / cell));
+    // Keep dot size consistent; do not scale up with sampling
+    setCirclePath(dotSize);
 
     const gridW = cell * cols - gap;
     const gridH = cell * rows - gap;
@@ -130,19 +171,37 @@ const DotGrid: React.FC<DotGridProps> = ({
       }
     }
     dotsRef.current = dots;
-  }, [dotSize, gap]);
+  }, [dotSize, gap, maxDots, maxDevicePixelRatio, setCirclePath]);
 
   useEffect(() => {
-    if (!circlePath) return;
-
-    let rafId: number;
     const proxSq = proximity * proximity;
 
-    const draw = () => {
+    const draw = (time: number) => {
+      // visibility gating
+      if (!visibleRef.current || (disableOnMobile && isMobile)) {
+        rafRef.current = null;
+        return;
+      }
+      const minDelta = 1000 / Math.max(15, Math.min(120, fps));
+      const last = lastDrawRef.current || 0;
+      if (time - last < minDelta) {
+        rafRef.current = requestAnimationFrame(draw);
+        return;
+      }
+      lastDrawRef.current = time;
+
       const canvas = canvasRef.current;
-      if (!canvas) return;
+      const path = circlePathRef.current;
+      if (!canvas || !path) {
+        rafRef.current = requestAnimationFrame(draw);
+        return;
+      }
       const ctx = canvas.getContext("2d");
-      if (!ctx) return;
+      if (!ctx) {
+        rafRef.current = requestAnimationFrame(draw);
+        return;
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const { x: px, y: py } = pointerRef.current;
@@ -167,46 +226,80 @@ const DotGrid: React.FC<DotGridProps> = ({
         ctx.save();
         ctx.translate(ox, oy);
         ctx.fillStyle = style;
-        ctx.fill(circlePath as Path2D);
+        ctx.fill(path);
         ctx.restore();
       }
 
-      rafId = requestAnimationFrame(draw);
+      rafRef.current = requestAnimationFrame(draw);
     };
 
-    draw();
-    return () => cancelAnimationFrame(rafId);
-  }, [proximity, baseColor, activeRgb, baseRgb, circlePath]);
+    // start/stop based on visibility
+    const start = () => {
+      if (rafRef.current == null) {
+        rafRef.current = requestAnimationFrame(draw);
+      }
+    };
+    const stop = () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    };
+
+    if (visibleRef.current && !(disableOnMobile && isMobile)) start();
+    startDrawRef.current = start;
+    return () => stop();
+  }, [proximity, baseColor, activeRgb, baseRgb, fps, disableOnMobile, isMobile]);
 
   useEffect(() => {
+    if (disableOnMobile && isMobile) return;
     buildGrid();
 
     let ro: ResizeObserver | null = null;
+    let io: IntersectionObserver | null = null;
 
     if (typeof window !== "undefined") {
+      // Resize observer for responsive grid
       if ("ResizeObserver" in window && window.ResizeObserver) {
         const RO = window.ResizeObserver as typeof ResizeObserver;
         ro = new RO(buildGrid);
         const el = wrapperRef.current;
-        if (el) {
-          ro.observe(el);
-        }
+        if (el) ro.observe(el);
       } else {
         window.addEventListener("resize", buildGrid);
+      }
+
+      // Intersection observer to pause rendering when offscreen
+      const el = wrapperRef.current;
+      if (el && "IntersectionObserver" in window) {
+        io = new IntersectionObserver(
+          (entries) => {
+            const entry = entries[0];
+            visibleRef.current = entry.isIntersecting && entry.intersectionRatio > 0.01;
+            if (visibleRef.current) {
+              // kick the draw loop
+              if (!rafRef.current) startDrawRef.current?.();
+            }
+          },
+          { threshold: [0, 0.01, 0.1, 0.25, 0.5, 1] }
+        );
+        io.observe(el);
+      } else {
+        visibleRef.current = true;
+        startDrawRef.current?.();
       }
     }
 
     return () => {
-      if (ro) {
-        ro.disconnect();
-      } else if (typeof window !== "undefined") {
-        window.removeEventListener("resize", buildGrid);
-      }
+      if (ro) ro.disconnect();
+      else if (typeof window !== "undefined") window.removeEventListener("resize", buildGrid);
+      if (io) io.disconnect();
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
     };
-  }, [buildGrid]);
+  }, [buildGrid, disableOnMobile, isMobile]);
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
+      if (disableOnMobile && isMobile) return;
       const now = performance.now();
       const pr = pointerRef.current;
       const dt = pr.lastTime ? now - pr.lastTime : 16;
@@ -258,6 +351,7 @@ const DotGrid: React.FC<DotGridProps> = ({
     };
 
     const onClick = (e: MouseEvent) => {
+      if (disableOnMobile && isMobile) return;
       const rect = canvasRef.current!.getBoundingClientRect();
       const cx = e.clientX - rect.left;
       const cy = e.clientY - rect.top;
@@ -287,12 +381,17 @@ const DotGrid: React.FC<DotGridProps> = ({
 
     const throttledMove = throttleEvent<MouseEvent>(onMove, 50);
 
-    window.addEventListener("mousemove", throttledMove, { passive: true });
-    window.addEventListener("click", onClick);
+    // Only attach global listeners when canvas is visible
+    if (!(disableOnMobile && isMobile)) {
+      window.addEventListener("mousemove", throttledMove, { passive: true });
+      window.addEventListener("click", onClick);
+    }
 
     return () => {
-      window.removeEventListener("mousemove", throttledMove);
-      window.removeEventListener("click", onClick);
+      if (!(disableOnMobile && isMobile)) {
+        window.removeEventListener("mousemove", throttledMove);
+        window.removeEventListener("click", onClick);
+      }
     };
   }, [
     maxSpeed,
@@ -302,6 +401,8 @@ const DotGrid: React.FC<DotGridProps> = ({
     returnDuration,
     shockRadius,
     shockStrength,
+    disableOnMobile,
+    isMobile,
   ]);
 
   return (
@@ -319,4 +420,5 @@ const DotGrid: React.FC<DotGridProps> = ({
   );
 };
 
-export default DotGrid;
+DotGrid.displayName = 'DotGrid';
+export default React.memo(DotGrid);

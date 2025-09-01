@@ -78,6 +78,7 @@ const Footer = () => {
                 alt="VIT Map"
                 fill
                 className="object-cover rounded-lg shadow-lg border border-zinc-700"
+                loading="lazy"
               />
               <div className="absolute inset-0 w-full h-full opacity-50 bg-gradient-to-b from-white to-green-400 rounded-lg pointer-events-none" />
               </a>
@@ -180,6 +181,7 @@ const Footer = () => {
                     fill
                     className={`object-contain ${alt === "YouTube" ? "rounded" : ""} transition-transform group-hover:scale-110`}
                     sizes="(min-width:1024px) 56px, (min-width:640px) 48px, 40px"
+                    loading="lazy"
                   />
                 </div>
               </a>
@@ -193,6 +195,7 @@ const Footer = () => {
               width={36}
               height={36}
               className="w-5 h-5 sm:w-6 sm:h-6 md:w-9 md:h-9"
+              loading="lazy"
               />
               <span
               className="text-white text-sm sm:text-xl md:text-4xl text-center"

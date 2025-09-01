@@ -79,7 +79,7 @@ const FAQs = () => {
 
   return (
     <GradientBG>
-      <div id="faqs" className="w-full min-h-screen relative overflow-hidden">
+      <div className="w-full min-h-screen relative overflow-hidden">
         {/* Dots in the background */}
         <div className="absolute inset-0 z-0">
           <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" />

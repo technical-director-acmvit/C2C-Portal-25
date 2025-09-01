@@ -233,17 +233,19 @@ const Dashboard: React.FC = () => {
 
           {/* Track & Submission Status */}
           <div className="text-gray-300 text-center mb-6 sm:mb-10 px-4 max-w-xl">
-            {track?.title ? (
-              <p className="text-sm sm:text-base mb-2" style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}>
-                <span className="text-white/80 mr-1">Track:</span>
-                <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/10 text-white break-words max-w-full">
-                  {track.title}
-                </span>
-              </p>
-            ) : (
-              <p style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }} className="text-yellow-300 text-sm sm:text-base mb-2">
-                No track selected yet
-              </p>
+            {submissionOpen && (
+              track?.title ? (
+                <p className="text-sm sm:text-base mb-2" style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}>
+                  <span className="text-white/80 mr-1">Track:</span>
+                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/10 text-white break-words max-w-full">
+                    {track.title}
+                  </span>
+                </p>
+              ) : (
+                <p style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }} className="text-yellow-300 text-sm sm:text-base mb-2">
+                  No track selected yet
+                </p>
+              )
             )}
 
             {submissionOpen ? (

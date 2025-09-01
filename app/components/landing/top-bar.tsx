@@ -19,6 +19,23 @@ export default function TopBar() {
     };
   }, [menuOpen]);
 
+  const handleNavClick = (href: string) => {
+    if (href.startsWith("#")) {
+      const element = document.querySelector(href);
+      if (element) {
+        const topBarHeight = 56; // Approximate top bar height
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = elementPosition - topBarHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }
+    }
+    setMenuOpen(false);
+  };
+
   const navLinks = [
     { href: "#about", label: "About", hasDropdown: false },
     { href: "#stats", label: "Stats", hasDropdown: false },
@@ -37,6 +54,7 @@ export default function TopBar() {
             height={40}
             className="h-8 md:h-10 w-auto"
             loading="eager"
+            priority
             style={{ marginLeft: 20 }}
           />
         </div>
@@ -46,8 +64,8 @@ export default function TopBar() {
             {navLinks.map((link) => (
               <li key={link.href} className="min-w-0 flex items-center h-full">
                 {link.href.startsWith("#") ? (
-                  <a
-                    href={link.href}
+                  <button
+                    onClick={() => handleNavClick(link.href)}
                     className="group inline-flex items-center justify-center h-full"
                   >
                     <span
@@ -69,7 +87,7 @@ export default function TopBar() {
                         />
                       )}
                     </span>
-                  </a>
+                  </button>
                 ) : (
                   <Link
                     href={link.href}
@@ -102,9 +120,9 @@ export default function TopBar() {
               <InteractiveHoverButton
                 variant="compact"
                 onClick={() => signIn("google", { callbackUrl: "/portal" })}
-                className="w-[120px] text-[12px] px-3 py-1.5 min-h-[32px] rounded-full font-semibold flex items-center justify-center bg-[#48BA86] hover:bg-[#3aa874] text-black border border-[#48BA86] transition-colors"
+                className="w-auto text-[12px] px-3 py-1.5 min-h-[32px] rounded-full font-semibold flex items-center justify-center bg-[#48BA86] hover:bg-[#3aa874] text-black border border-[#48BA86] transition-colors"
               >
-                Register
+                Form your team
               </InteractiveHoverButton>
             </li>
           </ul>
@@ -114,9 +132,9 @@ export default function TopBar() {
           <InteractiveHoverButton
             variant="simple"
             onClick={() => signIn("google", { callbackUrl: "/portal" })}
-            className="w-[100px] text-[11px] px-2 py-1 min-h-[28px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors"
+            className="w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors"
           >
-            Register
+            Form your team
           </InteractiveHoverButton>
           <button
             aria-label="Toggle menu"
@@ -183,6 +201,7 @@ export default function TopBar() {
             width={110}
             height={40}
             className="h-8 md:h-10 w-auto"
+            priority
           />
         </div>
       </div>
@@ -194,14 +213,13 @@ export default function TopBar() {
               {navLinks.map((link) => (
                 <li key={link.href}>
                   {link.href.startsWith("#") ? (
-                    <a
-                      href={link.href}
-                      onClick={() => setMenuOpen(false)}
+                    <button
+                      onClick={() => handleNavClick(link.href)}
                       className="block w-full px-3 py-2 rounded text-white hover:bg-white/10 text-center"
                       style={{ fontFamily: "Trap, Arial, sans-serif" }}
                     >
                       {link.label}
-                    </a>
+                    </button>
                   ) : (
                     <Link
                       href={link.href}

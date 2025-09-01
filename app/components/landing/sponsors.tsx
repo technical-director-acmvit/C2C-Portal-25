@@ -33,6 +33,7 @@ const SponsorCard: React.FC<{
               height={80}
               className="max-w-full max-h-full object-contain filter brightness-100 contrast-100"
               style={{ maxWidth: "90%", maxHeight: "90%" }}
+              loading="lazy"
             />
           ) : (
             <div className="h-full w-full rounded-lg bg-[#4ade80]" />
@@ -64,7 +65,7 @@ const SponsorCard: React.FC<{
 
 const Sponsors = () => (
   <GradientBG darken>
-    <div id="sponsors" className="w-full min-h-screen relative overflow-hidden">
+    <div className="w-full min-h-screen relative overflow-hidden">
       <HeadingText text="Sponsors" />
       {/* DotGrid positioned behind the cards */}
       <div className="absolute inset-0 z-0">
