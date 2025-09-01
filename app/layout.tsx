@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-
 import "./globals.css";
+import ScrollSmootherProvider from "../components/scroll-smoother-provider";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -95,12 +96,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en" className="h-full overflow-x-hidden">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden min-h-screen`}
       >
-        {children}
+        <ScrollSmootherProvider>
+          {children}
+        </ScrollSmootherProvider>
       </body>
     </html>
   );

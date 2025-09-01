@@ -10,7 +10,23 @@ import Timeline from "./components/landing/timeline";
 import AboutACM from "./components/landing/about-acm";
 import Tracks from "./components/landing/tracks";
 import Footer from "./components/landing/footer";
+// import Bento from "./components/landing/bento";
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollSmoother } from 'gsap/ScrollSmoother';
+import { useLayoutEffect } from "react";
+
+
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+
+
 export default function Page() {
+    useLayoutEffect(() => {
+    ScrollSmoother.create({
+      smooth: 1 // how long (in seconds) it takes to "catch up" to the native scroll position
+    });
+  }, []);
   return (
     <div className="relative w-full">
       {/* Page-wide gradient background to unify section transitions */}
@@ -26,6 +42,9 @@ export default function Page() {
       <div className=" flex items-center justify-between flex-col">
         <AboutACM />
       </div>
+      {/* <div className="h-screen flex items-center justify-between flex-col"> */}
+        {/* <Bento /> */}
+      {/* </div> */}
       <div className=" flex items-center justify-between flex-col">
         <Tracks />
       </div>
@@ -41,6 +60,7 @@ export default function Page() {
       <div className="h-screen flex items-center justify-between flex-col">
         <FAQs />
       </div>
+      
       <Footer />
     </div>
   );
