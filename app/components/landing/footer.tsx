@@ -43,7 +43,7 @@ const Footer = () => {
             alt="Hand icon"
             width={62}
             height={85}
-            className="h-8 sm:h-9 md:h-12 w-auto"
+            className="h-8 sm:h-9 md:h-10 w-auto"
             priority
           />
         </div>
