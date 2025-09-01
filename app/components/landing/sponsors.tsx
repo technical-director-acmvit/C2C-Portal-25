@@ -5,6 +5,7 @@ import React from "react";
 import DotGrid from "./dot-grid";
 import GradientBG from "./gradient-bg";
 import Topper from "./topper";
+import HeadingText from "./HeadingText";
 
 const SponsorCard: React.FC<{
   title?: string;
@@ -65,7 +66,7 @@ const SponsorCard: React.FC<{
 const Sponsors = () => (
   <GradientBG darken>
     <div id="sponsors" className="w-full min-h-screen relative overflow-hidden">
-      <Topper text="Sponsors" />
+      <HeadingText text="Sponsors" />
       {/* DotGrid positioned behind the cards */}
       <div className="absolute inset-0 z-0">
         <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" />

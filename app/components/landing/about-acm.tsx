@@ -2,12 +2,13 @@ import Image from "next/image";
 import DotGrid from "./dot-grid";
 import GradientBG from "./gradient-bg";
 import Topper from "./topper";
+import HeadingText from "./HeadingText";
 
 const About = ({ children }: { children?: React.ReactNode }) => (
   <div className="w-screen h-auto">
     <GradientBG>
       <div className="w-full h-auto relative overflow-hidden">
-        <Topper text="About ACM" />
+        <HeadingText text="About ACM" />
 
         {/* Background grid */}
         <div className="pointer-events-none absolute inset-0 -z-10">
