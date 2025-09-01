@@ -33,13 +33,13 @@ export default function Page() {
       {/* Page-wide gradient background to unify section transitions */}
       <div className="fixed inset-0 -z-10 bg-gradient-to-b from-[#0a0a0a] via-[#161616] to-[#0a0a0a]" />
 
-      {/* Top Bar - part of normal document flow */}
-      <TopBar />
-
-      {/* Landing with negative margin to overlap with TopBar */}
-      <div className="-mt-14 md:-mt-14 relative z-10">
-        <Landing />
+      {/* Top Bar - FIXED at the top of the page */}
+      <div className="fixed top-0 left-0 w-full z-50">
+        <TopBar />
       </div>
+
+      {/* Landing - no margin needed since TopBar is fixed */}
+      <Landing />
       <div className="min-h-screen flex flex-col">
         <div className="flex-1 w-full">
           <About />
