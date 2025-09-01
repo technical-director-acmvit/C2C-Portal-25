@@ -58,30 +58,33 @@ const Footer = () => {
               Code2Create
             </div>
 
-            {/* Status pill */}
-            <div className="w-fit mx-auto md:mx-0 p-1 my-3 sm:my-4 relative flex items-center border border-zinc-100 rounded-full px-2 pr-3 sm:pr-4">
-              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-green-400 rounded-full shadow-[0_0_8px_2px_rgba(72,186,134,1)] animate-[pulse_1.5s_ease-in-out_infinite]"></div>
-              <div className="ml-2 text-zinc-100 text-xs sm:text-sm font-thin whitespace-nowrap" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
-                All systems online
+            {/* Status and Map - Hidden on mobile */}
+            <div className="hidden md:flex md:flex-col items-start justify-start gap-0 mt-4 sm:mt-6">
+              {/* Status pill */}
+              <div className="w-fit p-1 relative flex items-center border border-zinc-100 rounded-full px-2 pr-3 sm:pr-4">
+                <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-green-400 rounded-full shadow-[0_0_8px_2px_rgba(72,186,134,1)] animate-[pulse_1.5s_ease-in-out_infinite]"></div>
+                <div className="ml-2 text-zinc-100 text-xs sm:text-sm font-thin whitespace-nowrap" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
+                  All systems online
+                </div>
               </div>
-            </div>
 
-            {/* Map */}
-            <div className="mt-4 sm:mt-6 relative w-40 h-28 sm:w-48 sm:h-32 md:w-52 md:h-36 mx-auto md:mx-0">
-              <a
-              href="https://w3w.co/static.grips.limelight"
-              target="_blank"
-              rel="noopener noreferrer"
-              >
-              <Image
-                src="/footer/VIT-Map.png"
-                alt="VIT Map"
-                fill
-                className="object-cover rounded-lg shadow-lg border border-zinc-700"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 w-full h-full opacity-50 bg-gradient-to-b from-white to-green-400 rounded-lg pointer-events-none" />
-              </a>
+              {/* Map */}
+              <div className="relative w-52 h-36 mt-4">
+                <a
+                href="https://w3w.co/static.grips.limelight"
+                target="_blank"
+                rel="noopener noreferrer"
+                >
+                <Image
+                  src="/footer/VIT-Map.png"
+                  alt="VIT Map"
+                  fill
+                  className="object-cover rounded-lg shadow-lg border border-zinc-700"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 w-full h-full opacity-50 bg-gradient-to-b from-white to-green-400 rounded-lg pointer-events-none" />
+                </a>
+              </div>
             </div>
           </div>
 
@@ -91,11 +94,15 @@ const Footer = () => {
             <div className="w-full sm:w-40 md:w-24 flex flex-col gap-2 sm:gap-3 md:gap-4">
               <div className="text-[#48ba86] text-xs sm:text-sm md:text-base font-light uppercase" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>ABOUT</div>
               <div className="flex flex-col gap-1 sm:gap-1.5 md:gap-2">
-                {["C2C", "ACM", "TRACKS"].map((item) => (
-                  <a key={item} href="#" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
-                    {item}
-                  </a>
-                ))}
+                <a href="#about" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
+                  C2C
+                </a>
+                <a href="#about" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
+                  ACM
+                </a>
+                <a href="#tracks" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
+                  TRACKS
+                </a>
               </div>
             </div>
 
@@ -103,11 +110,21 @@ const Footer = () => {
             <div className="w-full sm:w-48 md:w-44 flex flex-col gap-2 sm:gap-3 md:gap-4">
               <div className="text-[#48ba86] text-xs sm:text-sm md:text-base font-light uppercase" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>TRACKS</div>
               <div className="flex flex-col gap-1 sm:gap-1.5 md:gap-2">
-              {["AI SOLUTIONS", "ART ATTACK", "DIGITAL DAWN", "I CAN DO IT BETTER", "GAME OVER"].map((item) => (
-                <span key={item} className="text-white text-xs sm:text-sm md:text-base font-light uppercase" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
-                {item}
-                </span>
-              ))}
+                <a href="#tracks" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
+                  AI SOLUTIONS
+                </a>
+                <a href="#tracks" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
+                  ART ATTACK
+                </a>
+                <a href="#tracks" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
+                  DIGITAL DAWN
+                </a>
+                <a href="#tracks" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
+                  I CAN DO IT BETTER
+                </a>
+                <a href="#tracks" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
+                  GAME OVER
+                </a>
               </div>
             </div>
 
@@ -127,11 +144,27 @@ const Footer = () => {
             <div className="w-full sm:w-40 md:w-28 flex flex-col gap-2 sm:gap-3 md:gap-4">
               <div className="text-[#48ba86] text-xs sm:text-sm md:text-base font-light uppercase" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>OUR PROJECTS</div>
               <div className="flex flex-col gap-1 sm:gap-1.5 md:gap-2">
-                {["ACMONE", "CLI-RPG", "EXAMCOOKER", "CLITOP", "LOCALHOST", "OCS", "UNIPOOL"].map((item) => (
-                  <a key={item} className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
-                    {item}
-                  </a>
-                ))}
+                <a href="https://acmone.acmvit.in" target="_blank" rel="noopener noreferrer" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
+                  ACMONE
+                </a>
+                <a href="https://cli-rpg.acmvit.in" target="_blank" rel="noopener noreferrer" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
+                  CLI-RPG
+                </a>
+                <a href="https://examcooker.in" target="_blank" rel="noopener noreferrer" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
+                  EXAMCOOKER
+                </a>
+                <a href="https://cli-top.acmvit.in" target="_blank" rel="noopener noreferrer" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
+                  CLITOP
+                </a>
+                <a href="https://localhost.acmvit.in" target="_blank" rel="noopener noreferrer" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
+                  LOCALHOST
+                </a>
+                <a href="https://os.acmvit.in" target="_blank" rel="noopener noreferrer" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
+                  OCS
+                </a>
+                <a href="https://unipool.acmvit.in" target="_blank" rel="noopener noreferrer" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
+                  UNIPOOL
+                </a>
               </div>
             </div>
 
@@ -139,11 +172,12 @@ const Footer = () => {
             <div className="w-full sm:w-28 md:w-20 flex flex-col gap-2 sm:gap-3 md:gap-4">
               <div className="text-[#48ba86] text-xs sm:text-sm md:text-base font-light uppercase" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>SPONSORS</div>
               <div className="flex flex-col gap-1 sm:gap-1.5 md:gap-2">
-                {["RUNPOD", "ElevenLabs"].map((item) => (
-                  <a key={item} href="#" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
-                    {item}
-                  </a>
-                ))}
+                <a href="https://runpod.io" target="_blank" rel="noopener noreferrer" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
+                  RUNPOD
+                </a>
+                {/* <a href="https://elevenlabs.io" target="_blank" rel="noopener noreferrer" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
+                  ElevenLabs
+                </a> */}
               </div>
             </div>
           </div>
@@ -174,7 +208,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="group"
               >
-                <div className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16">
+                <div className={`relative ${alt === "Twitter" || alt === "YouTube" ? "w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-10 lg:h-10" : "w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16"}`}>
                   <Image
                     src={src}
                     alt={alt}
