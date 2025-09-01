@@ -6,7 +6,6 @@ import BentoRect from "./bento-rectangle";
 const Bento = () => {
   const dim =
     typeof window !== "undefined" ? Math.round(window.innerHeight * 0.3) : 500;
-  const gapPx = 24; // horizontal gap between components
   const rectDim = dim; // keep same size (adjust if you want different)
 
   return (

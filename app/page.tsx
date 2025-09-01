@@ -10,7 +10,7 @@ import Timeline from "./components/landing/timeline";
 import AboutACM from "./components/landing/about-acm";
 import Tracks from "./components/landing/tracks";
 import Footer from "./components/landing/footer";
-import Bento from "./components/landing/bento";
+// import Bento from "./components/landing/bento";
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
