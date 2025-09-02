@@ -210,9 +210,9 @@ const Dashboard: React.FC = () => {
 
                 {/* Desktop copy feedback */}
                 <div className="hidden sm:block absolute left-1/2 -translate-x-1/2 mt-1">
-                  <div className="text-[11px] text-gray-300" aria-live="polite">
+                  {/* <div className="text-[11px] text-gray-300" aria-live="polite">
                     {copied ? "Copied" : ""}
-                  </div>
+                  </div> */}
                 </div>
               </div>
             )}
