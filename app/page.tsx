@@ -17,7 +17,7 @@ import ViewportPortal from "@/components/viewport-portal";
 // import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLayoutEffect } from "react";
 import { InteractiveHoverButton } from "./components/landing/ui/cta-button";
-import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { StickyScroll } from "./components/landing/ui/sticky-scroll-reveal";
 import Image from "next/image";
 import GradientBG from "./components/landing/gradient-bg";
@@ -82,6 +82,7 @@ const TRACKS_CONTENT = TRACKS.map((track) => ({
 }));
 
 export default function Page() {
+  const router = useRouter();
     useLayoutEffect(() => {
     // ScrollSmoother.create({
     //   wrapper: '#smooth-wrapper',
@@ -103,7 +104,7 @@ export default function Page() {
       <ViewportPortal>
         <div className="hidden md:flex fixed left-1/2 -translate-x-1/2 bottom-[8%] z-[9999]">
           <InteractiveHoverButton
-            onClick={() => signIn("google", { callbackUrl: "/portal" })}
+            onClick={() => router.push('/portal')}
             className="w-[280px] text-lg px-5 py-2 min-h-[48px] rounded-full font-bold flex items-center justify-center bg-[#48BA86] hover:bg-[#3aa874] text-black border border-[#48BA86] transition-colors"
           >
             Form your team

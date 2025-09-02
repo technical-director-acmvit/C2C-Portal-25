@@ -3,9 +3,10 @@
 import React from "react";
 import Image from "next/image";
 import { InteractiveHoverButton } from "@/app/components/landing/ui/cta-button";
-import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const Landing = () => {
+  const router = useRouter();
   return (
     <div
       className="min-h-[640px] w-full relative overflow-hidden bg-transparent md:h-screen"
@@ -119,7 +120,7 @@ const Landing = () => {
           <div className="md:hidden mb-10">
             <InteractiveHoverButton
               variant="simple"
-              onClick={() => signIn("google", { callbackUrl: "/portal" })}
+              onClick={() => router.push('/portal')}
               className="w-auto text-[12px] px-3 py-1.5 min-h-[32px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors mb-2 mt-[-10%]"
             >
               Form your team
