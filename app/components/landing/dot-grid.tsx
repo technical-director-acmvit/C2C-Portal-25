@@ -75,7 +75,8 @@ const DotGrid: React.FC<DotGridProps> = ({
   maxDots = 1200,
   fps = 45,
   maxDevicePixelRatio = 1.5,
-  disableOnMobile = true,
+  // Render on mobile by default; can be disabled by prop
+  disableOnMobile = false,
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);

@@ -6,8 +6,16 @@ import { InteractiveHoverButton } from "@/app/components/landing/ui/cta-button";
 import { signIn } from "next-auth/react";
 
 const Landing = () => {
+  const registrationsOpen = process.env.NEXT_PUBLIC_REGISTRATIONS_OPEN === 'true';
   return (
-    <div className="min-h-[640px] h-screen w-full relative overflow-hidden bg-transparent">
+    <div
+      className="min-h-[640px] w-full relative overflow-hidden bg-transparent md:h-screen"
+      style={{
+        height: '100svh',
+        paddingTop: 'env(safe-area-inset-top, 0px)',
+        paddingBottom: 'env(safe-area-inset-bottom, 0px)'
+      }}
+    >
       {/* Gradient Background */}
       <Image
         src="/landing/gradient.svg"
@@ -38,8 +46,8 @@ const Landing = () => {
       <div className="relative h-full flex flex-col items-center justify-center z-10">
         {/* Main Heading with stroke - positioned above logo */}
         <div
-          className="absolute top-[28%] md:top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 w-full max-w-screen-xl"
-          style={{ zIndex: 10 }}
+          className="absolute md:top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 w-full max-w-screen-xl"
+          style={{ zIndex: 10, top: 'calc(28% + env(safe-area-inset-top, 0px))' }}
         >
           <h1 className="text-center text-hollow text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl break-words hyphens-auto mb-1 xs:mb-2 sm:mb-4">
             Turning what if
@@ -51,29 +59,25 @@ const Landing = () => {
 
         {/* Main logo positioned like rising sun from mountains - behind mountains */}
         <div
-          className="absolute top-[50%] left-1/2 -translate-x-1/500 -translate-y-1/3 animate-floating"
+          className="absolute top-[50%] left-1/2 -translate-x-1/2 -translate-y-[8%]"
           style={{ zIndex: 1 }}
         >
-          <Image
-            src="/landing/C2C Logo.svg"
-            alt="Code2Create Main Logo"
-            width={180}
-            height={180}
-            className="opacity-200 w-[40vw] h-[40vw] lg:w-[10vw] lg:h-[10vw] md:w-[20vw] md:h-[20vw] sm:w-[28vw] sm:h-[28vw] xs:w-[20vw] xs:h-[20vw]"
-            priority
-          />
+          <div className="animate-floating" style={{ willChange: 'transform' }}>
+            <Image
+              src="/landing/C2C Logo.svg"
+              alt="Code2Create Main Logo"
+              width={180}
+              height={180}
+              className="opacity-200 w-[40vw] h-[40vw] lg:w-[10vw] lg:h-[10vw] md:w-[20vw] md:h-[20vw] sm:w-[28vw] sm:h-[28vw] xs:w-[20vw] xs:h-[20vw]"
+              priority
+            />
+          </div>
         </div>
         <style jsx global>{`
           @keyframes floating {
-            0% {
-              transform: translate(-50%, 25%) translateY(0);
-            }
-            50% {
-              transform: translate(-50%, 25%) translateY(-18px);
-            }
-            100% {
-              transform: translate(-50%, 25%) translateY(0);
-            }
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-18px); }
+            100% { transform: translateY(0); }
           }
           .animate-floating {
             animation: floating 3s ease-in-out infinite;
@@ -99,7 +103,7 @@ const Landing = () => {
 
         {/* Main tagline */}
         <div
-          className="absolute left-1/2 -translate-x-1/2 px-4 w-full max-w-screen-xl flex flex-col items-center text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl bottom-[2%] md:bottom-[15%]"
+          className="absolute left-1/2 -translate-x-1/2 px-4 w-full max-w-screen-xl flex flex-col items-center text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl bottom-[2%] md:bottom-[15%] lg:bottom-[15%] xl:bottom-[15%]"
           style={{ zIndex: 10 }}
         >
           {/* Top line */}
@@ -117,9 +121,10 @@ const Landing = () => {
             <InteractiveHoverButton
               variant="simple"
               onClick={() => signIn("google", { callbackUrl: "/portal" })}
-              className="w-auto text-[12px] px-3 py-1.5 min-h-[32px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors mb-2 mt-[-10%]"
+              disabled={!registrationsOpen}
+              className="w-auto text-[12px] px-3 py-1.5 min-h-[32px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors mb-2 mt-[-10%] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-black/50"
             >
-              Form your team
+              {registrationsOpen ? 'Form your team' : 'Registrations opening soon'}
             </InteractiveHoverButton>
           </div>
 

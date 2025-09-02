@@ -119,15 +119,15 @@ const Dashboard: React.FC = () => {
       </div> */}
 
       {/* Main content */}
-      <div className="flex flex-col items-center justify-center h-full px-3 sm:px-6 lg:px-8 py-10 sm:py-20 overflow-auto relative z-10">
-        <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
-          <div className="w-full bg-black/30 backdrop-blur-sm border border-white/10 rounded-2xl p-4 sm:p-0 sm:bg-transparent sm:border-0 sm:backdrop-blur-0">
+      <div className="flex flex-col items-center justify-center min-h-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-20 overflow-auto relative z-10">
+        <div className="w-full max-w-4xl mx-auto flex flex-col items-center">
+          <div className="w-full bg-black/30 backdrop-blur-sm rounded-2xl p-6 sm:p-8 sm:bg-transparent sm:backdrop-blur-0">
           {/* Team Name */}
           {team && (
             <h1
-              className="text-white mb-4 sm:mb-6 text-center leading-tight max-w-[92vw] sm:max-w-3xl px-2 break-words"
+              className="text-white mb-6 sm:mb-8 text-center leading-tight max-w-full px-2 break-words"
               style={{
-                fontSize: "clamp(22px, 7vw, 44px)",
+                fontSize: "clamp(24px, 6vw, 48px)",
                 fontFamily: "'Pilat Extended', Arial, sans-serif",
                 fontWeight: 700,
                 letterSpacing: "0.5px",
@@ -140,42 +140,68 @@ const Dashboard: React.FC = () => {
 
           {/* Team Code (centered directly under team name) */}
           {team && (
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-1 mb-6 sm:mb-8 w-full max-w-md">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-1 mb-6 sm:mb-8 w-full max-w-md mx-auto">
               <div className="text-white/80 text-xs uppercase tracking-wide text-center sm:text-left">Team Code</div>
-              <div
-                className="border-2 border-white px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-center rounded-md flex-1 sm:flex-none min-w-0"
-                style={{ backgroundColor: "transparent" }}
-              >
-                <span
-                  className="text-base sm:text-lg lg:text-xl text-center truncate"
-                  style={{
-                    color: "#48BA86",
-                    fontFamily: "'Pilat Extended', Arial, sans-serif",
-                    fontWeight: 400,
-                  }}
-                >
-                  {team.code}
-                </span>
-              </div>
-
-              <div className="relative">
-                <button
-                  className="border-2 border-white px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-center bg-transparent hover:bg-white/10 transition-colors rounded-md min-w-[48px] sm:min-w-[56px]"
+              <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-center">
+                <div
+                  className="px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-center rounded-md flex-1 sm:flex-none min-w-0 cursor-pointer sm:cursor-default sm:border-2 sm:border-white transition-all active:scale-95 sm:active:scale-100"
+                  style={{ backgroundColor: "transparent" }}
                   onClick={async () => {
                     if (!team?.code) return;
-                    try {
-                      await navigator.clipboard.writeText(team.code);
-                      setCopied(true);
-                      window.setTimeout(() => setCopied(false), 900);
-                    } catch {
-                      // noop
+                    // Only handle click on mobile (below sm breakpoint)
+                    if (window.innerWidth < 640) {
+                      try {
+                        await navigator.clipboard.writeText(team.code);
+                        setCopied(true);
+                        window.setTimeout(() => setCopied(false), 1200);
+                      } catch {
+                        // noop
+                      }
                     }
                   }}
-                  aria-label="Copy team code"
                 >
-                  <Copy className={`w-4 h-4 sm:w-5 sm:h-5 ${copied ? "text-[#48BA86]" : "text-white"}`} />
-                </button>
-                <div className="absolute left-1/2 -translate-x-1/2 mt-1 text-[11px] text-gray-300" aria-live="polite">
+                  <span
+                    className="text-base sm:text-lg lg:text-xl text-center truncate"
+                    style={{
+                      color: "#48BA86",
+                      fontFamily: "'Pilat Extended', Arial, sans-serif",
+                      fontWeight: 400,
+                    }}
+                  >
+                    {team.code}
+                  </span>
+                </div>
+
+                <div className="relative hidden sm:block">
+                  <button
+                    className="border-2 border-white px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-center bg-transparent hover:bg-white/10 transition-colors rounded-md min-w-[48px] sm:min-w-[56px]"
+                    onClick={async () => {
+                      if (!team?.code) return;
+                      try {
+                        await navigator.clipboard.writeText(team.code);
+                        setCopied(true);
+                        window.setTimeout(() => setCopied(false), 900);
+                      } catch {
+                        // noop
+                      }
+                    }}
+                    aria-label="Copy team code"
+                  >
+                    <Copy className={`w-4 h-4 sm:w-5 sm:h-5 ${copied ? "text-[#48BA86]" : "text-white"}`} />
+                  </button>
+                </div>
+              </div>
+              
+              {/* Mobile copy feedback */}
+              <div className="sm:hidden text-center">
+                <div className="text-[11px] text-gray-300 h-4" aria-live="polite">
+                  {copied ? "Copied!" : "Tap code to copy"}
+                </div>
+              </div>
+              
+              {/* Desktop copy feedback */}
+              <div className="hidden sm:block absolute left-1/2 -translate-x-1/2 mt-1">
+                <div className="text-[11px] text-gray-300" aria-live="polite">
                   {copied ? "Copied" : ""}
                 </div>
               </div>
@@ -195,14 +221,14 @@ const Dashboard: React.FC = () => {
 
           {/* Members */}
           {team && members.length > 1 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5 sm:gap-7 lg:gap-8 mb-8 sm:mb-12 w-full px-1 sm:px-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 sm:gap-7 lg:gap-8 mb-8 sm:mb-12 w-full max-w-4xl mx-auto px-2 sm:px-4">
               {members.map((m: UserSummary, idx: number) => (
-                <div key={`${m.id || "member"}-${idx}`} className="flex flex-col items-center text-center">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-transparent mb-2 sm:mb-3 flex items-center justify-center shrink-0">
-                    <Image src="/portal/user.svg" alt="User Profile" width={32} height={32} className="sm:w-10 sm:h-10 lg:w-12 lg:h-12" />
+                <div key={`${m.id || "member"}-${idx}`} className="flex flex-col items-center text-center group">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-18 lg:h-18 bg-transparent mb-3 sm:mb-4 flex items-center justify-center shrink-0 transition-transform group-hover:scale-105">
+                    <Image src="/portal/user.svg" alt="User Profile" width={40} height={40} className="sm:w-12 sm:h-12 lg:w-14 lg:h-14" />
                   </div>
                   <span
-                    className="text-white text-center leading-tight text-xs sm:text-sm md:text-base max-w-[36vw] sm:max-w-[180px] break-words"
+                    className="text-white text-center leading-tight text-sm sm:text-base md:text-lg max-w-full break-words px-1"
                     style={{
                       fontFamily: "'Pilat Extended', Arial, sans-serif",
                       fontWeight: 400,
@@ -216,14 +242,11 @@ const Dashboard: React.FC = () => {
             </div>
           ) : (
             team && (
-              <div className="mb-8 sm:mb-12 text-center text-gray-300 px-4 max-w-md" style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}>
-                <p className="text-sm sm:text-base">No teammates yet — it&apos;s just you for now.</p>
+              <div className="mb-8 sm:mb-12 text-center text-gray-300 px-4 max-w-lg mx-auto" style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}>
+                <p className="text-base sm:text-lg mb-3">No teammates yet — it&apos;s just you for now.</p>
                 {team?.code && (
-                  <p className="mt-2 text-sm sm:text-base">
-                    Share your team code{" "}
-                    <span className="font-semibold break-all" style={{ color: "#48BA86" }}>
-                      {team.code}
-                    </span>{" "}
+                  <p className="text-sm sm:text-base">
+                    Share your team code
                     to invite others.
                   </p>
                 )}
@@ -232,7 +255,7 @@ const Dashboard: React.FC = () => {
           )}
 
           {/* Track & Submission Status */}
-          <div className="text-gray-300 text-center mb-6 sm:mb-10 px-4 max-w-xl">
+          <div className="text-gray-300 text-center mb-8 sm:mb-10 px-4 max-w-2xl mx-auto">
             {submissionOpen && (
               track?.title ? (
                 <p className="text-sm sm:text-base mb-2" style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}>
@@ -262,13 +285,13 @@ const Dashboard: React.FC = () => {
           </div>
 
           {/* Actions */}
-          <div className="flex flex-col items-center gap-3 sm:gap-6 w-full max-w-sm sm:static sticky bottom-4">
+          <div className="flex flex-col items-center gap-4 sm:gap-6 w-full max-w-sm mx-auto sm:static">
             {(members.length >= minTeamMembers && submissionOpen && needsSubmission) && (
               <button
-                className="w-full px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-white cursor-pointer transition-all hover:scale-[1.02] active:scale-95"
+                className="w-full px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 rounded-lg text-white cursor-pointer transition-all hover:scale-[1.02] active:scale-95 shadow-lg min-h-[48px] sm:min-h-[52px] lg:min-h-[56px]"
                 style={{
                   backgroundColor: "#5EBF94",
-                  fontSize: "clamp(16px, 4vw, 20px)",
+                  fontSize: "clamp(14px, 3.5vw, 20px)",
                   fontFamily: "'Pilat Extended', Arial, sans-serif",
                   fontWeight: 400,
                 }}
@@ -282,9 +305,12 @@ const Dashboard: React.FC = () => {
               <PortalButton
                 onClick={() => setShowLeaveModal(true)}
                 disabled={isLeaving}
-                className={`w-full sm:w-auto px-6 sm:px-8 py-2 sm:py-3 text-base sm:text-lg lg:text-[20px] transition-all ${
+                className={`w-full sm:w-auto px-6 sm:px-8 lg:px-10 py-2.5 sm:py-3 lg:py-3.5 min-h-[44px] sm:min-h-[48px] lg:min-h-[52px] transition-all ${
                   isLeaving ? "opacity-50 cursor-not-allowed" : "hover:scale-[1.02] active:scale-95"
                 }`}
+                style={{
+                  fontSize: "clamp(14px, 3vw, 18px)",
+                }}
               >
                 Leave team
               </PortalButton>

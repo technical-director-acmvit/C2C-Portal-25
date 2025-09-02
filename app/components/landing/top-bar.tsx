@@ -8,6 +8,7 @@ import { signIn } from "next-auth/react";
 
 export default function TopBar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const registrationsOpen = process.env.NEXT_PUBLIC_REGISTRATIONS_OPEN === 'true';
 
   useEffect(() => {
     // lock body scroll when mobile menu is open
@@ -126,9 +127,10 @@ export default function TopBar() {
               <InteractiveHoverButton
                 variant="compact"
                 onClick={() => signIn("google", { callbackUrl: "/portal" })}
-                className="w-auto text-[12px] px-6 py-1.5 min-h-[32px] rounded-full font-semibold flex items-center justify-center bg-[#48BA86] hover:bg-[#3aa874] text-black border border-[#48BA86] transition-colors"
+                disabled={!registrationsOpen}
+                className="w-auto text-[12px] px-6 py-1.5 min-h-[32px] rounded-full font-semibold flex items-center justify-center bg-[#48BA86] text-black border !border-[#48BA86] transition-colors hover:!bg-white hover:!border-white disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:!bg-[#48BA86] disabled:hover:!border-[#48BA86]"
               >
-                Form your team
+                {registrationsOpen ? 'Form your team' : 'Registrations opening soon'}
               </InteractiveHoverButton>
             </li>
           </ul>
@@ -138,9 +140,10 @@ export default function TopBar() {
           <InteractiveHoverButton
             variant="simple"
             onClick={() => signIn("google", { callbackUrl: "/portal" })}
-            className="w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors"
+            disabled={!registrationsOpen}
+            className="w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-black/50"
           >
-            Form your team
+            {registrationsOpen ? 'Form your team' : 'Registrations opening soon'}
           </InteractiveHoverButton>
           <button
             aria-label="Toggle menu"

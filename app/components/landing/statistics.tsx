@@ -19,15 +19,28 @@ const Statistics = () => {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-1 md:px-4">
           {/* Stats Image */}
           <div className="w-full flex justify-center items-center">
+            {/* Mobile Stats Image */}
             <Image
-              src="/landing/statistics.png"
+              src="/landing/mobilestats.svg"
+              alt="ACM Stats"
+              width={800}
+              height={1200}
+              className="w-full max-w-sm h-auto pointer-events-auto md:hidden"
+              draggable={false}
+              loading="lazy"
+              placeholder="blur"
+              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+            />
+            {/* Desktop Stats Image */}
+            <Image
+              src="/landing/stats.svg"
               alt="ACM Stats"
               width={1800}
               height={1200}
-              className="w-full max-w-8xl h-auto pointer-events-auto py-12"
+              className="w-full max-w-8xl h-auto pointer-events-auto py-0 md:py-12 hidden md:block"
               draggable={false}
               loading="lazy"
               placeholder="blur"

@@ -1,6 +1,9 @@
 "use client";
 import Image from "next/image";
 
+//todo align all social icons properly, the linkedin one is not and kinda ocding me
+const DISCORD_URL = process.env.NEXT_PUBLIC_DISCORD_URL || "https://discord.gg/CY2sygnhYk";
+
 const Footer = () => {
   return (
     <footer className="relative w-full h-auto md:h-[1300px] overflow-hidden">
@@ -197,6 +200,7 @@ const Footer = () => {
               { href: "https://www.facebook.com/acmvitvellore", src: "/footer/Facebook.svg", alt: "Facebook" },
               { href: "https://x.com/acm_vit", src: "/footer/Twitter.svg", alt: "Twitter" },
               { href: "https://www.instagram.com/acmvit", src: "/footer/Instagram.svg", alt: "Instagram" },
+              { href: DISCORD_URL, src: "/footer/discord.svg", alt: "Discord" },
               { href: "https://medium.com/acmvit", src: "/footer/Medium.svg", alt: "Medium" },
               { href: "https://www.linkedin.com/company/acmvit", src: "/footer/Linkedin.svg", alt: "Linkedin" },
               { href: "https://www.youtube.com/@acm_vit", src: "/footer/youtube icon.svg", alt: "YouTube" },
@@ -208,7 +212,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="group"
               >
-                <div className={`relative ${alt === "Twitter" || alt === "YouTube" ? "w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-10 lg:h-10" : "w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16"}`}>
+                <div className={`relative ${alt === "Twitter" || alt === "YouTube" || alt === "Discord" ? "w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-10 lg:h-10" : "w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16"}`}>
                   <Image
                     src={src}
                     alt={alt}
