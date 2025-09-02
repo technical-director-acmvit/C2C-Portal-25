@@ -8,12 +8,7 @@ const Speaker = ({ children }: { children?: React.ReactNode }) => (
   <GradientBG darken>
     <div className="relative w-full min-h-screen overflow-hidden">
       <div className="absolute inset-0 w-full h-full -z-1 pointer-events-none">
-        <DotGrid
-          dotSize={2.5}
-          gap={25}
-          baseColor="#a3a3a3"
-          className="w-full h-full"
-        />
+        <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" className="w-full h-full" />
       </div>
       <div className="relative z-10">
         <HeadingText text="Speaker" />
@@ -35,10 +30,9 @@ const Speaker = ({ children }: { children?: React.ReactNode }) => (
               </div>
             </div>
             <div className="text-white text-base sm:text-lg md:text-2xl font-bold font-['DM_Sans'] tracking-wide z-10 max-w-3xl">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
             </div>
           </div>
         </div>
@@ -57,10 +51,9 @@ const Speaker = ({ children }: { children?: React.ReactNode }) => (
               </div>
             </div>
             <div className="text-white text-base sm:text-lg md:text-2xl font-bold font-['DM_Sans'] tracking-wide z-10 max-w-3xl">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
             </div>
           </div>
         </div>

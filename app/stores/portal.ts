@@ -4,7 +4,7 @@ import { create } from "zustand";
 import { fetchDashboard, type DashboardResponse } from "@/app/actions/dashboard";
 import { leaveTeam as apiLeaveTeam } from "@/app/actions/team";
 
-type View = "loading" | "signup" | "team" | "dashboard" | "error";
+type View = "loading" | "signup" | "team" | "dashboard" | "github" | "error";
 
 type PortalState = {
   view: View;
@@ -28,7 +28,8 @@ function decideViewFromDashboard(d: DashboardResponse | null): View {
   const hasCore = Boolean(u.contact_number) && Boolean(u.gender);
   const hasInternal = Boolean(u.reg_no);
   const hasExternal = Boolean(u.college_name);
-  const profileComplete = hasCore && (isInternal === true ? hasInternal : isInternal === false ? hasExternal : false);
+  const profileComplete =
+    hasCore && (isInternal === true ? hasInternal : isInternal === false ? hasExternal : false);
   if (!profileComplete) return "signup";
   const hasTeam = Boolean(d.team);
   return hasTeam ? "dashboard" : "team";
@@ -57,7 +58,11 @@ export const usePortalStore = create<PortalState>((set, get) => ({
       const view = decideViewFromDashboard(dashboard);
       set({ dashboard, view, loading: false, error: null });
     } catch (err) {
-      set({ view: "error", loading: false, error: err instanceof Error ? err.message : "Failed to load" });
+      set({
+        view: "error",
+        loading: false,
+        error: err instanceof Error ? err.message : "Failed to load",
+      });
     }
   },
 
@@ -83,7 +88,8 @@ export const usePortalStore = create<PortalState>((set, get) => ({
       const res = await apiLeaveTeam();
       if (res && typeof res === "object" && "ok" in res && !(res as { ok: unknown }).ok) {
         const msg =
-          "error" in (res as Record<string, unknown>) && typeof (res as Record<string, unknown>).error === "string"
+          "error" in (res as Record<string, unknown>) &&
+          typeof (res as Record<string, unknown>).error === "string"
             ? ((res as Record<string, unknown>).error as string)
             : "Failed to leave team";
         throw new Error(msg);
@@ -101,4 +107,3 @@ export const usePortalStore = create<PortalState>((set, get) => ({
     }
   },
 }));
-

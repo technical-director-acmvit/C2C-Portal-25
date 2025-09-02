@@ -14,10 +14,7 @@ interface QuotesBannerProps {
   className?: string;
 }
 
-const QuotesBanner: React.FC<QuotesBannerProps> = ({
-  items,
-  className = "",
-}) => {
+const QuotesBanner: React.FC<QuotesBannerProps> = ({ items, className = "" }) => {
   const content: BannerItem[] = items ?? [
     {
       text: "Year-in and year-out, Code2Create has received praise and applause - it is all thanks to the student body that works tirelessly for the smooth sailing of the event.",
@@ -115,12 +112,8 @@ const QuotesBanner: React.FC<QuotesBannerProps> = ({
                 <Image
                   src={q.icon}
                   alt={q.iconAlt ?? "icon"}
-                  width={
-                    q && q.icon && q.icon.includes("coding-blocks") ? 28 : 18
-                  }
-                  height={
-                    q && q.icon && q.icon.includes("coding-blocks") ? 28 : 18
-                  }
+                  width={q && q.icon && q.icon.includes("coding-blocks") ? 28 : 18}
+                  height={q && q.icon && q.icon.includes("coding-blocks") ? 28 : 18}
                   className={
                     q && q.icon && q.icon.includes("coding-blocks")
                       ? "w-4 h-7 shrink-0"

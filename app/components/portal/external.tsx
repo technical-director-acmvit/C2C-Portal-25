@@ -4,23 +4,23 @@ import TeamUp from "./team-up";
 import PortalButton from "./ui/button";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { signupExternal } from "../../actions/signup";
-import BackChevron from './ui/back-chevron';
-import Select from './ui/select';
-import Image from 'next/image';
+import BackChevron from "./ui/back-chevron";
+import Select from "./ui/select";
+import Image from "next/image";
 
 type College = { id?: string | number; name: string; state?: string };
 type CollegeJSON = string | { name?: unknown; state?: unknown } | null;
 
 function isRecord(v: unknown): v is Record<string, unknown> {
-  return typeof v === 'object' && v !== null;
+  return typeof v === "object" && v !== null;
 }
 
 function isCollegeJSONObject(v: unknown): v is { name: string; state?: string } {
   if (!isRecord(v)) return false;
-  const name = v['name'];
-  if (typeof name !== 'string') return false;
-  const state = v['state'];
-  return state === undefined || typeof state === 'string';
+  const name = v["name"];
+  if (typeof name !== "string") return false;
+  const state = v["state"];
+  return state === undefined || typeof state === "string";
 }
 
 // Toggle suggestions: 0 = plain/custom input, 1 = suggestions + fuzzy matching
@@ -48,7 +48,7 @@ function levenshtein(a: string, b: string): number {
       v1[j + 1] = Math.min(
         v1[j] + 1, // insertion
         v0[j + 1] + 1, // deletion
-        v0[j] + cost // substitution
+        v0[j] + cost, // substitution
       );
     }
     for (let j = 0; j < v0.length; j++) v0[j] = v1[j];
@@ -91,12 +91,16 @@ function rankNames(query: string, names: string[], limit = 15): Ranked[] {
     }
   }
 
-  ranked.sort((a, b) => (a.scoreBand - b.scoreBand) || (a.score - b.score) || a.name.localeCompare(b.name));
+  ranked.sort(
+    (a, b) => a.scoreBand - b.scoreBand || a.score - b.score || a.name.localeCompare(b.name),
+  );
   return ranked.slice(0, limit);
 }
 // -----------------------------------
 
-interface Props { onBack?: () => void }
+interface Props {
+  onBack?: () => void;
+}
 const External = ({ onBack }: Props) => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -149,7 +153,7 @@ const External = ({ onBack }: Props) => {
           const rawList = list as CollegeJSON[];
           const items: College[] = [];
           rawList.forEach((it, i) => {
-            if (typeof it === 'string') {
+            if (typeof it === "string") {
               items.push({ name: it, id: i });
             } else if (isCollegeJSONObject(it)) {
               items.push({ name: it.name, state: it.state, id: i });
@@ -161,8 +165,7 @@ const External = ({ onBack }: Props) => {
           }
         }
       }
-    } catch {
-    }
+    } catch {}
 
     (async () => {
       setLoadingUnis(true);
@@ -173,18 +176,18 @@ const External = ({ onBack }: Props) => {
         if (!res.ok) throw new Error(`Failed to load universities: ${res.status}`);
         const data: unknown = await res.json();
         const items: College[] = [];
-        
+
         // Handle the actual API response format: {"universities": ["name1", "name2", ...]}
-        if (data && typeof data === 'object' && 'universities' in data) {
+        if (data && typeof data === "object" && "universities" in data) {
           const universities = (data as { universities: unknown }).universities;
           if (Array.isArray(universities)) {
             universities.forEach((u, i) => {
-              if (typeof u === 'string') {
+              if (typeof u === "string") {
                 items.push({ name: u, id: i });
-              } else if (u && typeof u === 'object' && 'name' in u && typeof u.name === 'string') {
+              } else if (u && typeof u === "object" && "name" in u && typeof u.name === "string") {
                 items.push({
                   name: u.name,
-                  state: 'state' in u && typeof u.state === 'string' ? u.state : undefined,
+                  state: "state" in u && typeof u.state === "string" ? u.state : undefined,
                   id: i,
                 });
               }
@@ -202,7 +205,7 @@ const External = ({ onBack }: Props) => {
               JSON.stringify({
                 expires: Date.now() + 1000 * 60 * 60 * 24, // 24h
                 list: cacheList,
-              })
+              }),
             );
           } catch {
             // ignore
@@ -282,22 +285,24 @@ const External = ({ onBack }: Props) => {
       setLoadingColleges(true);
       setColleges([]);
       try {
-        const res = await fetch(getApiUrl(`college/${encodeURIComponent(base)}`), { cache: "force-cache" });
+        const res = await fetch(getApiUrl(`college/${encodeURIComponent(base)}`), {
+          cache: "force-cache",
+        });
         if (!res.ok) throw new Error(`Failed to load colleges: ${res.status}`);
         const data: unknown = await res.json();
         const items: College[] = [];
-        
+
         // Handle the actual API response format: {"colleges": ["name1", "name2", ...]}
-        if (data && typeof data === 'object' && 'colleges' in data) {
+        if (data && typeof data === "object" && "colleges" in data) {
           const colleges = (data as { colleges: unknown }).colleges;
           if (Array.isArray(colleges)) {
             colleges.forEach((c, i) => {
               if (typeof c === "string") {
                 items.push({ name: c, id: i });
-              } else if (c && typeof c === "object" && 'name' in c && typeof c.name === "string") {
+              } else if (c && typeof c === "object" && "name" in c && typeof c.name === "string") {
                 items.push({
                   name: c.name,
-                  state: 'state' in c && typeof c.state === "string" ? c.state : undefined,
+                  state: "state" in c && typeof c.state === "string" ? c.state : undefined,
                   id: i,
                 });
               }
@@ -308,7 +313,7 @@ const External = ({ onBack }: Props) => {
         const seen = new Set<string>();
         const deduped: College[] = [];
         for (const it of items) {
-          const k = (it.name || '').toLowerCase();
+          const k = (it.name || "").toLowerCase();
           if (!k) continue;
           if (seen.has(k)) continue;
           seen.add(k);
@@ -351,7 +356,10 @@ const External = ({ onBack }: Props) => {
       setActiveCollegeIndex((i) => Math.max(i - 1, 0));
     } else if (e.key === "Enter") {
       e.preventDefault();
-      setFormData((prev) => ({ ...prev, collegeName: collegeSuggestions[activeCollegeIndex].name }));
+      setFormData((prev) => ({
+        ...prev,
+        collegeName: collegeSuggestions[activeCollegeIndex].name,
+      }));
       setShowCollegeSuggestions(false);
     } else if (e.key === "Escape") {
       setShowCollegeSuggestions(false);
@@ -423,8 +431,7 @@ const External = ({ onBack }: Props) => {
         <div
           className="w-full max-w-md sm:max-w-lg p-6 sm:p-8 rounded-2xl relative"
           style={{
-            background:
-              "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))",
+            background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))",
             backdropFilter: "blur(10px) saturate(120%)",
             boxShadow:
               "0 12px 40px rgba(0,0,0,0.55), 0 6px 24px rgba(72,186,134,0.06) inset, 0 1px 0 rgba(255,255,255,0.02) inset",
@@ -488,10 +495,10 @@ const External = ({ onBack }: Props) => {
                       s.scoreBand === 0
                         ? "exact match"
                         : s.scoreBand === 1
-                        ? "starts with"
-                        : s.scoreBand === 2
-                        ? "contains"
-                        : "fuzzy match"
+                          ? "starts with"
+                          : s.scoreBand === 2
+                            ? "contains"
+                            : "fuzzy match"
                     }
                   >
                     {s.name}
@@ -546,10 +553,10 @@ const External = ({ onBack }: Props) => {
                       s.scoreBand === 0
                         ? "exact match"
                         : s.scoreBand === 1
-                        ? "starts with"
-                        : s.scoreBand === 2
-                        ? "contains"
-                        : "fuzzy match"
+                          ? "starts with"
+                          : s.scoreBand === 2
+                            ? "contains"
+                            : "fuzzy match"
                     }
                   >
                     {s.name}
@@ -568,9 +575,7 @@ const External = ({ onBack }: Props) => {
             placeholder="Gender"
           />
 
-          <label className="text-sm text-gray-300 mt-3 mb-2">
-            Contact Number
-          </label>
+          <label className="text-sm text-gray-300 mt-3 mb-2">Contact Number</label>
           <input
             className="w-full bg-[#111213]/60 border border-white/10 rounded-full px-4 py-3 text-white placeholder-gray-400 focus:outline-none"
             type="tel"
@@ -579,8 +584,6 @@ const External = ({ onBack }: Props) => {
             onChange={handleInputChange}
             placeholder="Contact Number"
           />
-
-          
 
           <div className="flex justify-center mt-6">
             <PortalButton

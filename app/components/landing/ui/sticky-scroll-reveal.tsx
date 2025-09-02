@@ -39,7 +39,8 @@ export const StickyScroll = ({
 
       const t = ScrollTrigger.create({
         trigger: containerRef.current,
-        start: "top center",
+        // Pin as soon as the section reaches the top to keep content centered in viewport
+        start: "center center",
         end: () => "+=" + endAdd(),
         pin: stageRef.current,
         scrub: 0.2,
@@ -87,21 +88,23 @@ export const StickyScroll = ({
 
   return (
     <div ref={containerRef} className="relative">
-      <div ref={stageRef} className="relative grid lg:grid-cols-[minmax(0,1fr)_360px] gap-10 items-center">
-        <article className="bg-white/10 border border-green-900/40 rounded-[16px] sm:rounded-[20px] overflow-hidden p-4 sm:p-5 md:p-6 w-full">
-          <div ref={textWrapRef}>
-            <h3 className="text-[#efefef] font-bold font-['Trap'] text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
-              {content[activeCard]?.title}
-            </h3>
-            <p className="text-[#efefef] font-['DM_Sans'] text-base sm:text-lg md:text-xl mt-4">
-              {content[activeCard]?.description}
-            </p>
-          </div>
-        </article>
+      <div ref={stageRef} className="relative h-screen">
+        <div className="absolute inset-0 grid lg:grid-cols-[minmax(0,1fr)_360px] gap-10 items-center place-items-center px-4">
+          <article className="bg-white/10 border border-green-900/40 rounded-[16px] sm:rounded-[20px] overflow-hidden p-4 sm:p-5 md:p-6 w-full max-w-[900px]">
+            <div ref={textWrapRef}>
+              <h3 className="text-[#efefef] font-bold font-['Trap'] text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
+                {content[activeCard]?.title}
+              </h3>
+              <p className="text-[#efefef] font-['DM_Sans'] text-base sm:text-lg md:text-xl mt-4">
+                {content[activeCard]?.description}
+              </p>
+            </div>
+          </article>
 
-        <div className={cn("hidden lg:block w-full h-[360px]", contentClassName)}>
-          <div ref={stickyImageRef} className="relative w-full h-full">
-            {content[activeCard]?.content || content[0]?.content}
+          <div className={cn("hidden lg:block w-full h-[360px]", contentClassName)}>
+            <div ref={stickyImageRef} className="relative w-full h-full">
+              {content[activeCard]?.content || content[0]?.content}
+            </div>
           </div>
         </div>
       </div>

@@ -4,11 +4,12 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { InteractiveHoverButton } from "@/app/components/landing/ui/cta-button";
-import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { REGISTRATIONS_OPEN } from "@/lib/env";
 
 export default function TopBar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const registrationsOpen = process.env.NEXT_PUBLIC_REGISTRATIONS_OPEN === 'true';
+  const router = useRouter();
 
   useEffect(() => {
     // lock body scroll when mobile menu is open
@@ -30,7 +31,7 @@ export default function TopBar() {
 
         window.scrollTo({
           top: offsetPosition,
-          behavior: "smooth"
+          behavior: "smooth",
         });
       }
     }
@@ -49,7 +50,7 @@ export default function TopBar() {
       <div className="w-full flex items-center justify-between px-0 sm:px-0 lg:px-0 py-2 md:py-0 md:h-14">
         <div className="flex-shrink-0 border-r border-white pr-4 md:pr-8 py-1 flex items-center">
           <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="cursor-pointer"
             aria-label="Scroll to top"
           >
@@ -124,27 +125,43 @@ export default function TopBar() {
               </li>
             ))}
             <li className="flex items-center h-full ml-4">
-              <InteractiveHoverButton
-                variant="compact"
-                onClick={() => signIn("google", { callbackUrl: "/portal" })}
-                disabled={!registrationsOpen}
-                className="w-auto text-[12px] px-6 py-1.5 min-h-[32px] rounded-full font-semibold flex items-center justify-center bg-[#48BA86] text-black border !border-[#48BA86] transition-colors hover:!bg-white hover:!border-white disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:!bg-[#48BA86] disabled:hover:!border-[#48BA86]"
-              >
-                {registrationsOpen ? 'Form your team' : 'Registrations opening soon'}
-              </InteractiveHoverButton>
+              {REGISTRATIONS_OPEN ? (
+                <InteractiveHoverButton
+                  variant="compact"
+                  onClick={() => router.push("/portal")}
+                  className="w-auto text-[12px] px-6 py-1.5 min-h-[32px] rounded-full font-semibold flex items-center justify-center bg-[#48BA86] text-black border !border-[#48BA86] transition-colors hover:!bg-white hover:!border-white"
+                >
+                  Form your team
+                </InteractiveHoverButton>
+              ) : (
+                <span
+                  className="inline-block w-auto text-[12px] px-6 py-1.5 min-h-[32px] rounded-full font-semibold text-white border border-white/30 bg-black/30 backdrop-blur-sm"
+                  aria-live="polite"
+                >
+                  Registrations opening soon
+                </span>
+              )}
             </li>
           </ul>
         </nav>
 
         <div className="md:hidden flex items-center gap-2">
-          <InteractiveHoverButton
-            variant="simple"
-            onClick={() => signIn("google", { callbackUrl: "/portal" })}
-            disabled={!registrationsOpen}
-            className="w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-black/50"
-          >
-            {registrationsOpen ? 'Form your team' : 'Registrations opening soon'}
-          </InteractiveHoverButton>
+          {REGISTRATIONS_OPEN ? (
+            <InteractiveHoverButton
+              variant="simple"
+              onClick={() => router.push("/portal")}
+              className="w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors"
+            >
+              Form your team
+            </InteractiveHoverButton>
+          ) : (
+            <span
+              className="inline-block w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold text-white border border-white/30 bg-black/30 backdrop-blur-sm"
+              aria-live="polite"
+            >
+              Registrations opening soon
+            </span>
+          )}
           <button
             aria-label="Toggle menu"
             aria-expanded={menuOpen}
@@ -152,52 +169,15 @@ export default function TopBar() {
             className="p-2 rounded-md text-white hover:bg-white/10 focus:outline-none focus:ring-white"
           >
             {menuOpen ? (
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                aria-hidden
-              >
-                <path
-                  d="M6 6L18 18"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M6 18L18 6"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path d="M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <path d="M6 18L18 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
             ) : (
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                aria-hidden
-              >
-                <path
-                  d="M3 6h18"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M3 12h18"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M3 18h18"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path d="M3 6h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <path d="M3 12h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <path d="M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
             )}
           </button>

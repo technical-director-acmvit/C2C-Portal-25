@@ -8,23 +8,23 @@ export default function AuthReauthGuard({ children }: PropsWithChildren) {
   const { data, status } = useSession();
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    if (status === 'unauthenticated') {
+    if (typeof window === "undefined") return;
+    if (status === "unauthenticated") {
       const callbackUrl = window.location.href;
-      void signIn('google', { callbackUrl });
+      void signIn("google", { callbackUrl });
       return;
     }
-    if (status === 'authenticated') {
+    if (status === "authenticated") {
       type SessionMaybeWithError = { error?: string } | null;
       const error = (data as SessionMaybeWithError)?.error;
-      if (error === 'RefreshAccessTokenError') {
+      if (error === "RefreshAccessTokenError") {
         const callbackUrl = window.location.href;
-        void signIn('google', { callbackUrl });
+        void signIn("google", { callbackUrl });
       }
     }
   }, [status, data]);
 
-  if (status === 'loading' || status === 'unauthenticated') {
+  if (status === "loading" || status === "unauthenticated") {
     return <PortalLoader />;
   }
   return <>{children}</>;

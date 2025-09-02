@@ -1,4 +1,4 @@
-import { getIdToken } from './session';
+import { getIdToken } from "./session";
 
 export type UserSummary = {
   id: string;
@@ -40,17 +40,24 @@ export type DashboardResponse = {
   submissionOpen?: boolean;
 };
 
-export async function fetchDashboard(): Promise<{ ok: boolean; status: number; data?: DashboardResponse; error?: string }> {
+export async function fetchDashboard(): Promise<{
+  ok: boolean;
+  status: number;
+  data?: DashboardResponse;
+  error?: string;
+}> {
   const idToken = await getIdToken();
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/dashboard/`, {
     headers: {
-      'Authorization': `Bearer ${idToken}`,
+      Authorization: `Bearer ${idToken}`,
     },
-    credentials: 'omit',
-    cache: 'no-store',
+    credentials: "omit",
+    cache: "no-store",
   });
   let raw: unknown = undefined;
-  try { raw = await res.json(); } catch {}
+  try {
+    raw = await res.json();
+  } catch {}
   if (!res.ok) {
     const err = (raw as { error?: string })?.error;
     return { ok: false, status: res.status, error: err };
@@ -64,7 +71,11 @@ export async function fetchDashboard(): Promise<{ ok: boolean; status: number; d
   };
   const teammates: UserSummary[] = Array.isArray(r.teammates) ? (r.teammates as UserSummary[]) : [];
   let track: TrackInfo | null = null;
-  if (r.track && typeof r.track === 'object' && Object.keys(r.track as Record<string, unknown>).length > 0) {
+  if (
+    r.track &&
+    typeof r.track === "object" &&
+    Object.keys(r.track as Record<string, unknown>).length > 0
+  ) {
     track = r.track as TrackInfo;
   }
   const cooked: DashboardResponse = {
@@ -73,7 +84,7 @@ export async function fetchDashboard(): Promise<{ ok: boolean; status: number; d
     teammates,
     track,
     minmembercount: r.minmembercount,
-    submissionOpen: process.env.NEXT_PUBLIC_SUBMISSION_OPEN === 'true',
+    submissionOpen: process.env.NEXT_PUBLIC_SUBMISSION_OPEN === "true",
   };
   return { ok: true, status: res.status, data: cooked };
 }

@@ -15,12 +15,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
       >
         <HeadingText text="About Code2Create" />
         <div className="pointer-events-none absolute inset-0 -z-10 h-full">
-          <DotGrid
-            dotSize={2.5}
-            gap={25}
-            baseColor="#a3a3a3"
-            className="h-full w-full"
-          />
+          <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" className="h-full w-full" />
         </div>
         {/* Content container */}
         <div
@@ -46,27 +41,24 @@ const About = ({ children }: { children?: React.ReactNode }) => (
             style={{ fontFamily: "DM Sans, Arial, sans-serif" }}
           >
             <p className="mb-4">
-              Code2Create is ACM-VIT&apos;s flagship 48-hour national hackathon open
-              to participants from colleges across India. C2C is all about
-              pushing boundaries and building innovative projects.
+              Code2Create is ACM-VIT&apos;s flagship 48-hour national hackathon open to participants
+              from colleges across India. C2C is all about pushing boundaries and building
+              innovative projects.
             </p>
             <p className="mb-4">
-              With multiple tracks to suit diverse interests, the event brings
-              together participants to take on real-world challenges, team up
-              with peers and learn from industry mentors.
+              With multiple tracks to suit diverse interests, the event brings together participants
+              to take on real-world challenges, team up with peers and learn from industry mentors.
             </p>
             <p className="mb-4">
-              It&apos;s a space where creativity meets skill and young developers get
-              to showcase their talent.
+              It&apos;s a space where creativity meets skill and young developers get to showcase
+              their talent.
             </p>
             <p className="mb-4">
-              Whether you&apos;re someone who&apos;s just beginning to build your skill
-              set or aiming to claim your next hackathon prize, C2C is the right
-              event for you.
+              Whether you&apos;re someone who&apos;s just beginning to build your skill set or
+              aiming to claim your next hackathon prize, C2C is the right event for you.
             </p>
             <p className="">
-              Be part of a culture where we don&apos;t just code for the vibes, we
-              code to create.
+              Be part of a culture where we don&apos;t just code for the vibes, we code to create.
             </p>
           </div>
 

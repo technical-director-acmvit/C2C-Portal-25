@@ -17,49 +17,56 @@ import ViewportPortal from "@/components/viewport-portal";
 // import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLayoutEffect } from "react";
 import { InteractiveHoverButton } from "./components/landing/ui/cta-button";
-import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { StickyScroll } from "./components/landing/ui/sticky-scroll-reveal";
 import Image from "next/image";
 import GradientBG from "./components/landing/gradient-bg";
 import DotGrid from "./components/landing/dot-grid";
 import HeadingText from "./components/landing/HeadingText";
 import Tracks from "./components/landing/tracks";
+import { REGISTRATIONS_OPEN } from "@/lib/env";
 
 const TRACKS = [
   {
     number: 1,
     title: "I Can Do It Better",
-    description: "Reimagine and improve widely used software by enhancing usability, adding desired features, or optimizing performance.",
+    description:
+      "Reimagine and improve widely used software by enhancing usability, adding desired features, or optimizing performance.",
     svgPath: "/tracks/CanDoBetter.svg",
   },
-    {
+  {
     number: 2,
     title: "I Can Do It Better",
-    description: "Reimagine and improve widely used software by enhancing usability, adding desired features, or optimizing performance.",
+    description:
+      "Reimagine and improve widely used software by enhancing usability, adding desired features, or optimizing performance.",
     svgPath: "/tracks/CanDoBetter.svg",
   },
   {
     number: 3,
     title: "Art Attack",
-    description: "Build tools that reimagine creative expression through technologies that help create music, art, or media in new and exciting ways.",
+    description:
+      "Build tools that reimagine creative expression through technologies that help create music, art, or media in new and exciting ways.",
     svgPath: "/tracks/Art_Attack.svg",
   },
   {
     number: 4,
     title: "Game Over",
-    description: "Create experiences that redefine gaming through original games and technologies that improve gameplay, performance, or game development.",
+    description:
+      "Create experiences that redefine gaming through original games and technologies that improve gameplay, performance, or game development.",
     svgPath: "/tracks/Game_Over.svg",
   },
   {
     number: 5,
     title: "Digital Dawn",
-    description: "Create solutions that uniquely solve Indian challenges at scale, focusing on affordable and inclusive technology for the next billion users.",
+    description:
+      "Create solutions that uniquely solve Indian challenges at scale, focusing on affordable and inclusive technology for the next billion users.",
     svgPath: "/tracks/Digital_Dawn.svg",
   },
   {
     number: 6,
     title: "AI Solutions",
-    description: "Build intelligent systems using RunPod's compute services to create practical and scalable AI solutions for real-world problems.",
+    description:
+      "Build intelligent systems using RunPod's compute services to create practical and scalable AI solutions for real-world problems.",
     svgPath: "/tracks/ai_solutions.svg",
   },
 ];
@@ -82,8 +89,8 @@ const TRACKS_CONTENT = TRACKS.map((track) => ({
 }));
 
 export default function Page() {
-    const registrationsOpen = process.env.NEXT_PUBLIC_REGISTRATIONS_OPEN === 'true';
-    useLayoutEffect(() => {
+  const router = useRouter();
+  useLayoutEffect(() => {
     // ScrollSmoother.create({
     //   wrapper: '#smooth-wrapper',
     //   content: '#smooth-content',
@@ -103,13 +110,21 @@ export default function Page() {
       {/* Desktop Register CTA fixed to viewport via portal (mobile CTA stays in Landing) */}
       <ViewportPortal>
         <div className="hidden md:flex fixed left-1/2 -translate-x-1/2 bottom-[8%] z-[9999]">
-          <InteractiveHoverButton
-            onClick={() => signIn("google", { callbackUrl: "/portal" })}
-            disabled={!registrationsOpen}
-            className="w-fit text-lg px-5 py-2 min-h-[48px] rounded-full font-bold flex items-center justify-center bg-[#48BA86] hover:bg-[#3aa874] text-black border border-[#48BA86] transition-colors disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-[#48BA86]"
-          >
-            {registrationsOpen ? 'Form your team' : 'Registrations opening soon'}
-          </InteractiveHoverButton>
+          {REGISTRATIONS_OPEN ? (
+            <InteractiveHoverButton
+              onClick={() => router.push("/portal")}
+              className="w-[280px] text-lg px-5 py-2 min-h-[48px] rounded-full font-bold flex items-center justify-center bg-[#48BA86] hover:bg-[#3aa874] text-black border border-[#48BA86] transition-colors"
+            >
+              Form your team
+            </InteractiveHoverButton>
+          ) : (
+            <span
+              className="inline-block w-[280px] text-lg px-5 py-2 min-h-[48px] rounded-full font-bold text-white border border-white/30 bg-black/30 backdrop-blur-sm text-center"
+              aria-live="polite"
+            >
+              Registrations opening soon
+            </span>
+          )}
         </div>
       </ViewportPortal>
 
@@ -134,7 +149,7 @@ export default function Page() {
             <Statistics />
           </div>
           {/* <div className="h-screen flex items-center justify-between flex-col"> */}
-            {/* <Bento /> */}
+          {/* <Bento /> */}
           {/* </div> */}
           <div id="tracks" className="relative w-full">
             {/* Mobile: use the original Tracks component */}
@@ -151,19 +166,12 @@ export default function Page() {
                     <HeadingText text="Tracks" />
                   </div>
                   <div className="pointer-events-none absolute inset-0 -z-10">
-                    <DotGrid
-                      dotSize={2.5}
-                      gap={25}
-                      baseColor="#a3a3a3"
-                      className="h-full w-full"
-                    />
+                    <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" className="h-full w-full" />
                   </div>
-                  
+
                   {/* Sticky scroll content */}
                   <div className="w-full max-w-[1080px] mx-auto mt-6 sm:mt-8 px-4 sm:px-6">
-                    <StickyScroll 
-                      content={TRACKS_CONTENT}
-                    />
+                    <StickyScroll content={TRACKS_CONTENT} />
                   </div>
                 </GradientBG>
               </div>
@@ -181,7 +189,7 @@ export default function Page() {
           <div id="faqs" className="flex items-center justify-between flex-col">
             <FAQs />
           </div>
-          
+
           <Footer />
         </div>
       </div>

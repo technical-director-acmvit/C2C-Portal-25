@@ -26,8 +26,7 @@ const DEFAULT_OUT = process.argv.includes("--out")
   : "institutes.json";
 const INCLUDE_ALL = process.argv.includes("--all");
 
-const NAME_REGEX =
-  /(university|vishwavidyalaya|vidyapeeth|college|mahavidyalaya)/i;
+const NAME_REGEX = /(university|vishwavidyalaya|vidyapeeth|college|mahavidyalaya)/i;
 
 function norm(s) {
   return s.replace(/\s+/g, " ").trim();
@@ -116,9 +115,7 @@ function looksLikeUniversityOrCollege(name) {
       deduped.push(row);
     }
 
-    deduped.sort(
-      (a, b) => a.state.localeCompare(b.state) || a.name.localeCompare(b.name)
-    );
+    deduped.sort((a, b) => a.state.localeCompare(b.state) || a.name.localeCompare(b.name));
 
     const outPath = path.resolve(process.cwd(), DEFAULT_OUT);
     fs.writeFileSync(outPath, JSON.stringify(deduped, null, 2), "utf8");

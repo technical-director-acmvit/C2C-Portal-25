@@ -16,9 +16,7 @@ const Profile = ({ onBack }: ProfileProps) => {
       <div className="absolute top-6 left-6 z-10">
         <BackChevron onClick={onBack} />
       </div>
-      <div className="w-full h-full relative z-10">
-        {/* <Lanyard /> */}
-      </div>
+      <div className="w-full h-full relative z-10">{/* <Lanyard /> */}</div>
     </div>
   );
 };
