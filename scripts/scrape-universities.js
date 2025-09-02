@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable @typescript-eslint/no-require-imports */
 /**
  * Scrapes https://linkingsky.com/career-news/universities-list.html
  * and outputs institutes (universities + colleges) to JSON.

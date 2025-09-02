@@ -65,7 +65,7 @@ export function createAppJwt(): string {
     const signature = signer.sign(keyObj);
     const encodedSignature = base64url(signature);
     return `${data}.${encodedSignature}`;
-  } catch (_) {
+  } catch {
     const der = pemToPkcs8Der(privateKey);
     const signer = crypto.createSign("RSA-SHA256");
     signer.update(data);
@@ -205,7 +205,26 @@ export async function listCommits(installationId: string, owner: string, repo: s
   return gh<Commit[]>(`/repos/${owner}/${repo}/commits`, token);
 }
 
-export async function getContents(installationId: string, owner: string, repo: string, path = "") {
+export async function getContents(
+  installationId: string,
+  owner: string,
+  repo: string,
+  path = "",
+) {
   const token = await fetchInstallationToken(installationId);
-  return gh<any>(`/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}`, token);
+  type GhContentItem = {
+    name: string;
+    path: string;
+    sha: string;
+    size?: number;
+    url?: string;
+    html_url?: string;
+    git_url?: string;
+    download_url?: string | null;
+    type: "file" | "dir" | "symlink" | "submodule";
+  };
+  return gh<GhContentItem | GhContentItem[]>(
+    `/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}`,
+    token,
+  );
 }

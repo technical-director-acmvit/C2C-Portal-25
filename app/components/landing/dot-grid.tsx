@@ -103,9 +103,17 @@ const DotGrid: React.FC<DotGridProps> = ({
     const mq = window.matchMedia("(max-width: 767px)");
     const set = () => setIsMobile(mq.matches);
     set();
-    mq.addEventListener ? mq.addEventListener("change", set) : mq.addListener(set);
+    if (mq.addEventListener) {
+      mq.addEventListener("change", set);
+    } else {
+      mq.addListener(set);
+    }
     return () => {
-      mq.removeEventListener ? mq.removeEventListener("change", set) : mq.removeListener(set);
+      if (mq.removeEventListener) {
+        mq.removeEventListener("change", set);
+      } else {
+        mq.removeListener(set);
+      }
     };
   }, []);
 

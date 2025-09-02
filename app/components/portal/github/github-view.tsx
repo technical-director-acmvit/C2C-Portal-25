@@ -20,7 +20,15 @@ export default function GithubView() {
   const hasTeam = Boolean(dashboard?.team);
 
   const [installationId, setInstallationId] = useState<string | null>(null);
-  const [repos, setRepos] = useState<any[]>([]);
+  type Repo = {
+    id: number;
+    name: string;
+    full_name: string;
+    owner: { login: string };
+    private: boolean;
+    html_url: string;
+  };
+  const [repos, setRepos] = useState<Repo[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [link, setLink] = useState<string>("");
@@ -69,13 +77,13 @@ export default function GithubView() {
     if (!installationId || !justLinked) return;
     let active = true;
     (async () => {
-      try {
-        await saveInstallationAction({ installation_id: installationId });
-      } catch (_) {
-        // non-fatal; still allow UI usage
-      } finally {
-        if (active) setJustLinked(false);
-      }
+        try {
+          await saveInstallationAction({ installation_id: installationId });
+        } catch {
+          // non-fatal; still allow UI usage
+        } finally {
+          if (active) setJustLinked(false);
+        }
     })();
     return () => {
       active = false;
@@ -103,7 +111,7 @@ export default function GithubView() {
         const result = (await Promise.race([
           listInstallationReposAction(installationId),
           timeoutPromise,
-        ])) as any[];
+        ])) as Repo[];
         if (tid) clearTimeout(tid);
         if (active) setRepos(result || []);
         try {
@@ -177,7 +185,7 @@ export default function GithubView() {
                   </button>
                 </div>
               )}
-              {!loading && !error && <RepoList installationId={installationId} repos={repos} />}
+              {!loading && !error && <RepoList repos={repos} />}
 
               {typeof window !== "undefined" && window.location.hash === "#view" && (
                 <RepoPreview installationId={installationId} />

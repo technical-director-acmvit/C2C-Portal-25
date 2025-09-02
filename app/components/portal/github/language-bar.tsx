@@ -20,7 +20,7 @@ export default function LanguageBar({ languages }: { languages: Record<string, n
         ))}
       </div>
       <div className="mt-2 flex flex-wrap gap-2 text-xs text-gray-300">
-        {entries.map(([lang, bytes]) => (
+        {entries.map(([lang]) => (
           <span key={lang} className="inline-flex items-center gap-1">
             <span className="w-2 h-2 rounded-sm" style={{ backgroundColor: colorFor(lang) }} />
             {lang}

@@ -57,7 +57,8 @@ export const StickyScroll = ({
         onUpdate: (self) => {
           const steps = content.length - 1;
           const idx = steps > 0 ? Math.round(self.progress * steps) : 0;
-          if (idx !== activeCard) setActiveCard(idx);
+          // Avoid capturing activeCard; setting same value is a no-op
+          setActiveCard(idx);
         },
         // markers: true,
       });

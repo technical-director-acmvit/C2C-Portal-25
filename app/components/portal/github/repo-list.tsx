@@ -11,13 +11,7 @@ type Repo = {
   html_url: string;
 };
 
-export default function RepoList({
-  installationId,
-  repos,
-}: {
-  installationId: string;
-  repos: Repo[];
-}) {
+export default function RepoList({ repos }: { repos: Repo[] }) {
   return (
     <ul className="space-y-3">
       {repos.map((r) => (

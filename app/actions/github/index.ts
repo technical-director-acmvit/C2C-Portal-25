@@ -63,7 +63,21 @@ export async function getContentsAction(
   path = "",
 ) {
   const token = await fetchInstallationToken(installationId);
-  return gh<any>(`/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}`, token);
+  type GhContentItem = {
+    name: string;
+    path: string;
+    sha: string;
+    size?: number;
+    url?: string;
+    html_url?: string;
+    git_url?: string;
+    download_url?: string | null;
+    type: "file" | "dir" | "symlink" | "submodule";
+  };
+  return gh<GhContentItem | GhContentItem[]>(
+    `/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}`,
+    token,
+  );
 }
 
 export async function saveInstallationAction(params: {
@@ -90,7 +104,15 @@ export async function saveInstallationAction(params: {
 // Additional repo insights
 export async function getRepoAction(installationId: string, owner: string, repo: string) {
   const token = await fetchInstallationToken(installationId);
-  return gh<any>(`/repos/${owner}/${repo}`, token);
+  type RepoMeta = {
+    stargazers_count?: number;
+    forks_count?: number;
+    open_issues_count?: number;
+    private?: boolean;
+    license?: { spdx_id?: string | null } | null;
+    html_url?: string;
+  };
+  return gh<RepoMeta>(`/repos/${owner}/${repo}`, token);
 }
 
 export async function listBranchesAction(installationId: string, owner: string, repo: string) {
@@ -128,7 +150,16 @@ export async function listIssuesAction(
   state: "open" | "closed" | "all" = "open",
 ) {
   const token = await fetchInstallationToken(installationId);
-  const items = await gh<Array<any>>(
+  type Issue = {
+    id: number;
+    number: number;
+    title: string;
+    html_url: string;
+    user?: { login?: string };
+    created_at?: string;
+    pull_request?: unknown; // present when this "issue" is actually a PR
+  };
+  const items = await gh<Issue[]>(
     `/repos/${owner}/${repo}/issues?state=${state}&per_page=10`,
     token,
   );

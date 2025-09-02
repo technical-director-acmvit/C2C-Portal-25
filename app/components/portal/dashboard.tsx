@@ -23,7 +23,6 @@ const Dashboard: React.FC = () => {
   // const [showProfile, setShowProfile] = useState(false);
   const [showLeaveModal, setShowLeaveModal] = useState(false);
   const [copied, setCopied] = useState(false);
-  const setView = usePortalStore((s) => s.setView);
 
   const team = data?.team ?? null;
   const track = data?.track ?? null;

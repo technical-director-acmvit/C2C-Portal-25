@@ -20,15 +20,60 @@ export default function RepoPreview({ installationId }: { installationId: string
   const owner = url.searchParams.get("owner") || "";
   const repo = url.searchParams.get("repo") || "";
 
-  const [repoInfo, setRepoInfo] = useState<any | null>(null);
+  type RepoMeta = {
+    stargazers_count?: number;
+    forks_count?: number;
+    open_issues_count?: number;
+    private?: boolean;
+    license?: { spdx_id?: string | null } | null;
+    html_url?: string;
+  } | null;
+  const [repoInfo, setRepoInfo] = useState<RepoMeta>(null);
   const [languages, setLanguages] = useState<Record<string, number> | null>(null);
   const [branches, setBranches] = useState<Array<{ name: string; protected?: boolean }>>([]);
-  const [pulls, setPulls] = useState<any[]>([]);
-  const [issues, setIssues] = useState<any[]>([]);
-  const [releases, setReleases] = useState<any[]>([]);
-  const [commits, setCommits] = useState<any[]>([]);
-  const [contents, setContents] = useState<any[]>([]);
-  const [currentPath, setCurrentPath] = useState<string>("");
+  type Commit = {
+    sha: string;
+    html_url?: string;
+    commit: { message: string; author?: { name?: string; date?: string } };
+    author?: { login?: string; avatar_url?: string };
+  };
+  type Pull = {
+    id: number;
+    number: number;
+    title: string;
+    html_url: string;
+    user?: { login?: string };
+    created_at?: string;
+  };
+  type Issue = {
+    id: number;
+    number: number;
+    title: string;
+    html_url: string;
+    user?: { login?: string };
+    created_at?: string;
+  };
+  type Release = {
+    id: number;
+    tag_name: string;
+    name?: string;
+    draft?: boolean;
+    prerelease?: boolean;
+    html_url: string;
+    published_at?: string;
+  };
+  type ContentItem = {
+    name: string;
+    sha: string;
+    type: "file" | "dir" | "symlink" | "submodule";
+    html_url?: string;
+  };
+  const [pulls, setPulls] = useState<Pull[]>([]);
+  const [issues, setIssues] = useState<Issue[]>([]);
+  const [releases, setReleases] = useState<Release[]>([]);
+  const [commits, setCommits] = useState<Commit[]>([]);
+  const [contents, setContents] = useState<ContentItem[]>([]);
+  const [currentPath] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -201,7 +246,7 @@ export default function RepoPreview({ installationId }: { installationId: string
 
         <Card title={`Files ${currentPath ? `in /${currentPath}` : "(root)"}`}>
           <ul className="space-y-1">
-            {contents.map((item: any) => (
+            {contents.map((item: ContentItem) => (
               <li
                 key={item.sha}
                 className="flex items-center justify-between p-2 border border-white/10 rounded bg-black/20"
