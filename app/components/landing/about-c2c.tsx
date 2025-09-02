@@ -38,7 +38,6 @@ const About = ({ children }: { children?: React.ReactNode }) => (
             leading-[1.6] sm:leading-8 md:leading-9
             flex items-start justify-center flex-col
           "
-            style={{ fontFamily: "DM Sans, Arial, sans-serif" }}
           >
             <p className="mb-4">
               Code2Create is ACM-VIT&apos;s flagship 48-hour national hackathon open to participants
