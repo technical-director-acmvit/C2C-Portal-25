@@ -7,7 +7,7 @@ gsap.registerPlugin(InertiaPlugin);
 
 function throttleEvent<T extends Event>(
   fn: (ev: T) => void,
-  limit: number
+  limit: number,
 ): (this: Window, ev: T) => void {
   let lastCall = 0;
   return function (this: Window, ev: T) {
@@ -42,10 +42,10 @@ export interface DotGridProps {
   className?: string;
   style?: React.CSSProperties;
   // Performance controls
-  maxDots?: number;           // soft cap for total dots; grid sampling reduces density when exceeded
-  fps?: number;               // target redraw rate; defaults to 45
+  maxDots?: number; // soft cap for total dots; grid sampling reduces density when exceeded
+  fps?: number; // target redraw rate; defaults to 45
   maxDevicePixelRatio?: number; // clamp canvas DPR (e.g., 1.5) to reduce pixel workload
-  disableOnMobile?: boolean;  // do not render on small screens
+  disableOnMobile?: boolean; // do not render on small screens
 }
 
 function hexToRgb(hex: string) {
@@ -99,13 +99,13 @@ const DotGrid: React.FC<DotGridProps> = ({
 
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const mq = window.matchMedia('(max-width: 767px)');
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(max-width: 767px)");
     const set = () => setIsMobile(mq.matches);
     set();
-    mq.addEventListener ? mq.addEventListener('change', set) : mq.addListener(set);
+    mq.addEventListener ? mq.addEventListener("change", set) : mq.addListener(set);
     return () => {
-      mq.removeEventListener ? mq.removeEventListener('change', set) : mq.removeListener(set);
+      mq.removeEventListener ? mq.removeEventListener("change", set) : mq.removeListener(set);
     };
   }, []);
 
@@ -280,7 +280,7 @@ const DotGrid: React.FC<DotGridProps> = ({
               if (!rafRef.current) startDrawRef.current?.();
             }
           },
-          { threshold: [0, 0.01, 0.1, 0.25, 0.5, 1] }
+          { threshold: [0, 0.01, 0.1, 0.25, 0.5, 1] },
         );
         io.observe(el);
       } else {
@@ -324,7 +324,7 @@ const DotGrid: React.FC<DotGridProps> = ({
       pr.vy = vy;
       pr.speed = speed;
 
-  const rect = canvasEl.getBoundingClientRect();
+      const rect = canvasEl.getBoundingClientRect();
       pr.x = e.clientX - rect.left;
       pr.y = e.clientY - rect.top;
 
@@ -416,14 +416,11 @@ const DotGrid: React.FC<DotGridProps> = ({
       style={style}
     >
       <div ref={wrapperRef} className="w-full h-full relative">
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 w-full h-full pointer-events-none"
-        />
+        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
       </div>
     </section>
   );
 };
 
-DotGrid.displayName = 'DotGrid';
+DotGrid.displayName = "DotGrid";
 export default React.memo(DotGrid);

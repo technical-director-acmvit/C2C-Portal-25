@@ -13,12 +13,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
 
         {/* Background grid */}
         <div className="pointer-events-none absolute inset-0 -z-10">
-          <DotGrid
-            dotSize={2.5}
-            gap={25}
-            baseColor="#a3a3a3"
-            className="h-full w-full"
-          />
+          <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" className="h-full w-full" />
         </div>
 
         {/* Content */}
@@ -35,18 +30,14 @@ const About = ({ children }: { children?: React.ReactNode }) => (
           />
 
           {/* Intro paragraph */}
-          <div
-            className="w-full max-w-[794px] text-justify text-zinc-100 text-lg sm:text-xl md:text-2xl leading-7 sm:leading-8 md:leading-9 font-thin"
-          >
-            As the official student chapter of the Association for Computing
-            Machinery at VIT Vellore, we&apos;ve been pushing boundaries and
-            challenging conventions since 2009. From research and development to
-            open-source contributions and unorthodox events, we turn ideas into
-            real-world impact. We don&apos;t just write code; we ask questions,
-            build with purpose, and learn together. With a culture built on
-            trust and innovation, we&apos;re here to build tools, solve
-            problems, and grow as a community: because technology, at its best,
-            brings people together.
+          <div className="w-full max-w-[794px] text-justify text-zinc-100 text-lg sm:text-xl md:text-2xl leading-7 sm:leading-8 md:leading-9 font-thin">
+            As the official student chapter of the Association for Computing Machinery at VIT
+            Vellore, we&apos;ve been pushing boundaries and challenging conventions since 2009. From
+            research and development to open-source contributions and unorthodox events, we turn
+            ideas into real-world impact. We don&apos;t just write code; we ask questions, build
+            with purpose, and learn together. With a culture built on trust and innovation,
+            we&apos;re here to build tools, solve problems, and grow as a community: because
+            technology, at its best, brings people together.
           </div>
 
           {/* First Hero Line */}
@@ -61,14 +52,15 @@ const About = ({ children }: { children?: React.ReactNode }) => (
               color: "transparent",
             }}
           >
-        Break things, fix things,
-        <br />
-         and build things
+            Break things, fix things,
+            <br />
+            and build things
           </h1>
 
           {/* Secondary Paragraph */}
           <div className="w-full max-w-[900px] text-justify text-zinc-100 text-lg sm:text-xl md:text-2xl leading-7 sm:leading-8 md:leading-9 font-normal font-['DM_Sans']">
-            Bring your ideas, your laptop, and maybe some snacks. Code2Create is an adventure to experiment, learn from others, and see what you can make when you just try.
+            Bring your ideas, your laptop, and maybe some snacks. Code2Create is an adventure to
+            experiment, learn from others, and see what you can make when you just try.
           </div>
 
           {/* Decorative SVG */}
@@ -87,7 +79,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
               color: "transparent",
             }}
           >
-            A look at Code2Create&apos;s 
+            A look at Code2Create&apos;s
             <br />
             notable legacy
           </h1>

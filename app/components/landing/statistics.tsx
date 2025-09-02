@@ -10,12 +10,7 @@ const Statistics = () => {
       <div id="stats" className="w-full min-h-screen relative overflow-hidden">
         {/* Background grid */}
         <div className="pointer-events-none absolute inset-0 -z-10">
-          <DotGrid
-            dotSize={2.5}
-            gap={25}
-            baseColor="#a3a3a3"
-            className="h-full w-full"
-          />
+          <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" className="h-full w-full" />
         </div>
 
         {/* Content */}

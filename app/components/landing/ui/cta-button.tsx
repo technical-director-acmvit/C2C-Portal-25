@@ -45,9 +45,7 @@ export const InteractiveHoverButton = React.forwardRef<
           </div>
         </>
       ) : (
-        <span className="inline-flex items-center justify-center w-full">
-          {children}
-        </span>
+        <span className="inline-flex items-center justify-center w-full">{children}</span>
       )}
     </button>
   );

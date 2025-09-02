@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Image from 'next/image';
-import { getTracks, submitTeamSubmission, type Track } from '../../actions/submission';
-import BackChevron from './ui/back-chevron';
+import Image from "next/image";
+import { getTracks, submitTeamSubmission, type Track } from "../../actions/submission";
+import BackChevron from "./ui/back-chevron";
 
 interface FormProps {
   onBack?: () => void;
@@ -12,12 +12,12 @@ interface FormProps {
 
 const Form = ({ onBack, requirePPT = false }: FormProps) => {
   const [formData, setFormData] = useState({
-    track_id: '',
-    github_url: '',
-    figma_url: '',
-    other: '',
-    ppt_url: '',
-    description: '',
+    track_id: "",
+    github_url: "",
+    figma_url: "",
+    other: "",
+    ppt_url: "",
+    description: "",
   });
   const [tracks, setTracks] = useState<Track[]>([]);
   const [loading, setLoading] = useState(true);
@@ -25,11 +25,13 @@ const Form = ({ onBack, requirePPT = false }: FormProps) => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -41,12 +43,14 @@ const Form = ({ onBack, requirePPT = false }: FormProps) => {
         const list = await getTracks();
         if (mounted) setTracks(list);
       } catch (err) {
-        if (mounted) setError(err instanceof Error ? err.message : 'Failed to load tracks');
+        if (mounted) setError(err instanceof Error ? err.message : "Failed to load tracks");
       } finally {
         if (mounted) setLoading(false);
       }
     })();
-    return () => { mounted = false; };
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   // PPT can be required by the backend for certain rounds; frontend can opt-in via prop
@@ -55,12 +59,12 @@ const Form = ({ onBack, requirePPT = false }: FormProps) => {
       formData.github_url &&
       formData.figma_url &&
       formData.other &&
-      (!requirePPT || Boolean(formData.ppt_url))
+      (!requirePPT || Boolean(formData.ppt_url)),
   );
 
   const handleSubmit = async () => {
     if (!valid) {
-      setError('Please fill all required fields.');
+      setError("Please fill all required fields.");
       return;
     }
     setSubmitting(true);
@@ -93,9 +97,9 @@ const Form = ({ onBack, requirePPT = false }: FormProps) => {
         other: formData.other || null,
         track_id: selectedTrackId,
       });
-      setSuccess('Submission saved');
+      setSuccess("Submission saved");
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to submit');
+      setError(err instanceof Error ? err.message : "Failed to submit");
     } finally {
       setSubmitting(false);
     }
@@ -109,26 +113,30 @@ const Form = ({ onBack, requirePPT = false }: FormProps) => {
       <div className="absolute top-6 left-6 sm:left-8 z-10">
         <Image src="/portal/logo.svg" alt="Logo" width={200} height={200} />
       </div>
-      
+
       {/* Centered form */}
       <div className="flex flex-col items-center justify-center h-full px-4 relative z-10">
         <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 sm:p-8 w-full max-w-md border border-gray-600">
           <div className="flex items-center gap-3 mb-6">
             {onBack && <BackChevron onClick={onBack} />}
-            <h1 
+            <h1
               className="text-white text-2xl sm:text-3xl"
-              style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontWeight: '700' }}
+              style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontWeight: "700" }}
             >
               Team Submission
             </h1>
           </div>
           {error && (
-            <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded-md text-sm mb-4">{error}</div>
+            <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded-md text-sm mb-4">
+              {error}
+            </div>
           )}
           {success && (
-            <div className="bg-green-500/20 border border-green-500 text-green-200 px-4 py-2 rounded-md text-sm mb-4">{success}</div>
+            <div className="bg-green-500/20 border border-green-500 text-green-200 px-4 py-2 rounded-md text-sm mb-4">
+              {success}
+            </div>
           )}
-          
+
           <div className="space-y-4">
             {/* Track Dropdown */}
             <div>
@@ -139,13 +147,17 @@ const Form = ({ onBack, requirePPT = false }: FormProps) => {
                 className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
                 style={{
                   fontFamily: "'Pilat Extended', Arial, sans-serif",
-                  fontSize: '14px'
+                  fontSize: "14px",
                 }}
                 disabled={loading}
               >
-                <option value="" className="text-gray-400">{loading ? 'Loading tracks…' : 'Select a Track'}</option>
-                {tracks.map(t => (
-                  <option key={t.id} value={t.id}>{t.title}</option>
+                <option value="" className="text-gray-400">
+                  {loading ? "Loading tracks…" : "Select a Track"}
+                </option>
+                {tracks.map((t) => (
+                  <option key={t.id} value={t.id}>
+                    {t.title}
+                  </option>
                 ))}
               </select>
             </div>
@@ -161,7 +173,7 @@ const Form = ({ onBack, requirePPT = false }: FormProps) => {
                 className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
                 style={{
                   fontFamily: "'Pilat Extended', Arial, sans-serif",
-                  fontSize: '14px'
+                  fontSize: "14px",
                 }}
               />
             </div>
@@ -175,7 +187,7 @@ const Form = ({ onBack, requirePPT = false }: FormProps) => {
                 onChange={handleInputChange}
                 placeholder={requirePPT ? "PPT Link (required)" : "PPT Link (optional)"}
                 className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
-                style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: '14px' }}
+                style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: "14px" }}
               />
             </div>
 
@@ -187,7 +199,7 @@ const Form = ({ onBack, requirePPT = false }: FormProps) => {
                 onChange={handleInputChange}
                 placeholder="Short description about your submission (optional)"
                 className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
-                style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: '14px' }}
+                style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: "14px" }}
                 rows={3}
               />
             </div>
@@ -203,7 +215,7 @@ const Form = ({ onBack, requirePPT = false }: FormProps) => {
                 className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
                 style={{
                   fontFamily: "'Pilat Extended', Arial, sans-serif",
-                  fontSize: '14px'
+                  fontSize: "14px",
                 }}
               />
             </div>
@@ -219,7 +231,7 @@ const Form = ({ onBack, requirePPT = false }: FormProps) => {
                 className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
                 style={{
                   fontFamily: "'Pilat Extended', Arial, sans-serif",
-                  fontSize: '14px'
+                  fontSize: "14px",
                 }}
               />
             </div>
@@ -227,18 +239,18 @@ const Form = ({ onBack, requirePPT = false }: FormProps) => {
 
           {/* Submit Button */}
           <div className="flex justify-center mt-8">
-            <button 
-              className="px-12 py-3 rounded-lg text-white cursor-pointer transition-all duration-200 hover:bg-[#4da577] active:scale-95" 
-              style={{ 
-                backgroundColor: '#5EBF94',
-                fontSize: '18px',
+            <button
+              className="px-12 py-3 rounded-lg text-white cursor-pointer transition-all duration-200 hover:bg-[#4da577] active:scale-95"
+              style={{
+                backgroundColor: "#5EBF94",
+                fontSize: "18px",
                 fontFamily: "'Pilat Extended', Arial, sans-serif",
-                fontWeight: '400'
+                fontWeight: "400",
               }}
               onClick={handleSubmit}
               disabled={!valid || submitting}
             >
-              {submitting ? 'Submitting…' : 'Submit'}
+              {submitting ? "Submitting…" : "Submit"}
             </button>
           </div>
         </div>

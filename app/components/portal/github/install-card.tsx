@@ -1,13 +1,20 @@
 "use client";
 
-import React from 'react';
+import React from "react";
 import PortalButton from "../ui/button";
 
 export default function InstallCard({ installUrl }: { installUrl: string }) {
   return (
     <div className="w-full max-w-3xl mx-auto bg-black/30 border border-white/10 rounded-2xl p-6 sm:p-8">
-      <h2 className="text-2xl sm:text-3xl font-bold" style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}>Link your GitHub</h2>
-      <p className="text-gray-300 mt-3">Install the C2C GitHub App and grant access to selected repositories you plan to submit.</p>
+      <h2
+        className="text-2xl sm:text-3xl font-bold"
+        style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}
+      >
+        Link your GitHub
+      </h2>
+      <p className="text-gray-300 mt-3">
+        Install the C2C GitHub App and grant access to selected repositories you plan to submit.
+      </p>
       <div className="mt-6">
         <a href={installUrl}>
           <PortalButton className="px-6 py-3 text-base sm:text-lg">Install GitHub App</PortalButton>

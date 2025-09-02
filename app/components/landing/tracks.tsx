@@ -46,12 +46,7 @@ const Tracks = ({ children }: { children?: React.ReactNode }) => {
           {children}
         </div>
         <div className="pointer-events-none absolute inset-0 -z-10">
-          <DotGrid
-            dotSize={2.5}
-            gap={25}
-            baseColor="#a3a3a3"
-            className="h-full w-full"
-          />
+          <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" className="h-full w-full" />
         </div>
         <div className="w-full max-w-[1080px] mx-auto mt-6 sm:mt-8 px-4 sm:px-6">
           <div className="flex flex-col gap-4 sm:gap-6 pb-16">

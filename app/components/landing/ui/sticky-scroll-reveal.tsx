@@ -73,21 +73,24 @@ export const StickyScroll = ({
       gsap.fromTo(
         stickyImageRef.current,
         { opacity: 0, scale: 0.9 },
-        { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" }
+        { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" },
       );
     }
     if (textWrapRef.current) {
       gsap.fromTo(
         textWrapRef.current,
         { opacity: 0, y: 12 },
-        { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }
+        { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" },
       );
     }
   }, [activeCard]);
 
   return (
     <div ref={containerRef} className="relative">
-      <div ref={stageRef} className="relative grid lg:grid-cols-[minmax(0,1fr)_360px] gap-10 items-center">
+      <div
+        ref={stageRef}
+        className="relative grid lg:grid-cols-[minmax(0,1fr)_360px] gap-10 items-center"
+      >
         <article className="bg-white/10 border border-green-900/40 rounded-[16px] sm:rounded-[20px] overflow-hidden p-4 sm:p-5 md:p-6 w-full">
           <div ref={textWrapRef}>
             <h3 className="text-[#efefef] font-bold font-['Trap'] text-2xl sm:text-3xl md:text-4xl lg:text-5xl">

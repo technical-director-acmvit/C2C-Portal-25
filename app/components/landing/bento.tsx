@@ -4,8 +4,7 @@ import BentoSquareKiss from "./bento-square-kiss";
 import BentoRect from "./bento-rectangle";
 
 const Bento = () => {
-  const dim =
-    typeof window !== "undefined" ? Math.round(window.innerHeight * 0.3) : 500;
+  const dim = typeof window !== "undefined" ? Math.round(window.innerHeight * 0.3) : 500;
   const rectDim = dim; // keep same size (adjust if you want different)
 
   return (
@@ -31,11 +30,11 @@ const Bento = () => {
           style={{
             position: "absolute",
             left: `calc(9.4vw + ${dim}px )`,
-            top: "64.5vh", 
+            top: "64.5vh",
             transform: "translateY(-50%)",
           }}
         >
-          <BentoRect dim={rectDim-65} />
+          <BentoRect dim={rectDim - 65} />
         </div>
       </div>
     </>

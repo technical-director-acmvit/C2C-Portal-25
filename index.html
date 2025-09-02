@@ -1,138 +1,164 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Subtract shape (HTML+CSS only)</title>
-<style>
-  :root {
-    /* Tweak these to match your exact SVG proportions */
-    --size: 40vmin;       /* overall size — ratio-based (viewport minimum) */
-    --fill: #efefef;      /* fill color (matches your SVG) */
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Subtract shape (HTML+CSS only)</title>
+    <style>
+      :root {
+        /* Tweak these to match your exact SVG proportions */
+        --size: 40vmin; /* overall size — ratio-based (viewport minimum) */
+        --fill: #efefef; /* fill color (matches your SVG) */
 
-    /* Notch geometry */
-    --outer-radius: 6.4%;   /* outer rounding as a percentage (28 / 437 ≈ 6.4%) */
-    /* reference ratios (kept for clarity) */
-    --cut-r-ratio: 0.279;   /* 122 / 437 ≈ 0.279 */
-    --cut-inset-ratio: 0;   /* inset as ratio */
+        /* Notch geometry */
+        --outer-radius: 6.4%; /* outer rounding as a percentage (28 / 437 ≈ 6.4%) */
+        /* reference ratios (kept for clarity) */
+        --cut-r-ratio: 0.279; /* 122 / 437 ≈ 0.279 */
+        --cut-inset-ratio: 0; /* inset as ratio */
 
-    /* Gradient background vars */
-    --grad-1: #0f2027;
-    --grad-2: #203a43;
-    --grad-3: #2c5364;
-    --grad-angle: 135deg;
-    --grad-speed: 12s;
-  }
-
-  .wrap {
-    min-height: 100vh;
-    display: grid;
-    place-items: center;
-    /* fallback solid color */
-    background: var(--grad-1);
-
-    /* animated gradient */
-    background-image: linear-gradient(var(--grad-angle), var(--grad-1), var(--grad-2), var(--grad-3));
-    background-size: 300% 300%;
-    animation: gradientShift var(--grad-speed) ease infinite;
-  }
-
-  @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  .subtract {
-    width: var(--size);
-    height: var(--size);
-    background: var(--fill);
-    border-radius: var(--outer-radius); 
-    mask: url(#lumi-mask);
-    -webkit-mask: url(#lumi-mask);
-    mask-repeat: no-repeat;
-    -webkit-mask-repeat: no-repeat;
-    mask-position: center;
-    -webkit-mask-position: center;
-    mask-size: contain;
-    -webkit-mask-size: contain;
-
-    display: block;
-    position: relative; /* for the visible label */
-  }
-
-  /* visible label on top (matches the text used inside the mask) */
-  .subtract .label {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    font-family: Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    font-weight: 700;
-    font-size: calc(var(--size) * 0.2); /* scales with the box */
-    color: #111; /* visible color for the text */
-    pointer-events: none;
-    user-select: none;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  /* Optional: center label to show it’s a div */
-  .subtract::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 100%;
-    border-radius: inherit;
-  }
-</style>
-</head>
-<body>
-  <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
-    <defs>
-      <mask id="lumi-mask"
-            maskUnits="userSpaceOnUse"
-            maskContentUnits="userSpaceOnUse"
-            mask-type="luminance">
-        <!-- Coordinate space is 100x100 for easy placement -->
-        <!-- white rounded background -->
-        <rect x="0" y="0" width="100" height="100" fill="white" rx="6.4" ry="6.4" />
-        <!-- subtractive holes: black areas will be hidden under luminance mask -->
-        <!-- left and top subtraction (scaled from previous objectBoundingBox values) -->
-        <rect x="-6.4" y="-6.4" width="54" height="54" fill="black" rx="6.4" ry="6.4" />
-        <!-- right and bottom subtraction -->
-        <rect x="52" y="52" width="54" height="54" fill="black" rx="6.4" ry="6.4" />
-
-        <!-- text as a black hole in the mask -->
-        <text x="50" y="57" text-anchor="middle" fill="black"
-              font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"
-              font-weight="700" font-size="20">TEXT</text>
-      </mask>
-    </defs>
-  </svg>
-
-  <div class="wrap">
-    <div class="subtract">
-      <div class="label" aria-hidden="true">TEXT</div>
-    </div>
-  </div>
-  <script>
-    // Simple live reload (polls server for reload.txt changes)
-    (function() {
-      const POLL_INTERVAL = 1000;
-      let lastReload = null;
-      function poll() {
-        fetch('/reload.txt')
-          .then(r => r.text())
-          .then(txt => {
-            if (lastReload === null) lastReload = txt;
-            else if (lastReload !== txt) location.reload();
-          })
-          .catch(() => {});
-        setTimeout(poll, POLL_INTERVAL);
+        /* Gradient background vars */
+        --grad-1: #0f2027;
+        --grad-2: #203a43;
+        --grad-3: #2c5364;
+        --grad-angle: 135deg;
+        --grad-speed: 12s;
       }
-      poll();
-    })();
-  </script>
-</body>
+
+      .wrap {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        /* fallback solid color */
+        background: var(--grad-1);
+
+        /* animated gradient */
+        background-image: linear-gradient(
+          var(--grad-angle),
+          var(--grad-1),
+          var(--grad-2),
+          var(--grad-3)
+        );
+        background-size: 300% 300%;
+        animation: gradientShift var(--grad-speed) ease infinite;
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .subtract {
+        width: var(--size);
+        height: var(--size);
+        background: var(--fill);
+        border-radius: var(--outer-radius);
+        mask: url(#lumi-mask);
+        -webkit-mask: url(#lumi-mask);
+        mask-repeat: no-repeat;
+        -webkit-mask-repeat: no-repeat;
+        mask-position: center;
+        -webkit-mask-position: center;
+        mask-size: contain;
+        -webkit-mask-size: contain;
+
+        display: block;
+        position: relative; /* for the visible label */
+      }
+
+      /* visible label on top (matches the text used inside the mask) */
+      .subtract .label {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        font-family:
+          Segoe UI,
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif;
+        font-weight: 700;
+        font-size: calc(var(--size) * 0.2); /* scales with the box */
+        color: #111; /* visible color for the text */
+        pointer-events: none;
+        user-select: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* Optional: center label to show it’s a div */
+      .subtract::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="0" height="0" aria-hidden="true" focusable="false" style="position: absolute">
+      <defs>
+        <mask
+          id="lumi-mask"
+          maskUnits="userSpaceOnUse"
+          maskContentUnits="userSpaceOnUse"
+          mask-type="luminance"
+        >
+          <!-- Coordinate space is 100x100 for easy placement -->
+          <!-- white rounded background -->
+          <rect x="0" y="0" width="100" height="100" fill="white" rx="6.4" ry="6.4" />
+          <!-- subtractive holes: black areas will be hidden under luminance mask -->
+          <!-- left and top subtraction (scaled from previous objectBoundingBox values) -->
+          <rect x="-6.4" y="-6.4" width="54" height="54" fill="black" rx="6.4" ry="6.4" />
+          <!-- right and bottom subtraction -->
+          <rect x="52" y="52" width="54" height="54" fill="black" rx="6.4" ry="6.4" />
+
+          <!-- text as a black hole in the mask -->
+          <text
+            x="50"
+            y="57"
+            text-anchor="middle"
+            fill="black"
+            font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"
+            font-weight="700"
+            font-size="20"
+          >
+            TEXT
+          </text>
+        </mask>
+      </defs>
+    </svg>
+
+    <div class="wrap">
+      <div class="subtract">
+        <div class="label" aria-hidden="true">TEXT</div>
+      </div>
+    </div>
+    <script>
+      // Simple live reload (polls server for reload.txt changes)
+      (function () {
+        const POLL_INTERVAL = 1000;
+        let lastReload = null;
+        function poll() {
+          fetch("/reload.txt")
+            .then((r) => r.text())
+            .then((txt) => {
+              if (lastReload === null) lastReload = txt;
+              else if (lastReload !== txt) location.reload();
+            })
+            .catch(() => {});
+          setTimeout(poll, POLL_INTERVAL);
+        }
+        poll();
+      })();
+    </script>
+  </body>
 </html>

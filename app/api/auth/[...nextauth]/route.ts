@@ -1,39 +1,39 @@
-import NextAuth from "next-auth"
-import GoogleProvider from "next-auth/providers/google"
+import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
 // import { JWT } from "next-auth/jwt"
 
 declare module "next-auth" {
   interface Session {
-    user?: User
-    idToken?: string
-    error?: string
+    user?: User;
+    idToken?: string;
+    error?: string;
   }
 
   interface User {
-    id?: string
-    name?: string | null
-    email?: string | null
-    image?: string | null
+    id?: string;
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
-    userId?: string
-    idToken?: string
-    error?: string
-    accessToken?: string
-    refreshToken?: string
-    accessTokenExpires?: number
+    userId?: string;
+    idToken?: string;
+    error?: string;
+    accessToken?: string;
+    refreshToken?: string;
+    accessTokenExpires?: number;
   }
 }
 
 function hasExpiresIn(value: unknown): value is { expires_in: number } {
   return (
     !!value &&
-    typeof value === 'object' &&
-    'expires_in' in (value as Record<string, unknown>) &&
-    typeof (value as { expires_in?: unknown }).expires_in === 'number'
+    typeof value === "object" &&
+    "expires_in" in (value as Record<string, unknown>) &&
+    typeof (value as { expires_in?: unknown }).expires_in === "number"
   );
 }
 
@@ -44,15 +44,15 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       authorization: {
         params: {
-          access_type: 'offline',
-          prompt: 'consent select_account',
-          scope: 'openid email profile',
+          access_type: "offline",
+          prompt: "consent select_account",
+          scope: "openid email profile",
         },
       },
     }),
   ],
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
     maxAge: 7 * 24 * 60 * 60,
   },
   callbacks: {
@@ -61,7 +61,7 @@ const handler = NextAuth({
         if (account.id_token) token.idToken = account.id_token as string;
         if (account.access_token) token.accessToken = account.access_token as string;
         if (account.refresh_token) token.refreshToken = account.refresh_token as string;
-        if (typeof account.expires_at === 'number') {
+        if (typeof account.expires_at === "number") {
           token.accessTokenExpires = account.expires_at * 1000;
         } else if (hasExpiresIn(account)) {
           const expiresIn = account.expires_in;
@@ -71,7 +71,7 @@ const handler = NextAuth({
         }
       }
 
-      if (profile && typeof profile.sub === 'string') {
+      if (profile && typeof profile.sub === "string") {
         token.userId = profile.sub;
       }
 
@@ -88,18 +88,18 @@ const handler = NextAuth({
         const params = new URLSearchParams({
           client_id: process.env.GOOGLE_CLIENT_ID as string,
           client_secret: process.env.GOOGLE_CLIENT_SECRET as string,
-          grant_type: 'refresh_token',
+          grant_type: "refresh_token",
           refresh_token: token.refreshToken,
         });
-        const res = await fetch('https://oauth2.googleapis.com/token', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        const res = await fetch("https://oauth2.googleapis.com/token", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: params.toString(),
-          cache: 'no-store',
+          cache: "no-store",
         });
         const refreshed = await res.json();
         if (!res.ok) {
-          throw new Error(refreshed?.error || 'Failed to refresh');
+          throw new Error(refreshed?.error || "Failed to refresh");
         }
 
         token.accessToken = refreshed.access_token ?? token.accessToken;
@@ -109,7 +109,7 @@ const handler = NextAuth({
         delete token.error;
         return token;
       } catch {
-        token.error = 'RefreshAccessTokenError';
+        token.error = "RefreshAccessTokenError";
         return token;
       }
     },
@@ -122,9 +122,9 @@ const handler = NextAuth({
     },
   },
   pages: {
-    signIn: '/',
-    error: '/',
+    signIn: "/",
+    error: "/",
   },
-})
+});
 
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST };

@@ -2,7 +2,7 @@
 
 import Lottie from "lottie-react";
 import animationData from "@/public/portal/loader1.json" assert { type: "json" };
-import Image from 'next/image';
+import Image from "next/image";
 
 export default function PortalLoader({ size = 240 }: { size?: number }) {
   return (

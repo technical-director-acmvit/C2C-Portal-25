@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import React from 'react'
+import React from "react";
 
 const HeadingText = ({ text }: { text: string }) => {
   return (
@@ -27,8 +27,7 @@ const HeadingText = ({ text }: { text: string }) => {
     >
       {text}
     </h1>
-  )
-}
+  );
+};
 
-
-export default HeadingText
+export default HeadingText;
