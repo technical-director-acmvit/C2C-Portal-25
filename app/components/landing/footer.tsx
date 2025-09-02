@@ -226,22 +226,10 @@ const Footer = () => {
                 >
                   EXAMCOOKER
                 </a>
-                <a
-                  href="https://cli-top.acmvit.in"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors"
-                  style={{ fontFamily: "PolySans Trial, Arial, sans-serif" }}
-                >
+                {/* <a href="https://cli-top.acmvit.in" target="_blank" rel="noopener noreferrer" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
                   CLITOP
-                </a>
-                <a
-                  href="https://localhost.acmvit.in"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors"
-                  style={{ fontFamily: "PolySans Trial, Arial, sans-serif" }}
-                >
+                </a> */}
+                <a href="https://localhost.acmvit.in" target="_blank" rel="noopener noreferrer" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
                   LOCALHOST
                 </a>
                 <a
