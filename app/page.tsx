@@ -82,6 +82,7 @@ const TRACKS_CONTENT = TRACKS.map((track) => ({
 }));
 
 export default function Page() {
+    const registrationsOpen = process.env.NEXT_PUBLIC_REGISTRATIONS_OPEN === 'true';
     useLayoutEffect(() => {
     // ScrollSmoother.create({
     //   wrapper: '#smooth-wrapper',
@@ -104,9 +105,10 @@ export default function Page() {
         <div className="hidden md:flex fixed left-1/2 -translate-x-1/2 bottom-[8%] z-[9999]">
           <InteractiveHoverButton
             onClick={() => signIn("google", { callbackUrl: "/portal" })}
-            className="w-[280px] text-lg px-5 py-2 min-h-[48px] rounded-full font-bold flex items-center justify-center bg-[#48BA86] hover:bg-[#3aa874] text-black border border-[#48BA86] transition-colors"
+            disabled={!registrationsOpen}
+            className="w-fit text-lg px-5 py-2 min-h-[48px] rounded-full font-bold flex items-center justify-center bg-[#48BA86] hover:bg-[#3aa874] text-black border border-[#48BA86] transition-colors disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-[#48BA86]"
           >
-            Form your team
+            {registrationsOpen ? 'Form your team' : 'Registrations opening soon'}
           </InteractiveHoverButton>
         </div>
       </ViewportPortal>
