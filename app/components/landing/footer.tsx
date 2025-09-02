@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
+import { DISCORD_URL } from "@/lib/env";
 
 //todo align all social icons properly, the linkedin one is not and kinda ocding me
-const DISCORD_URL = process.env.NEXT_PUBLIC_DISCORD_URL || "https://discord.gg/CY2sygnhYk";
 
 const Footer = () => {
   return (

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { InteractiveHoverButton } from "@/app/components/landing/ui/cta-button";
 import { useRouter } from "next/navigation";
+import { REGISTRATIONS_OPEN } from "@/lib/env";
 
 export default function TopBar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -124,25 +125,43 @@ export default function TopBar() {
               </li>
             ))}
             <li className="flex items-center h-full ml-4">
-              <InteractiveHoverButton
-                variant="compact"
-                onClick={() => router.push("/portal")}
-                className="w-auto text-[12px] px-6 py-1.5 min-h-[32px] rounded-full font-semibold flex items-center justify-center bg-[#48BA86] text-black border !border-[#48BA86] transition-colors hover:!bg-white hover:!border-white"
-              >
-                Form your team
-              </InteractiveHoverButton>
+              {REGISTRATIONS_OPEN ? (
+                <InteractiveHoverButton
+                  variant="compact"
+                  onClick={() => router.push("/portal")}
+                  className="w-auto text-[12px] px-6 py-1.5 min-h-[32px] rounded-full font-semibold flex items-center justify-center bg-[#48BA86] text-black border !border-[#48BA86] transition-colors hover:!bg-white hover:!border-white"
+                >
+                  Form your team
+                </InteractiveHoverButton>
+              ) : (
+                <span
+                  className="inline-block w-auto text-[12px] px-6 py-1.5 min-h-[32px] rounded-full font-semibold text-white border border-white/30 bg-black/30 backdrop-blur-sm"
+                  aria-live="polite"
+                >
+                  Registrations opening soon
+                </span>
+              )}
             </li>
           </ul>
         </nav>
 
         <div className="md:hidden flex items-center gap-2">
-          <InteractiveHoverButton
-            variant="simple"
-            onClick={() => router.push("/portal")}
-            className="w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors"
-          >
-            Form your team
-          </InteractiveHoverButton>
+          {REGISTRATIONS_OPEN ? (
+            <InteractiveHoverButton
+              variant="simple"
+              onClick={() => router.push("/portal")}
+              className="w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors"
+            >
+              Form your team
+            </InteractiveHoverButton>
+          ) : (
+            <span
+              className="inline-block w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold text-white border border-white/30 bg-black/30 backdrop-blur-sm"
+              aria-live="polite"
+            >
+              Registrations opening soon
+            </span>
+          )}
           <button
             aria-label="Toggle menu"
             aria-expanded={menuOpen}

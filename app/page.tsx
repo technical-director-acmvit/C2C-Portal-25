@@ -24,6 +24,7 @@ import GradientBG from "./components/landing/gradient-bg";
 import DotGrid from "./components/landing/dot-grid";
 import HeadingText from "./components/landing/HeadingText";
 import Tracks from "./components/landing/tracks";
+import { REGISTRATIONS_OPEN } from "@/lib/env";
 
 const TRACKS = [
   {
@@ -109,12 +110,21 @@ export default function Page() {
       {/* Desktop Register CTA fixed to viewport via portal (mobile CTA stays in Landing) */}
       <ViewportPortal>
         <div className="hidden md:flex fixed left-1/2 -translate-x-1/2 bottom-[8%] z-[9999]">
-          <InteractiveHoverButton
-            onClick={() => router.push("/portal")}
-            className="w-[280px] text-lg px-5 py-2 min-h-[48px] rounded-full font-bold flex items-center justify-center bg-[#48BA86] hover:bg-[#3aa874] text-black border border-[#48BA86] transition-colors"
-          >
-            Form your team
-          </InteractiveHoverButton>
+          {REGISTRATIONS_OPEN ? (
+            <InteractiveHoverButton
+              onClick={() => router.push("/portal")}
+              className="w-[280px] text-lg px-5 py-2 min-h-[48px] rounded-full font-bold flex items-center justify-center bg-[#48BA86] hover:bg-[#3aa874] text-black border border-[#48BA86] transition-colors"
+            >
+              Form your team
+            </InteractiveHoverButton>
+          ) : (
+            <span
+              className="inline-block w-[280px] text-lg px-5 py-2 min-h-[48px] rounded-full font-bold text-white border border-white/30 bg-black/30 backdrop-blur-sm text-center"
+              aria-live="polite"
+            >
+              Registrations opening soon
+            </span>
+          )}
         </div>
       </ViewportPortal>
 
