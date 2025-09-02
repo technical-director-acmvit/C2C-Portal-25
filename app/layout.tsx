@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ScrollSmootherProvider from "../components/scroll-smoother-provider";
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -31,15 +30,66 @@ export const metadata: Metadata = {
   category: "technology",
   referrer: "origin-when-cross-origin",
   keywords: [
-    "Code2Create","C2C","Code 2 Create",
-    "ACM-VIT","ACM VIT","ACM student chapter","VIT","VIT Vellore","Vellore Institute of Technology","Tamil Nadu","India",
-    "hackathon","student hackathon","college hackathon","university hackathon","national hackathon India","national-level hackathon","48-hour hackathon","48 hour hackathon","coding marathon","programming competition","India free hackathon",
-    "innovation","prototyping","prototype","real-world problems","mentorship","industry mentors","teamwork","collaboration","networking","prizes","showcase talent","demo",
-    "Build for Bharat","Art Attack","Game Over","I Can Do It Better","AI Solutions",
-    "AI","artificial intelligence","machine learning","ML","GPU","AI audio","text to speech","speech synthesis",
-    "RunPod","ElevenLabs",
-    "developer community","student developers","engineering students","open source","research",
-    "web development","mobile app development","app development","game development","creative coding","product design",
+    "Code2Create",
+    "C2C",
+    "Code 2 Create",
+    "ACM-VIT",
+    "ACM VIT",
+    "ACM student chapter",
+    "VIT",
+    "VIT Vellore",
+    "Vellore Institute of Technology",
+    "Tamil Nadu",
+    "India",
+    "hackathon",
+    "student hackathon",
+    "college hackathon",
+    "university hackathon",
+    "national hackathon India",
+    "national-level hackathon",
+    "48-hour hackathon",
+    "48 hour hackathon",
+    "coding marathon",
+    "programming competition",
+    "India free hackathon",
+    "innovation",
+    "prototyping",
+    "prototype",
+    "real-world problems",
+    "mentorship",
+    "industry mentors",
+    "teamwork",
+    "collaboration",
+    "networking",
+    "prizes",
+    "showcase talent",
+    "demo",
+    "Build for Bharat",
+    "Art Attack",
+    "Game Over",
+    "I Can Do It Better",
+    "AI Solutions",
+    "AI",
+    "artificial intelligence",
+    "machine learning",
+    "ML",
+    "GPU",
+    "AI audio",
+    "text to speech",
+    "speech synthesis",
+    "RunPod",
+    "ElevenLabs",
+    "developer community",
+    "student developers",
+    "engineering students",
+    "open source",
+    "research",
+    "web development",
+    "mobile app development",
+    "app development",
+    "game development",
+    "creative coding",
+    "product design",
   ],
   openGraph: {
     type: "website",
@@ -96,15 +146,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en" className="h-full overflow-x-hidden">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden min-h-screen`}
       >
-        <ScrollSmootherProvider>
-          {children}
-        </ScrollSmootherProvider>
+        <ScrollSmootherProvider>{children}</ScrollSmootherProvider>
       </body>
     </html>
   );

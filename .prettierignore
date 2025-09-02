@@ -1,0 +1,19 @@
+# Dependencies
+node_modules
+
+# Next.js
+.next
+out
+
+# Build artifacts
+build
+dist
+coverage
+
+# Lockfiles
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Misc
+*.log

@@ -1,4 +1,4 @@
-import { getIdToken } from './session';
+import { getIdToken } from "./session";
 
 export interface InternalSignupData {
   contact_number: string;
@@ -16,24 +16,24 @@ export interface ExternalSignupData {
 export async function signupInternal(data: InternalSignupData) {
   const idToken = await getIdToken();
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/signup`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${idToken}`,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${idToken}`,
     },
     body: JSON.stringify({
       contact_number: data.contact_number,
       gender: data.gender,
       reg_no: data.reg_no,
-      role: 'participant',
+      role: "participant",
       internal: true,
       hosteller: Boolean(data.hosteller),
-      college_name: '',
+      college_name: "",
     }),
   });
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.error || 'Signup failed');
+    throw new Error(errorData.error || "Signup failed");
   }
   return response.json();
 }
@@ -41,24 +41,23 @@ export async function signupInternal(data: InternalSignupData) {
 export async function signupExternal(data: ExternalSignupData) {
   const idToken = await getIdToken();
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/signup`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${idToken}`,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${idToken}`,
     },
     body: JSON.stringify({
       contact_number: data.contact_number,
       gender: data.gender,
-      reg_no: '',
-      role: 'participant',
+      reg_no: "",
+      role: "participant",
       internal: false,
       college_name: data.college_name,
     }),
   });
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.error || 'Signup failed');
+    throw new Error(errorData.error || "Signup failed");
   }
   return response.json();
 }
-

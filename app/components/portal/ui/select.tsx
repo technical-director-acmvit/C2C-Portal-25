@@ -36,7 +36,10 @@ export default function Select({
 
   useEffect(() => {
     if (!open) return;
-    const idx = Math.max(0, options.findIndex((o) => o.value === value));
+    const idx = Math.max(
+      0,
+      options.findIndex((o) => o.value === value),
+    );
     setActiveIndex(idx === -1 ? 0 : idx);
   }, [open, options, value]);
 
@@ -75,9 +78,11 @@ export default function Select({
           }
         }}
       >
-        {value
-          ? options.find((o) => o.value === value)?.label ?? placeholder
-          : <span className="text-gray-400">{placeholder}</span>}
+        {value ? (
+          (options.find((o) => o.value === value)?.label ?? placeholder)
+        ) : (
+          <span className="text-gray-400">{placeholder}</span>
+        )}
       </button>
 
       {open && (

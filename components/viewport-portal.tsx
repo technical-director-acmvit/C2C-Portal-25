@@ -9,7 +9,11 @@ type ViewportPortalProps = {
   id?: string;
 };
 
-export default function ViewportPortal({ children, className = "", id = "viewport-portal-root" }: ViewportPortalProps) {
+export default function ViewportPortal({
+  children,
+  className = "",
+  id = "viewport-portal-root",
+}: ViewportPortalProps) {
   const [el, setEl] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -36,9 +40,5 @@ export default function ViewportPortal({ children, className = "", id = "viewpor
   }, [id]);
 
   if (!el) return null;
-  return createPortal(
-    <div className={className}>{children}</div>,
-    el
-  );
+  return createPortal(<div className={className}>{children}</div>, el);
 }
-

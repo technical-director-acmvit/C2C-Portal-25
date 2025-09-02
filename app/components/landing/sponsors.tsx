@@ -11,12 +11,7 @@ const SponsorCard: React.FC<{
   role?: string;
   description?: string;
   logoSrc?: string;
-}> = ({
-  title = "Sponsor Name",
-  role = "Title Sponsor",
-  description,
-  logoSrc,
-}) => {
+}> = ({ title = "Sponsor Name", role = "Title Sponsor", description, logoSrc }) => {
   return (
     <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl mx-auto">
       <div
@@ -67,12 +62,12 @@ const Sponsors = () => (
   <GradientBG>
     <div className="w-full min-h-screen relative overflow-hidden">
       <HeadingText text="Sponsors" />
-      
+
       {/* DotGrid positioned behind the cards */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" />
       </div>
-      
+
       {/* Main content container */}
       <div className="relative z-10 flex items-center justify-center min-h-screen px-3 sm:px-6 lg:px-8">
         <div className="w-full max-w-7xl mx-auto">

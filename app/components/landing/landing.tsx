@@ -3,17 +3,18 @@
 import React from "react";
 import Image from "next/image";
 import { InteractiveHoverButton } from "@/app/components/landing/ui/cta-button";
-import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { REGISTRATIONS_OPEN } from "@/lib/env";
 
 const Landing = () => {
-  const registrationsOpen = process.env.NEXT_PUBLIC_REGISTRATIONS_OPEN === 'true';
+  const router = useRouter();
   return (
     <div
       className="min-h-[640px] w-full relative overflow-hidden bg-transparent md:h-screen"
       style={{
-        height: '100svh',
-        paddingTop: 'env(safe-area-inset-top, 0px)',
-        paddingBottom: 'env(safe-area-inset-bottom, 0px)'
+        height: "100svh",
+        paddingTop: "env(safe-area-inset-top, 0px)",
+        paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
       {/* Gradient Background */}
@@ -47,7 +48,7 @@ const Landing = () => {
         {/* Main Heading with stroke - positioned above logo */}
         <div
           className="absolute md:top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 w-full max-w-screen-xl"
-          style={{ zIndex: 10, top: 'calc(28% + env(safe-area-inset-top, 0px))' }}
+          style={{ zIndex: 10, top: "calc(28% + env(safe-area-inset-top, 0px))" }}
         >
           <h1 className="text-center text-hollow text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl break-words hyphens-auto mb-1 xs:mb-2 sm:mb-4">
             Turning what if
@@ -62,7 +63,7 @@ const Landing = () => {
           className="absolute top-[50%] left-1/2 -translate-x-1/2 -translate-y-[8%]"
           style={{ zIndex: 1 }}
         >
-          <div className="animate-floating" style={{ willChange: 'transform' }}>
+          <div className="animate-floating" style={{ willChange: "transform" }}>
             <Image
               src="/landing/C2C Logo.svg"
               alt="Code2Create Main Logo"
@@ -75,9 +76,15 @@ const Landing = () => {
         </div>
         <style jsx global>{`
           @keyframes floating {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-18px); }
-            100% { transform: translateY(0); }
+            0% {
+              transform: translateY(0);
+            }
+            50% {
+              transform: translateY(-18px);
+            }
+            100% {
+              transform: translateY(0);
+            }
           }
           .animate-floating {
             animation: floating 3s ease-in-out infinite;
@@ -107,9 +114,7 @@ const Landing = () => {
           style={{ zIndex: 10 }}
         >
           {/* Top line */}
-          <p className="tagline">
-            Don&apos;t just code for the vibes, Code2Create.
-          </p>
+          <p className="tagline">Don&apos;t just code for the vibes, Code2Create.</p>
 
           {/* Reflected line (invisible on mobile to preserve layout height) */}
           <p className="tagline reflected-text mt-2 invisible sm:visible" aria-hidden="true">
@@ -118,17 +123,25 @@ const Landing = () => {
 
           {/* Mobile CTA at bottom */}
           <div className="md:hidden mb-10">
-            <InteractiveHoverButton
-              variant="simple"
-              onClick={() => signIn("google", { callbackUrl: "/portal" })}
-              disabled={!registrationsOpen}
-              className="w-auto text-[12px] px-3 py-1.5 min-h-[32px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors mb-2 mt-[-10%] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-black/50"
-            >
-              {registrationsOpen ? 'Form your team' : 'Registrations opening soon'}
-            </InteractiveHoverButton>
+            {REGISTRATIONS_OPEN ? (
+              <InteractiveHoverButton
+                variant="simple"
+                onClick={() => router.push("/portal")}
+                className="w-auto text-[12px] px-3 py-1.5 min-h-[32px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors mb-2 mt-[-10%]"
+              >
+                Form your team
+              </InteractiveHoverButton>
+            ) : (
+              <span
+                className="inline-block w-auto text-[12px] px-3 py-1.5 min-h-[32px] rounded-full font-semibold text-white border border-white/30 bg-black/30 backdrop-blur-sm mb-2 mt-[-10%]"
+                aria-live="polite"
+              >
+                Registrations opening soon
+              </span>
+            )}
           </div>
 
-        {/* CTA moved to app/page.tsx for better control on responsiveness and scroll behavior */}
+          {/* CTA moved to app/page.tsx for better control on responsiveness and scroll behavior */}
         </div>
 
         {/* Footer text - left */}

@@ -1,32 +1,34 @@
 "use client";
 
 import React, { useState } from "react";
-import JoinTeam from './join-team';
-import CreateTeam from './create-team';
-import PortalButton from './ui/button';
-import Image from 'next/image';
+import JoinTeam from "./join-team";
+import CreateTeam from "./create-team";
+import PortalButton from "./ui/button";
+import Image from "next/image";
 
 const TeamUp = () => {
-  const [selectedOption, setSelectedOption] = useState<'join' | 'create' | null>(null);
+  const [selectedOption, setSelectedOption] = useState<"join" | "create" | null>(null);
 
   const handleJoinTeam = () => {
-    setSelectedOption('join');
+    setSelectedOption("join");
   };
 
   const handleCreateTeam = () => {
-    setSelectedOption('create');
+    setSelectedOption("create");
   };
 
   return (
     <div className="fixed inset-0 w-screen h-screen relative overflow-hidden">
       {/* Background image via next/image */}
       <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" />
-      <div className={`absolute inset-0 transition-transform duration-300 ease-out ${selectedOption ? '-translate-x-full opacity-0' : 'translate-x-0 opacity-100'}`}>
+      <div
+        className={`absolute inset-0 transition-transform duration-300 ease-out ${selectedOption ? "-translate-x-full opacity-0" : "translate-x-0 opacity-100"}`}
+      >
         <div className="flex flex-col items-center justify-center h-full px-4 text-center relative z-10">
           <div className="flex items-center mb-6">
-            <h1 
+            <h1
               className="flex-1 text-center text-white text-2xl sm:text-3xl md:text-4xl"
-              style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontWeight: '700' }}
+              style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontWeight: "700" }}
             >
               Team Up!
             </h1>
@@ -41,9 +43,11 @@ const TeamUp = () => {
         </div>
       </div>
 
-      <div className={`absolute inset-0 transition-opacity duration-200 ease-out z-10 ${selectedOption ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        {selectedOption === 'join' && <JoinTeam onBack={() => setSelectedOption(null)} />}
-        {selectedOption === 'create' && <CreateTeam onBack={() => setSelectedOption(null)} />}
+      <div
+        className={`absolute inset-0 transition-opacity duration-200 ease-out z-10 ${selectedOption ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+      >
+        {selectedOption === "join" && <JoinTeam onBack={() => setSelectedOption(null)} />}
+        {selectedOption === "create" && <CreateTeam onBack={() => setSelectedOption(null)} />}
       </div>
     </div>
   );
