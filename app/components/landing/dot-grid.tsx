@@ -86,6 +86,8 @@ const DotGrid: React.FC<DotGridProps> = ({
   const visibleRef = useRef<boolean>(false);
   const circlePathRef = useRef<Path2D | null>(null);
   const startDrawRef = useRef<(() => void) | null>(null);
+  const lastSizeRef = useRef<{ width: number; height: number }>({ width: 0, height: 0 });
+  const rafScheduleRef = useRef<number | null>(null);
   const pointerRef = useRef({
     x: 0,
     y: 0,
@@ -103,17 +105,9 @@ const DotGrid: React.FC<DotGridProps> = ({
     const mq = window.matchMedia("(max-width: 767px)");
     const set = () => setIsMobile(mq.matches);
     set();
-    if (mq.addEventListener) {
-      mq.addEventListener("change", set);
-    } else {
-      mq.addListener(set);
-    }
+    mq.addEventListener ? mq.addEventListener("change", set) : mq.addListener(set);
     return () => {
-      if (mq.removeEventListener) {
-        mq.removeEventListener("change", set);
-      } else {
-        mq.removeListener(set);
-      }
+      mq.removeEventListener ? mq.removeEventListener("change", set) : mq.removeListener(set);
     };
   }, []);
 
@@ -138,6 +132,8 @@ const DotGrid: React.FC<DotGridProps> = ({
     if (!wrap || !canvas) return;
 
     const { width, height } = wrap.getBoundingClientRect();
+    // remember last measured size for smarter resize handling
+    lastSizeRef.current = { width, height };
     const dpr = Math.min(maxDevicePixelRatio, window.devicePixelRatio || 1);
 
     canvas.width = width * dpr;
@@ -181,6 +177,14 @@ const DotGrid: React.FC<DotGridProps> = ({
     }
     dotsRef.current = dots;
   }, [dotSize, gap, maxDots, maxDevicePixelRatio, setCirclePath]);
+
+  const requestBuild = useCallback(() => {
+    if (rafScheduleRef.current != null) return;
+    rafScheduleRef.current = requestAnimationFrame(() => {
+      rafScheduleRef.current = null;
+      buildGrid();
+    });
+  }, [buildGrid]);
 
   useEffect(() => {
     const proxSq = proximity * proximity;
@@ -269,11 +273,22 @@ const DotGrid: React.FC<DotGridProps> = ({
       // Resize observer for responsive grid
       if ("ResizeObserver" in window && window.ResizeObserver) {
         const RO = window.ResizeObserver as typeof ResizeObserver;
-        ro = new RO(buildGrid);
+        ro = new RO((entries) => {
+          const entry = entries[0];
+          const { width, height } = entry.contentRect;
+          const prev = lastSizeRef.current;
+          // Rebuild eagerly on width changes; ignore small height deltas to avoid rebuild spam during collapses/expands
+          const widthChanged = Math.round(width) !== Math.round(prev.width);
+          const heightDelta = Math.abs(height - prev.height);
+          if (widthChanged || heightDelta > 80) {
+            lastSizeRef.current = { width, height };
+            requestBuild();
+          }
+        });
         const el = wrapperRef.current;
         if (el) ro.observe(el);
       } else {
-        window.addEventListener("resize", buildGrid);
+        window.addEventListener("resize", requestBuild);
       }
 
       // Intersection observer to pause rendering when offscreen
@@ -299,12 +314,14 @@ const DotGrid: React.FC<DotGridProps> = ({
 
     return () => {
       if (ro) ro.disconnect();
-      else if (typeof window !== "undefined") window.removeEventListener("resize", buildGrid);
+      else if (typeof window !== "undefined") window.removeEventListener("resize", requestBuild);
       if (io) io.disconnect();
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rafRef.current = null;
+      if (rafScheduleRef.current != null) cancelAnimationFrame(rafScheduleRef.current);
+      rafScheduleRef.current = null;
     };
-  }, [buildGrid, disableOnMobile, isMobile]);
+  }, [buildGrid, requestBuild, disableOnMobile, isMobile]);
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
