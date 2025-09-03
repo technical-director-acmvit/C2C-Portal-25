@@ -15,7 +15,7 @@ const days: DaySchedule[] = [
     date: "10th September 2025",
     entries: [
       { time: "1:30 PM", text: "Reporting" },
-      { time: "3:00 PM", text: "Opening ceremony, hack begins, followed by a speaker session by ACM India Council Member Meenakshi D'Souza" },
+      { time: "3:00 PM", text: "Opening Ceremony and Commencement of Hackathon Followed by a keynote session by Dr. Meenakshi D'Souza, ACM India Council President" },
   { time: "10:30 PM", text: "Runpod session" },
     ],
   },
