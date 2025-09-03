@@ -6,10 +6,12 @@ import Link from "next/link";
 import { InteractiveHoverButton } from "@/app/components/landing/ui/cta-button";
 import { useRouter } from "next/navigation";
 import { REGISTRATIONS_OPEN } from "@/lib/env";
+import { RegisterModal, useModal } from "@/components/RegisterModal";
 
 export default function TopBar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const router = useRouter();
+  // const router = useRouter();
+  const {closeModal, openModal, isOpen } = useModal();
 
   useEffect(() => {
     // lock body scroll when mobile menu is open
@@ -46,6 +48,7 @@ export default function TopBar() {
   ];
 
   return (
+    <>
     <div className="w-full bg-transparent border-b border-white backdrop-blur-sm">
       <div className="w-full flex items-center justify-between px-0 sm:px-0 lg:px-0 py-2 md:py-0 md:h-14">
         <div className="flex-shrink-0 border-r border-white pr-4 md:pr-8 py-1 flex items-center">
@@ -128,10 +131,10 @@ export default function TopBar() {
               {REGISTRATIONS_OPEN ? (
                 <InteractiveHoverButton
                   variant="compact"
-                  onClick={() => router.push("/portal")}
+                  onClick={openModal}
                   className="w-auto text-[12px] px-6 py-1.5 min-h-[32px] rounded-full font-semibold flex items-center justify-center bg-[#48BA86] text-black border !border-[#48BA86] transition-colors hover:!bg-white hover:!border-white"
                 >
-                  Form your team
+                  Register Now
                 </InteractiveHoverButton>
               ) : (
                 <span
@@ -149,10 +152,10 @@ export default function TopBar() {
           {REGISTRATIONS_OPEN ? (
             <InteractiveHoverButton
               variant="simple"
-              onClick={() => router.push("/portal")}
+              onClick={openModal}
               className="w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors"
             >
-              Form your team
+              Register Now
             </InteractiveHoverButton>
           ) : (
             <span
@@ -234,5 +237,13 @@ export default function TopBar() {
         </div>
       )}
     </div>
+    <RegisterModal
+        isOpen={isOpen}
+        onClose={closeModal}
+        url="Register at gravitas.vit.ac.in"
+        redirectUrl="https://gravitas.vit.ac.in" // Replace with your actual registration URL
+      />
+
+    </>
   );
 }
