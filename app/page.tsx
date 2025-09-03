@@ -2,8 +2,6 @@
 
 import Landing from "./components/landing/landing";
 import About from "./components/landing/about-c2c";
-// import QuotesBanner from "./components/landing/quotes-banner";
-// import Speaker from "./components/landing/speaker";
 import Sponsors from "./components/landing/sponsors";
 import FAQs from "./components/landing/faqs";
 import Timeline from "./components/landing/timeline";
@@ -12,9 +10,6 @@ import Statistics from "./components/landing/statistics";
 import Footer from "./components/landing/footer";
 import TopBar from "./components/landing/top-bar";
 import ViewportPortal from "@/components/viewport-portal";
-// import Bento from "./components/landing/bento";
-// import gsap from 'gsap';
-// import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLayoutEffect } from "react";
 import { InteractiveHoverButton } from "./components/landing/ui/cta-button";
 import { useRouter } from "next/navigation";
@@ -25,6 +20,8 @@ import DotGrid from "./components/landing/dot-grid";
 import HeadingText from "./components/landing/HeadingText";
 import Tracks from "./components/landing/tracks";
 import { REGISTRATIONS_OPEN } from "@/lib/env";
+import { RegisterModal, useModal } from "@/components/RegisterModal";
+
 
 const TRACKS = [
   {
@@ -89,7 +86,7 @@ const TRACKS_CONTENT = TRACKS.map((track) => ({
 }));
 
 export default function Page() {
-  const router = useRouter();
+  // const router = useRouter();
   useLayoutEffect(() => {
     // ScrollSmoother.create({
     //   wrapper: '#smooth-wrapper',
@@ -97,6 +94,7 @@ export default function Page() {
     //   smooth: 1,
     // });
   }, []);
+  const {openModal, isOpen, closeModal} = useModal();
   return (
     <div className="relative w-full">
       {/* Page-wide gradient background to unify section transitions */}
@@ -112,10 +110,10 @@ export default function Page() {
         <div className="hidden md:flex fixed left-1/2 -translate-x-1/2 bottom-[8%] z-[9999]">
           {REGISTRATIONS_OPEN ? (
             <InteractiveHoverButton
-              onClick={() => router.push("/portal")}
+              onClick={openModal}
               className="w-[280px] text-lg px-5 py-2 min-h-[48px] rounded-full font-bold flex items-center justify-center bg-[#48BA86] hover:bg-[#3aa874] text-black border border-[#48BA86] transition-colors"
             >
-              Form your team
+              Register Now
             </InteractiveHoverButton>
           ) : (
             <span
@@ -127,6 +125,13 @@ export default function Page() {
           )}
         </div>
       </ViewportPortal>
+
+      <RegisterModal
+        isOpen={isOpen}
+        onClose={closeModal}
+        url="gravitas.vit.ac.in"
+        redirectUrl="https://gravitas.vit.ac.in" // Replace with your actual registration URL
+      />
 
       {/* Smooth scrolling content wrapper (GSAP ScrollSmoother) */}
       <div id="smooth-wrapper" className="relative z-0">
