@@ -191,7 +191,7 @@ const Landing = () => {
             isOpen={isOpen}
             onClose={closeModal}
             url="Register at gravitas.vit.ac.in"
-            redirectUrl="https://gravitas.vit.ac.in" // Replace with your actual registration URL
+    
           />
     </div>
   );
