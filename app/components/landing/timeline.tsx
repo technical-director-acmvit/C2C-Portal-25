@@ -5,58 +5,47 @@ import DotGrid from "./dot-grid";
 import GradientBG from "./gradient-bg";
 import HeadingText from "./HeadingText";
 
-interface TimelineItem {
-  id: string;
-  label: string;
-  title: string;
-  day: string;
-  time: string;
-  venue: string;
-  description?: string;
-}
+type DayEntry = { time: string; text: string };
+type DaySchedule = { id: string; label: string; date: string; entries: DayEntry[] };
 
-const timelineData: TimelineItem[] = [
+const days: DaySchedule[] = [
   {
-    id: "R0",
-    label: "Round 0",
-    title: "Online Screening",
-    day: "Pre-Event • 10th September 2025",
-    time: "Time: Before hack starts",
-    venue: "Venue: Anna Auditorium",
-    description: "Online screening before hack starts at Anna on 10th.",
+    id: "D1",
+    label: "Day 1",
+    date: "10th September 2025",
+    entries: [
+      { time: "01:30 PM", text: "Reporting" },
+      { time: "03:00 PM", text: "Opening Ceremony and Commencement of Hackathon Followed by a keynote session by Dr. Meenakshi D'Souza, ACM India Council President" },
+  { time: "10:30 PM", text: "Runpod session" },
+    ],
   },
   {
-    id: "R1",
-    label: "Review 1",
-    title: "Review 1",
-    day: "Day • 11th September 2025",
-    time: "Time: 12:00 AM",
-    venue: "Venue: —",
+    id: "D2",
+    label: "Day 2",
+    date: "11th September 2025",
+    entries: [
+      { time: "12:00 AM", text: "Review 1 (no elimination)" },
+      { time: "09:00 AM", text: "Report back to the venue" },
+      { time: "04:00 PM", text: "Review 2 (no elimination)" },
+    ],
   },
   {
-    id: "R2",
-    label: "Review 2",
-    title: "Review 2",
-    day: "Day • 11th September 2025",
-    time: "Time: ~4:00 PM",
-    venue: "Venue: —",
-  },
-  {
-    id: "R3",
-    label: "Review 3",
-    title: "Review 3",
-    day: "Day • 12th September 2025",
-    time: "Time: ~2:00 AM",
-    venue: "Venue: —",
+    id: "D3",
+    label: "Day 3",
+    date: "12th September 2025",
+    entries: [
+      { time: "12:00 AM", text: "Review 3 (elimination round)" },
+  { time: "09:00 AM", text: "Report at venue" },
+      { time: "10:00 AM", text: "Final pitches begin" },
+    ],
   },
 ];
 
 //todo change later when timeline out
-const TIMELINE_COMING_SOON = true as const;
+const TIMELINE_COMING_SOON = false as const;
 
 const Timeline = () => {
-  const defaultItem = timelineData.find((t) => t.id === "05") || timelineData[0];
-  const [selectedItem, setSelectedItem] = useState<TimelineItem>(defaultItem);
+  const [selectedDay, setSelectedDay] = useState<DaySchedule>(days[0]);
 
   if (TIMELINE_COMING_SOON) {
     return (
@@ -128,168 +117,88 @@ const Timeline = () => {
 
             {/* Timeline Content */}
             <div className="flex flex-col xl:flex-row gap-8 sm:gap-10 lg:gap-12 items-start">
-              {/* Timeline Buttons */}
-              <div className="flex flex-col sm:flex-row xl:flex-col gap-3 sm:gap-4 w-full xl:w-auto overflow-x-auto sm:overflow-x-visible">
-                {timelineData.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => setSelectedItem(item)}
-                    className={`flex items-center gap-2 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 transition-all duration-300 ease-in-out text-left min-w-[160px] sm:min-w-[200px] transform hover:scale-105 flex-shrink-0 ${
-                      selectedItem.id === item.id ? "scale-105" : ""
-                    }`}
-                    style={{
-                      borderRadius: "72px",
-                      background: "rgba(255, 255, 255, 0.10)",
-                      border: "2px solid #6B7280",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.border = "2px solid #48BA86";
-                      e.currentTarget.style.background = "rgba(72, 186, 134, 0.15)";
-                    }}
-                    onMouseLeave={(e) => {
-                      if (selectedItem.id !== item.id) {
-                        e.currentTarget.style.border = "2px solid #6B7280";
-                        e.currentTarget.style.background = "rgba(255, 255, 255, 0.10)";
-                      } else {
-                        e.currentTarget.style.border = "2px solid #48BA86";
-                        e.currentTarget.style.background = "rgba(72, 186, 134, 0.15)";
-                      }
-                    }}
-                  >
-                    <div className="relative w-8 h-8 sm:w-12 sm:h-12 shrink-0">
-                      <svg
-                        viewBox="0 0 100 100"
-                        className="absolute inset-0 dash-rotate pointer-events-none"
+              {/* Day buttons */}
+        <div className="flex flex-col sm:flex-row xl:flex-col items-start sm:items-center xl:items-stretch gap-5 sm:gap-6 xl:gap-8 w-full xl:w-auto overflow-x-auto sm:overflow-x-visible">
+                {days.map((day, idx) => {
+                  const active = selectedDay.id === day.id;
+                  return (
+                    <React.Fragment key={day.id}>
+                      <button
+                        onClick={() => setSelectedDay(day)}
+                        className={`relative flex items-center gap-2 sm:gap-3 px-4 sm:px-5 py-1.5 sm:py-2 transition-all duration-300 ease-in-out text-left min-w-[160px] sm:min-w-[200px] transform hover:scale-105 flex-shrink-0 ${active ? "scale-105" : ""}`}
+                        style={{
+                          borderRadius: "72px",
+                          background: active ? "rgba(72, 186, 134, 0.15)" : "rgba(255, 255, 255, 0.10)",
+                          border: active ? "2px solid #48BA86" : "2px solid #6B7280",
+                        }}
                       >
-                        <circle
-                          cx="50"
-                          cy="50"
-                          r="46"
-                          fill="none"
-                          stroke="#48BA86"
-                          strokeWidth="2.4"
-                          strokeDasharray="14 10"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="relative w-8 h-8 sm:w-12 sm:h-12 shrink-0">
+                          <svg viewBox="0 0 100 100" className="absolute inset-0 pointer-events-none animate-spin [animation-duration:12s] [transform-origin:50%_50%] motion-reduce:animate-none">
+                            <circle cx="50" cy="50" r="46" fill="none" stroke="#48BA86" strokeWidth="2.4" strokeDasharray="14 10" strokeLinecap="round" />
+                          </svg>
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <span
+                              className="font-bold transition-all duration-200 text-xs sm:text-sm"
+                              style={{ color: "#48BA86", fontFamily: "Trap-Bold, Trap, Arial, sans-serif", fontSize: "clamp(10px, 2.2vw, 14px)", fontStyle: "normal", fontWeight: 700, lineHeight: "1" }}
+                            >
+                              {day.id}
+                            </span>
+                          </div>
+                        </div>
                         <span
-                          className="font-bold transition-all duration-200 text-xs sm:text-sm"
-                          style={{
-                            color: "#48BA86",
-                            fontFamily: "Trap-Bold, Trap, Arial, sans-serif",
-                            fontSize: "clamp(10px, 2.2vw, 14px)",
-                            fontStyle: "normal",
-                            fontWeight: 700,
-                            lineHeight: "1",
-                          }}
+                          className="font-bold transition-all duration-200 text-base sm:text-lg"
+                          style={{ color: "#48BA86", fontFamily: "Trap-Bold, Trap, Arial, sans-serif", fontSize: "clamp(16px, 3.5vw, 22px)", fontStyle: "normal", fontWeight: 700, lineHeight: "normal" }}
                         >
-                          {item.id}
+                          {day.label}
                         </span>
-                      </div>
-                    </div>
-                    <span
-                      className="font-bold transition-all duration-200 text-base sm:text-lg"
-                      style={{
-                        color: "#48BA86",
-                        fontFamily: "Trap-Bold, Trap, Arial, sans-serif",
-                        fontSize: "clamp(16px, 3.5vw, 22px)",
-                        fontStyle: "normal",
-                        fontWeight: 700,
-                        lineHeight: "normal",
-                      }}
-                    >
-                      {item.label}
-                    </span>
-                  </button>
-                ))}
+                      </button>
+
+                      {/* Tight connectors touching button edges */}
+                      {idx < days.length - 1 && (
+                        <>
+                          {/* Horizontal connector (sm–lg) */}
+                          <div className="hidden sm:flex xl:hidden items-center -ml-2 -mr-2" aria-hidden>
+                            <div className="h-px w-6 bg-white/30" />
+                            <div className="w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[8px] border-l-[#48BA86]" />
+                          </div>
+                          {/* Vertical connector (xl) */}
+                          <div className="hidden xl:flex flex-col items-center self-stretch -mt-2 -mb-2" aria-hidden>
+                            <div className="w-px h-6 bg-white/30" />
+                            <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-[#48BA86]" />
+                          </div>
+                        </>
+                      )}
+                    </React.Fragment>
+                  );
+                })}
               </div>
 
-              {/* Selected Item Details */}
+              {/* Selected day details */}
               <div className="flex-1 bg-transparent rounded-2xl border-none p-4 sm:p-6 lg:p-8">
-                <h3
-                  className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6"
-                  style={{
-                    color: "#4ade80",
-                    fontFamily: "Trap-Bold, Trap, Arial, sans-serif",
-                    fontSize: "clamp(28px, 6vw, 50px)",
-                    fontStyle: "normal",
-                    fontWeight: 700,
-                    lineHeight: "normal",
-                    letterSpacing: "1.5px",
-                  }}
-                >
-                  {selectedItem.title}
+                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3" style={{ color: "#4ade80", fontFamily: "Trap-Bold, Trap, Arial, sans-serif", fontSize: "clamp(28px, 6vw, 50px)", fontStyle: "normal", fontWeight: 700, lineHeight: "normal", letterSpacing: "1.5px" }}>
+                  {selectedDay.label}
                 </h3>
+                <p className="text-white text-lg sm:text-xl lg:text-2xl xl:text-3xl mb-6" style={{ color: "#FFF", fontFamily: "Trap-Bold, Trap, Arial, sans-serif", fontSize: "clamp(18px, 4vw, 30px)", fontStyle: "normal", fontWeight: 700, lineHeight: "normal", letterSpacing: "0.48px" }}>
+                  {selectedDay.date}
+                </p>
 
-                <div className="space-y-8 sm:space-y-10 lg:space-y-13 mb-4 sm:mb-6">
-                  <p
-                    className="text-white text-lg sm:text-xl lg:text-2xl xl:text-3xl"
-                    style={{
-                      color: "#FFF",
-                      fontFamily: "Trap-Bold, Trap, Arial, sans-serif",
-                      fontSize: "clamp(18px, 4vw, 30px)",
-                      fontStyle: "normal",
-                      fontWeight: 700,
-                      lineHeight: "normal",
-                      letterSpacing: "0.48px",
-                    }}
-                  >
-                    {selectedItem.day}
-                  </p>
-                  <p
-                    className="text-white text-lg sm:text-xl lg:text-2xl xl:text-3xl"
-                    style={{
-                      color: "#FFF",
-                      fontFamily: "Trap-Bold, Trap, Arial, sans-serif",
-                      fontSize: "clamp(18px, 4vw, 30px)",
-                      fontStyle: "normal",
-                      fontWeight: 700,
-                      lineHeight: "normal",
-                      letterSpacing: "0.48px",
-                    }}
-                  >
-                    {selectedItem.time}
-                  </p>
-                  <p
-                    className="text-white text-lg sm:text-xl lg:text-2xl xl:text-3xl"
-                    style={{
-                      color: "#FFF",
-                      fontFamily: "Trap-Bold, Trap, Arial, sans-serif",
-                      fontSize: "clamp(18px, 4vw, 30px)",
-                      fontStyle: "normal",
-                      fontWeight: 700,
-                      lineHeight: "normal",
-                      letterSpacing: "0.48px",
-                    }}
-                  >
-                    {selectedItem.venue}
-                  </p>
-                </div>
+                <ul className="space-y-4 sm:space-y-5 lg:space-y-6">
+                  {selectedDay.entries.map((e, idx) => (
+                    <li key={idx} className="flex items-start gap-4">
+                      <span className="shrink-0 text-[#48BA86] font-bold" style={{ fontFamily: "Trap-Bold, Trap, Arial, sans-serif", fontSize: "clamp(14px, 3.2vw, 18px)" }}>
+                        {e.time}
+                      </span>
+                      <span className="text-white" style={{ fontFamily: "DM Sans, Arial, sans-serif", fontSize: "clamp(14px, 3.6vw, 18px)", lineHeight: 1.5 }}>
+                        {e.text}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
         </div>
-        <style jsx>{`
-          @keyframes dash-rotate {
-            from {
-              transform: rotate(0deg);
-            }
-            to {
-              transform: rotate(360deg);
-            }
-          }
-          .dash-rotate {
-            animation: dash-rotate 12s linear infinite;
-            transform-origin: 50% 50%;
-            will-change: transform;
-          }
-          @media (prefers-reduced-motion: reduce) {
-            .dash-rotate {
-              animation: none;
-            }
-          }
-        `}</style>
+  {/* Removed styled-jsx block; handled by Tailwind utilities */}
       </div>
     </GradientBG>
   );
