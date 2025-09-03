@@ -1,8 +1,65 @@
+"use client";
+
 import React from "react";
 import ReactDOM from "react-dom";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { InteractiveHoverButton } from "@/app/components/landing/ui/cta-button";
+
+const ModalContext = React.createContext<{
+  isAnyModalOpen: boolean;
+  setIsAnyModalOpen: (open: boolean) => void;
+  isModalOpen: boolean;
+  openModal: () => void;
+  closeModal: () => void;
+} | null>(null);
+
+export const ModalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [isAnyModalOpen, setIsAnyModalOpen] = React.useState(false);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const openModal = () => {
+   // console.log("[OPENING MODAL]");
+    setIsModalOpen(true);
+    setIsAnyModalOpen(true);
+  };
+  
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setIsAnyModalOpen(false);
+  };
+
+  return (
+    <ModalContext.Provider value={{ 
+      isAnyModalOpen, 
+      setIsAnyModalOpen, 
+      isModalOpen,
+      openModal,
+      closeModal 
+    }}>
+      {children}
+    </ModalContext.Provider>
+  );
+};
+
+export const useModalContext = () => {
+  const context = React.useContext(ModalContext);
+  if (!context) {
+    return {
+      isAnyModalOpen: false,
+      setIsAnyModalOpen: () => {},
+      isModalOpen: false,
+      openModal: () => {},
+      closeModal: () => {}
+    };
+  }
+  return context;
+};
+
+export const useIsAnyModalOpen = () => {
+  const { isAnyModalOpen } = useModalContext();
+  return isAnyModalOpen;
+};
 
 interface ModalProps {
   isOpen: boolean;
@@ -18,7 +75,7 @@ export const RegisterModal: React.FC<ModalProps> = ({
   onClose,
   title = "Register for Code2Create",
   // redirectUrl  = "https://gravitas.vit.ac.in/events/a6be23db-1fd8-4a5f-825c-4a2d00a85dba",
-  redirectUrl='https://gravitas.vit.ac.in/events',
+  redirectUrl='https://gravitas.vit.ac.in/events/a6be23db-1fd8-4a5f-825c-4a2d00a85dba',
   className,
 }) => {
   const handleGoNow = () => {
@@ -67,7 +124,8 @@ export const RegisterModal: React.FC<ModalProps> = ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '1rem'
+        padding: '1rem',
+        paddingTop: '4rem' // Add top padding to avoid covering header
       }}
     >
       <div 
@@ -83,7 +141,7 @@ export const RegisterModal: React.FC<ModalProps> = ({
         onClick={(e) => e.stopPropagation()}
         style={{ 
           zIndex: 999999,
-          maxHeight: '90vh',
+          maxHeight: 'calc(100vh - 8rem)', // Respect top padding
           overflow: 'auto' // Allow scrolling if content is too tall
         }}
       >
@@ -199,17 +257,19 @@ export const RegisterModal: React.FC<ModalProps> = ({
 };
 
 export const useModal = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
-
-  const openModal = () => {
-    console.log("[OPENING MODAL]");
-    setIsOpen(true);
-  }
-  const closeModal = () => setIsOpen(false);
+  const { isModalOpen, openModal, closeModal } = useModalContext();
 
   return {
-    isOpen,
+    isOpen: isModalOpen,
     openModal,
     closeModal,
   };
+};
+
+export const GlobalModal = () => {
+  const { isModalOpen, closeModal } = useModalContext();
+
+  if (!isModalOpen) return null;
+
+  return <RegisterModal isOpen={isModalOpen} onClose={closeModal} />;
 };
