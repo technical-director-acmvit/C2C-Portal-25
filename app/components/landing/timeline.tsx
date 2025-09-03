@@ -14,8 +14,8 @@ const days: DaySchedule[] = [
     label: "Day 1",
     date: "10th September 2025",
     entries: [
-      { time: "1:30 PM", text: "Reporting" },
-      { time: "3:00 PM", text: "Opening Ceremony and Commencement of Hackathon Followed by a keynote session by Dr. Meenakshi D'Souza, ACM India Council President" },
+      { time: "01:30 PM", text: "Reporting" },
+      { time: "03:00 PM", text: "Opening Ceremony and Commencement of Hackathon Followed by a keynote session by Dr. Meenakshi D'Souza, ACM India Council President" },
   { time: "10:30 PM", text: "Runpod session" },
     ],
   },
@@ -25,8 +25,8 @@ const days: DaySchedule[] = [
     date: "11th September 2025",
     entries: [
       { time: "12:00 AM", text: "Review 1 (no elimination)" },
-      { time: "9:00 AM", text: "Report back to the venue" },
-      { time: "4:00 PM", text: "Review 2 (no elimination)" },
+      { time: "09:00 AM", text: "Report back to the venue" },
+      { time: "04:00 PM", text: "Review 2 (no elimination)" },
     ],
   },
   {
@@ -35,7 +35,7 @@ const days: DaySchedule[] = [
     date: "12th September 2025",
     entries: [
       { time: "12:00 AM", text: "Review 3 (elimination round)" },
-  { time: "9:00 AM", text: "Report at venue" },
+  { time: "09:00 AM", text: "Report at venue" },
       { time: "10:00 AM", text: "Final pitches begin" },
     ],
   },
