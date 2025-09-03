@@ -271,9 +271,9 @@ const Footer = () => {
                 >
                   RUNPOD
                 </a>
-                {/* <a href="https://elevenlabs.io" target="_blank" rel="noopener noreferrer" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
+                <a href="https://elevenlabs.io" target="_blank" rel="noopener noreferrer" className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors" style={{ fontFamily: 'PolySans Trial, Arial, sans-serif' }}>
                   ElevenLabs
-                </a> */}
+                </a>
               </div>
             </div>
           </div>

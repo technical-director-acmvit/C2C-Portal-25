@@ -80,13 +80,12 @@ const Sponsors = () => (
                 description="Runpod is a GPU cloud platform that makes high-performance computing simple, affordable, and scalable. Built by developers, for developers, it enables users to launch on-demand GPU instances in just a few clicks and create autoscaling serverless endpoints to run AI models in production. Trusted by over 300,000 developers worldwide, Runpod powers the training, deployment, and scaling of AI/ML workloads, seamlessly bridging experimentation and real-world applications."
                 logoSrc="/landing/runpod.svg"
               />
-              {/* Uncomment when adding more sponsors */}
-              {/* <SponsorCard
+              <SponsorCard
                 title="ElevenLabs"
                 role="AI Audio Technology Sponsor"
                 description="ElevenLabs is an AI Audio research and deployment company creating models that generate realistic, versatile, and context-aware speech and sound. Their technology powers audiobooks, news articles, video games, film pre-production, social media, and advertising. It also restores voices for those who've lost them and supports accessibility needs - reshaping how people create, experience, and interact with sound."
                 logoSrc="/landing/elevenlabs-logo-black.svg"
-              /> */}
+              />
             </div>
           </div>
         </div>
