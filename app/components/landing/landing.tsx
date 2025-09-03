@@ -5,7 +5,7 @@ import Image from "next/image";
 import { InteractiveHoverButton } from "@/app/components/landing/ui/cta-button";
 import { useRouter } from "next/navigation";
 import { REGISTRATIONS_OPEN } from "@/lib/env";
-import { RegisterModal, useModal, useIsAnyModalOpen } from "@/components/RegisterModal";
+import { RegisterModal, useModal, useIsAnyModalOpen } from "@/components/register-modal";
 
 const Landing = () => {
   // const router = useRouter();

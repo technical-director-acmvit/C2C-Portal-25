@@ -6,7 +6,7 @@ import Link from "next/link";
 import { InteractiveHoverButton } from "@/app/components/landing/ui/cta-button";
 import { useRouter } from "next/navigation";
 import { REGISTRATIONS_OPEN } from "@/lib/env";
-import { RegisterModal, useModal, useIsAnyModalOpen } from "@/components/RegisterModal";
+import { RegisterModal, useModal, useIsAnyModalOpen } from "@/components/register-modal";
 
 export default function TopBar() {
   const [menuOpen, setMenuOpen] = useState(false);

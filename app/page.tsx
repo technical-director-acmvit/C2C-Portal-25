@@ -20,7 +20,7 @@ import DotGrid from "./components/landing/dot-grid";
 import HeadingText from "./components/landing/HeadingText";
 import Tracks from "./components/landing/tracks";
 import { REGISTRATIONS_OPEN } from "@/lib/env";
-import { GlobalModal, useModal, useIsAnyModalOpen } from "@/components/RegisterModal";
+import { GlobalModal, useModal, useIsAnyModalOpen } from "@/components/register-modal";
 
 const DesktopRegisterButton = () => {
   const { openModal } = useModal();

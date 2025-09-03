@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ScrollSmootherProvider from "../components/scroll-smoother-provider";
-import { ModalProvider } from "@/components/RegisterModal";
+import { ModalProvider } from "@/components/register-modal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
