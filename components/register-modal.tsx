@@ -79,6 +79,10 @@ export const RegisterModal: React.FC<ModalProps> = ({
   redirectUrl='https://gravitas.vit.ac.in/events/a6be23db-1fd8-4a5f-825c-4a2d00a85dba',
   className,
 }) => {
+  // Keep track of scroll position to prevent page jump on mobile when locking body scroll
+  const scrollYRef = React.useRef(0);
+  const prevScrollBehaviorRef = React.useRef<string | undefined>(undefined);
+  const restoredOnceRef = React.useRef(false);
   // Reusable pill styled like timeline.tsx (static, non-interactive)
   const StepPill: React.FC<{ id: string; label: React.ReactNode; href?: string; compact?: boolean; className?: string }> = ({ id, label, href, compact = false, className }) => {
     const pillContent = (
@@ -160,12 +164,49 @@ export const RegisterModal: React.FC<ModalProps> = ({
   React.useEffect(() => {
     if (isOpen) {
       document.addEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "hidden";
+      // Lock body scroll (mobile-safe). Save current scroll and fix the body.
+      try {
+        scrollYRef.current = window.scrollY || window.pageYOffset || 0;
+      } catch {}
+      // Disable smooth scroll temporarily to avoid animated jumps on restore
+      const htmlEl = document.documentElement as HTMLElement;
+      prevScrollBehaviorRef.current = htmlEl.style.scrollBehavior;
+      htmlEl.style.scrollBehavior = "auto";
+      const bodyStyle = document.body.style as CSSStyleDeclaration;
+      bodyStyle.overflow = "hidden"; // Fallback
+      bodyStyle.position = "fixed";
+      bodyStyle.top = `-${scrollYRef.current}px`;
+      bodyStyle.left = "0";
+      bodyStyle.right = "0";
+      bodyStyle.width = "100%";
     }
-    
+
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "unset";
+      // Restore body scroll and scroll position
+      const bodyStyle = document.body.style as CSSStyleDeclaration;
+      const top = bodyStyle.top;
+      bodyStyle.overflow = "";
+      bodyStyle.position = "";
+      bodyStyle.top = "";
+      bodyStyle.left = "";
+      bodyStyle.right = "";
+      bodyStyle.width = "";
+      // Restore scroll behavior
+      const htmlEl = document.documentElement as HTMLElement;
+      if (prevScrollBehaviorRef.current !== undefined) {
+        htmlEl.style.scrollBehavior = prevScrollBehaviorRef.current;
+      }
+      // Only restore scroll position if the browser jumped to the top due to unlock
+      if (top && !restoredOnceRef.current) {
+        const y = -parseInt(top || "0", 10) || 0;
+        // If we are already at the top after unlock (0), bring back to previous Y; otherwise respect user's position
+        const currentY = (() => { try { return window.scrollY || window.pageYOffset || 0; } catch { return 0; } })();
+        if (currentY === 0 && y > 0) {
+          try { window.scrollTo(0, y); } catch {}
+        }
+        restoredOnceRef.current = true;
+      }
     };
   }, [isOpen]);
 
