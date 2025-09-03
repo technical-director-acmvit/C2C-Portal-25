@@ -9,7 +9,7 @@ import { RegisterModal, useModal, useIsAnyModalOpen } from "@/components/registe
 
 const Landing = () => {
   // const router = useRouter();
-  const {openModal, closeModal, isOpen} = useModal();
+  const { openModal, closeModal, isOpen } = useModal();
   const isAnyModalOpen = useIsAnyModalOpen();
   return (
     <div

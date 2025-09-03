@@ -49,7 +49,6 @@ const DesktopRegisterButton = () => {
   );
 };
 
-
 const TRACKS = [
   {
     number: 1,
