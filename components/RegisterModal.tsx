@@ -18,7 +18,7 @@ export const RegisterModal: React.FC<ModalProps> = ({
   onClose,
   title = "Register for Code2Create",
   // redirectUrl  = "https://gravitas.vit.ac.in/events/a6be23db-1fd8-4a5f-825c-4a2d00a85dba",
-  redirectUrl='https://gravitas.vit.ac.in/events',
+  redirectUrl='https://gravitas.vit.ac.in/events/a6be23db-1fd8-4a5f-825c-4a2d00a85dba',
   className,
 }) => {
   const handleGoNow = () => {

@@ -130,7 +130,6 @@ export default function Page() {
         isOpen={isOpen}
         onClose={closeModal}
         url="gravitas.vit.ac.in"
-        redirectUrl="https://gravitas.vit.ac.in" // Replace with your actual registration URL
       />
 
       {/* Smooth scrolling content wrapper (GSAP ScrollSmoother) */}
