@@ -77,13 +77,13 @@ export default function GithubView() {
     if (!installationId || !justLinked) return;
     let active = true;
     (async () => {
-        try {
-          await saveInstallationAction({ installation_id: installationId });
-        } catch {
-          // non-fatal; still allow UI usage
-        } finally {
-          if (active) setJustLinked(false);
-        }
+      try {
+        await saveInstallationAction({ installation_id: installationId });
+      } catch {
+        // non-fatal; still allow UI usage
+      } finally {
+        if (active) setJustLinked(false);
+      }
     })();
     return () => {
       active = false;

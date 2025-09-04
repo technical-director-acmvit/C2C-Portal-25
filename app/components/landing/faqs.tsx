@@ -31,7 +31,7 @@ const faqData: FAQItem[] = [
   },
   {
     question: "How many members can constitute a team?",
-    answer: "There should be a minimum of 2 members and can be up to 5 members in a team.",
+    answer: "There should be a minimum of 3 members and can be up to 5 members in a team. Each member of the team needs to register individually on the Gravitas portal",
   },
   {
     question: "Will there be accommodation for external participants?",
@@ -59,7 +59,7 @@ const faqData: FAQItem[] = [
   },
   {
     question: "Will there be travel reimbursements provided?",
-    answer: "We do not provide reimbursements for external participants for travel expenses.",
+    answer: "Travel reimbursement is not provided for external participants.",
   },
 ];
 

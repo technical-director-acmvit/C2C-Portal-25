@@ -30,7 +30,7 @@ const About = ({ children }: { children?: React.ReactNode }) => (
           />
 
           {/* Intro paragraph */}
-          <div className="w-full max-w-[794px] text-justify text-zinc-100 text-lg sm:text-xl md:text-2xl leading-7 sm:leading-8 md:leading-9 font-thin">
+          <div className="w-full max-w-[794px] text-justify text-zinc-100 text-lg sm:text-xl md:text-2xl leading-7 sm:leading-8 md:leading-9">
             As the official student chapter of the Association for Computing Machinery at VIT
             Vellore, we&apos;ve been pushing boundaries and challenging conventions since 2009. From
             research and development to open-source contributions and unorthodox events, we turn

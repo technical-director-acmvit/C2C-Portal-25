@@ -205,12 +205,7 @@ export async function listCommits(installationId: string, owner: string, repo: s
   return gh<Commit[]>(`/repos/${owner}/${repo}/commits`, token);
 }
 
-export async function getContents(
-  installationId: string,
-  owner: string,
-  repo: string,
-  path = "",
-) {
+export async function getContents(installationId: string, owner: string, repo: string, path = "") {
   const token = await fetchInstallationToken(installationId);
   type GhContentItem = {
     name: string;

@@ -8,11 +8,11 @@ import Timeline from "./components/landing/timeline";
 import AboutACM from "./components/landing/about-acm";
 import Statistics from "./components/landing/statistics";
 import Footer from "./components/landing/footer";
+import Speaker from "./components/landing/speaker";
 import TopBar from "./components/landing/top-bar";
 import ViewportPortal from "@/components/viewport-portal";
 import { useLayoutEffect } from "react";
 import { InteractiveHoverButton } from "./components/landing/ui/cta-button";
-import { useRouter } from "next/navigation";
 import { StickyScroll } from "./components/landing/ui/sticky-scroll-reveal";
 import Image from "next/image";
 import GradientBG from "./components/landing/gradient-bg";
@@ -20,7 +20,7 @@ import DotGrid from "./components/landing/dot-grid";
 import HeadingText from "./components/landing/HeadingText";
 import Tracks from "./components/landing/tracks";
 import { REGISTRATIONS_OPEN } from "@/lib/env";
-import { GlobalModal, useModal, useIsAnyModalOpen } from "@/components/RegisterModal";
+import { GlobalModal, useModal, useIsAnyModalOpen } from "@/components/register-modal";
 
 const DesktopRegisterButton = () => {
   const { openModal } = useModal();
@@ -49,7 +49,6 @@ const DesktopRegisterButton = () => {
   );
 };
 
-
 const TRACKS = [
   {
     number: 1,
@@ -60,34 +59,27 @@ const TRACKS = [
   },
   {
     number: 2,
-    title: "I Can Do It Better",
-    description:
-      "Reimagine and improve widely used software by enhancing usability, adding desired features, or optimizing performance.",
-    svgPath: "/tracks/CanDoBetter.svg",
-  },
-  {
-    number: 3,
     title: "Art Attack",
     description:
       "Build tools that reimagine creative expression through technologies that help create music, art, or media in new and exciting ways.",
     svgPath: "/tracks/Art_Attack.svg",
   },
   {
-    number: 4,
+    number: 3,
     title: "Game Over",
     description:
       "Create experiences that redefine gaming through original games and technologies that improve gameplay, performance, or game development.",
     svgPath: "/tracks/Game_Over.svg",
   },
   {
-    number: 5,
+    number: 4,
     title: "Digital Dawn",
     description:
       "Create solutions that uniquely solve Indian challenges at scale, focusing on affordable and inclusive technology for the next billion users.",
     svgPath: "/tracks/Digital_Dawn.svg",
   },
   {
-    number: 6,
+    number: 5,
     title: "AI Solutions",
     description:
       "Build intelligent systems using RunPod's compute services to create practical and scalable AI solutions for real-world problems.",
@@ -113,7 +105,6 @@ const TRACKS_CONTENT = TRACKS.map((track) => ({
 }));
 
 export default function Page() {
-  // const router = useRouter();
   useLayoutEffect(() => {
     // ScrollSmoother.create({
     //   wrapper: '#smooth-wrapper',
@@ -124,15 +115,12 @@ export default function Page() {
 
   return (
     <div className="relative w-full">
-      {/* Page-wide gradient background to unify section transitions */}
       <div className="fixed inset-0 -z-10 bg-gradient-to-b from-[#0a0a0a] via-[#161616] to-[#0a0a0a]" />
 
-      {/* Top Bar via React Portal to body to avoid GSAP transforms */}
       <ViewportPortal>
         <TopBar />
       </ViewportPortal>
 
-      {/* Desktop Register CTA fixed to viewport via portal (mobile CTA stays in Landing) */}
       <ViewportPortal>
         <DesktopRegisterButton />
       </ViewportPortal>
@@ -141,10 +129,8 @@ export default function Page() {
         <GlobalModal />
       </ViewportPortal>
 
-      {/* Smooth scrolling content wrapper (GSAP ScrollSmoother) */}
       <div id="smooth-wrapper" className="relative z-0">
         <div id="smooth-content">
-          {/* Landing - wrapped to overlay CTA on desktop */}
           <div className="relative">
             <Landing />
           </div>
@@ -161,9 +147,6 @@ export default function Page() {
           <div className=" flex items-center justify-between flex-col">
             <Statistics />
           </div>
-          {/* <div className="h-screen flex items-center justify-between flex-col"> */}
-          {/* <Bento /> */}
-          {/* </div> */}
           <div id="tracks" className="relative w-full">
             {/* Mobile: use the original Tracks component */}
             <div className="lg:hidden">
@@ -172,7 +155,6 @@ export default function Page() {
 
             {/* Desktop: GSAP sticky scroll version */}
             <div className="hidden lg:block">
-              {/* Tall section to provide scroll height */}
               <div className="min-h-[300vh]">
                 <GradientBG>
                   <div className="relative z-10">
@@ -182,7 +164,6 @@ export default function Page() {
                     <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" className="h-full w-full" />
                   </div>
 
-                  {/* Sticky scroll content */}
                   <div className="w-full max-w-[1080px] mx-auto mt-6 sm:mt-8 px-4 sm:px-6">
                     <StickyScroll content={TRACKS_CONTENT} />
                   </div>
@@ -190,9 +171,9 @@ export default function Page() {
               </div>
             </div>
           </div>
-          {/* <div className="min-h-screen flex items-center justify-between flex-col">
+          <div id="speakers" className="min-h-screen flex items-center justify-between flex-col">
             <Speaker />
-          </div> */}
+          </div>
           <div id="timeline" className="h-screen flex items-center justify-between flex-col">
             <Timeline />
           </div>
