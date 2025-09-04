@@ -51,8 +51,8 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Footer Content */}
-      <div className="relative z-10 flex flex-col min-h-[60vh] pb-0">
+  {/* Footer Content */}
+  <div className="relative z-10 flex flex-col min-h-0 md:min-h-[40vh] lg:min-h-[50vh] pb-0">
         <div className="flex-grow flex flex-col md:flex-row items-start md:items-start justify-between px-4 sm:px-6 md:px-16 pt-4 sm:pt-6 gap-6 sm:gap-8">
           {/* Left Section */}
           <div className="flex-shrink-0 w-full md:w-auto">
@@ -293,14 +293,14 @@ const Footer = () => {
       </div>
 
       {/* Bottom Section */}
-      <div className="w-full flex flex-col items-center justify-center relative px-4">
+  <div className="w-full flex flex-col items-center justify-center relative px-4 pt-4 sm:pt-6 md:pt-10">
         <div className="flex flex-col items-center justify-center mb-4 z-30 relative">
-          <p className="text-white text-xs sm:text-sm md:text-xl mb-6 sm:mb-8 md:mb-12 text-center">
+          <p className="text-white text-xs sm:text-sm md:text-xl mb-4 sm:mb-6 md:mb-12 text-center"> 
             © 2025 ACM-VIT. All rights reserved.
           </p>
 
           {/* Social Icons */}
-          <div className="flex flex-row items-center gap-4 sm:gap-5 md:gap-6 mb-8 sm:mb-10 md:mb-12 flex-wrap justify-center">
+          <div className="flex flex-row items-center gap-4 sm:gap-5 md:gap-6 mb-6 sm:mb-8 md:mb-12 flex-wrap justify-center">
             {[
               {
                 href: "https://www.facebook.com/acmvitvellore",
@@ -343,7 +343,7 @@ const Footer = () => {
             ))}
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3 pt-4 sm:pt-6 md:pt-8">
+          <div className="flex items-center gap-2 sm:gap-3 pt-2 sm:pt-4 md:pt-8">
             <Image
               src="/footer/pixel-heart.svg"
               alt="pixel heart"
@@ -362,7 +362,7 @@ const Footer = () => {
 
           {/* C2C heading: mobile-optimized and desktop-original */}
           <h1
-            className="text-center break-words hyphens-auto py-6 sm:py-8 md:hidden"
+            className="text-center break-words hyphens-auto py-3 sm:py-6 md:hidden"
             style={{
               WebkitTextStroke: "2px #ffffffff",
               fontFamily: "Trap-Bold, Arial, sans-serif",
