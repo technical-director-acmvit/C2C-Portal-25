@@ -31,7 +31,7 @@ const faqData: FAQItem[] = [
   },
   {
     question: "How many members can constitute a team?",
-    answer: "There should be a minimum of 2 members and can be up to 5 members in a team.",
+    answer: "There should be a minimum of 3 members and can be up to 5 members in a team.",
   },
   {
     question: "Will there be accommodation for external participants?",
