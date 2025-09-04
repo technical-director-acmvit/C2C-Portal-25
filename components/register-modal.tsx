@@ -48,7 +48,7 @@ const buildCurrentFlow = (redirectUrl: string): RegisterFlowConfig => ({
       id: "02",
       label: (
         <>
-          Select "Get Started" → "VIT Vellore Student" → Login
+          Select &quot;Get Started&quot; → &quot;VIT Vellore Student&quot; → Login
         </>
       ),
     },
@@ -119,7 +119,7 @@ const EXTERNAL_FLOW: RegisterFlowConfig = {
       id: "02",
       label: (
         <>
-          Select "Get Started" → "External Participants" → "Independent"
+          Select &quot;Get Started&quot; → &quot;External Participants&quot; → &quot;Independent&quot;
         </>
       ),
     },
