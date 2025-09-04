@@ -59,7 +59,7 @@ const faqData: FAQItem[] = [
   },
   {
     question: "Will there be travel reimbursements provided?",
-    answer: "We do not provide reimbursements for external participants for travel expenses.",
+    answer: "Travel reimbursement is not provided for external participants.",
   },
 ];
 
