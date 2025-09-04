@@ -33,15 +33,14 @@ const buildCurrentFlow = (redirectUrl: string): RegisterFlowConfig => ({
   subtitle: "Follow these quick steps on the graVITas portal to register.",
   ctaText: "Go to graVITas Portal",
   redirectUrl,
-  images: ["/register/1.svg", "/register/2.svg", "/register/3.svg"],
+  images: ["/register/1.svg","/register/external2.svg",   "/register/2.svg", "/register/3.svg"],
   steps: [
     {
       id: "01",
       href: redirectUrl,
       label: (
         <>
-          Head on to <span className="text-emerald-300">graVITas portal</span>
-          <span className="hidden 2xl:inline"> (individual registration required)</span>
+          Head over to <span className="text-emerald-300">graVITas portal</span>
         </>
       ),
     },
@@ -49,20 +48,26 @@ const buildCurrentFlow = (redirectUrl: string): RegisterFlowConfig => ({
       id: "02",
       label: (
         <>
-          Portal opens for team formation{" "}
-          <span className="hidden 2xl:inline">(after few days)</span>
+          Select "Get Started" → "VIT Vellore Student" → Login
         </>
       ),
     },
     {
       id: "03",
-      label: <>Form teams and submit your ideas on the portal</>,
+      label: (
+        <>Once the C2C portal opens, create/join a team & submit idea</>
+      ),
+    },
+    {
+      id: "04",
+      label: (
+        <>Submitted ideas will undergo shortlisting before the hackathon</>
+      ),
     },
   ],
   info: [
     <>
-      The Code2Create organising committee would recommend that individuals follow our Instagram
-      handle{" "}
+      For updates on when the C2C portal goes live, follow our official Instagram handle{" "}
       <a
         href="https://instagram.com/acmvit"
         target="_blank"
@@ -71,19 +76,19 @@ const buildCurrentFlow = (redirectUrl: string): RegisterFlowConfig => ({
       >
         @acmvit
       </a>{" "}
-      and join our <span className="whitespace-nowrap">Discord server</span>{" "}
+      and join our Discord server at{" "}
       <a
         href={DISCORD_URL}
         target="_blank"
         rel="noopener noreferrer"
         className="text-emerald-200 hover:text-emerald-100 underline decoration-emerald-300 underline-offset-4"
       >
-        here
-      </a>{" "}
-      to stay updated on information specific to our event.
+        {DISCORD_URL}
+      </a>
+      .
     </>,
     <>
-      For any queries, feel free to reach out to us on our Instagram or mail us at{" "}
+      For any queries or concerns, you may contact us via Instagram or reach us through email at{" "}
       <a
         href="mailto:acm@vit.ac.in"
         className="text-emerald-200 hover:text-emerald-100 underline decoration-emerald-300 underline-offset-4"
@@ -106,8 +111,7 @@ const EXTERNAL_FLOW: RegisterFlowConfig = {
       href: DEFAULT_REDIRECT_URL,
       label: (
         <>
-          Head on to <span className="text-emerald-300">graVITas portal</span>
-          <span className="hidden 2xl:inline"> (individual registration required)</span>
+          Head over to <span className="text-emerald-300">graVITas portal</span>
         </>
       ),
     },
@@ -115,23 +119,17 @@ const EXTERNAL_FLOW: RegisterFlowConfig = {
       id: "02",
       label: (
         <>
-          Complete <span className="text-emerald-300">external participant</span>{" "}
-          registration/verification
+          Select "Get Started" → "External Participants" → "Independent Participant"
         </>
       ),
     },
     {
       id: "03",
-      label: (
-        <>
-          Portal opens for team formation{" "}
-          <span className="hidden 2xl:inline">(after few days)</span>
-        </>
-      ),
+      label: <>Once the C2C portal opens, create or join a team</>,
     },
     {
       id: "04",
-      label: <>Form teams and submit your ideas on the portal</>,
+      label: <>Submit your idea with your team once submissions go live</>,
     },
   ],
 };
@@ -224,11 +222,13 @@ export const RegisterModal: React.FC<ModalProps> = ({
     setSelectedType(defaultType ?? null);
   }, [isOpen, defaultType]);
 
-  const getDesktopGridTemplate = React.useCallback((count: number) => {
+  const getDesktopGridTemplate = React.useCallback((count: number, isExternal: boolean = false) => {
     if (count <= 1) return "1fr";
     const parts: string[] = [];
     for (let i = 0; i < count; i++) {
-      parts.push("1fr");
+      // Only use compact column sizing for external flow, use normal 1fr for internal
+      const colSize = isExternal ? "minmax(200px, 1fr)" : "1fr";
+      parts.push(colSize);
       if (i < count - 1) parts.push("auto");
     }
     return parts.join(" ");
@@ -241,12 +241,15 @@ export const RegisterModal: React.FC<ModalProps> = ({
     onClick?: () => void;
     compact?: boolean;
     className?: string;
-  }> = ({ id, label, href, onClick, compact = false, className }) => {
+    isExternal?: boolean;
+  }> = ({ id, label, href, onClick, compact = false, className, isExternal = false }) => {
     const pillContent = (
       <div
         className={cn(
-          "group relative flex items-center gap-3 sm:gap-3.5 px-4 sm:px-5 py-1.5 sm:py-2 min-w-[220px] max-w-full",
-          compact && "px-3 py-1 min-w-0 min-h-[52px]",
+          "group relative flex items-center gap-2.5 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 min-w-[200px] max-w-full",
+          compact && "px-2.5 py-1 min-w-0 min-h-[50px]",
+          isExternal && !compact && "min-w-[200px] sm:min-w-[220px] md:min-w-[240px] px-3 sm:px-3.5 py-1.5 sm:py-2",
+          isExternal && compact && "min-w-[180px] px-2 py-1.5 min-h-[54px]",
           className,
         )}
         style={{
@@ -295,12 +298,18 @@ export const RegisterModal: React.FC<ModalProps> = ({
         </div>
         <span
           className={cn(
-            "font-bold text-white/95 pr-1",
+            "font-bold text-white/95 pr-1 leading-tight",
             compact
-              ? "leading-[1.15] text-[clamp(12px,3.6vw,15px)]"
-              : "text-[13px] sm:text-[14px] md:text-[15px]",
+              ? "leading-[1.15] text-[clamp(10px,3vw,13px)]"
+              : "text-[12px] sm:text-[13px] md:text-[14px]",
+            isExternal && !compact && "text-[11px] sm:text-[12px] md:text-[13px] leading-[1.15] max-w-none",
+            isExternal && compact && "text-[clamp(9px,2.8vw,12px)] leading-[1.1] break-words hyphens-auto",
           )}
-          style={{ fontFamily: "Trap-Bold, Trap, Arial, sans-serif" }}
+          style={{ 
+            fontFamily: "Trap-Bold, Trap, Arial, sans-serif",
+            wordWrap: isExternal ? "break-word" : "normal",
+            overflowWrap: isExternal ? "break-word" : "normal",
+          }}
         >
           {label}
         </span>
@@ -572,8 +581,8 @@ export const RegisterModal: React.FC<ModalProps> = ({
 
               {/* Desktop: images row aligned above pills */}
               <div
-                className="hidden md:grid items-end justify-center justify-items-center w-full mx-auto gap-3 lg:gap-4"
-                style={{ gridTemplateColumns: getDesktopGridTemplate(activeConfig.steps.length) }}
+                className="hidden md:grid items-end justify-center justify-items-center w-full mx-auto gap-2 lg:gap-3"
+                style={{ gridTemplateColumns: getDesktopGridTemplate(activeConfig.steps.length, selectedType === "external") }}
               >
                 {activeConfig.steps.map((_, idx) => {
                   const src = activeConfig.images?.[idx];
@@ -600,8 +609,8 @@ export const RegisterModal: React.FC<ModalProps> = ({
 
               {/* Desktop: steps with arrows (dynamic) */}
               <div
-                className="hidden md:grid items-stretch justify-items-center mt-3 gap-3 lg:gap-4 w-full mx-auto"
-                style={{ gridTemplateColumns: getDesktopGridTemplate(activeConfig.steps.length) }}
+                className="hidden md:grid items-stretch justify-items-center mt-3 w-full mx-auto gap-2 lg:gap-3"
+                style={{ gridTemplateColumns: getDesktopGridTemplate(activeConfig.steps.length, selectedType === "external") }}
               >
                 {activeConfig.steps.map((s, idx) => (
                   <React.Fragment key={s.id}>
@@ -610,7 +619,11 @@ export const RegisterModal: React.FC<ModalProps> = ({
                         id={s.id}
                         label={s.label}
                         href={s.href}
-                        className="w-full h-full min-h-[68px] md:min-h-[78px]"
+                        isExternal={selectedType === "external"}
+                        className={cn(
+                          "w-full h-full min-h-[64px] md:min-h-[72px]",
+                          selectedType === "external" && "md:min-h-[70px] lg:min-h-[75px]"
+                        )}
                       />
                     </div>
                     {idx < activeConfig.steps.length - 1 && (
@@ -627,25 +640,29 @@ export const RegisterModal: React.FC<ModalProps> = ({
 
               {/* Mobile: vertical spine with dynamic steps */}
               <div className="md:hidden mt-4">
-                <div className="relative pl-9">
+                <div className="relative pl-8">
                   {/* Vertical spine */}
                   <div
-                    className="absolute left-3.5 top-2 bottom-2 border-l-2 border-emerald-400/60"
+                    className="absolute left-3 top-2 bottom-2 border-l-2 border-emerald-400/60"
                     aria-hidden
                   />
                   <div className="space-y-4">
                     {activeConfig.steps.map((s) => (
-                      <div key={s.id} className="relative min-h-[42px]">
+                      <div key={s.id} className="relative min-h-[40px]">
                         {/* Connector from spine to pill */}
                         <div
-                          className="absolute top-1/2 -translate-y-1/2 -left-[18px] w-[50px] h-[2px] bg-emerald-400/70"
+                          className="absolute top-1/2 -translate-y-1/2 -left-[16px] w-[44px] h-[2px] bg-emerald-400/70"
                           aria-hidden
                         />
-                        <div className="pl-8">
+                        <div className="pl-6">
                           <StepPill
                             id={s.id}
                             compact
-                            className="min-h-[52px]"
+                            isExternal={selectedType === "external"}
+                            className={cn(
+                              "min-h-[50px]",
+                              selectedType === "external" && "min-h-[54px]"
+                            )}
                             label={s.label}
                             href={s.href}
                           />
