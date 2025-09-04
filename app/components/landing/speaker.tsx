@@ -75,21 +75,67 @@ const PopoutImage: React.FC<{ anchorRef: React.RefObject<HTMLDivElement | null> 
   anchorRef,
 }) => {
   const [mounted, setMounted] = React.useState(false);
-  const [rect, setRect] = React.useState<DOMRect | null>(null);
+  const [rect, setRect] = React.useState<{
+    top: number;
+    left: number;
+    width: number;
+    height: number;
+  } | null>(null);
 
-  React.useEffect(() => {
-    setMounted(true);
-    const update = () => {
-      if (anchorRef.current) setRect(anchorRef.current.getBoundingClientRect());
-    };
-    update();
-    window.addEventListener("resize", update);
-    window.addEventListener("scroll", update, { passive: true });
-    return () => {
-      window.removeEventListener("resize", update);
-      window.removeEventListener("scroll", update);
+  const tickingRef = React.useRef(false);
+
+  const measure = React.useCallback(() => {
+    const el = anchorRef.current;
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    const dpr = typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1;
+    const snap = (n: number) => Math.round(n * dpr) / dpr;
+    return {
+      top: snap(r.top),
+      left: snap(r.left),
+      width: snap(r.width),
+      height: snap(r.height),
     };
   }, [anchorRef]);
+
+  const scheduleUpdate = React.useCallback(() => {
+    if (tickingRef.current) return;
+    tickingRef.current = true;
+    requestAnimationFrame(() => {
+      const next = measure();
+      if (next) {
+        setRect((prev) => {
+          if (
+            prev &&
+            prev.top === next.top &&
+            prev.left === next.left &&
+            prev.width === next.width &&
+            prev.height === next.height
+          ) {
+            return prev;
+          }
+          return next;
+        });
+      }
+      tickingRef.current = false;
+    });
+  }, [measure]);
+
+  React.useLayoutEffect(() => {
+    setMounted(true);
+    scheduleUpdate();
+
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+
+    const id = requestAnimationFrame(scheduleUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      cancelAnimationFrame(id);
+    };
+  }, [scheduleUpdate]);
 
   if (!mounted || !rect) return null;
 
@@ -111,7 +157,7 @@ const PopoutImage: React.FC<{ anchorRef: React.RefObject<HTMLDivElement | null> 
         width={720}
         height={900}
         priority
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-[10%] sm:-translate-y-[12%] md:-translate-y-[14%] w-[90%] sm:w-[88%] h-auto object-contain drop-shadow-[0_22px_44px_rgba(0,0,0,0.6)] select-none"
+        className="transform-gpu will-change-transform absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-[10%] sm:-translate-y-[12%] md:-translate-y-[14%] w-[90%] sm:w-[88%] h-auto object-contain drop-shadow-[0_22px_44px_rgba(0,0,0,0.6)] select-none"
       />
     </div>,
     document.body,
