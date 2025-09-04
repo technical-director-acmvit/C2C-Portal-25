@@ -55,6 +55,7 @@ export default function TopBar() {
           <div className="flex-shrink-0 border-r border-white pr-4 md:pr-8 py-1 flex items-center">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              onPointerDown={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="cursor-pointer"
               aria-label="Scroll to top"
             >
@@ -78,7 +79,8 @@ export default function TopBar() {
                   {link.href.startsWith("#") ? (
                     <button
                       onClick={() => handleNavClick(link.href)}
-                      className="group inline-flex items-center justify-center h-full"
+                      onPointerDown={() => handleNavClick(link.href)}
+                      className="group inline-flex items-center justify-center h-full cursor-pointer"
                     >
                       <span
                         className="flex items-center justify-center space-x-2 px-3 py-1 rounded-md transition-colors min-w-0"
@@ -103,7 +105,7 @@ export default function TopBar() {
                   ) : (
                     <Link
                       href={link.href}
-                      className="group inline-flex items-center justify-center h-full"
+                      className="group inline-flex items-center justify-center h-full cursor-pointer"
                     >
                       <span
                         className="flex items-center justify-center space-x-2 px-3 py-1 rounded-md transition-colors min-w-0"
@@ -134,7 +136,8 @@ export default function TopBar() {
                     <InteractiveHoverButton
                       variant="compact"
                       onClick={openModal}
-                      className="w-auto text-[12px] px-6 py-1.5 min-h-[32px] rounded-full font-semibold flex items-center justify-center bg-[#48BA86] text-black border !border-[#48BA86] transition-colors hover:!bg-white hover:!border-white"
+                      onPointerDown={openModal}
+                      className="w-auto text-[12px] px-6 py-1.5 min-h-[32px] rounded-full font-semibold flex items-center justify-center bg-[#48BA86] text-black border !border-[#48BA86] transition-colors hover:!bg-white hover:!border-white cursor-pointer"
                     >
                       Register Now
                     </InteractiveHoverButton>
@@ -157,7 +160,8 @@ export default function TopBar() {
                 <InteractiveHoverButton
                   variant="simple"
                   onClick={openModal}
-                  className="w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors"
+                  onPointerDown={openModal}
+                  className="w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors cursor-pointer"
                 >
                   Register Now
                 </InteractiveHoverButton>
@@ -173,7 +177,8 @@ export default function TopBar() {
               aria-label="Toggle menu"
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen((s) => !s)}
-              className="p-2 rounded-md text-white hover:bg-white/10 focus:outline-none focus:ring-white"
+              onPointerDown={() => setMenuOpen((s) => !s)}
+              className="p-2 rounded-md text-white hover:bg-white/10 focus:outline-none focus:ring-white cursor-pointer"
             >
               {menuOpen ? (
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -229,7 +234,8 @@ export default function TopBar() {
                     {link.href.startsWith("#") ? (
                       <button
                         onClick={() => handleNavClick(link.href)}
-                        className="block w-full px-3 py-2 rounded text-white hover:bg-white/10 text-center"
+                        onPointerDown={() => handleNavClick(link.href)}
+                        className="block w-full px-3 py-2 rounded text-white hover:bg-white/10 text-center cursor-pointer"
                         style={{ fontFamily: "Trap, Arial, sans-serif" }}
                       >
                         {link.label}
@@ -238,7 +244,8 @@ export default function TopBar() {
                       <Link
                         href={link.href}
                         onClick={() => setMenuOpen(false)}
-                        className="block w-full px-3 py-2 rounded text-white hover:bg-white/10 text-center"
+                        onPointerDown={() => setMenuOpen(false)}
+                        className="block w-full px-3 py-2 rounded text-white hover:bg-white/10 text-center cursor-pointer"
                         style={{ fontFamily: "Trap, Arial, sans-serif" }}
                       >
                         {link.label}
