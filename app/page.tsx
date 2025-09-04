@@ -115,15 +115,12 @@ export default function Page() {
 
   return (
     <div className="relative w-full">
-      {/* Page-wide gradient background to unify section transitions */}
       <div className="fixed inset-0 -z-10 bg-gradient-to-b from-[#0a0a0a] via-[#161616] to-[#0a0a0a]" />
 
-      {/* Top Bar via React Portal to body to avoid GSAP transforms */}
       <ViewportPortal>
         <TopBar />
       </ViewportPortal>
 
-      {/* Desktop Register CTA fixed to viewport via portal (mobile CTA stays in Landing) */}
       <ViewportPortal>
         <DesktopRegisterButton />
       </ViewportPortal>
@@ -132,10 +129,8 @@ export default function Page() {
         <GlobalModal />
       </ViewportPortal>
 
-      {/* Smooth scrolling content wrapper (GSAP ScrollSmoother) */}
       <div id="smooth-wrapper" className="relative z-0">
         <div id="smooth-content">
-          {/* Landing - wrapped to overlay CTA on desktop */}
           <div className="relative">
             <Landing />
           </div>
@@ -152,9 +147,6 @@ export default function Page() {
           <div className=" flex items-center justify-between flex-col">
             <Statistics />
           </div>
-          {/* <div className="h-screen flex items-center justify-between flex-col"> */}
-          {/* <Bento /> */}
-          {/* </div> */}
           <div id="tracks" className="relative w-full">
             {/* Mobile: use the original Tracks component */}
             <div className="lg:hidden">
@@ -163,7 +155,6 @@ export default function Page() {
 
             {/* Desktop: GSAP sticky scroll version */}
             <div className="hidden lg:block">
-              {/* Tall section to provide scroll height */}
               <div className="min-h-[300vh]">
                 <GradientBG>
                   <div className="relative z-10">
@@ -173,7 +164,6 @@ export default function Page() {
                     <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" className="h-full w-full" />
                   </div>
 
-                  {/* Sticky scroll content */}
                   <div className="w-full max-w-[1080px] mx-auto mt-6 sm:mt-8 px-4 sm:px-6">
                     <StickyScroll content={TRACKS_CONTENT} />
                   </div>
