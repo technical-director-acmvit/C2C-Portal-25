@@ -119,7 +119,7 @@ const EXTERNAL_FLOW: RegisterFlowConfig = {
       id: "02",
       label: (
         <>
-          Select &quot;Get Started&quot; → &quot;External Participants&quot; → &quot;Independent&quot;
+          Select &quot;Get Started&quot; → &quot;External Participants&quot; → &quot;Pick Participant Type&quot;
         </>
       ),
     },

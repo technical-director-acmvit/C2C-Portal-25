@@ -18,7 +18,7 @@ const days: DaySchedule[] = [
         time: "03:00 PM",
         text: "Create Release: v0.1.0 (Inauguration and an insightful session by Dr. Meenakshi D'Souza, President, ACM India Council, Hackathon officially starts)",
       },
-      { time: "10:30 PM", text: "A session by RunPod" },
+      { time: "10:30 PM", text: "\"Deploy your Model\" - A session by RunPod" },
     ],
   },
   {
