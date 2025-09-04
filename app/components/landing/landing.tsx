@@ -70,7 +70,7 @@ const Landing = () => {
               alt="Code2Create Main Logo"
               width={180}
               height={180}
-              className="opacity-200 w-[40vw] h-[40vw] lg:w-[10vw] lg:h-[10vw] md:w-[20vw] md:h-[20vw] sm:w-[28vw] sm:h-[28vw] xs:w-[20vw] xs:h-[20vw]"
+              className="opacity-200 w-[40vw] h-[40vw] max-[400px]:w-[32vw] max-[400px]:h-[32vw] max-[360px]:w-[30vw] max-[360px]:h-[30vw] lg:w-[10vw] lg:h-[10vw] md:w-[20vw] md:h-[20vw] sm:w-[28vw] sm:h-[28vw] xs:w-[20vw] xs:h-[20vw]"
               priority
             />
           </div>

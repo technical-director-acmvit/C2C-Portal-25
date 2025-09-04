@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ScrollSmootherProvider from "../components/scroll-smoother-provider";
 import { ModalProvider } from "@/components/register-modal";
 
 const geistSans = Geist({
@@ -152,9 +151,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden min-h-screen`}
       >
-        <ModalProvider>
-          <ScrollSmootherProvider>{children}</ScrollSmootherProvider>
-        </ModalProvider>
+        <ModalProvider>{children}</ModalProvider>
       </body>
     </html>
   );
