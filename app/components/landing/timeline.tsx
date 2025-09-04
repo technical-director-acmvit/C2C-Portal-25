@@ -13,12 +13,12 @@ const days: DaySchedule[] = [
     label: "Day 1",
     date: "10th September 2025",
     entries: [
-      { time: "01:30 PM", text: "Reporting" },
+      { time: "01:30 PM", text: "Repo init - Reporting Time" },
       {
         time: "03:00 PM",
-        text: "Opening Ceremony and Commencement of Hackathon Followed by a keynote session by Dr. Meenakshi D'Souza, ACM India Council President",
+        text: "Create Release: v0.1.0 (Inauguration & Keynote session by Dr. Meenakshi D'Souza, President, ACM India Council, Hackathon officially starts)",
       },
-      { time: "10:30 PM", text: "Runpod session" },
+      { time: "10:30 PM", text: "A session by RunPod" },
     ],
   },
   {
@@ -26,9 +26,9 @@ const days: DaySchedule[] = [
     label: "Day 2",
     date: "11th September 2025",
     entries: [
-      { time: "12:00 AM", text: "Review 1 (no elimination)" },
-      { time: "09:00 AM", text: "Report back to the venue" },
-      { time: "04:00 PM", text: "Review 2 (no elimination)" },
+      { time: "12:00 AM", text: "Run Workflow (Review 1 - no eliminations)" },
+      { time: "09:00 AM", text: "Sync with origin (Reporting back at the venue)" },
+      { time: "04:00 PM", text: "Merge Conflicts (Review 2 - no eliminations)" },
     ],
   },
   {
@@ -36,9 +36,9 @@ const days: DaySchedule[] = [
     label: "Day 3",
     date: "12th September 2025",
     entries: [
-      { time: "12:00 AM", text: "Review 3 (elimination round)" },
-      { time: "09:00 AM", text: "Report at venue" },
-      { time: "10:00 AM", text: "Final pitches begin" },
+      { time: "12:00 AM", text: "Push to dev (Review 3 - eliminations)" },
+      { time: "10:00 AM", text: "Push to main (Final Pitches)" },
+      { time: "03:00 PM", text: "Deploying (closing ceremony)" },
     ],
   },
 ];
