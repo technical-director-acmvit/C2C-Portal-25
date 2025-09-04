@@ -85,10 +85,10 @@ const buildCurrentFlow = (redirectUrl: string): RegisterFlowConfig => ({
     <>
       For any queries, feel free to reach out to us on our Instagram or mail us at{" "}
       <a
-        href="mailto:outreach.acmvit@gmail.com"
+        href="mailto:acm@vit.ac.in"
         className="text-emerald-200 hover:text-emerald-100 underline decoration-emerald-300 underline-offset-4"
       >
-        outreach.acmvit@gmail.com
+        acm@vit.ac.in
       </a>
       .
     </>,
