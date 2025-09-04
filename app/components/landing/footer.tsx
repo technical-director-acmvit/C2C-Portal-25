@@ -314,7 +314,7 @@ const Footer = () => {
                 alt: "Instagram",
               },
               { href: DISCORD_URL, src: "/footer/discord.svg", alt: "Discord" },
-              { href: "https://medium.com/acmvit", src: "/footer/Medium.svg", alt: "Medium" },
+              { href: "https://blog.acmvit.in", src: "/footer/Medium.svg", alt: "Medium" },
               {
                 href: "https://www.linkedin.com/company/acmvit",
                 src: "/footer/Linkedin.svg",
