@@ -57,29 +57,36 @@ const TRACKS = [
       "Reimagine and improve widely used software by enhancing usability, adding desired features, or optimizing performance.",
     svgPath: "/tracks/CanDoBetter.svg",
   },
-  {
+    {
     number: 2,
+    title: "I Can Do It Better",
+    description:
+      "Reimagine and improve widely used software by enhancing usability, adding desired features, or optimizing performance.",
+    svgPath: "/tracks/CanDoBetter.svg",
+  },
+  {
+    number: 3,
     title: "Art Attack",
     description:
       "Build tools that reimagine creative expression through technologies that help create music, art, or media in new and exciting ways.",
     svgPath: "/tracks/Art_Attack.svg",
   },
   {
-    number: 3,
+    number: 4,
     title: "Game Over",
     description:
       "Create experiences that redefine gaming through original games and technologies that improve gameplay, performance, or game development.",
     svgPath: "/tracks/Game_Over.svg",
   },
   {
-    number: 4,
+    number: 5,
     title: "Digital Dawn",
     description:
       "Create solutions that uniquely solve Indian challenges at scale, focusing on affordable and inclusive technology for the next billion users.",
     svgPath: "/tracks/Digital_Dawn.svg",
   },
   {
-    number: 5,
+    number: 6,
     title: "AI Solutions",
     description:
       "Build intelligent systems using RunPod's compute services to create practical and scalable AI solutions for real-world problems.",
