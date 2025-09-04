@@ -41,7 +41,7 @@ const Speaker = ({ children }: { children?: React.ReactNode }) => (
               Dr. Meenakshi D&apos;Souza, President of ACM India Council, is a Professor and Head of
               the Department of Computer Science at IIIT-Bangalore. Over the years, she has taught
               everything from Automata Theory and Algorithms to Software Testing and Graph Theory,
-              with her NPTEL course on Software Testing alone reaching more than 57,000 learners.
+              with her NPTEL course on Software Testing alone reaching more than 73,000 learners.
               With a PhD from the Institute of Mathematical Sciences, Chennai, and prior industry
               experience at Honeywell, she brings a rare blend of academic depth and practical
               perspective, along with a strong commitment to building the computing community in
