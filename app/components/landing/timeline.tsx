@@ -16,7 +16,7 @@ const days: DaySchedule[] = [
       { time: "01:30 PM", text: "Repo init - Reporting Time" },
       {
         time: "03:00 PM",
-        text: "Create Release: v0.1.0 (Inauguration & Keynote session by Dr. Meenakshi D'Souza, President, ACM India Council, Hackathon officially starts)",
+        text: "Create Release: v0.1.0 (Inauguration & insightful session by Dr. Meenakshi D'Souza, President, ACM India Council, Hackathon officially starts)",
       },
       { time: "10:30 PM", text: "A session by RunPod" },
     ],
