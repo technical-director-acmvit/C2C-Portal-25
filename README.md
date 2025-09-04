@@ -1,4 +1,4 @@
-Keep adding spaces here ->     
+Keep adding spaces here ->      
 ## GitHub App Integration
 
 This app supports linking a GitHub App so users can grant access to specific repositories (instead of broad OAuth repo scope). The integration adds a Link GitHub entry under the `/portal` dashboard and a `/portal/integrations/github` page to install the app and browse accessible repos and commits.
