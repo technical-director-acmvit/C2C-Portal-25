@@ -2,7 +2,7 @@
 
 import { PropsWithChildren, useEffect } from "react";
 import { useSession, signIn } from "next-auth/react";
-import PortalLoader from "@/app/@onboarding/components/portal/portal-loader";
+import PortalLoader from "@/app/components/portal/portal-loader";
 
 export default function AuthReauthGuard({ children }: PropsWithChildren) {
   const { data, status } = useSession();

@@ -1,4 +1,4 @@
-import { getIdToken } from "./session";
+import { authenticatedFetch } from "@/lib/apifetch";
 
 export type Track = {
   id: string;
@@ -7,9 +7,7 @@ export type Track = {
 };
 
 export async function getTracks(): Promise<Track[]> {
-  const idToken = await getIdToken();
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/tracks/getall`, {
-    headers: { Authorization: `Bearer ${idToken}` },
+  const res = await authenticatedFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/tracks/getall`, {
     cache: "no-store",
   });
   if (!res.ok) throw new Error("Failed to load tracks");
@@ -34,13 +32,8 @@ export async function submitTeamSubmission(params: {
   other?: string | null;
   track_id: string | null;
 }) {
-  const idToken = await getIdToken();
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/team/submission`, {
+  const res = await authenticatedFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/team/submission`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${idToken}`,
-    },
     body: JSON.stringify(params),
   });
   const data = await res.json().catch(() => ({}));

@@ -1,5 +1,5 @@
 import { Viewport } from "next";
-import "../globals.css"
+import "../../globals.css";
 
 export const viewport: Viewport = {
   themeColor: "#0a0a0a",

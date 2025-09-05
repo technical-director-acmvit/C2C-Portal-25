@@ -1,4 +1,4 @@
-import { getIdToken } from "./session";
+import { authenticatedFetch } from "@/lib/apifetch";
 
 export type UserSummary = {
   id: string;
@@ -46,11 +46,7 @@ export async function fetchDashboard(): Promise<{
   data?: DashboardResponse;
   error?: string;
 }> {
-  const idToken = await getIdToken();
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/dashboard/`, {
-    headers: {
-      Authorization: `Bearer ${idToken}`,
-    },
+  const res = await authenticatedFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/dashboard/`, {
     credentials: "omit",
     cache: "no-store",
   });

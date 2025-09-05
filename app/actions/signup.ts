@@ -1,4 +1,4 @@
-import { getIdToken } from "./session";
+import { authenticatedFetch } from "@/lib/apifetch";
 
 export interface InternalSignupData {
   contact_number: string;
@@ -14,13 +14,8 @@ export interface ExternalSignupData {
 }
 
 export async function signupInternal(data: InternalSignupData) {
-  const idToken = await getIdToken();
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/signup`, {
+  const response = await authenticatedFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/signup`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${idToken}`,
-    },
     body: JSON.stringify({
       contact_number: data.contact_number,
       gender: data.gender,
@@ -39,13 +34,8 @@ export async function signupInternal(data: InternalSignupData) {
 }
 
 export async function signupExternal(data: ExternalSignupData) {
-  const idToken = await getIdToken();
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/signup`, {
+  const response = await authenticatedFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/signup`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${idToken}`,
-    },
     body: JSON.stringify({
       contact_number: data.contact_number,
       gender: data.gender,

@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+import { ModalProvider } from "@/components/register-modal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -132,20 +134,24 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#0a0a0a",
+  colorScheme: "dark",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export default function RootLayout({
-  dash,
-  onboarding,
-}: {
-  dash: React.ReactNode;
-  onboarding: React.ReactNode;
-}) {
-  const useDash = process.env.NEXT_PUBLIC_USE_DASH === "true";
-
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-gray-50 text-gray-900">
-        {useDash ? dash : onboarding}
+    <html lang="en" className="h-full overflow-x-hidden">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden min-h-[100svh] overscroll-y-none touch-pan-y`}
+      >
+        <ModalProvider>{children}</ModalProvider>
       </body>
     </html>
   );
