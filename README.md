@@ -8,7 +8,8 @@ This app supports linking a GitHub App so users can grant access to specific rep
 Add the following env vars (server-side values are required only on the server):
 
 - `NEXT_PUBLIC_GH_APP_SLUG`: Your GitHub App slug (public, used to build the install URL)
-- `NEXT_PUBLIC_REGISTRATIONS_OPEN`: Controls visibility of the "Form your team" CTA and portal access. Set to `true` to enable; any other value hides the CTA and shows "Registrations opening soon".
+- `NEXT_PUBLIC_PORTAL_ENABLED`: Toggles `/portal` between full portal (auth + screens) and a Coming Soon page. Set to `true` to enable the portal; any other value shows Coming Soon without auth.
+- `NEXT_PUBLIC_REGISTRATIONS_OPEN`: Controls visibility of the homepage "Register" CTA only. Set to `true` to show the CTA; any other value shows "Registrations opening soon".
 - `GITHUB_APP_ID`: Your GitHub App ID (server only)
 - `GITHUB_APP_PRIVATE_KEY`: The GitHub App private key in PEM format. You can paste with literal `\n` which will be converted to newlines.
 
@@ -16,9 +17,10 @@ Example:
 
 ```
 NEXT_PUBLIC_GH_APP_SLUG=my-c2c-app
+NEXT_PUBLIC_PORTAL_ENABLED=false
 NEXT_PUBLIC_REGISTRATIONS_OPEN=false
 GITHUB_APP_ID=123456
-GITHUB_APP_PRIVATE_KEY=-----BEGIN PRIVATE KEY-----\nMIIEv...\n-----END PRIVATE KEY-----\n
+GITHUB_APP_PRIVATE_KEY=-----BEGIN PRIVATE KEY-----\nMIIEv...\n-----END PRIVATE KEY-----\n 
 ```
 
 ### GitHub App settings
