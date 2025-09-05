@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { getTracks, submitTeamSubmission, type Track } from "../../actions/submission";
+import { getTracks, submitTeamSubmission, type Track } from "../../../actions/submission";
 import BackChevron from "./ui/back-chevron";
 
 interface FormProps {

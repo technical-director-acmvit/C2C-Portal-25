@@ -3,7 +3,7 @@
 import { useState } from "react";
 import TeamUp from "./team-up";
 import PortalButton from "./ui/button";
-import { signupInternal } from "../../actions/signup";
+import { signupInternal } from "../../../actions/signup";
 import BackChevron from "./ui/back-chevron";
 import Select from "./ui/select";
 import Image from "next/image";

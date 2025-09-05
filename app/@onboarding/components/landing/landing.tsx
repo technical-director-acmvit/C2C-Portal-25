@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { InteractiveHoverButton } from "@/app/components/landing/ui/cta-button";
+import { InteractiveHoverButton } from "@/app/@onboarding/components/landing/ui/cta-button";
 import { REGISTRATIONS_OPEN } from "@/lib/env";
 import { useModal, useIsAnyModalOpen } from "@/components/register-modal";
 
