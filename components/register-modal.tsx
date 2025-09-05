@@ -2,7 +2,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { X, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { InteractiveHoverButton } from "@/app/components/landing/ui/cta-button";
 import { DISCORD_URL } from "@/lib/env";
