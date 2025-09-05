@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Copy } from "lucide-react";
 import Form from "./form";
 import LeaveTeamModal from "./leave-team-modal";
-import { type UserSummary } from "../../actions/dashboard";
+import { type UserSummary } from "../../../actions/dashboard";
 import PortalLoader from "./portal-loader";
 import BackChevron from "./ui/back-chevron";
 import { cleanName } from "./nameUtils";

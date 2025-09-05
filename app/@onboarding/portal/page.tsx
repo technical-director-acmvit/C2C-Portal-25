@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Portal from "@/app/components/portal/portal";
+import Portal from "@/app/@onboarding/components/portal/portal";
 import TeamUp from "../components/portal/team-up";
 import Dashboard from "../components/portal/dashboard";
 import { usePortalStore } from "@/app/stores/portal";
@@ -11,7 +11,7 @@ import AuthReauthGuard from "@/components/auth-reauth-guard";
 import PortalLoader from "../components/portal/portal-loader";
 import { signOut } from "next-auth/react";
 import { LogOut } from "lucide-react";
-import GithubView from "@/app/components/portal/github/github-view";
+import GithubView from "@/app/@onboarding/components/portal/github/github-view";
 import { REGISTRATIONS_OPEN, DISCORD_URL } from "@/lib/env";
 
 export default function Home() {
