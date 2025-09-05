@@ -2,7 +2,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { X, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { InteractiveHoverButton } from "@/app/components/landing/ui/cta-button";
 import { DISCORD_URL } from "@/lib/env";
@@ -35,23 +35,37 @@ const buildCurrentFlow = (redirectUrl: string): RegisterFlowConfig => ({
   redirectUrl,
   images: ["/register/1.svg","/register/external2.svg",   "/register/2.svg", "/register/3.svg"],
   steps: [
-    {
-      id: "01",
-      href: redirectUrl,
-      label: (
-        <>
-          Head over to <span className="text-emerald-300">graVITas portal</span>
-        </>
-      ),
-    },
-    {
-      id: "02",
-      label: (
-        <>
-          Select &quot;Get Started&quot; → &quot;VIT Vellore Student&quot; → Login
-        </>
-      ),
-    },
+{
+            id: "01",
+            href: DEFAULT_REDIRECT_URL,
+            label: (
+                <>
+                    Head over to <span className="text-emerald-300">graVITas portal</span>
+                    <br />
+                    Get started &gt; <span className="text-emerald-300">VIT Vellore student</span> &gt; Login
+                </>
+            ),
+        },
+        {
+            id: "02",
+            href: "https://with.acmvit.in/register-c2c",
+            label: (
+                <>
+                    Head to{" "}
+                    <a
+                        href="https://with.acmvit.in/register-c2c"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-emerald-300 underline decoration-emerald-300 underline-offset-2"
+                    >
+                        C2C page
+                    </a>{" "}
+                    &gt; Select slot &gt; Register
+                    <br />
+                    <span className="text-sm">Make sure all team members register here</span>
+                </>
+            ),
+        },
     {
       id: "03",
       label: (
@@ -103,27 +117,41 @@ const buildCurrentFlow = (redirectUrl: string): RegisterFlowConfig => ({
 const INTERNAL_FLOW: RegisterFlowConfig = buildCurrentFlow(DEFAULT_REDIRECT_URL);
 
 const EXTERNAL_FLOW: RegisterFlowConfig = {
-  ...buildCurrentFlow(DEFAULT_REDIRECT_URL),
-  images: ["/register/1.svg", "/register/external2.svg", "/register/2.svg", "/register/3.svg"],
-  steps: [
-    {
-      id: "01",
-      href: DEFAULT_REDIRECT_URL,
-      label: (
-        <>
-          Head over to <span className="text-emerald-300">graVITas portal</span>
-        </>
-      ),
-    },
-    {
-      id: "02",
-      label: (
-        <>
-          Select &quot;Get Started&quot; → &quot;External Participants&quot; → &quot;Pick Participant Type&quot;
-        </>
-      ),
-    },
-    {
+    ...buildCurrentFlow(DEFAULT_REDIRECT_URL),
+    images: ["/register/1.svg", "/register/external2.svg", "/register/2.svg", "/register/3.svg"],
+    steps: [
+        {
+            id: "01",
+            href: DEFAULT_REDIRECT_URL,
+            label: (
+                <>
+                    Head over to <span className="text-emerald-300">graVITas portal</span>
+                    <br />
+                    Get started &gt; <span className="text-emerald-300">External Participants</span> &gt; Login
+                </>
+            ),
+        },
+        {
+            id: "02",
+            href: "https://with.acmvit.in/register-c2c",
+            label: (
+                <>
+                    Head to{" "}
+                    <a
+                        href="https://with.acmvit.in/register-c2c"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-emerald-300 underline decoration-emerald-300 underline-offset-2"
+                    >
+                        C2C page
+                    </a>{" "}
+                    &gt; select slot &gt; Register
+                    <br />
+                    <span className="text-sm">Make sure all team members register here</span>
+                </>
+            ),
+        },
+        {
       id: "03",
       label: <>Once the C2C portal opens, create or join a team</>,
     },
@@ -131,7 +159,7 @@ const EXTERNAL_FLOW: RegisterFlowConfig = {
       id: "04",
       label: <>Submit your idea with your team once submissions go live</>,
     },
-  ],
+    ],
 };
 
 const ModalContext = React.createContext<{
@@ -302,7 +330,7 @@ export const RegisterModal: React.FC<ModalProps> = ({
             compact
               ? "leading-[1.15] text-[clamp(9px,2.8vw,12px)] sm:text-[clamp(10px,3vw,13px)]"
               : "text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px]",
-            isExternal && !compact && "text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] leading-[1.1] max-w-none",
+            isExternal && !compact && "text-[9px] sm:text-[10px] md:text-[11px] lg:text-[14px] leading-[1.1] max-w-none",
             isExternal && compact && "text-[clamp(7px,2.2vw,10px)] sm:text-[clamp(8px,2.5vw,11px)] leading-[1.05] break-words hyphens-auto",
           )}
           style={{ 
