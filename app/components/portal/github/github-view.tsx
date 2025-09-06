@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import InstallCard from "@/app/@onboarding/components/portal/github/install-card";
-import RepoList from "@/app/@onboarding/components/portal/github/repo-list";
-import RepoPreview from "@/app/@onboarding/components/portal/github/repo-preview";
+import InstallCard from "@/app/components/portal/github/install-card";
+import RepoList from "@/app/components/portal/github/repo-list";
+import RepoPreview from "@/app/components/portal/github/repo-preview";
 import {
   getInstallUrlAction,
   listInstallationReposAction,
   saveInstallationAction,
 } from "@/app/actions/github";
-import BackChevron from "@/app/@onboarding/components/portal/ui/back-chevron";
-import PortalLoader from "@/app/@onboarding/components/portal/portal-loader";
+import BackChevron from "@/app/components/portal/ui/back-chevron";
+import PortalLoader from "@/app/components/portal/portal-loader";
 import { usePortalStore } from "@/app/stores/portal";
 import Image from "next/image";
 

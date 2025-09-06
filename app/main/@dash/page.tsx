@@ -2,9 +2,9 @@
 
 import ViewportPortal from "@/components/viewport-portal";
 import { useLayoutEffect } from "react";
-import TopBar from "./components/top-bar";
+import TopBar from "@/app/components/dash/BentoGrid";
 import Image from "next/image";
-import BentoGrid from "./components/BentoGrid";
+import BentoGrid from "@/app/components/dash/BentoGrid";
 
 export default function DashPage() {
   useLayoutEffect(() => {

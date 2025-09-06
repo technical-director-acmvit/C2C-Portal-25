@@ -3,15 +3,14 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Portal from "@/app/@onboarding/components/portal/portal";
-import TeamUp from "../components/portal/team-up";
-import Dashboard from "../components/portal/dashboard";
-import { usePortalStore } from "@/app/stores/portal";
-import AuthReauthGuard from "@/components/auth-reauth-guard";
-import PortalLoader from "../components/portal/portal-loader";
+import Portal from "../../components/portal/portal";
+import TeamUp from "../../components/portal/team-up";
+import Dashboard from "../../components/portal/dashboard";
+import { usePortalStore } from "../../stores/portal";
+import PortalLoader from "@/app/components/portal/portal-loader";
 import { signOut } from "next-auth/react";
 import { LogOut } from "lucide-react";
-import GithubView from "@/app/@onboarding/components/portal/github/github-view";
+import GithubView from "../../components/portal/github/github-view";
 import { REGISTRATIONS_OPEN, DISCORD_URL } from "@/lib/env";
 
 export default function Home() {
@@ -19,7 +18,11 @@ export default function Home() {
   const initialize = usePortalStore((s) => s.initialize);
   const setView = usePortalStore((s) => s.setView);
   const dashboard = usePortalStore((s) => s.dashboard);
+  
+  console.log("Portal component rendering - view:", view);
+  console.log("Portal component - REGISTRATIONS_OPEN:", REGISTRATIONS_OPEN);
   useEffect(() => {
+    console.log("Portal component - useEffect initialize called");
     void initialize();
   }, [initialize]);
   useEffect(() => {
@@ -33,6 +36,7 @@ export default function Home() {
 
   // Gate the portal when registrations are closed
   if (!REGISTRATIONS_OPEN) {
+    console.log("Portal component - registrations closed, showing closed message");
     return (
       <div className="fixed inset-0 w-screen h-screen relative">
         <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" />
@@ -79,8 +83,10 @@ export default function Home() {
     );
   }
 
+  console.log("Portal component - rendering main portal view with view:", view);
+
   return (
-    <AuthReauthGuard>
+    <>
       <div className="absolute top-6 left-6 z-100 sm:left-8">
         <Link href="/">
           <Image
@@ -119,6 +125,7 @@ export default function Home() {
           </div>
         </div>
       )}
-    </AuthReauthGuard>
+    </>
   );
 }
+

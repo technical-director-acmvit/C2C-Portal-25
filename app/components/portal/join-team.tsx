@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import PortalButton from "./ui/button";
-import { joinTeam } from "../../../actions/team";
+import { joinTeam } from "../../actions/team";
 import BackChevron from "./ui/back-chevron";
 import Image from "next/image";
 import { usePortalStore } from "@/app/stores/portal";
