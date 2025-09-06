@@ -8,7 +8,7 @@ interface ImageBoxProps {
 const ImageBox =({ image, title}: ImageBoxProps) => {
   return (
     
-    <div className="relative w-full aspect-square mb-3 h-full bg-white rounded-xl h-5/8">
+    <div className="relative w-full aspect-square mb-3 h-full bg-white rounded-xl">
         <Image
           src={image}
           alt={title}
