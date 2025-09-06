@@ -20,7 +20,6 @@ export default function Home() {
   const dashboard = usePortalStore((s) => s.dashboard);
   
   console.log("Portal component rendering - view:", view);
-  console.log("Portal component - REGISTRATIONS_OPEN:", REGISTRATIONS_OPEN);
   useEffect(() => {
     console.log("Portal component - useEffect initialize called");
     void initialize();
