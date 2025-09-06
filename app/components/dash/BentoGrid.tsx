@@ -18,7 +18,7 @@ export default function BentoGrid() {
         <div className="flex justify-center h-[calc(100vh)] overflow-y-auto px-2 md:hidden">
           <div className="grid grid-cols-14 grid-rows-20 gap-2 w-full mx-auto max-w-[90%] min-h-[150vh] py-2">
             {/* Timer info - spans full width at top */}
-            <div className="bg-red-500 w-full h-full col-span-14 row-span-6">
+            <div className="col-span-14 row-span-6">
               <TimerInfo
                 timer="12 : 21 : 12"
                 heading="Review 0"
@@ -27,14 +27,14 @@ export default function BentoGrid() {
             </div>
 
             {/* Notice card - left side */}
-            <div className="w-full h-full col-span-8 row-span-8 mb-8">
+            <div className="col-span-8 row-span-8 mb-8">
               <div className="relative w-full h-full p-4">
                 {/* Background card layers */}
                 <div className="absolute inset-4 bg-black border border-green-700 rounded-lg transform rotate-3"></div>
                 <div className="absolute inset-4 bg-black border border-green-700 rounded-lg transform -rotate-2"></div>
 
                 {/* Main content card */}
-                <div className="relative bg-black border border-green-700 rounded-lg p-4 text-center text-white h-full w-full flex flex-col justify-center">
+                <div className="relative bg-black border border-green-700 rounded-lg p-4 text-center text-white h-full flex flex-col justify-center">
                   <h2 className="text-lg font-bold underline mb-4">NOTICE</h2>
                   <div className="text-sm">
                     <ul className="list-disc text-left mx-auto w-fit space-y-1">
@@ -46,21 +46,21 @@ export default function BentoGrid() {
               </div>
             </div>
 
-            <div className="bg-blue-500 w-full h-full col-span-6 row-span-9 col-start-9">
-              <ImageBox image="/Group 1000007425.png" title="cool looking dude" />
+            <div className="col-span-6 row-span-9 col-start-9 rounded-lg">
+              <ImageBox image="/Group 1000007425.png" title="cool looking dude" flag={1} />
             </div>
 
-            <div className="bg-orange-500 w-full h-full col-span-6 row-span-9 row-start-16 col-start-1">
-              <ImageBox image="/image 41.png" title="cool looking dude" />
+            <div className="col-span-6 row-span-9 row-start-16 col-start-1 rounded-lg">
+              <ImageBox image="/image 41.png" title="some building" flag={1} />
             </div>
 
             {/* First button box - left side */}
-            <div className="border-emerald-500 mb-2 bg-[#060f0b] rounded-md border-2 h-full col-span-8 row-span-4 w-full p-4 flex flex-col items-center row-start-16 col-start-7">
+            <div className="border-emerald-500 bg-[#060f0b] rounded-lg border-2 col-span-8 row-span-4 p-4 flex flex-col items-center row-start-16 col-start-7">
               <ButtonBox text="Check out your team" btnText="Profile" />
             </div>
 
             {/* Calendar - left side */}
-            <div className="bg-black border-green-700 border w-full h-full col-span-8 row-span-5 flex items-center justify-center rounded-lg overflow-hidden row-start-21 col-start-7">
+            <div className="bg-black border-green-700 border col-span-8 row-span-5 flex items-center justify-center rounded-lg overflow-hidden row-start-21 col-start-7">
               <div className="w-full h-full flex items-center justify-center p-2">
                 <DateCalendar
                   value={value}
@@ -104,13 +104,13 @@ export default function BentoGrid() {
               </div>
             </div>
 
-            {/* Song card - right side */}
-            <div className="w-full h-full col-span-6 row-span-5 col-start-1">
+            {/* Song card */}
+            <div className="col-span-6 row-span-5 col-start-1 border-emerald-500 border rounded-lg">
               <SongCard title="My song" artist="My name" image="/landing/C2C Logo.svg" />
             </div>
 
-            {/* Second button box - left side */}
-            <div className="border-emerald-500 mb-2 bg-[#060f0b] rounded-md border-2 h-full col-span-8 row-span-4 w-full p-4 flex flex-col items-center col-start-7">
+            {/* Second button box */}
+            <div className="border-emerald-500 bg-[#060f0b] rounded-lg border-2 col-span-8 row-span-4 p-4 flex flex-col items-center col-start-7">
               <ButtonBox text="Submit your idea" btnText="Form" />
             </div>
           </div>
@@ -119,25 +119,28 @@ export default function BentoGrid() {
         {/* Desktop grid - hidden on small screens, visible on md+ */}
         <div className="hidden md:flex md:justify-center md:h-[calc(100vh)] md:overflow-y-auto md:px-4">
           <div className="grid grid-cols-14 grid-rows-24 gap-5 w-full mx-auto max-w-[80%] min-h-[150vh] py-8">
-            {/* your grid items */}
-
-            <div className="w-full h-full col-span-11 row-span-5">
+            <div className="col-span-11 row-span-5">
               <TimerInfo timer="12 : 21 : 12" heading="Review 0" info="lorem iajnfewjnfljenflqwn" />
             </div>
-            <div className="relative w-full h-full overflow-hidden flex items-center justify-center col-span-3 row-span-7">
-              <ImageBox image="/Group 1000007425.png" title="cool looking dude" />
+
+            <div className="col-span-3 row-span-7 rounded-lg overflow-hidden flex items-center justify-center">
+              <ImageBox image="/Group 1000007425.png" title="cool looking dude" flag={0} />
             </div>
-            <div className="bg-orange-500 w-full h-full col-span-5 row-span-9">
+
+            <div className="col-span-5 row-span-9 rounded-lg">
               <SongCard title="My song" artist="My name" image="/landing/C2C Logo.svg" />
             </div>
-            <div className="relative w-full h-full overflow-hidden flex items-center justify-center col-span-4 row-span-9">
-              <ImageBox image="/image 42.png" title="c" />
+
+            <div className="col-span-4 row-span-9 rounded-lg overflow-hidden flex items-center justify-center">
+              <ImageBox image="/image 42.png" title="c" flag={0} />
             </div>
-            <div className="border-emerald-500 rounded-md bg-[#060f0b] border-2 col-span-5 row-span-4 w-full p-8 flex flex-col items-center gap-4">
+
+            <div className="border-emerald-500 bg-[#060f0b] border-2 col-span-5 row-span-4 p-8 flex flex-col items-center gap-4 rounded-lg">
               <ButtonBox text="Check out your team" btnText="Profile" />
             </div>
+
             {/* Calendar with proper overflow handling for desktop */}
-            <div className="bg-black border-green-700 border w-full h-full col-span-5 row-span-8 rounded-lg overflow-hidden">
+            <div className="bg-black border-green-700 border col-span-5 row-span-8 rounded-lg overflow-hidden">
               <div className="w-full h-full flex items-center justify-center p-2">
                 <DateCalendar
                   value={value}
@@ -198,19 +201,20 @@ export default function BentoGrid() {
                 />
               </div>
             </div>
-            <div className="relative w-full h-full border-emerald-500 border-1 overflow-hidden flex col-span-3 row-span-9 items-center justify-center">
-              <ImageBox image="/image 41.png" title="c" />
+
+            <div className="col-span-3 row-span-9 rounded-lg overflow-hidden flex items-center justify-center">
+              <ImageBox image="/image 41.png" title="c" flag={0} />
             </div>
 
-            {/* Notice card - changed to match purple div position */}
-            <div className="w-full h-full col-span-6 row-span-9 mb-8">
+            {/* Notice card */}
+            <div className="col-span-6 row-span-9 mb-8 rounded-lg">
               <div className="relative w-full h-full p-4">
                 {/* Background card layers */}
                 <div className="absolute inset-4 bg-black border border-green-700 rounded-lg transform rotate-3"></div>
                 <div className="absolute inset-4 bg-black border border-green-700 rounded-lg transform -rotate-2"></div>
 
                 {/* Main content card */}
-                <div className="relative bg-black border border-green-700 rounded-lg p-4 text-center text-white h-full w-full flex flex-col justify-center">
+                <div className="relative bg-black border border-green-700 rounded-lg p-4 text-center text-white h-full flex flex-col justify-center">
                   <h2 className="text-lg font-bold underline mb-4">NOTICE</h2>
                   <div className="text-sm">
                     <ul className="list-disc text-left mx-auto w-fit space-y-1">
@@ -222,7 +226,7 @@ export default function BentoGrid() {
               </div>
             </div>
 
-            <div className="border-emerald-500 bg-[#060f0b] rounded-md border-2 h-full col-span-5 row-span-4 w-full p-8 flex flex-col items-center gap-4">
+            <div className="border-emerald-500 bg-[#060f0b] border-2 col-span-5 row-span-4 p-8 flex flex-col items-center gap-4 rounded-lg">
               <ButtonBox text="Submit your ideas" btnText="Form" />
             </div>
           </div>
