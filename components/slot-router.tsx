@@ -50,12 +50,10 @@ export default function SlotRouter({ portal, dash }: SlotRouterProps) {
   const rounds = userData?.user?.team?.rounds ?? [];
   const roundsCount = Array.isArray(rounds) ? rounds.length : 0;
   // If forcePortal is true (User not found) OR roundsCount is 0 or 1 -> show portal.
-  const shouldShowDash =true;
+  const shouldShowDash = !forcePortal && roundsCount > 1;
   
-  // console.log("SlotRouter rendering - shouldShowDash:", shouldShowDash);
-  // console.log("About to render:", shouldShowDash ? 'dash' : 'portal');
-
-  
+  console.log("SlotRouter rendering - shouldShowDash:", shouldShowDash);
+  console.log("About to render:", shouldShowDash ? 'dash' : 'portal');
   
   return <>{shouldShowDash ? dash : portal}</>;
 }
