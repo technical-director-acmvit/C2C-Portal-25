@@ -28,14 +28,22 @@ const createDevStore = () => {
   };
 };
 
-const devStore = typeof window !== "undefined" && process.env.NODE_ENV === "development" 
-  ? (() => {
-      if (!(window as any).__devStore) {
-        (window as any).__devStore = createDevStore();
-      }
-      return (window as any).__devStore;
-    })()
-  : null;
+// Replace the IIFE with a typed, client-only init
+type DevStore = {
+  getRouteOverride: () => RouteOverride;
+  setRouteOverride: (override: RouteOverride) => void;
+  subscribe: (fn: () => void) => () => void;
+};
+
+let devStore: DevStore | null = null;
+
+if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
+  const w = window as Window & { __devStore?: DevStore };
+  if (!w.__devStore) {
+    w.__devStore = createDevStore();
+  }
+  devStore = w.__devStore as DevStore;
+}
 
 const useDevStore = () => {
   const [, forceUpdate] = useState({});

@@ -10,7 +10,7 @@ export default function Bottombar() {
         
         <div className="flex-shrink-0">
           <Image
-            src="/dash/VIT LOGO.svg"
+            src="/dash/VIT Logo.svg"
             alt="VIT Logo"
             width={150}
             height={70}
