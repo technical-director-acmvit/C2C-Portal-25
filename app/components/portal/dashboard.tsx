@@ -29,7 +29,7 @@ const Dashboard: React.FC = () => {
   const currentUser = data?.user ?? null;
   const teammatesRef = data?.teammates;
   const minTeamMembers = Number(data?.minmembercount ?? 2);
-  const submissionOpen = Boolean(data?.submissionOpen);
+  const submissionOpen = Boolean(data?.c2chappening);
 
   const members = useMemo<UserSummary[]>(() => {
     const arr: UserSummary[] = currentUser ? [currentUser] : [];
@@ -37,19 +37,7 @@ const Dashboard: React.FC = () => {
   }, [currentUser, teammatesRef]);
 
   const needsSubmission = useMemo(() => {
-    if (!team) return false;
-    const hasGithub =
-      typeof team.github_url === "string"
-        ? team.github_url.trim().length > 0
-        : Boolean(team.github_url);
-    const hasFigma =
-      typeof team.figma_url === "string"
-        ? team.figma_url.trim().length > 0
-        : Boolean(team.figma_url);
-    const hasOther =
-      typeof team.other === "string" ? team.other.trim().length > 0 : Boolean(team.other);
-    const hasTrack = Boolean(team.track_id);
-    return !(hasGithub && hasFigma && hasOther && hasTrack);
+     return !data?.submitted
   }, [team]);
 
   // All routing is managed by the portal store (view state).
@@ -77,9 +65,10 @@ const Dashboard: React.FC = () => {
           </button>
         </div>
 
-        <div className="h-full w-full overflow-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 relative z-10">
-          <div className="max-w-3xl mx-auto">
-            <Form />
+        {/* Center the embedded form */}
+        <div className="h-full w-full overflow-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 relative z-10 flex items-center justify-center">
+          <div className="w-full max-w-3xl mx-auto">
+            <Form embedded />
           </div>
         </div>
       </div>
@@ -229,7 +218,11 @@ const Dashboard: React.FC = () => {
 
             {/* Members */}
             {team && members.length > 1 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 sm:gap-7 lg:gap-8 mb-8 sm:mb-12 w-full max-w-4xl mx-auto px-2 sm:px-4">
+              <div className={`mb-8 sm:mb-12 w-full max-w-4xl mx-auto px-2 sm:px-4 ${
+                members.length <= 6 
+                  ? 'flex flex-wrap justify-center gap-6 sm:gap-7 lg:gap-8'
+                  : 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 sm:gap-7 lg:gap-8'
+              }`}>
                 {members.map((m: UserSummary, idx: number) => (
                   <div
                     key={`${m.id || "member"}-${idx}`}
@@ -317,21 +310,18 @@ const Dashboard: React.FC = () => {
             {/* Actions */}
             <div className="flex flex-col items-center gap-4 sm:gap-6 w-full max-w-sm mx-auto sm:static">
               {members.length >= minTeamMembers && submissionOpen && needsSubmission && (
-                <button
+                <PortalButton
+                  onClick={() => setShowForm(true)}
                   className="w-full px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 rounded-lg text-white cursor-pointer transition-all hover:scale-[1.02] active:scale-95 shadow-lg min-h-[48px] sm:min-h-[52px] lg:min-h-[56px]"
                   style={{
-                    backgroundColor: "#5EBF94",
-                    fontSize: "clamp(14px, 3.5vw, 20px)",
-                    fontFamily: "'Pilat Extended', Arial, sans-serif",
-                    fontWeight: 400,
+                    fontSize: "clamp(14px, 3vw, 18px)",
                   }}
-                  onClick={() => setShowForm(true)}
                 >
                   Go to form
-                </button>
+                </PortalButton>
               )}
 
-              {team && (
+              {team && needsSubmission && (
                 <PortalButton
                   onClick={() => setShowLeaveModal(true)}
                   disabled={isLeaving}

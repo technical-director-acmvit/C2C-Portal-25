@@ -19,7 +19,7 @@ const Internal = ({ onBack }: Props) => {
     registrationNumber: "",
     gender: "",
     contactNumber: "",
-    hosteller: false,
+    hosteller: true,
   });
   // field-level validation messages
   const [fieldErrors, setFieldErrors] = useState({
@@ -32,25 +32,36 @@ const Internal = ({ onBack }: Props) => {
   const validateRegistrationNumber = (val: string) => regNoRegex.test(val.trim());
   const validatePhoneNumber = (val: string) => {
     const digits = val.replace(/\D/g, "");
+    if (digits.length !== 10) return false;
     const first = parseInt(digits[0], 10);
-    return digits.length === 10 && first >= 6 && first <= 9;
+    return first >= 6 && first <= 9;
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value: rawValue } = e.target;
-    // normalize registration number to uppercase as the user types
-    const value = name === "registrationNumber" ? rawValue.toUpperCase() : rawValue;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    // clear corresponding field error when user edits
-    if (name === "registrationNumber" && fieldErrors.registrationNumber) {
-      setFieldErrors((prev) => ({ ...prev, registrationNumber: "" }));
+
+    if (name === "registrationNumber") {
+      // normalize to uppercase and limit to 9 characters
+      const value = rawValue.toUpperCase().slice(0, 9);
+      setFormData((prev) => ({ ...prev, registrationNumber: value }));
+      if (fieldErrors.registrationNumber) {
+        setFieldErrors((prev) => ({ ...prev, registrationNumber: "" }));
+      }
+      return;
     }
-    if (name === "contactNumber" && fieldErrors.contactNumber) {
-      setFieldErrors((prev) => ({ ...prev, contactNumber: "" }));
+
+    if (name === "contactNumber") {
+      // allow only digits and limit to 10 digits
+      const digits = rawValue.replace(/\D/g, "").slice(0, 10);
+      setFormData((prev) => ({ ...prev, contactNumber: digits }));
+      if (fieldErrors.contactNumber) {
+        setFieldErrors((prev) => ({ ...prev, contactNumber: "" }));
+      }
+      return;
     }
+
+    // fallback for other inputs (e.g., selects)
+    setFormData((prev) => ({ ...prev, [name]: rawValue }));
   };
 
   const isFormValid = () => {
@@ -146,6 +157,7 @@ const Internal = ({ onBack }: Props) => {
             value={formData.registrationNumber}
             onChange={handleInputChange}
             placeholder="Registration Number"
+            maxLength={9}
           />
           {fieldErrors.registrationNumber && (
             <div className="text-red-300 text-sm mt-2">{fieldErrors.registrationNumber}</div>
@@ -172,6 +184,8 @@ const Internal = ({ onBack }: Props) => {
             value={formData.contactNumber}
             onChange={handleInputChange}
             placeholder="Contact Number"
+            inputMode="numeric"
+            pattern="\d*"
           />
           {fieldErrors.contactNumber && (
             <div className="text-red-300 text-sm mt-2">{fieldErrors.contactNumber}</div>

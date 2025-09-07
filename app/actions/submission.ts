@@ -31,6 +31,7 @@ export async function submitTeamSubmission(params: {
   figma_url?: string | null;
   other?: string | null;
   track_id: string | null;
+  title?: string  | null;
 }) {
   const res = await authenticatedFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/team/submission`, {
     method: "POST",
