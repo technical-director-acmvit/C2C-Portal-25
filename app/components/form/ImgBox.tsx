@@ -1,4 +1,3 @@
-import { div } from "motion/react-client";
 import Image from "next/image";
 
 type Props = {
@@ -26,3 +25,4 @@ export default function ImgBox({ text, img, title, selected = false, onClick }: 
     </div>
   );
 }
+

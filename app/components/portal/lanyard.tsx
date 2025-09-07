@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useRef, useState, useMemo, type RefObject } from 'react';
+import type { ThreeEvent } from '@react-three/fiber';
 import { Canvas, extend, useFrame } from '@react-three/fiber';
 import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei';
 import {
@@ -9,17 +10,15 @@ import {
   RigidBody,
   useRopeJoint,
   useSphericalJoint,
-  RigidBodyProps
+  RigidBodyProps,
+  RapierRigidBody
 } from '@react-three/rapier';
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
 import * as THREE from 'three';
 
-import HKBox from '@/app/components/portal/hk-box';
 import { createTextTexture } from '@/app/components/portal/createTextTexture';
 
-// replace with your own imports, see the usage snippet for details
 const cardGLB = '/portal/card.glb';
-const lanyard = '/portal/lanyard.png'
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
@@ -103,20 +102,32 @@ interface BandProps {
 }
 
 function Band({ maxSpeed = 50, minSpeed = 0, text, position = [0, 4, 0], front }: BandProps) {
-  // Using "any" for refs since the exact types depend on Rapier's internals
-  const band = useRef<any>(null);
-  const fixed = useRef<any>(null);
-  const j1 = useRef<any>(null);
-  const j2 = useRef<any>(null);
-  const j3 = useRef<any>(null);
-  const card = useRef<any>(null);
+  // Define a small interface covering the Rapier methods we call to avoid `any`.
+  interface RigidApi {
+    wakeUp?: () => void;
+    translation: () => THREE.Vector3;
+    rotation?: () => THREE.Vector3;
+    angvel?: () => THREE.Vector3;
+    setNextKinematicTranslation?: (t: { x: number; y: number; z: number }) => void;
+    setAngvel?: (v: { x: number; y: number; z: number }, wakeUp?: boolean) => void;
+    // optional helper used in the code
+    lerped?: THREE.Vector3;
+  }
+
+  // Using RigidBody ref types for joints
+  const band = useRef<THREE.Mesh | null>(null);
+  const fixed = useRef<RapierRigidBody | null>(null);
+  const j1 = useRef<(RapierRigidBody & RigidApi) | null>(null);
+  const j2 = useRef<(RapierRigidBody & RigidApi) | null>(null);
+  const j3 = useRef<RapierRigidBody | null>(null);
+  const card = useRef<RapierRigidBody | null>(null);
 
   const vec = new THREE.Vector3();
   const ang = new THREE.Vector3();
   const rot = new THREE.Vector3();
   const dir = new THREE.Vector3();
 
-  const segmentProps: any = {
+  const segmentProps: Partial<RigidBodyProps> = {
     type: 'dynamic' as RigidBodyProps['type'],
     canSleep: true,
     colliders: false,
@@ -127,7 +138,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, text, position = [0, 4, 0], front }
   const gltf = useGLTF(cardGLB);
   const nodes = gltf?.nodes || {};
   const materials = gltf?.materials || {};
-  const  texture = useTexture('/portal/lanyard.png');
+  const texture = useTexture('/portal/lanyard.png');
   const [curve] = useState(
     () =>
       new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()])
@@ -152,10 +163,10 @@ function Band({ maxSpeed = 50, minSpeed = 0, text, position = [0, 4, 0], front }
   }, []);
 
   // All anchor points are relative to their local group, so no change needed for offset bands
-  useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1]);
-  useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1]);
-  useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1]);
-  useSphericalJoint(j3, card, [
+  useRopeJoint(fixed as unknown as RefObject<RapierRigidBody>, j1 as unknown as RefObject<RapierRigidBody>, [[0, 0, 0], [0, 0, 0], 1]);
+  useRopeJoint(j1 as unknown as RefObject<RapierRigidBody>, j2 as unknown as RefObject<RapierRigidBody>, [[0, 0, 0], [0, 0, 0], 1]);
+  useRopeJoint(j2 as unknown as RefObject<RapierRigidBody>, j3 as unknown as RefObject<RapierRigidBody>, [[0, 0, 0], [0, 0, 0], 1]);
+  useSphericalJoint(j3 as unknown as RefObject<RapierRigidBody>, card as unknown as RefObject<RapierRigidBody>, [
     [0, 0, 0],
     [0, 1.45, 0]
   ]);
@@ -174,8 +185,8 @@ function Band({ maxSpeed = 50, minSpeed = 0, text, position = [0, 4, 0], front }
       vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera);
       dir.copy(vec).sub(state.camera.position).normalize();
       vec.add(dir.multiplyScalar(state.camera.position.length()));
-      [card, j1, j2, j3, fixed].forEach(ref => ref.current?.wakeUp());
-      card.current?.setNextKinematicTranslation({
+      [card, j1, j2, j3, fixed].forEach(ref => ref.current?.wakeUp?.());
+      card.current?.setNextKinematicTranslation?.({
         x: vec.x - dragged.x,
         y: vec.y - dragged.y,
         z: vec.z - dragged.z
@@ -183,30 +194,30 @@ function Band({ maxSpeed = 50, minSpeed = 0, text, position = [0, 4, 0], front }
     }
     if (fixed.current) {
       [j1, j2].forEach(ref => {
-        if (!ref.current.lerped) ref.current.lerped = new THREE.Vector3().copy(ref.current.translation());
-        const clampedDistance = Math.max(0.1, Math.min(1, ref.current.lerped.distanceTo(ref.current.translation())));
-        ref.current.lerped.lerp(
-          ref.current.translation(),
+        if (!ref.current!.lerped) ref.current!.lerped = new THREE.Vector3().copy(ref.current!.translation());
+        const clampedDistance = Math.max(0.1, Math.min(1, ref.current!.lerped!.distanceTo(ref.current!.translation())));
+        ref.current!.lerped!.lerp(
+          ref.current!.translation(),
           delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed))
         );
       });
-  // All curve points should be relative to the local group
-  const offset = new THREE.Vector3(position[0], position[1], position[2]);
-  curve.points[0].copy(j3.current.translation()).sub(offset);
-  curve.points[1].copy(j2.current.lerped).sub(offset);
-  curve.points[2].copy(j1.current.lerped).sub(offset);
-  curve.points[3].copy(fixed.current.translation()).sub(offset);
-      band.current.geometry.setPoints(curve.getPoints(32));
-      ang.copy(card.current.angvel());
-      rot.copy(card.current.rotation());
-      card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z });
+      // All curve points should be relative to the local group
+      const offset = new THREE.Vector3(position[0], position[1], position[2]);
+      curve.points[0].copy(j3.current!.translation()).sub(offset);
+      curve.points[1].copy(j2.current!.lerped!).sub(offset);
+      curve.points[2].copy(j1.current!.lerped!).sub(offset);
+      curve.points[3].copy(fixed.current!.translation()).sub(offset);
+      (band.current!.geometry as MeshLineGeometry).setPoints(curve.getPoints(32));
+      const angv = card.current?.angvel?.() ?? new THREE.Vector3();
+      const rotv = card.current?.rotation?.() ?? new THREE.Vector3();
+      card.current?.setAngvel?.({ x: angv.x, y: angv.y - rotv.y * 0.25, z: angv.z }, true);
     }
   });
 
   curve.curveType = 'chordal';
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 
-  const textTexture = useMemo(() => createTextTexture(text, front), [text]);
+  const textTexture = useMemo(() => createTextTexture(text, front), [text, front]);
 
   return (
     <>
@@ -233,13 +244,15 @@ function Band({ maxSpeed = 50, minSpeed = 0, text, position = [0, 4, 0], front }
             position={[0, -1.2, -0.05]}
             onPointerOver={() => hover(true)}
             onPointerOut={() => hover(false)}
-            onPointerUp={(e: any) => {
-              e.target.releasePointerCapture(e.pointerId);
+            onPointerUp={(e: ThreeEvent<PointerEvent>) => {
+              (e.target as Element)?.releasePointerCapture(e.pointerId);
               drag(false);
             }}
-            onPointerDown={(e: any) => {
-              e.target.setPointerCapture(e.pointerId);
-              drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())));
+            onPointerDown={(e: ThreeEvent<PointerEvent>) => {
+              if (e.target instanceof Element) {
+                e.target.setPointerCapture(e.pointerId);
+              }
+              drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current!.translation())));
             }}
           >
             {nodes.card && (
