@@ -1,9 +1,10 @@
 "use client";
 import SongCard from "./spotify-player";
 import TimerInfo from "./timer";
-import ButtonBox from "./ButtonBox";
-import ImageBox from "./ImageBox";
+import ButtonBox from "./button-box";
+import ImageBox from "./image-box";
 import * as React from "react";
+import { useDashStore } from "@/app/stores/dash";
 import dayjs, { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -11,13 +12,12 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 
 export default function BentoGrid() {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs());
+  const setView = useDashStore((s) => s.setView);
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <>
-        {/* Mobile grid - visible only on screens smaller than md */}
-        <div className="flex justify-center h-[calc(100vh)] overflow-y-auto px-2 md:hidden">
-          <div className="grid grid-cols-14 grid-rows-20 gap-2 w-full mx-auto max-w-[90%] min-h-[150vh] py-2">
-            {/* Timer info - spans full width at top */}
+        <div className="flex justify-center px-2 md:hidden">
+          <div className="grid grid-cols-14 grid-rows-20 gap-2 w-full mx-auto max-w-[90%] py-2">
             <div className="col-span-14 row-span-6">
               <TimerInfo
                 timer="12 : 21 : 12"
@@ -56,7 +56,7 @@ export default function BentoGrid() {
 
             {/* First button box - left side */}
             <div className="border-emerald-500 bg-[#060f0b] rounded-lg border-2 col-span-8 row-span-4 p-4 flex flex-col items-center row-start-16 col-start-7">
-              <ButtonBox text="Check out your team" btnText="Profile" />
+              <ButtonBox text="Check out your team" btnText="Profile" onClick={() => setView("profile")} />
             </div>
 
             {/* Calendar - left side */}
@@ -117,8 +117,8 @@ export default function BentoGrid() {
         </div>
 
         {/* Desktop grid - hidden on small screens, visible on md+ */}
-        <div className="hidden md:flex md:justify-center md:h-[calc(100vh)] md:overflow-y-auto md:px-4">
-          <div className="grid grid-cols-14 grid-rows-24 gap-5 w-full mx-auto max-w-[80%] min-h-[150vh] py-8">
+        <div className="hidden md:flex md:justify-center md:px-4">
+          <div className="grid grid-cols-14 grid-rows-24 gap-5 w-full mx-auto max-w-[80%] py-8">
             <div className="col-span-11 row-span-5">
               <TimerInfo timer="12 : 21 : 12" heading="Review 0" info="lorem iajnfewjnfljenflqwn" />
             </div>
@@ -136,7 +136,7 @@ export default function BentoGrid() {
             </div>
 
             <div className="border-emerald-500 bg-[#060f0b] border-2 col-span-5 row-span-4 p-8 flex flex-col items-center gap-4 rounded-lg">
-              <ButtonBox text="Check out your team" btnText="Profile" />
+              <ButtonBox text="Check out your team" btnText="Profile" onClick={() => setView("profile")} />
             </div>
 
             {/* Calendar with proper overflow handling for desktop */}

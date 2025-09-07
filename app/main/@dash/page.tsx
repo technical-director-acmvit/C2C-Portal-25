@@ -1,26 +1,26 @@
 "use client";
 
-import ViewportPortal from "@/components/viewport-portal";
 import { useLayoutEffect } from "react";
-import TopBar from "@/app/components/dash/BentoGrid";
+import TopBar from "@/app/components/dash/top-bar";
 import Image from "next/image";
-import BentoGrid from "@/app/components/dash/BentoGrid";
+import BentoGrid from "@/app/components/dash/bento-grid";
+import ProfileView from "@/app/components/dash/profile";
+import { useDashStore } from "@/app/stores/dash";
+import DashGradientBG from "@/app/components/dash/gradient-bg";
 
 export default function DashPage() {
   useLayoutEffect(() => {
     // Your layout effects here
   }, []);
+  const view = useDashStore((s) => s.view);
 
   return (
     <div className="relative w-full min-h-screen">
-      <div className="fixed inset-0 -z-10 bg-gradient-to-b from-[#0a0a0a] via-[#161616] to-[#0a0a0a]" />
+      <DashGradientBG />
 
-        <ViewportPortal>
-            <TopBar />
-        </ViewportPortal>
+      <TopBar />
 
-        <ViewportPortal>
-            <main className="container mx-auto px-4 py-6 max-w-6xl">
+      <main className="relative z-10 container mx-auto px-4 py-6 max-w-6xl">
             {/* Header Section */}
             <div className="text-center mb-8">
                 <div className="flex items-center justify-center gap-3 mb-4">
@@ -39,14 +39,12 @@ export default function DashPage() {
                 </h1>
                 </div>
             </div>
+            {view === "home" && <BentoGrid />}
+            {view === "profile" && <ProfileView />}
 
-            <BentoGrid />
+      </main>
 
-        </main>
-      </ViewportPortal>
-
-      <ViewportPortal>
-        <footer className="mt-12 border-t border-gray-800/50">
+      <footer className="relative z-10 mt-12 border-t border-gray-800/50">
           <div className="container mx-auto px-4 py-6 max-w-6xl">
             <div className="flex items-center justify-center gap-4 text-gray-500">
               <span className="text-sm">Powered by</span>
@@ -58,8 +56,7 @@ export default function DashPage() {
               </div>
             </div>
           </div>
-        </footer>
-      </ViewportPortal>
+      </footer>
     </div>
   );
 }
