@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,15 +14,16 @@ import { LogOut } from "lucide-react";
 import GithubView from "@/app/components/portal/github/github-view";
 import { PORTAL_ENABLED, DISCORD_URL } from "@/lib/env";
 
-export default function Home() {
+export default function Home({ userEmail }: { userEmail?: string | null }) {
   const view = usePortalStore((s) => s.view);
   const initialize = usePortalStore((s) => s.initialize);
   const setView = usePortalStore((s) => s.setView);
   const dashboard = usePortalStore((s) => s.dashboard);
-  
-  console.log("Portal component rendering - view:", view);
+
+  console.log("Home userEmail:", userEmail);
+  console.log("Home userEmail type:", typeof userEmail);
+
   useEffect(() => {
-    console.log("Portal component - useEffect initialize called");
     void initialize();
   }, [initialize]);
   useEffect(() => {
@@ -81,11 +83,14 @@ export default function Home() {
     );
   }
 
-  console.log("Portal component - rendering main portal view with view:", view);
-
   return (
     <>
-      <div className="absolute top-6 left-6 z-100 sm:left-8">
+      {/* Background image for entire page */}
+      <div className="fixed inset-0 w-full h-full z-0">
+        <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" />
+      </div>
+      
+      <div className="absolute top-6 left-6 z-50 sm:left-8">
         <Link href="/">
           <Image
             src="/landing/c2c-logo-with-name.svg"
@@ -97,7 +102,7 @@ export default function Home() {
           />
         </Link>
       </div>
-      <div className="absolute top-6 right-6 z-100 sm:right-8">
+      <div className="absolute top-6 right-6 z-50 sm:right-8">
         <button
           type="button"
           aria-label="Log out"
@@ -108,14 +113,15 @@ export default function Home() {
           <LogOut className="h-5 w-5 sm:h-6 sm:w-6 opacity-90 group-hover:opacity-100" />
         </button>
       </div>
-      {view === "loading" && <PortalLoader />}
-      {view === "signup" && <Portal />}
-      {view === "team" && <TeamUp />}
-      {view === "dashboard" && <Dashboard />}
-      {view === "github" && <GithubView />}
+      <div className="relative z-10">
+        {view === "loading" && <PortalLoader />}
+        {view === "signup" && <Portal userEmail={userEmail} />}
+        {view === "team" && <TeamUp />}
+        {view === "dashboard" && <Dashboard />}
+        {view === "github" && <GithubView />}
+      </div>
       {view === "error" && (
-        <div className="fixed inset-0 w-screen h-screen relative">
-          <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" />
+        <div className="fixed inset-0 w-screen h-screen relative z-20">
           <div className="absolute inset-0 grid place-items-center p-4">
             <div className="text-red-300 bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-center max-w-md">
               Something went wrong. Please retry.

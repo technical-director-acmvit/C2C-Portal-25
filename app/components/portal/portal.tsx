@@ -5,8 +5,10 @@ import { useState } from "react";
 import PortalButton from "./ui/button";
 import Image from "next/image";
 
-const Portal = () => {
+const Portal = ({ userEmail }: { userEmail?: string | null }) => {
   const [selected, setSelected] = useState<"internal" | "external" | null>(null);
+
+  console.log("Portal userEmail:", userEmail);
 
   if (selected === "internal") {
     return <Internal onBack={() => setSelected(null)} />;

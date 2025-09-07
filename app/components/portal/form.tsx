@@ -4,13 +4,15 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { getTracks, submitTeamSubmission, type Track } from "../../actions/submission";
 import BackChevron from "./ui/back-chevron";
+import { title } from "process";
 
 interface FormProps {
   onBack?: () => void;
   requirePPT?: boolean; // when true, ppt_url is mandatory
+  embedded?: boolean;
 }
 
-const Form = ({ onBack, requirePPT = false }: FormProps) => {
+const Form = ({ onBack, requirePPT = false, embedded = false }: FormProps) => {
   const [formData, setFormData] = useState({
     track_id: "",
     github_url: "",
@@ -18,6 +20,7 @@ const Form = ({ onBack, requirePPT = false }: FormProps) => {
     other: "",
     ppt_url: "",
     description: "",
+    title: "",
   });
   const [tracks, setTracks] = useState<Track[]>([]);
   const [loading, setLoading] = useState(true);
@@ -53,14 +56,14 @@ const Form = ({ onBack, requirePPT = false }: FormProps) => {
     };
   }, []);
 
-  // PPT can be required by the backend for certain rounds; frontend can opt-in via prop
   const valid = Boolean(
-    formData.track_id &&
-      formData.github_url &&
-      formData.figma_url &&
-      formData.other &&
+    formData.track_id && formData.track_id !== "" &&
+    formData.title && formData.title !== "" &&
       (!requirePPT || Boolean(formData.ppt_url)),
   );
+
+  // Add a single derived disabled flag to drive both attribute and styles
+  const isDisabled = !valid || submitting;
 
   const handleSubmit = async () => {
     if (!valid) {
@@ -92,10 +95,11 @@ const Form = ({ onBack, requirePPT = false }: FormProps) => {
         // `ppt_url` is optional (string). Pass undefined when empty to match the action types.
         ppt_url: formData.ppt_url || undefined,
         description: formData.description || null,
-        github_url: formData.github_url || null,
-        figma_url: formData.figma_url || null,
-        other: formData.other || null,
+        github_url: "",
+        figma_url: "",
+        other: "",
         track_id: selectedTrackId,
+        title: formData.title,
       });
       setSuccess("Submission saved");
     } catch (err) {
@@ -104,6 +108,120 @@ const Form = ({ onBack, requirePPT = false }: FormProps) => {
       setSubmitting(false);
     }
   };
+
+  const innerForm = (
+    <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 sm:p-8 w-full max-w-md border border-gray-600">
+      <div className="flex items-center gap-3 mb-6">
+        {onBack && <BackChevron onClick={onBack} />}
+        <h1
+          className="text-white text-2xl sm:text-3xl"
+          style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontWeight: "700" }}
+        >
+          Team Submission
+        </h1>
+      </div>
+      {error && (
+        <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded-md text-sm mb-4">
+          {error}
+        </div>
+      )}
+      {success && (
+        <div className="bg-green-500/20 border border-green-500 text-green-200 px-4 py-2 rounded-md text-sm mb-4">
+          {success}
+        </div>
+      )}
+
+      <div className="space-y-4">
+        {/* Track Dropdown */}
+        <div>
+          <select
+            name="track_id"
+            value={formData.track_id}
+            onChange={handleInputChange}
+            className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
+            style={{
+              fontFamily: "'Pilat Extended', Arial, sans-serif",
+              fontSize: "14px",
+            }}
+            disabled={loading}
+          >
+            <option value="" className="text-gray-400">
+              {loading ? "Loading tracks…" : "Select a Track"}
+            </option>
+            {tracks.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.title}
+              </option>
+            ))}
+          </select>
+        </div>
+        {/* PPT Link (may be required) */}
+        <div>
+          <input
+            name="title"
+            value={formData.title}
+            onChange={handleInputChange}
+            placeholder="Title"
+            className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
+            style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: "14px" }}
+          />
+        </div>
+
+        {/* PPT Link (may be required) */}
+        <div>
+          <input
+            type="url"
+            name="ppt_url"
+            value={formData.ppt_url}
+            onChange={handleInputChange}
+            placeholder={requirePPT ? "PPT Link (required)" : "PPT Link (optional)"}
+            className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
+            style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: "14px" }}
+          />
+        </div>
+
+        {/* Description (optional) */}
+        <div>
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleInputChange}
+            placeholder="Short description about your submission (optional)"
+            className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
+            style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: "14px" }}
+            rows={3}
+          />
+        </div>
+
+      </div>
+
+      {/* Submit Button */}
+      <div className="flex justify-center mt-8">
+        <button
+          className={`px-12 py-3 rounded-lg text-white transition-all duration-200 ${isDisabled ? "opacity-60 cursor-not-allowed" : "hover:bg-[#4da577] active:scale-95"}`}
+          style={{
+            backgroundColor: isDisabled ? "#4DAF84" : "#5EBF94",
+            fontSize: "18px",
+            fontFamily: "'Pilat Extended', Arial, sans-serif",
+            fontWeight: "400",
+            cursor: isDisabled ? "not-allowed" : "pointer",
+          }}
+          onClick={handleSubmit}
+          disabled={isDisabled}
+        >
+          {submitting ? "Submitting…" : "Submit"}
+        </button>
+      </div>
+    </div>
+  );
+
+  if (embedded) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        {innerForm}
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 w-screen h-screen relative">
@@ -116,144 +234,7 @@ const Form = ({ onBack, requirePPT = false }: FormProps) => {
 
       {/* Centered form */}
       <div className="flex flex-col items-center justify-center h-full px-4 relative z-10">
-        <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 sm:p-8 w-full max-w-md border border-gray-600">
-          <div className="flex items-center gap-3 mb-6">
-            {onBack && <BackChevron onClick={onBack} />}
-            <h1
-              className="text-white text-2xl sm:text-3xl"
-              style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontWeight: "700" }}
-            >
-              Team Submission
-            </h1>
-          </div>
-          {error && (
-            <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded-md text-sm mb-4">
-              {error}
-            </div>
-          )}
-          {success && (
-            <div className="bg-green-500/20 border border-green-500 text-green-200 px-4 py-2 rounded-md text-sm mb-4">
-              {success}
-            </div>
-          )}
-
-          <div className="space-y-4">
-            {/* Track Dropdown */}
-            <div>
-              <select
-                name="track_id"
-                value="18218b70-3f83-4743-8a29-a77b4c7ccc39"
-                onChange={handleInputChange}
-                className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
-                style={{
-                  fontFamily: "'Pilat Extended', Arial, sans-serif",
-                  fontSize: "14px",
-                }}
-                disabled={loading}
-              >
-                <option value="" className="text-gray-400">
-                  {loading ? "Loading tracks…" : "Select a Track"}
-                </option>
-                {tracks.map((t) => (
-                  <option key={t.id} value={t.id}>
-                    {t.title}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Figma Link */}
-            <div>
-              <input
-                type="url"
-                name="figma_url"
-                value={formData.figma_url}
-                onChange={handleInputChange}
-                placeholder="Figma Link"
-                className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
-                style={{
-                  fontFamily: "'Pilat Extended', Arial, sans-serif",
-                  fontSize: "14px",
-                }}
-              />
-            </div>
-
-            {/* PPT Link (may be required) */}
-            <div>
-              <input
-                type="url"
-                name="ppt_url"
-                value={formData.ppt_url}
-                onChange={handleInputChange}
-                placeholder={requirePPT ? "PPT Link (required)" : "PPT Link (optional)"}
-                className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
-                style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: "14px" }}
-              />
-            </div>
-
-            {/* Description (optional) */}
-            <div>
-              <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleInputChange}
-                placeholder="Short description about your submission (optional)"
-                className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
-                style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: "14px" }}
-                rows={3}
-              />
-            </div>
-
-            {/* Other/Drive/Demo Link */}
-            <div>
-              <input
-                type="url"
-                name="other"
-                value={formData.other}
-                onChange={handleInputChange}
-                placeholder="Other Link (demo, drive, etc.)"
-                className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
-                style={{
-                  fontFamily: "'Pilat Extended', Arial, sans-serif",
-                  fontSize: "14px",
-                }}
-              />
-            </div>
-
-            {/* Github Link */}
-            <div>
-              <input
-                type="url"
-                name="github_url"
-                value={formData.github_url}
-                onChange={handleInputChange}
-                placeholder="GitHub Link"
-                className="w-full p-3 rounded-lg bg-gray-700/80 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#5EBF94]"
-                style={{
-                  fontFamily: "'Pilat Extended', Arial, sans-serif",
-                  fontSize: "14px",
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Submit Button */}
-          <div className="flex justify-center mt-8">
-            <button
-              className="px-12 py-3 rounded-lg text-white cursor-pointer transition-all duration-200 hover:bg-[#4da577] active:scale-95"
-              style={{
-                backgroundColor: "#5EBF94",
-                fontSize: "18px",
-                fontFamily: "'Pilat Extended', Arial, sans-serif",
-                fontWeight: "400",
-              }}
-              onClick={handleSubmit}
-              disabled={!valid || submitting}
-            >
-              {submitting ? "Submitting…" : "Submit"}
-            </button>
-          </div>
-        </div>
+        {innerForm}
       </div>
     </div>
   );
