@@ -55,20 +55,12 @@ const Dashboard: React.FC = () => {
         {/* Background image via next/image */}
         <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" />
         <BackChevron className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10" />
-        <div className="absolute top-6 right-6 sm:right-8 z-10">
-          <button
-            onClick={() => setShowForm(false)}
-            className="px-3 py-2 rounded-md bg-white/10 text-white hover:bg-white/20 text-sm sm:text-base"
-            aria-label="Close form"
-          >
-            Close
-          </button>
-        </div>
+        {/* removed top-right close button; moved into Form via onClose prop */}
 
         {/* Center the embedded form */}
         <div className="h-full w-full overflow-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 relative z-10 flex items-center justify-center">
           <div className="w-full max-w-3xl mx-auto">
-            <Form embedded />
+            <Form embedded onClose={() => setShowForm(false)} />
           </div>
         </div>
       </div>

@@ -45,3 +45,5 @@ client_secret.json
 server.js
 
 reload.txt
+
+service-creds.json

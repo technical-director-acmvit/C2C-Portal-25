@@ -10,6 +10,8 @@ const Portal = ({ userEmail }: { userEmail?: string | null }) => {
   const [selected, setSelected] = useState<"internal" | "external" | null>(null);
   const [showVitModal, setShowVitModal] = useState(false);
   const { data: session } = useSession();
+  const emailToCheck = session?.user?.email ?? userEmail ?? null;
+  const isVitStudentEmail = emailToCheck ? /@vitstudent\.ac\.in$/i.test(emailToCheck.trim()) : false;
   const whitelist_enabled = process.env.NEXT_PUBLIC_WHITELIST_ENABLED === "true";
 
   console.log("Portal userEmail:", userEmail);
@@ -20,13 +22,13 @@ const Portal = ({ userEmail }: { userEmail?: string | null }) => {
       const isVitStudent = /@vitstudent\.ac\.in$/i.test(userEmail.trim());
       if (isVitStudent) {
         // Instead of auto-entering the internal flow, show the VIT login modal
-        setShowVitModal(true);
+        setSelected("internal");
       }
     }
   }, [userEmail, selected]);
 
   if (selected === "internal") {
-    return <Internal onBack={() => setSelected(null)} />;
+    return <Internal onBack={() => setSelected(null)} mail={emailToCheck} />;
   }
   if (selected === "external") {
     return <External onBack={() => setSelected(null)} />;
@@ -98,9 +100,9 @@ const Portal = ({ userEmail }: { userEmail?: string | null }) => {
               </h2>
 
               <p className="text-gray-300 text-center mb-6 text-sm sm:text-base">
-                {session?.user?.email ? (
+                {emailToCheck ? (
                   <>
-                    Logged in as <span className="text-white font-semibold">{session.user.email}</span>.
+                    Logged in as{" "}<span className="text-white font-semibold">{emailToCheck}</span>.
                   </>
                 ) : (
                   "You must use your VIT email to proceed."
@@ -108,12 +110,16 @@ const Portal = ({ userEmail }: { userEmail?: string | null }) => {
               </p>
 
               <div className="flex items-center justify-center gap-3">
-                <PortalButton
-                  onClick={() => signOut({ callbackUrl: "/" })}
-                  className="px-4 py-2"
-                >
-                  Log out
-                </PortalButton>
+                {!isVitStudentEmail && (
+                    <PortalButton
+                    onClick={() => signOut({ callbackUrl: "/" })}
+                    className="px-4 py-2"
+                    >
+                    Log out
+                    </PortalButton>
+                )}
+
+                
               </div>
             </div>
           </div>

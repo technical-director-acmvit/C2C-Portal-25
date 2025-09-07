@@ -10,8 +10,9 @@ import Image from "next/image";
 
 interface Props {
   onBack?: () => void;
+  mail: string | null
 }
-const Internal = ({ onBack }: Props) => {
+const Internal = ({ onBack,mail  }: Props) => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -133,15 +134,20 @@ const Internal = ({ onBack }: Props) => {
             border: "1px solid rgba(255,255,255,0.10)",
           }}
         >
-          <div className="flex items-center gap-3 mb-6">
-            <BackChevron onClick={onBack} />
+        <div className="relative mb-6">
+            {!mail && (
+                <div className="absolute left-0 top-1/2 -translate-y-1/2">
+                    <BackChevron onClick={onBack} />
+                </div>
+            )}
+
             <h2
-              className="text-2xl sm:text-3xl font-semibold text-white"
-              style={{ fontFamily: "'Pilat Extended', 'Trap', Arial, sans-serif" }}
+                className="mx-auto text-center text-2xl sm:text-3xl font-semibold text-white"
+                style={{ fontFamily: "'Pilat Extended', 'Trap', Arial, sans-serif" }}
             >
-              Student Details
+                Student Details
             </h2>
-          </div>
+        </div>
 
           {error && (
             <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded-md text-sm">
