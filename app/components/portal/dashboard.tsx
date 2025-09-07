@@ -304,10 +304,7 @@ const Dashboard: React.FC = () => {
               {members.length >= minTeamMembers && submissionOpen && needsSubmission && (
                 <PortalButton
                   onClick={() => setShowForm(true)}
-                  className="w-full px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 rounded-lg text-white cursor-pointer transition-all hover:scale-[1.02] active:scale-95 shadow-lg min-h-[48px] sm:min-h-[52px] lg:min-h-[56px]"
-                  style={{
-                    fontSize: "clamp(14px, 3vw, 18px)",
-                  }}
+                  className="w-full sm:w-auto hover:scale-[1.02] active:scale-95 shadow-lg"
                 >
                   Go to form
                 </PortalButton>
@@ -317,14 +314,9 @@ const Dashboard: React.FC = () => {
                 <PortalButton
                   onClick={() => setShowLeaveModal(true)}
                   disabled={isLeaving}
-                  className={`w-full sm:w-auto px-6 sm:px-8 lg:px-10 py-2.5 sm:py-3 lg:py-3.5 min-h-[44px] sm:min-h-[48px] lg:min-h-[52px] transition-all ${
-                    isLeaving
-                      ? "opacity-50 cursor-not-allowed"
-                      : "hover:scale-[1.02] active:scale-95"
+                  className={`w-full sm:w-auto ${
+                    isLeaving ? "" : "hover:scale-[1.02] active:scale-95"
                   }`}
-                  style={{
-                    fontSize: "clamp(14px, 3vw, 18px)",
-                  }}
                 >
                   Leave team
                 </PortalButton>

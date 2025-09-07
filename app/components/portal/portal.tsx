@@ -43,24 +43,18 @@ const Portal = ({ userEmail }: { userEmail?: string | null }) => {
         className="object-cover"
         priority={false}
       />
-      <div className="flex flex-col items-center justify-center h-full px-4 text-center relative z-10">
-        <div className="flex items-center gap-3 mb-6">
+      <div className="flex flex-col items-center justify-center h-full px-4 text-center relative z-10 animate-fade-in-up">
+        <div className="flex items-center gap-3 mb-4 sm:mb-6">
           {/* <BackChevron /> */}
-          <h1 className="text-white font-bold text-2xl sm:text-3xl md:text-4xl">
+          <h1 className="text-white font-bold" style={{ fontSize: "clamp(20px, 5.5vw, 36px)" }}>
             Are you a VIT student?
           </h1>
         </div>
         <div className="flex flex-row flex-wrap gap-3 sm:gap-6 w-full items-center justify-center">
-          <PortalButton
-            className="px-4 py-2 text-[16px] sm:text-[18px]"
-            onClick={() => setShowVitModal(true)}
-          >
+          <PortalButton onClick={() => setShowVitModal(true)}>
             Yes
           </PortalButton>
-          <PortalButton
-            className="px-4 py-2 text-[16px] sm:text-[18px]"
-            onClick={() => setSelected("external")}
-          >
+          <PortalButton onClick={() => setSelected("external")}>
             No
           </PortalButton>
         </div>
@@ -77,7 +71,7 @@ const Portal = ({ userEmail }: { userEmail?: string | null }) => {
           {/* Modal card */}
           <div className="flex items-center justify-center h-full px-4">
             <div
-              className="w-full max-w-xs sm:max-w-sm md:max-w-md p-4 sm:p-6 md:p-8 rounded-2xl"
+              className="w-full max-w-xs sm:max-w-sm md:max-w-md p-4 sm:p-6 md:p-8 rounded-2xl animate-pop-in"
               style={{
                 background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))",
                 backdropFilter: "blur(10px) saturate(120%)",
@@ -87,17 +81,18 @@ const Portal = ({ userEmail }: { userEmail?: string | null }) => {
               }}
             >
               <h2
-                className="text-white text-center mb-4 text-lg sm:text-xl"
+                className="text-white text-center mb-4"
                 style={{
                   fontFamily: "'Pilat Extended', Arial, sans-serif",
                   fontWeight: "700",
-                  letterSpacing: "1px",
+                  letterSpacing: "0.5px",
+                  fontSize: "clamp(16px, 4.5vw, 20px)",
                 }}
               >
                 Please log in through your VIT email id
               </h2>
 
-              <p className="text-gray-300 text-center mb-6 text-sm sm:text-base">
+              <p className="text-gray-300 text-center mb-6" style={{ fontSize: "clamp(12px, 4vw, 16px)" }}>
                 {emailToCheck ? (
                   <>
                     Logged in as{" "}<span className="text-white font-semibold">{emailToCheck}</span>.
@@ -109,12 +104,9 @@ const Portal = ({ userEmail }: { userEmail?: string | null }) => {
 
               <div className="flex items-center justify-center gap-3">
                 {!isVitStudentEmail && (
-                    <PortalButton
-                    onClick={() => signOut({ callbackUrl: "/" })}
-                    className="px-4 py-2"
-                    >
+                  <PortalButton onClick={() => signOut({ callbackUrl: "/" })}>
                     Log out
-                    </PortalButton>
+                  </PortalButton>
                 )}
 
                 

@@ -141,7 +141,7 @@ const Form = ({ onBack, requirePPT = false, embedded = false, onClose }: FormPro
   };
 
   const innerForm = (
-    <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 sm:p-8 w-full max-w-md border border-gray-600">
+    <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 sm:p-8 w-full max-w-md border border-gray-600 animate-fade-in-up">
       <div className="flex items-center gap-3 mb-6">
         {onBack && <BackChevron onClick={onBack} />}
         <h1
