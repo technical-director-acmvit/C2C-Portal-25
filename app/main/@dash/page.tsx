@@ -31,9 +31,15 @@ export default function DashPage() {
 
       <TopBar />
 
-      <main className="relative z-10 container mx-auto px-4 py-6 max-w-7xl">
+      <main
+        className={
+          view === "profile"
+            ? "relative z-10 w-full px-0 md:px-4 py-4 md:py-6 max-w-none"
+            : "relative z-10 container mx-auto px-4 py-6 max-w-7xl"
+        }
+      >
             {loading && <PortalLoader />}
-            {view === "form" && <LampOverlay />}
+            {(view === "form" || view === "profile") && <LampOverlay />}
             {/* Header Section - only on home view */}
             {view === "home" && (
               <div className="text-center mb-8">

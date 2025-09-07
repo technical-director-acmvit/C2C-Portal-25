@@ -3,9 +3,9 @@
 
 import BackChevron from "./ui/back-chevron";
 import Image from "next/image";
-import IDCard from "@/app/components/portal/id-card";
-import IDCardBack from "@/app/components/portal/id-card-Back";
-import HKBox from "@/app/components/portal/hk-box";
+import IDCard from "@/app/components/dash/id-card";
+import IDCardBack from "@/app/components/dash/id-card-behind";
+import HKBox from "@/app/components/dash/hk-box";
 
 interface ProfileProps {
   onBack?: () => void;

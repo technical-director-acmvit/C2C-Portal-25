@@ -16,7 +16,7 @@ import {
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
 import * as THREE from 'three';
 
-import { createTextTexture } from '@/app/components/portal/createTextTexture';
+import { createTextTexture } from '@/app/components/portal/create-text-texture';
 
 const cardGLB = '/portal/card.glb';
 
