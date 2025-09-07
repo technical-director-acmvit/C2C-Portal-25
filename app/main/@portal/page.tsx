@@ -9,19 +9,20 @@ import TeamUp from "../../components/portal/team-up";
 import Dashboard from "../../components/portal/dashboard";
 import { usePortalStore } from "../../stores/portal";
 import PortalLoader from "@/app/components/portal/portal-loader";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { LogOut } from "lucide-react";
 import GithubView from "@/app/components/portal/github/github-view";
 import { PORTAL_ENABLED, DISCORD_URL } from "@/lib/env";
 
-export default function Home({ userEmail }: { userEmail?: string | null }) {
+export default function Home() {
+  const { data: session, status } = useSession()
+
   const view = usePortalStore((s) => s.view);
   const initialize = usePortalStore((s) => s.initialize);
   const setView = usePortalStore((s) => s.setView);
   const dashboard = usePortalStore((s) => s.dashboard);
 
-  console.log("Home userEmail:", userEmail);
-  console.log("Home userEmail type:", typeof userEmail);
+    const userEmail = typeof session?.user?.email === "string" ? session?.user?.email : undefined;
 
   useEffect(() => {
     void initialize();
