@@ -230,7 +230,9 @@ const Dashboard: React.FC = () => {
                       />
                     </div>
                     <span
-                      className="text-white text-center leading-tight text-sm sm:text-base md:text-lg max-w-full break-words px-1"
+                      className={`text-center leading-tight text-sm sm:text-base md:text-lg max-w-full break-words px-1 ${
+                        idx === 0 ? 'text-[#48BA86]' : 'text-white'
+                      }`}
                       style={{
                         fontFamily: "'Pilat Extended', Arial, sans-serif",
                         fontWeight: 400,
@@ -300,35 +302,35 @@ const Dashboard: React.FC = () => {
             </div>
 
             {/* Actions */}
-            <div className="flex flex-col items-center gap-4 sm:gap-6 w-full max-w-sm mx-auto sm:static">
-              {members.length >= minTeamMembers && submissionOpen && needsSubmission && (
-                <PortalButton
-                  onClick={() => setShowForm(true)}
-                  className="w-full px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 rounded-lg text-white cursor-pointer transition-all hover:scale-[1.02] active:scale-95 shadow-lg min-h-[48px] sm:min-h-[52px] lg:min-h-[56px]"
-                  style={{
-                    fontSize: "clamp(14px, 3vw, 18px)",
-                  }}
-                >
-                  Go to form
-                </PortalButton>
+            <div className="flex flex-col items-center gap-4 sm:gap-6 w-full max-w-sm sm:max-w-none mx-auto sm:static">
+              {submissionOpen && needsSubmission && members.length < minTeamMembers && (
+                <div className="text-center text-yellow-300 text-xs sm:text-sm">
+                  You must have at least {minTeamMembers} people in your team to submit.
+                </div>
               )}
 
-              {team && needsSubmission && (
-                <PortalButton
-                  onClick={() => setShowLeaveModal(true)}
-                  disabled={isLeaving}
-                  className={`w-full sm:w-auto px-6 sm:px-8 lg:px-10 py-2.5 sm:py-3 lg:py-3.5 min-h-[44px] sm:min-h-[48px] lg:min-h-[52px] transition-all ${
-                    isLeaving
-                      ? "opacity-50 cursor-not-allowed"
-                      : "hover:scale-[1.02] active:scale-95"
-                  }`}
-                  style={{
-                    fontSize: "clamp(14px, 3vw, 18px)",
-                  }}
-                >
-                  Leave team
-                </PortalButton>
-              )}
+              <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full sm:w-auto">
+                {members.length >= minTeamMembers && submissionOpen && needsSubmission && (
+                  <PortalButton
+                    onClick={() => setShowForm(true)}
+                    className="w-full sm:w-auto hover:scale-[1.02] active:scale-95 shadow-lg"
+                  >
+                    Go to form
+                  </PortalButton>
+                )}
+
+                {team && needsSubmission && (
+                  <PortalButton
+                    onClick={() => setShowLeaveModal(true)}
+                    disabled={isLeaving}
+                    className={`w-full sm:w-auto ${
+                      isLeaving ? "" : "hover:scale-[1.02] active:scale-95"
+                    }`}
+                  >
+                    Leave team
+                  </PortalButton>
+                )}
+              </div>
 
               {/* Link GitHub CTA */}
               {/* <PortalButton

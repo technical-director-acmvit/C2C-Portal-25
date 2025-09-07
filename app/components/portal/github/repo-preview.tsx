@@ -143,7 +143,7 @@ export default function RepoPreview({ installationId }: { installationId: string
           <div className="flex gap-2">
             {repoInfo?.html_url && (
               <a href={repoInfo.html_url} target="_blank" rel="noreferrer">
-                <PortalButton className="px-4 py-2 text-sm">Open on GitHub</PortalButton>
+        <PortalButton>Open on GitHub</PortalButton>
               </a>
             )}
           </div>

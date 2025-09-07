@@ -43,7 +43,7 @@ const JoinTeam = ({ onBack }: Props) => {
       {/* Centered card content */}
       <div className="flex items-center justify-center h-full px-4 relative z-10">
         <div
-          className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl p-6 sm:p-8 rounded-2xl"
+          className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl p-6 sm:p-8 rounded-2xl animate-pop-in"
           style={{
             background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))",
             backdropFilter: "blur(10px) saturate(120%)",
@@ -52,11 +52,11 @@ const JoinTeam = ({ onBack }: Props) => {
             border: "1px solid rgba(255,255,255,0.10)",
           }}
         >
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex items-center gap-3 mb-4 sm:mb-6">
             <BackChevron onClick={onBack} />
             <h1
-              className="text-white text-2xl sm:text-3xl"
-              style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontWeight: 700 }}
+              className="text-white min-w-0 truncate"
+              style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontWeight: 700, fontSize: "clamp(20px, 5.5vw, 28px)" }}
             >
               Enter Team Code
             </h1>
@@ -84,9 +84,9 @@ const JoinTeam = ({ onBack }: Props) => {
           </div>
 
           <p
-            className="text-gray-400 text-center mb-6"
+            className="text-gray-400 text-center mb-5 sm:mb-6"
             style={{
-              fontSize: "14px",
+              fontSize: "clamp(12px, 3.6vw, 14px)",
               fontFamily: "'Pilat Regular', Arial, sans-serif",
               fontWeight: 400,
             }}
@@ -98,7 +98,7 @@ const JoinTeam = ({ onBack }: Props) => {
             <PortalButton
               onClick={handleProceed}
               disabled={!teamCode.trim() || loading}
-              className={`${teamCode.trim() ? "" : "opacity-50 cursor-not-allowed"} px-6 py-2 text-[18px]`}
+              className={`${teamCode.trim() ? "" : "opacity-50 cursor-not-allowed"}`}
             >
               {loading ? "Joining…" : "Proceed"}
             </PortalButton>

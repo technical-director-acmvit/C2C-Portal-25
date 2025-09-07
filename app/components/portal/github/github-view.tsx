@@ -150,10 +150,10 @@ export default function GithubView() {
       <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" />
       <BackChevron className="absolute top-4 left-4 z-10" onClick={() => setView("dashboard")} />
       <div className="absolute inset-0 overflow-auto p-6">
-        <div className="max-w-5xl mx-auto bg-black/30 border border-white/10 rounded-2xl p-4 sm:p-6">
+        <div className="max-w-5xl mx-auto bg-black/30 border border-white/10 rounded-2xl p-4 sm:p-6 animate-fade-in-up">
           <h1
-            className="text-3xl mb-4"
-            style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}
+            className="mb-4"
+            style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: "clamp(20px,5.5vw,30px)" }}
           >
             GitHub Integration
           </h1>

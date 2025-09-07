@@ -41,7 +41,7 @@ const LeaveTeamModal: React.FC<LeaveTeamModalProps> = ({
       {/* Centered card (match Join/Create) */}
       <div className="flex items-center justify-center h-full px-4">
         <div
-          className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg p-4 sm:p-6 md:p-8 rounded-2xl"
+          className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg p-4 sm:p-6 md:p-8 rounded-2xl animate-pop-in"
           style={{
             background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))",
             backdropFilter: "blur(10px) saturate(120%)",
@@ -51,11 +51,12 @@ const LeaveTeamModal: React.FC<LeaveTeamModalProps> = ({
           }}
         >
           <h2
-            className="text-white text-center mb-4 text-lg sm:text-xl"
+            className="text-white text-center mb-4"
             style={{
               fontFamily: "'Pilat Extended', Arial, sans-serif",
               fontWeight: "700",
-              letterSpacing: "1px",
+              letterSpacing: "0.5px",
+              fontSize: "clamp(16px, 4.5vw, 20px)",
             }}
           >
             Leave Team
@@ -78,15 +79,14 @@ const LeaveTeamModal: React.FC<LeaveTeamModalProps> = ({
             <PortalButton
               onClick={onClose}
               disabled={isProcessing}
-              // force smaller responsive text so PortalButton default doesn't dominate
-              className={`w-full sm:w-auto px-4 py-2 !text-[15px] sm:!text-[16px] md:!text-[16px] bg-transparent border border-white/20 text-white ${isProcessing ? "opacity-50 cursor-not-allowed" : ""}`}
+              className={`w-full sm:w-auto bg-transparent border border-white/20 text-white ${isProcessing ? "opacity-50 cursor-not-allowed" : ""}`}
             >
               Cancel
             </PortalButton>
             <PortalButton
               onClick={handleConfirm}
               disabled={isProcessing}
-              className={`w-full sm:w-auto px-4 py-2 !text-[15px] sm:!text-[16px] md:!text-[16px] ${isProcessing ? "opacity-50 cursor-not-allowed" : ""}`}
+              className={`w-full sm:w-auto ${isProcessing ? "opacity-50 cursor-not-allowed" : ""}`}
             >
               {isProcessing ? "Leaving…" : "Leave Team"}
             </PortalButton>

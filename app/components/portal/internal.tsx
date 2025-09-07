@@ -125,7 +125,7 @@ const Internal = ({ onBack,mail  }: Props) => {
             </div> */}
       <div className="flex items-center justify-center h-full relative z-10">
         <div
-          className="w-full max-w-lg p-6 sm:p-8 rounded-2xl"
+          className="w-full max-w-lg p-6 sm:p-8 rounded-2xl animate-pop-in"
           style={{
             background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))",
             backdropFilter: "blur(10px) saturate(120%)",
@@ -134,7 +134,7 @@ const Internal = ({ onBack,mail  }: Props) => {
             border: "1px solid rgba(255,255,255,0.10)",
           }}
         >
-        <div className="relative mb-6">
+        <div className="relative mb-4 sm:mb-6">
             {!mail && (
                 <div className="absolute left-0 top-1/2 -translate-y-1/2">
                     <BackChevron onClick={onBack} />
@@ -142,8 +142,8 @@ const Internal = ({ onBack,mail  }: Props) => {
             )}
 
             <h2
-                className="mx-auto text-center text-2xl sm:text-3xl font-semibold text-white"
-                style={{ fontFamily: "'Pilat Extended', 'Trap', Arial, sans-serif" }}
+                className="mx-auto text-center font-semibold text-white"
+                style={{ fontFamily: "'Pilat Extended', 'Trap', Arial, sans-serif", fontSize: "clamp(20px, 5.5vw, 28px)" }}
             >
                 Student Details
             </h2>
@@ -232,7 +232,7 @@ const Internal = ({ onBack,mail  }: Props) => {
             <PortalButton
               onClick={handleSubmit}
               disabled={!isFormValid() || loading}
-              className={`px-6 py-2 text-[20px] ${isFormValid() && !loading ? "" : "opacity-50 cursor-not-allowed"}`}
+              className={`${isFormValid() && !loading ? "" : "opacity-50 cursor-not-allowed"}`}
             >
               {loading ? "Submitting…" : "Proceed"}
             </PortalButton>
