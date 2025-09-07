@@ -16,17 +16,15 @@ const Portal = ({ userEmail }: { userEmail?: string | null }) => {
 
   console.log("Portal userEmail:", userEmail);
 
-  // If the email ends with @vitstudent.ac.in, auto-select the internal flow.
-  useEffect(() => {
     if (selected === null && userEmail) {
       const isVitStudent = /@vitstudent\.ac\.in$/i.test(userEmail.trim());
       if (isVitStudent) {
-        // Instead of auto-entering the internal flow, show the VIT login modal
         setSelected("internal");
       }
     }
-  }, [userEmail, selected]);
 
+    console.log("Portal selected:", selected);
+    console.log("Portal isVitStudentEmail:", isVitStudentEmail);
   if (selected === "internal") {
     return <Internal onBack={() => setSelected(null)} mail={emailToCheck} />;
   }
