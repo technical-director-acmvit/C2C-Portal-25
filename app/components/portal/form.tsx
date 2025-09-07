@@ -32,6 +32,7 @@ const Form = ({ onBack, requirePPT = false, embedded = false, onClose }: FormPro
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  // const [acknowledgeLock, setAcknowledgeLock] = useState(false);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
@@ -69,7 +70,9 @@ const Form = ({ onBack, requirePPT = false, embedded = false, onClose }: FormPro
   );
 
   // Add a single derived disabled flag to drive both attribute and styles
+  // const isDisabled = !valid || submitting || !acknowledgeLock;
   const isDisabled = !valid || submitting;
+
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files && e.target.files[0];
@@ -283,6 +286,24 @@ const Form = ({ onBack, requirePPT = false, embedded = false, onClose }: FormPro
 
       </div>
 
+      {/* Submission lock disclaimer */}
+      <div className="mt-4 p-3 rounded-md bg-yellow-500/10 border border-yellow-400/30 text-yellow-200 text-xs sm:text-sm">
+        <p className="mb-2">
+          Once you submit, your submission and team are locked. You cannot edit the submission,
+          and no one can join or leave the team after submission.
+        </p>
+        {/* <label className="flex items-start gap-2">
+          <input
+            type="checkbox"
+            className="mt-1 h-4 w-4 accent-emerald-500"
+            checked={acknowledgeLock}
+            onChange={(e) => setAcknowledgeLock(e.target.checked)}
+            disabled={submitting}
+          />
+          <span>I understand and want to proceed.</span>
+        </label> */}
+      </div>
+
       {/* Submit Button */}
       <div className="flex justify-center mt-8">
         <div className="flex gap-4">
@@ -296,10 +317,9 @@ const Form = ({ onBack, requirePPT = false, embedded = false, onClose }: FormPro
             </PortalButton>
           )}
             <PortalButton
-
                 onClick={handleSubmit}
                 disabled={isDisabled}
-                className={`w-full sm:w-auto px-4 py-2 !text-[15px] sm:!text-[16px] md:!text-[16px] ${isDisabled ? "opacity-50 cursor-not-allowed" : ""}`}
+                className={`w-full sm:w-auto ${isDisabled ? "opacity-50 cursor-not-allowed" : "hover:scale-[1.02] active:scale-95"}`}
             >
                 {submitting ? "Submitting…" : "Submit"}
             </PortalButton>
