@@ -16,9 +16,10 @@ export default function BentoGrid() {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <>
-        <div className="flex justify-center px-2 md:hidden">
-          <div className="grid grid-cols-14 grid-rows-20 gap-2 w-full mx-auto max-w-[90%] py-2">
-            <div className="col-span-14 row-span-6">
+        <div className="px-6 md:hidden">
+          <div className="flex flex-col gap-6 w-full mx-auto py-6">
+            {/* Timer info - full width, prominent */}
+            <div className="w-full">
               <TimerInfo
                 timer="12 : 21 : 12"
                 heading="Review 0"
@@ -26,18 +27,18 @@ export default function BentoGrid() {
               />
             </div>
 
-            {/* Notice card - left side */}
-            <div className="col-span-8 row-span-8 mb-8">
-              <div className="relative w-full h-full p-4">
+            {/* Notice card - full width */}
+            <div className="w-full">
+              <div className="relative w-full h-44">
                 {/* Background card layers */}
-                <div className="absolute inset-4 bg-black border border-green-700 rounded-lg transform rotate-3"></div>
-                <div className="absolute inset-4 bg-black border border-green-700 rounded-lg transform -rotate-2"></div>
+                <div className="absolute inset-0 bg-black border border-green-700 rounded-lg transform rotate-1"></div>
+                <div className="absolute inset-0 bg-black border border-green-700 rounded-lg transform -rotate-1"></div>
 
                 {/* Main content card */}
-                <div className="relative bg-black border border-green-700 rounded-lg p-4 text-center text-white h-full flex flex-col justify-center">
-                  <h2 className="text-lg font-bold underline mb-4">NOTICE</h2>
-                  <div className="text-sm">
-                    <ul className="list-disc text-left mx-auto w-fit space-y-1">
+                <div className="relative bg-black border border-green-700 rounded-lg p-5 text-center text-white h-full flex flex-col justify-center">
+                  <h2 className="text-xl font-bold underline mb-4">NOTICE</h2>
+                  <div className="text-base">
+                    <ul className="list-disc text-left mx-auto w-fit space-y-2">
                       <li>This is to inform the design people that you all slay</li>
                       <li>Keep up the amazing work!</li>
                     </ul>
@@ -46,22 +47,31 @@ export default function BentoGrid() {
               </div>
             </div>
 
-            <div className="col-span-6 row-span-9 col-start-9 rounded-lg">
-              <ImageBox image="/Group 1000007425.png" title="cool looking dude" flag={1} />
-            </div>
-
-            <div className="col-span-6 row-span-9 row-start-16 col-start-1 rounded-lg">
-              <ImageBox image="/image 41.png" title="some building" flag={1} />
-            </div>
-
-            {/* First button box - left side */}
-            <div className="border-emerald-500 bg-[#060f0b] rounded-lg border-2 col-span-8 row-span-4 p-4 flex flex-col items-center row-start-16 col-start-7">
+            {/* Button boxes - stacked vertically, touch-friendly */}
+            <div className="border-emerald-500 bg-[#060f0b] rounded-lg border-2 w-full h-24 p-5 flex flex-col items-center justify-center">
               <ButtonBox text="Check out your team" btnText="Profile" onClick={() => setView("profile")} />
             </div>
 
-            {/* Calendar - left side */}
-            <div className="bg-black border-green-700 border col-span-8 row-span-5 flex items-center justify-center rounded-lg overflow-hidden row-start-21 col-start-7">
-              <div className="w-full h-full flex items-center justify-center p-2">
+            <div className="border-emerald-500 bg-[#060f0b] rounded-lg border-2 w-full h-24 p-5 flex flex-col items-center justify-center">
+              <ButtonBox text="Submit your idea" btnText="Form" onClick={() => setView("form")} />
+            </div>
+
+            {/* Two-column layout for song and image */}
+            <div className="grid grid-cols-2 gap-5">
+              {/* Song card */}
+              <div className="col-span-1 h-36 border-emerald-500 border rounded-lg overflow-hidden">
+                <SongCard title="My song" artist="My name" image="/landing/C2C Logo.svg" />
+              </div>
+
+              {/* Building image card */}
+              <div className="col-span-1 h-36 rounded-lg overflow-hidden">
+                <ImageBox image="/image 41.png" title="some building" flag={1} />
+              </div>
+            </div>
+
+            {/* Calendar - optimized for mobile */}
+            <div className="bg-black border-green-700 border w-full h-96 flex items-center justify-center rounded-lg overflow-hidden">
+              <div className="w-full h-full flex items-center justify-center p-4">
                 <DateCalendar
                   value={value}
                   onChange={(newValue) => setValue(newValue)}
@@ -70,48 +80,50 @@ export default function BentoGrid() {
                     height: "100%",
                     maxWidth: "100%",
                     maxHeight: "100%",
-                    transform: "scale(0.65)",
+                    transform: "scale(1)",
                     transformOrigin: "center",
                     "& .MuiPickersCalendarHeader-root": {
                       color: "white",
-                      paddingLeft: "4px",
-                      paddingRight: "4px",
+                      paddingLeft: "12px",
+                      paddingRight: "12px",
+                      marginBottom: "12px",
                     },
                     "& .MuiPickersCalendarHeader-label": {
                       color: "white",
-                      fontSize: "0.85rem",
+                      fontSize: "1.25rem",
+                      fontWeight: "600",
                     },
                     "& .MuiDayCalendar-weekDayLabel": {
                       color: "white",
-                      fontSize: "0.7rem",
+                      fontSize: "1rem",
+                      fontWeight: "500",
                     },
                     "& .MuiPickersDay-root": {
                       color: "white",
-                      fontSize: "0.75rem",
+                      fontSize: "1rem",
+                      minHeight: "40px",
+                      minWidth: "40px",
+                      margin: "3px",
                     },
                     "& .MuiPickersDay-root.Mui-selected": {
                       backgroundColor: "green",
                       color: "white",
+                      fontWeight: "bold",
                     },
                     "& .MuiPickersDay-root:hover": {
                       backgroundColor: "rgba(0, 128, 0, 0.3)",
                     },
                     "& .MuiPickersArrowSwitcher-button": {
                       color: "white",
+                      minHeight: "48px",
+                      minWidth: "48px",
+                    },
+                    "& .MuiDayCalendar-weekContainer": {
+                      margin: "4px 0",
                     },
                   }}
                 />
               </div>
-            </div>
-
-            {/* Song card */}
-            <div className="col-span-6 row-span-5 col-start-1 border-emerald-500 border rounded-lg">
-              <SongCard title="My song" artist="My name" image="/landing/C2C Logo.svg" />
-            </div>
-
-            {/* Second button box */}
-            <div className="border-emerald-500 bg-[#060f0b] rounded-lg border-2 col-span-8 row-span-4 p-4 flex flex-col items-center col-start-7">
-              <ButtonBox text="Submit your idea" btnText="Form" onClick={() => setView("form")} />
             </div>
           </div>
         </div>
@@ -124,7 +136,7 @@ export default function BentoGrid() {
             </div>
 
             <div className="col-span-3 row-span-7 rounded-lg overflow-hidden flex items-center justify-center">
-              <ImageBox image="/Group 1000007425.png" title="cool looking dude" flag={0} />
+              <ImageBox image="/dash/shirt-mascot.svg" title="cool looking dude" flag={0} />
             </div>
 
             <div className="col-span-5 row-span-9 rounded-lg">
