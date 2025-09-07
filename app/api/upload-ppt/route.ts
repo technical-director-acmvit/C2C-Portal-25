@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     if (!file) {
       return new NextResponse(JSON.stringify({ error: "No file provided" }), { status: 400 });
     }
-    const filename = (file as any).name || `upload-${Date.now()}`;
+    const filename = (file as File).name ?? `upload-${Date.now()}`;
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     const ext = filename.includes(".") ? filename.substring(filename.lastIndexOf(".")) : "";

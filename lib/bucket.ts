@@ -5,7 +5,7 @@ import path from 'path';
 type SaveOptions = {
 	contentType?: string;
 	gzip?: boolean;
-	metadata?: Record<string, any>;
+	metadata?: Record<string, unknown>;
 };
 
 let uploaderStorage: Storage | null = null;
@@ -107,4 +107,5 @@ export async function getSignedUrl(destination: string, expiresInSeconds = 3600)
 	return url;
 }
 
-export default { upload, getSignedUrl };
+const bucket = { upload, getSignedUrl };
+export default bucket;
