@@ -7,7 +7,7 @@ export default function TopBar() {
 
   return (
     <>
-      <div className="w-full bg-transparent border-b border-white backdrop-blur-sm">
+      <div className="w-full bg-transparent border-b border-white backdrop-blur-sm sticky top-0 z-40">
         <div className="w-full flex items-center justify-between px-0 sm:px-0 lg:px-0 py-2 md:py-0 md:h-14">
           <div className="flex-shrink-0 border-r border-white pr-4 md:pr-8 py-1 flex items-center">
             <button
