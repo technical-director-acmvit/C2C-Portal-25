@@ -37,7 +37,8 @@ export type DashboardResponse = {
   teammates?: UserSummary[];
   track?: TrackInfo | null;
   minmembercount?: number;
-  submissionOpen?: boolean;
+  c2chappening?: boolean;
+  submitted?: boolean;
 };
 
 export async function fetchDashboard(): Promise<{
@@ -64,6 +65,8 @@ export async function fetchDashboard(): Promise<{
     team?: TeamInfo | null;
     teammates?: unknown;
     track?: unknown;
+    c2chappening?: boolean;
+    submitted?: boolean;
   };
   const teammates: UserSummary[] = Array.isArray(r.teammates) ? (r.teammates as UserSummary[]) : [];
   let track: TrackInfo | null = null;
@@ -80,7 +83,8 @@ export async function fetchDashboard(): Promise<{
     teammates,
     track,
     minmembercount: r.minmembercount,
-    submissionOpen: process.env.NEXT_PUBLIC_SUBMISSION_OPEN === "true",
+    c2chappening: r.c2chappening ?? false,
+    submitted: r.submitted ?? false,
   };
   return { ok: true, status: res.status, data: cooked };
 }

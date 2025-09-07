@@ -67,6 +67,14 @@ const External = ({ onBack }: Props) => {
     { label: "Female", value: "female" },
   ] as const;
 
+  // Phone validation: must be 10 digits and start with 6-9
+  const validatePhoneNumber = (val: string) => {
+    const digits = val.replace(/\D/g, "");
+    if (digits.length !== 10) return false;
+    const first = parseInt(digits[0], 10);
+    return first >= 6 && first <= 9;
+  };
+
   // Search universities
   const searchUniversities = useCallback(async (query: string) => {
     if (!query.trim()) {
@@ -135,15 +143,23 @@ const External = ({ onBack }: Props) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    
+
+    if (name === "contactNumber") {
+      // allow only digits and limit to 10 digits
+      const digits = value.replace(/\D/g, "").slice(0, 10);
+      setFormData((prev) => ({ ...prev, contactNumber: digits }));
+      return;
+    }
+
     if (name === "universityName") {
+      setFormData((prev) => ({ ...prev, universityName: value, collegeName: "" }));
       setShowUniversitySuggestions(true);
       setActiveUniversityIndex(0);
-      // Clear college when university changes
-      setFormData((prev) => ({ ...prev, collegeName: "" }));
       setCollegeSuggestions([]);
+      return;
     }
+
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleCollegeInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -238,6 +254,11 @@ const External = ({ onBack }: Props) => {
 
   const handleSubmit = async () => {
     if (!isFormValid()) return;
+    // validate phone before submitting
+    if (!validatePhoneNumber(formData.contactNumber)) {
+      setError("Phone number must contain 10 digits and start with 6-9");
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
@@ -398,6 +419,8 @@ const External = ({ onBack }: Props) => {
             value={formData.contactNumber}
             onChange={handleInputChange}
             placeholder="Contact Number"
+            inputMode="numeric"
+            pattern="\d*"
           />
 
           <div className="flex justify-center">
