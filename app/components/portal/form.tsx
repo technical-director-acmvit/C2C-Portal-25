@@ -5,6 +5,7 @@ import Image from "next/image";
 import { getTracks, submitTeamSubmission, type Track } from "../../actions/submission";
 import BackChevron from "./ui/back-chevron";
 import PortalButton from "./ui/button";
+import { usePortalStore } from "@/app/stores/portal";
 
 interface FormProps {
   onBack?: () => void;
@@ -32,6 +33,7 @@ const Form = ({ onBack, requirePPT = false, embedded = false, onClose }: FormPro
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const refreshDashboard = usePortalStore((s) => s.refreshDashboard);
   // const [acknowledgeLock, setAcknowledgeLock] = useState(false);
 
   const handleInputChange = (
@@ -133,7 +135,12 @@ const Form = ({ onBack, requirePPT = false, embedded = false, onClose }: FormPro
         track_id: selectedTrackId,
         title: formData.title,
       });
-      setSuccess("Submission saved");
+      await refreshDashboard();
+      if (onClose) {
+        onClose();
+      } else {
+        setSuccess("Submission saved");
+      }
       // Optionally clear file input on success
       setPptFile(null);
     } catch (err) {

@@ -53,7 +53,7 @@ const Dashboard: React.FC = () => {
     return (
       <div className="fixed inset-0 w-screen h-screen relative">
         {/* Background image via next/image */}
-        <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" />
+        {/* <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" /> */}
         <BackChevron className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10" />
         {/* removed top-right close button; moved into Form via onClose prop */}
 
@@ -87,7 +87,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="fixed inset-0 w-screen h-screen relative">
       {/* Background image via next/image */}
-      <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" />
+      {/* <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" /> */}
       {/* Navigation buttons */}
       <BackChevron className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10" />
 
