@@ -47,7 +47,8 @@ export type SubmissionInfo = {
     title?: string | null;
     ppt_url?: string | null;
     description?: string | null;
-}
+    round_end_time?: string | Date | null;
+};
 
 export async function fetchDashboard(): Promise<{
   ok: boolean;
