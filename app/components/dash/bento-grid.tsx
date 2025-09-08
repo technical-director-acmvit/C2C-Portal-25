@@ -1,4 +1,5 @@
 "use client";
+
 import SongCard from "./spotify-player";
 import TimerInfo from "./timer";
 import ButtonBox from "./button-box";
@@ -9,10 +10,28 @@ import dayjs, { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+import { getNotices } from "@/app/actions/notice";
 
 export default function BentoGrid() {
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs());
-  const setView = useDashStore((s) => s.setView);
+    const [value, setValue] = React.useState<Dayjs | null>(dayjs());
+    const setView = useDashStore((s) => s.setView);
+    const [notices, setNotices] = React.useState<{ id: number; message: string; created_at: string }[]>([]);
+
+    React.useEffect(() => {
+        let mounted = true;
+        (async () => {
+            try {
+                const data = await getNotices();
+                if (mounted && data) setNotices(data);
+            } catch (err) {
+                console.error("Failed to load notices", err);
+            }
+        })();
+        return () => {
+            mounted = false;
+        };
+    }, []);
+    const displayNotices = Array.isArray(notices) && notices.length > 0 ? notices : [{ id: 0, message: "No notices available", created_at: new Date().toISOString() }];
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <>
@@ -38,10 +57,13 @@ export default function BentoGrid() {
                 <div className="absolute top-1 left-1 right-1 bottom-1 bg-black border border-green-700 rounded-lg p-4 text-center text-white flex flex-col justify-center">
                   <h2 className="text-lg font-bold underline mb-3">NOTICE</h2>
                   <div className="text-sm">
-                    <ul className="list-disc text-left mx-auto w-fit space-y-1 pl-6">
-                      <li>This is to inform the design people that you all slay</li>
-                      <li>Keep up the amazing work!</li>
+                    <div className="text-sm">
+                      <ul className="list-disc text-left mx-auto w-fit space-y-1 pl-6">
+                        {displayNotices.map((notice: { id: number; message: string }) => (
+                          <li key={notice.id}>{notice.message}</li>
+                        ))}
                     </ul>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -228,9 +250,10 @@ export default function BentoGrid() {
                 <div className="relative bg-black border border-green-700 rounded-lg p-3 text-center text-white h-full flex flex-col justify-center">
                   <h2 className="text-lg font-bold underline mb-2">NOTICE</h2>
                   <div className="text-sm">
-                    <ul className="list-disc text-left mx-auto w-fit space-y-1 pl-6">
-                      <li>This is to inform the design people that you all slay</li>
-                      <li>Keep up the amazing work!</li>
+                      <ul className="list-disc text-left mx-auto w-fit space-y-1 pl-6">
+                        {displayNotices.map((notice: { id: number; message: string }) => (
+                          <li key={notice.id}>{notice.message}</li>
+                        ))}
                     </ul>
                   </div>
                 </div>
