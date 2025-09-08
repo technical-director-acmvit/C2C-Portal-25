@@ -37,8 +37,8 @@ const Dashboard: React.FC = () => {
   }, [currentUser, teammatesRef]);
 
   const needsSubmission = useMemo(() => {
-     return !data?.submitted
-  }, [team]);
+    return !data?.submitted;
+  }, [data?.submitted]);
 
   // All routing is managed by the portal store (view state).
 

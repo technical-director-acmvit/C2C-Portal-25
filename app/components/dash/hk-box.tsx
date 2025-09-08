@@ -1,13 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
 
-interface HKBoxProps {
-    onBack?: () => void;
-}
-
-const HKBox = ({ onBack }: HKBoxProps) => {
+const HKBox = () => {
   return (
     <div
       className="relative m-4 sm:m-8 p-6 md:p-10 lg:p-12 w-full max-w-3xl md:max-w-3xl lg:max-w-4xl xl:max-w-4xl h-auto flex flex-col items-center justify-center text-center border-2 border-emerald-500 rounded-3xl sm:rounded-[32px] bg-black/20 backdrop-blur-sm"
@@ -35,11 +31,16 @@ const HKBox = ({ onBack }: HKBoxProps) => {
         <h4 className="w-full text-center text-black" style={{ fontSize: 'clamp(14px, 3.5vw, 18px)' }}>Request Access</h4>
       </div>
       {/* Decorative art */}
-      <img
-        src="/portal/art.svg"
-        alt="art"
-        className="absolute -bottom-9 -right-9 w-20 h-20 sm:-bottom-12 sm:-right-12 sm:w-28 sm:h-28 pointer-events-none select-none"
-      />
+      <div className="absolute -bottom-9 -right-9 sm:-bottom-12 sm:-right-12 pointer-events-none select-none">
+        <Image
+          src="/portal/art.svg"
+          alt="art"
+          width={112}
+          height={112}
+          className="w-20 h-20 sm:w-28 sm:h-28"
+          priority={false}
+        />
+      </div>
     </div>
   );
 };

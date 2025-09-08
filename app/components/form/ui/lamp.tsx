@@ -10,7 +10,7 @@ export function Lamp({
   className?: string;
 }) {
   return (
-    <div className={cn("relative w-full min-h-screen bg-slate-950", className)}>
+    <div className={cn("relative w-full min-h-screen bg-black", className)}>
       {/* Lamp visuals - Absolute positioned at top */}
       <div className="absolute top-0 left-0 w-full h-[400px] z-10 pointer-events-none overflow-hidden">
         <div className="relative w-full scale-250 flex items-center justify-center">
@@ -34,7 +34,7 @@ export function Lamp({
       </div>
 
       {/* Background extension to ensure full coverage */}
-      <div className="absolute inset-0 w-full h-full bg-slate-950 -z-10"></div>
+      <div className="absolute inset-0 w-full h-full bg-black -z-10"></div>
 
       {/* Children content - Full width without restrictions */}
       <div className="relative z-20 w-full min-h-screen">

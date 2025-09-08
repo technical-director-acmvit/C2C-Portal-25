@@ -16,7 +16,7 @@ import { PORTAL_ENABLED, DISCORD_URL } from "@/lib/env";
 import DevViewSwitcher from "@/app/components/portal/dev-view-switcher";
 
 export default function Home() {
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
 
   const view = usePortalStore((s) => s.view);
   const initialize = usePortalStore((s) => s.initialize);

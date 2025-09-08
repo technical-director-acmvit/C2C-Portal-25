@@ -6,7 +6,6 @@ import IDCard from "@/app/components/dash/id-card";
 import IDCardBack from "@/app/components/dash/id-card-behind";
 import BackChevron from "@/app/components/portal/ui/back-chevron";
 import { useDashStore } from "@/app/stores/dash";
-import Image from "next/image";
 import { useEffect, useState, useMemo } from "react";
 import { cleanName } from "@/app/components/portal/nameUtils";
 

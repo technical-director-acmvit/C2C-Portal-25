@@ -123,8 +123,6 @@ function Band({ maxSpeed = 50, minSpeed = 0, text, position = [0, 4, 0], front }
   const card = useRef<RapierRigidBody | null>(null);
 
   const vec = new THREE.Vector3();
-  const ang = new THREE.Vector3();
-  const rot = new THREE.Vector3();
   const dir = new THREE.Vector3();
 
   const segmentProps: Partial<RigidBodyProps> = {
