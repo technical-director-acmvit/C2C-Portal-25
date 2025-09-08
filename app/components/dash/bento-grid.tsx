@@ -15,22 +15,42 @@ import { getNotices } from "@/app/actions/notice";
 export default function BentoGrid() {
     const [value, setValue] = React.useState<Dayjs | null>(dayjs());
     const setView = useDashStore((s) => s.setView);
+    const data = useDashStore((s) => s.dashboard);
     const [notices, setNotices] = React.useState<{ id: number; message: string; created_at: string }[]>([]);
+
+    // live countdown for round end time (HH : MM : SS)
+    const [timeLeft, setTimeLeft] = React.useState<string>("00 : 00 : 00");
 
     React.useEffect(() => {
         let mounted = true;
-        (async () => {
-            try {
-                const data = await getNotices();
-                if (mounted && data) setNotices(data);
-            } catch (err) {
-                console.error("Failed to load notices", err);
+        function compute() {
+            const endRaw = data && data.submission?.round_end_time;
+            if (!endRaw) {
+                if (mounted) setTimeLeft("Wait a little more");
+                return;
             }
-        })();
+            const end = dayjs(endRaw);
+            const diffMs = end.diff(dayjs());
+            if (diffMs <= 0) {
+                if (mounted) setTimeLeft("Wait a little more");
+                return;
+            }
+
+            const totalSec = Math.floor(diffMs / 1000);
+            const hours = Math.floor(totalSec / 3600);
+            const mins = Math.floor((totalSec % 3600) / 60);
+            const secs = totalSec % 60;
+            const pad = (n: number) => String(n).padStart(2, "0");
+            if (mounted) setTimeLeft(`${pad(hours)} : ${pad(mins)} : ${pad(secs)}`);
+        }
+        compute();
+        const id = setInterval(compute, 1000);
         return () => {
             mounted = false;
+            clearInterval(id);
         };
-    }, []);
+    }, [data?.submission?.round_end_time]);
+
     const displayNotices = Array.isArray(notices) && notices.length > 0 ? notices : [{ id: 0, message: "No notices available", created_at: new Date().toISOString() }];
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -40,9 +60,9 @@ export default function BentoGrid() {
             {/* Timer info - full width, prominent */}
             <div className="w-full">
               <TimerInfo
-                timer="12 : 21 : 12"
-                heading="Review 0"
-                info="lorem something something info here"
+                timer={data && data.submission?.round_end_time ? timeLeft : "Wait a little more"}
+                heading="Time until round end"
+                info=""
               />
             </div>
 
@@ -161,8 +181,11 @@ export default function BentoGrid() {
         <div className="hidden md:block md:px-4">
           <div className="grid grid-cols-14 grid-rows-24 gap-4 w-full mx-auto max-w-none py-8">
             <div className="col-span-11 row-span-5">
-              <TimerInfo timer="12 : 21 : 12" heading="Review 0" info="lorem iajnfewjnfljenflqwn" />
-            </div>
+              <TimerInfo
+                timer={data && data.submission?.round_end_time ? timeLeft : "Wait a little more"}
+                heading="Time until round end"
+                info=""
+              />    </div>
 
             <div className="col-span-3 row-span-7 rounded-lg overflow-hidden flex items-center justify-center">
               <ImageBox image="/dash/shirt-mascot.svg" title="cool looking dude" flag={0} />
