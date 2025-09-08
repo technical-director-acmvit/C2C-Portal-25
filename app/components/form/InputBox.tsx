@@ -1,17 +1,17 @@
 type Props = {
   placeholder: string;
-  readOnly?: boolean;
-  disabled?: boolean;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function InputBox({ placeholder, readOnly = false, disabled = false }: Props) {
+export default function InputBox({ placeholder, value, onChange }: Props) {
   return (
     <input
       type="text"
       placeholder={placeholder}
-      readOnly={readOnly}
-      disabled={disabled}
-      className="w-full h-[87px] px-4 py-2 mt-4 rounded-lg border border-emerald-500 bg-[rgba(73,77,75,1)] text-white text-lg focus:outline-none focus:border-emerald-400 transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+      value={value}
+      onChange={onChange}
+      className="flex-1 bg-[rgba(6,15,11,1)] border-2 border-emerald-500 h-[87px] rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400"
     />
   );
 }

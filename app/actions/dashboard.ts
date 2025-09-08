@@ -15,14 +15,15 @@ export type UserSummary = {
 };
 
 export type TeamInfo = {
-  id: string;
-  name: string;
-  description?: string | null;
-  code: string;
-  github_url?: string | null;
-  figma_url?: string | null;
-  other?: string | null;
-  track_id?: string | null;
+    id: string;
+    name: string;
+    description?: string | null;
+    code: string;
+    github_url?: string | null;
+    figma_url?: string | null;
+    other?: string | null;
+    track_id?: string | null;
+    tech_stack?: Record<string, unknown> | unknown[] | null;
 };
 
 export type TrackInfo = {
@@ -39,7 +40,14 @@ export type DashboardResponse = {
   minmembercount?: number;
   c2chappening?: boolean;
   submitted?: boolean;
+  submission?: SubmissionInfo | null;
 };
+
+export type SubmissionInfo = {
+    title?: string | null;
+    ppt_url?: string | null;
+    description?: string | null;
+}
 
 export async function fetchDashboard(): Promise<{
   ok: boolean;
@@ -67,6 +75,7 @@ export async function fetchDashboard(): Promise<{
     track?: unknown;
     c2chappening?: boolean;
     submitted?: boolean;
+    submission?: SubmissionInfo | null;
   };
   const teammates: UserSummary[] = Array.isArray(r.teammates) ? (r.teammates as UserSummary[]) : [];
   let track: TrackInfo | null = null;
@@ -85,6 +94,7 @@ export async function fetchDashboard(): Promise<{
     minmembercount: r.minmembercount,
     c2chappening: r.c2chappening ?? false,
     submitted: r.submitted ?? false,
+    submission: r.submission ?? null,
   };
   return { ok: true, status: res.status, data: cooked };
 }
