@@ -7,6 +7,7 @@ import { signupExternal } from "../../actions/signup";
 import BackChevron from "./ui/back-chevron";
 import Select from "./ui/select";
 import Image from "next/image";
+import { DISCORD_URL } from "@/lib/env";
 
 // Debounce hook for search optimization
 function useDebounce<T>(value: T, delay: number): T {
@@ -422,6 +423,20 @@ const External = ({ onBack }: Props) => {
               Please select a college from the suggestions
             </div>
           )}
+
+          {/* Guidance: keep college name consistent and contact Discord if missing */}
+          <div className="mt-2 mb-4 text-[11px] sm:text-xs md:text-sm text-gray-300 leading-relaxed">
+            Please pick the same college name as your teammates. If your college name isn&apos;t there, raise a ticket on our
+            <a
+              href={DISCORD_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-1 text-[#48BA86] underline underline-offset-2 hover:text-[#63ce9d]"
+            >
+              Discord server
+            </a>
+            .
+          </div>
 
           <label className="block text-sm text-gray-300 mb-2">Gender</label>
           <div className="mb-4">
