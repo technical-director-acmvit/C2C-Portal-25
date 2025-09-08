@@ -21,6 +21,15 @@ export const PORTAL_ENABLED: boolean = (() => {
 })();
 
 /**
+ * Whether the HKBox component should be displayed in the profile.
+ * Accepts: "true"/"1"/"yes"/"on" (case-insensitive) as true, everything else false.
+ */
+export const HK_ENABLED: boolean = (() => {
+  const v = (process.env.NEXT_PUBLIC_HK_ENABLED ?? "").toString().trim().toLowerCase();
+  return v === "true" || v === "1" || v === "yes" || v === "on";
+})();
+
+/**
  * Public Discord invite URL. Can be overridden via NEXT_PUBLIC_DISCORD_URL.
  */
 export const DISCORD_URL: string =

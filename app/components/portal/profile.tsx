@@ -6,6 +6,7 @@ import Image from "next/image";
 import IDCard from "@/app/components/dash/id-card";
 import IDCardBack from "@/app/components/dash/id-card-behind";
 import HKBox from "@/app/components/dash/hk-box";
+import { HK_ENABLED } from "@/lib/env";
 
 interface ProfileProps {
   onBack?: () => void;
@@ -37,10 +38,12 @@ const Profile = ({ onBack }: ProfileProps) => {
             <IDCard />
             <IDCardBack />
           </div>
-          {/* HKBox below */}
-          <div className="w-full max-w-2xl flex justify-center">
-            <HKBox />
-          </div>
+          {/* HKBox below - conditionally rendered */}
+          {HK_ENABLED && (
+            <div className="w-full max-w-2xl flex justify-center">
+              <HKBox />
+            </div>
+          )}
         </div>
       </div>
     </div>

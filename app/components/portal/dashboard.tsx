@@ -251,7 +251,7 @@ const Dashboard: React.FC = () => {
                   style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}
                 >
                   <p className="text-base sm:text-lg mb-3">
-                    No teammates yet — it&apos;s just you for now.
+                    No teammates yet - it&apos;s just you for now.
                   </p>
                   {team?.code && (
                     <p className="text-sm sm:text-base">Share your team code to invite others.</p>
