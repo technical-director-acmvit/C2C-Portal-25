@@ -51,6 +51,21 @@ export default function BentoGrid() {
         };
     }, [data?.submission?.round_end_time]);
 
+    React.useEffect(() => {
+        let mounted = true;
+        (async () => {
+            try {
+                const data = await getNotices();
+                if (mounted && data) setNotices(data);
+            } catch (err) {
+                console.error("Failed to load notices", err);
+            }
+        })();
+        return () => {
+            mounted = false;
+        };
+    }, []);
+
     const displayNotices = Array.isArray(notices) && notices.length > 0 ? notices : [{ id: 0, message: "No notices available", created_at: new Date().toISOString() }];
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
