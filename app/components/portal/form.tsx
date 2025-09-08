@@ -278,7 +278,7 @@ const Form = ({ onBack, requirePPT = false, embedded = false, onClose }: FormPro
               {!pptFile ? (
                 <div className="text-gray-200">
                   <div className="font-medium">Click or drag to upload</div>
-                  <div className="text-xs text-gray-400">PDF, PPT, PPTX — max file size 5 MB</div>
+                  <div className="text-xs text-gray-400">PDF - max file size 5 MB</div>
                 </div>
               ) : (
                 <div className="flex items-center justify-between gap-3">
