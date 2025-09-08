@@ -22,8 +22,8 @@ export default function Reject() {
 						</div>
 						<h1 className="text-3xl font-bold text-red-400 mb-3">Application Not Approved</h1>
 						<p className="text-gray-300 leading-relaxed">
-							Unfortunately, your submission didn't meet our current requirements. 
-							Don't let this discourage you = every rejection is a step closer to success.
+							Unfortunately, your submission didn&apos;t meet our current requirements. 
+							Don&apos;t let this discourage you...every rejection is a step closer to success.
 						</p>
 					</div>
 
