@@ -11,17 +11,19 @@ type Props = {
 export default function ImgBox({ text, img, title, selected = false, onClick }: Props) {
   return (
     <div
-      className={`h-[250px] flex-1 min-w-0 border-2 rounded-4xl m-2 border-emerald-500 flex flex-col justify-around col-span-2 row-span-2 cursor-pointer transition-colors duration-200 ${selected ? 'bg-gray-700' : 'bg-transparent'}`}
+      className={`w-full aspect-[4/3] rounded-[20px] border-[1.39px] border-green-400 ${selected ? 'bg-neutral-700' : 'bg-transparent'} overflow-hidden flex flex-col`}
       onClick={onClick}
     >
-      <h3 className="text-[22px] font-bold text-center my-2">{text}</h3>
-      <Image
-        src={img}
-        alt={title}
-        width={150}
-        height={150}
-        className="mx-auto"
-      />
+      <h3 className="text-lg md:text-xl text-[#a6a3a3] font-bold text-center py-2 px-2">{text}</h3>
+      <div className="flex-1 flex items-center justify-center p-2">
+        <Image
+          src={img}
+          alt={title}
+          width={120}
+          height={120}
+          className="object-contain max-w-full max-h-full"
+        />
+      </div>
     </div>
   );
 }

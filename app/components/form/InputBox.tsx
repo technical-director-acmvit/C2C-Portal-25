@@ -7,11 +7,13 @@ type Props = {
 export default function InputBox({ placeholder, value, onChange }: Props) {
   return (
     <input
-      type="text"
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      className="flex-1 bg-[rgba(6,15,11,1)] border-2 border-emerald-500 h-[87px] rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400"
-    />
+  type="text"
+  placeholder={placeholder}
+  value={value}
+  onChange={onChange}
+  className="w-[652px] h-20 bg-neutral-950 rounded-2xl border border-green-400 
+             px-4 text-white placeholder:text-gray-400 
+             text-lg text-left flex items-center"
+/>
   );
 }
