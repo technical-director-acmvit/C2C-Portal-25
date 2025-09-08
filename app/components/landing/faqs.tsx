@@ -50,7 +50,7 @@ const faqData: FAQItem[] = [
   },
   {
     question: "What will be the judging criteria?",
-    answer: "The judging criteria will be declared after the commencement of the hack.",
+    answer: "Innovation & Creativity, Problem Relevance, Technical Complexity, Implementation & Functionality, User Experience (UI/UX), Scalability & Future Scope, Presentation & Communication, Novelty",
   },
   {
     question: "How will I benefit from attending this hackathon?",

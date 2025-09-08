@@ -1,4 +1,4 @@
-import { getIdToken } from "./session";
+import { authenticatedFetch } from "@/lib/apifetch";
 
 export type UserSummary = {
   id: string;
@@ -15,14 +15,15 @@ export type UserSummary = {
 };
 
 export type TeamInfo = {
-  id: string;
-  name: string;
-  description?: string | null;
-  code: string;
-  github_url?: string | null;
-  figma_url?: string | null;
-  other?: string | null;
-  track_id?: string | null;
+    id: string;
+    name: string;
+    description?: string | null;
+    code: string;
+    github_url?: string | null;
+    figma_url?: string | null;
+    other?: string | null;
+    track_id?: string | null;
+    tech_stack?: Record<string, unknown> | unknown[] | null;
 };
 
 export type TrackInfo = {
@@ -37,7 +38,16 @@ export type DashboardResponse = {
   teammates?: UserSummary[];
   track?: TrackInfo | null;
   minmembercount?: number;
-  submissionOpen?: boolean;
+  c2chappening?: boolean;
+  submitted?: boolean;
+  submission?: SubmissionInfo | null;
+};
+
+export type SubmissionInfo = {
+    title?: string | null;
+    ppt_url?: string | null;
+    description?: string | null;
+    round_end_time?: string | Date | null;
 };
 
 export async function fetchDashboard(): Promise<{
@@ -46,11 +56,7 @@ export async function fetchDashboard(): Promise<{
   data?: DashboardResponse;
   error?: string;
 }> {
-  const idToken = await getIdToken();
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/dashboard/`, {
-    headers: {
-      Authorization: `Bearer ${idToken}`,
-    },
+  const res = await authenticatedFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/dashboard/`, {
     credentials: "omit",
     cache: "no-store",
   });
@@ -68,6 +74,9 @@ export async function fetchDashboard(): Promise<{
     team?: TeamInfo | null;
     teammates?: unknown;
     track?: unknown;
+    c2chappening?: boolean;
+    submitted?: boolean;
+    submission?: SubmissionInfo | null;
   };
   const teammates: UserSummary[] = Array.isArray(r.teammates) ? (r.teammates as UserSummary[]) : [];
   let track: TrackInfo | null = null;
@@ -84,7 +93,9 @@ export async function fetchDashboard(): Promise<{
     teammates,
     track,
     minmembercount: r.minmembercount,
-    submissionOpen: process.env.NEXT_PUBLIC_SUBMISSION_OPEN === "true",
+    c2chappening: r.c2chappening ?? false,
+    submitted: r.submitted ?? false,
+    submission: r.submission ?? null,
   };
   return { ok: true, status: res.status, data: cooked };
 }

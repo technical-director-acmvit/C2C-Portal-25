@@ -10,8 +10,9 @@ import Image from "next/image";
 
 interface Props {
   onBack?: () => void;
+  mail: string | null
 }
-const Internal = ({ onBack }: Props) => {
+const Internal = ({ onBack,mail  }: Props) => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -19,7 +20,7 @@ const Internal = ({ onBack }: Props) => {
     registrationNumber: "",
     gender: "",
     contactNumber: "",
-    hosteller: false,
+    hosteller: true,
   });
   // field-level validation messages
   const [fieldErrors, setFieldErrors] = useState({
@@ -32,25 +33,36 @@ const Internal = ({ onBack }: Props) => {
   const validateRegistrationNumber = (val: string) => regNoRegex.test(val.trim());
   const validatePhoneNumber = (val: string) => {
     const digits = val.replace(/\D/g, "");
+    if (digits.length !== 10) return false;
     const first = parseInt(digits[0], 10);
-    return digits.length === 10 && first >= 6 && first <= 9;
+    return first >= 6 && first <= 9;
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value: rawValue } = e.target;
-    // normalize registration number to uppercase as the user types
-    const value = name === "registrationNumber" ? rawValue.toUpperCase() : rawValue;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    // clear corresponding field error when user edits
-    if (name === "registrationNumber" && fieldErrors.registrationNumber) {
-      setFieldErrors((prev) => ({ ...prev, registrationNumber: "" }));
+
+    if (name === "registrationNumber") {
+      // normalize to uppercase and limit to 9 characters
+      const value = rawValue.toUpperCase().slice(0, 9);
+      setFormData((prev) => ({ ...prev, registrationNumber: value }));
+      if (fieldErrors.registrationNumber) {
+        setFieldErrors((prev) => ({ ...prev, registrationNumber: "" }));
+      }
+      return;
     }
-    if (name === "contactNumber" && fieldErrors.contactNumber) {
-      setFieldErrors((prev) => ({ ...prev, contactNumber: "" }));
+
+    if (name === "contactNumber") {
+      // allow only digits and limit to 10 digits
+      const digits = rawValue.replace(/\D/g, "").slice(0, 10);
+      setFormData((prev) => ({ ...prev, contactNumber: digits }));
+      if (fieldErrors.contactNumber) {
+        setFieldErrors((prev) => ({ ...prev, contactNumber: "" }));
+      }
+      return;
     }
+
+    // fallback for other inputs (e.g., selects)
+    setFormData((prev) => ({ ...prev, [name]: rawValue }));
   };
 
   const isFormValid = () => {
@@ -113,7 +125,7 @@ const Internal = ({ onBack }: Props) => {
             </div> */}
       <div className="flex items-center justify-center h-full relative z-10">
         <div
-          className="w-full max-w-lg p-6 sm:p-8 rounded-2xl"
+          className="w-full max-w-lg p-6 sm:p-8 rounded-2xl animate-pop-in"
           style={{
             background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))",
             backdropFilter: "blur(10px) saturate(120%)",
@@ -122,15 +134,20 @@ const Internal = ({ onBack }: Props) => {
             border: "1px solid rgba(255,255,255,0.10)",
           }}
         >
-          <div className="flex items-center gap-3 mb-6">
-            <BackChevron onClick={onBack} />
+        <div className="relative mb-4 sm:mb-6">
+            {!mail && (
+                <div className="absolute left-0 top-1/2 -translate-y-1/2">
+                    <BackChevron onClick={onBack} />
+                </div>
+            )}
+
             <h2
-              className="text-2xl sm:text-3xl font-semibold text-white"
-              style={{ fontFamily: "'Pilat Extended', 'Trap', Arial, sans-serif" }}
+                className="mx-auto text-center font-semibold text-white"
+                style={{ fontFamily: "'Pilat Extended', 'Trap', Arial, sans-serif", fontSize: "clamp(20px, 5.5vw, 28px)" }}
             >
-              Student Details
+                Student Details
             </h2>
-          </div>
+        </div>
 
           {error && (
             <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded-md text-sm">
@@ -146,6 +163,7 @@ const Internal = ({ onBack }: Props) => {
             value={formData.registrationNumber}
             onChange={handleInputChange}
             placeholder="Registration Number"
+            maxLength={9}
           />
           {fieldErrors.registrationNumber && (
             <div className="text-red-300 text-sm mt-2">{fieldErrors.registrationNumber}</div>
@@ -172,6 +190,8 @@ const Internal = ({ onBack }: Props) => {
             value={formData.contactNumber}
             onChange={handleInputChange}
             placeholder="Contact Number"
+            inputMode="numeric"
+            pattern="\d*"
           />
           {fieldErrors.contactNumber && (
             <div className="text-red-300 text-sm mt-2">{fieldErrors.contactNumber}</div>
@@ -212,7 +232,7 @@ const Internal = ({ onBack }: Props) => {
             <PortalButton
               onClick={handleSubmit}
               disabled={!isFormValid() || loading}
-              className={`px-6 py-2 text-[20px] ${isFormValid() && !loading ? "" : "opacity-50 cursor-not-allowed"}`}
+              className={`${isFormValid() && !loading ? "" : "opacity-50 cursor-not-allowed"}`}
             >
               {loading ? "Submitting…" : "Proceed"}
             </PortalButton>

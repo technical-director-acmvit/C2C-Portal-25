@@ -95,6 +95,25 @@ body {
   background: rgba(255, 255, 255, 0.28);
 }
 
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.98); filter: blur(2px); }
+  to { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+.animate-fade-in-up { animation: fade-in-up 300ms ease-out both; }
+.animate-fade-in { animation: fade-in 250ms ease-out both; }
+.animate-pop-in { animation: pop-in 260ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.anim-delay-100 { animation-delay: 100ms; }
+.anim-delay-200 { animation-delay: 200ms; }
+.anim-delay-300 { animation-delay: 300ms; }
+
 /* Use Pilat Extended for display headings */
 h1,
 h2,

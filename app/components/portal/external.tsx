@@ -39,6 +39,9 @@ const External = ({ onBack }: Props) => {
     gender: "",
     contactNumber: "",
   });
+  // Track confirmed selections to prevent arbitrary input
+  const [selectedUniversity, setSelectedUniversity] = useState<string | null>(null);
+  const [selectedCollege, setSelectedCollege] = useState<string | null>(null);
 
   // University suggestions state
   const [universitySuggestions, setUniversitySuggestions] = useState<string[]>([]);
@@ -66,6 +69,14 @@ const External = ({ onBack }: Props) => {
     { label: "Male", value: "male" },
     { label: "Female", value: "female" },
   ] as const;
+
+  // Phone validation: must be 10 digits and start with 6-9
+  const validatePhoneNumber = (val: string) => {
+    const digits = val.replace(/\D/g, "");
+    if (digits.length !== 10) return false;
+    const first = parseInt(digits[0], 10);
+    return first >= 6 && first <= 9;
+  };
 
   // Search universities
   const searchUniversities = useCallback(async (query: string) => {
@@ -135,26 +146,39 @@ const External = ({ onBack }: Props) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    
+
+    if (name === "contactNumber") {
+      // allow only digits and limit to 10 digits
+      const digits = value.replace(/\D/g, "").slice(0, 10);
+      setFormData((prev) => ({ ...prev, contactNumber: digits }));
+      return;
+    }
+
     if (name === "universityName") {
+      setFormData((prev) => ({ ...prev, universityName: value, collegeName: "" }));
+      setSelectedUniversity(null); // invalidate custom typing until suggestion is picked
+      setSelectedCollege(null);
       setShowUniversitySuggestions(true);
       setActiveUniversityIndex(0);
-      // Clear college when university changes
-      setFormData((prev) => ({ ...prev, collegeName: "" }));
       setCollegeSuggestions([]);
+      return;
     }
+
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleCollegeInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setFormData((prev) => ({ ...prev, collegeName: value }));
+    setSelectedCollege(null); // require explicit selection
     setShowCollegeSuggestions(true);
     setActiveCollegeIndex(0);
   };
 
   const selectUniversity = (university: string) => {
     setFormData((prev) => ({ ...prev, universityName: university, collegeName: "" }));
+    setSelectedUniversity(university);
+    setSelectedCollege(null);
     setShowUniversitySuggestions(false);
     setActiveUniversityIndex(0);
     setCollegeSuggestions([]);
@@ -162,6 +186,7 @@ const External = ({ onBack }: Props) => {
 
   const selectCollege = (college: string) => {
     setFormData((prev) => ({ ...prev, collegeName: college }));
+    setSelectedCollege(college);
     setShowCollegeSuggestions(false);
     setActiveCollegeIndex(0);
   };
@@ -229,8 +254,8 @@ const External = ({ onBack }: Props) => {
 
   const isFormValid = () => {
     return (
-      formData.universityName.trim() !== "" &&
-      formData.collegeName.trim() !== "" &&
+      Boolean(selectedUniversity) &&
+      Boolean(selectedCollege) &&
       formData.gender !== "" &&
       formData.contactNumber.trim() !== ""
     );
@@ -238,6 +263,11 @@ const External = ({ onBack }: Props) => {
 
   const handleSubmit = async () => {
     if (!isFormValid()) return;
+    // validate phone before submitting
+    if (!validatePhoneNumber(formData.contactNumber)) {
+      setError("Phone number must contain 10 digits and start with 6-9");
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
@@ -263,7 +293,7 @@ const External = ({ onBack }: Props) => {
 
       <div className="flex items-center justify-center h-full px-4 py-6 sm:py-8 relative z-10">
         <div
-          className="w-full max-w-md sm:max-w-lg p-6 sm:p-8 rounded-2xl relative"
+          className="w-full max-w-md sm:max-w-lg p-6 sm:p-8 rounded-2xl relative animate-pop-in"
           style={{
             background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))",
             backdropFilter: "blur(10px) saturate(120%)",
@@ -272,11 +302,11 @@ const External = ({ onBack }: Props) => {
             border: "1px solid rgba(255,255,255,0.10)",
           }}
         >
-          <div className="mb-6 flex items-center gap-3 min-w-0">
+          <div className="mb-4 sm:mb-6 flex items-center gap-3 min-w-0">
             <BackChevron onClick={onBack} />
             <h2
-              className="flex-1 truncate text-xl sm:text-2xl md:text-3xl font-semibold text-white"
-              style={{ fontFamily: "'Pilat Extended', 'Trap', Arial, sans-serif" }}
+              className="flex-1 min-w-0 truncate font-semibold text-white"
+              style={{ fontFamily: "'Pilat Extended', 'Trap', Arial, sans-serif", fontSize: "clamp(20px, 5.5vw, 28px)" }}
             >
               External Participant
             </h2>
@@ -289,7 +319,7 @@ const External = ({ onBack }: Props) => {
           )}
 
           <label className="block text-sm text-gray-300 mb-2">University Name</label>
-          <div className="relative mb-4">
+          <div className="relative mb-2">
             <input
               ref={universityInputRef}
               className="w-full bg-[#111213]/60 border border-white/10 rounded-full px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#48BA86]/40"
@@ -303,6 +333,8 @@ const External = ({ onBack }: Props) => {
               placeholder={loadingUniversities ? "Searching universities..." : "University Name"}
               aria-autocomplete="list"
               aria-controls="university-suggestions"
+              aria-invalid={!selectedUniversity && formData.universityName.trim() !== ""}
+              title={!selectedUniversity && formData.universityName.trim() !== "" ? "Please select a university from the suggestions" : undefined}
             />
 
             {showUniversitySuggestions && universitySuggestions.length > 0 && (
@@ -332,9 +364,14 @@ const External = ({ onBack }: Props) => {
               </ul>
             )}
           </div>
+          {formData.universityName.trim() !== "" && !selectedUniversity && (
+            <div className="mt-1 mb-2 text-xs text-yellow-300">
+              Please select a university from the suggestions
+            </div>
+          )}
 
           <label className="block text-sm text-gray-300 mb-2">College Name</label>
-          <div className="relative mb-4">
+          <div className="relative mb-2">
             <input
               ref={collegeInputRef}
               className="w-full bg-[#111213]/60 border border-white/10 rounded-full px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#48BA86]/40"
@@ -348,7 +385,9 @@ const External = ({ onBack }: Props) => {
               placeholder={loadingColleges ? "Searching colleges..." : "College Name"}
               aria-autocomplete="list"
               aria-controls="college-suggestions"
-              disabled={!formData.universityName.trim()}
+              disabled={!selectedUniversity}
+              aria-invalid={!selectedCollege && formData.collegeName.trim() !== ""}
+              title={!selectedCollege && formData.collegeName.trim() !== "" ? "Please select a college from the suggestions" : undefined}
             />
 
             {showCollegeSuggestions && collegeSuggestions.length > 0 && (
@@ -378,6 +417,11 @@ const External = ({ onBack }: Props) => {
               </ul>
             )}
           </div>
+          {formData.collegeName.trim() !== "" && !selectedCollege && (
+            <div className="mt-1 mb-2 text-xs text-yellow-300">
+              Please select a college from the suggestions
+            </div>
+          )}
 
           <label className="block text-sm text-gray-300 mb-2">Gender</label>
           <div className="mb-4">
@@ -398,6 +442,8 @@ const External = ({ onBack }: Props) => {
             value={formData.contactNumber}
             onChange={handleInputChange}
             placeholder="Contact Number"
+            inputMode="numeric"
+            pattern="\d*"
           />
 
           <div className="flex justify-center">
@@ -406,7 +452,7 @@ const External = ({ onBack }: Props) => {
               disabled={!isFormValid() || loading}
               className={`${
                 isFormValid() ? "" : "opacity-50 cursor-not-allowed"
-              } px-6 py-2 text-base sm:text-[20px]`}
+              }`}
             >
               {loading ? "Submitting..." : "Proceed"}
             </PortalButton>

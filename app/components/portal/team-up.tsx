@@ -25,10 +25,10 @@ const TeamUp = () => {
         className={`absolute inset-0 transition-transform duration-300 ease-out ${selectedOption ? "-translate-x-full opacity-0" : "translate-x-0 opacity-100"}`}
       >
         <div className="flex flex-col items-center justify-center h-full px-4 text-center relative z-10">
-          <div className="flex items-center mb-6">
+          <div className="flex items-center mb-4 sm:mb-6">
             <h1
-              className="flex-1 text-center text-white text-2xl sm:text-3xl md:text-4xl"
-              style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontWeight: "700" }}
+              className="flex-1 min-w-0 text-center text-white"
+              style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontWeight: 700, fontSize: "clamp(20px, 5.5vw, 36px)" }}
             >
               Team Up!
             </h1>

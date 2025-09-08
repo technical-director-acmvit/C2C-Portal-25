@@ -50,7 +50,7 @@ const CreateTeam = ({ onBack }: Props) => {
       {/* Centered card content (mobile-optimized, scrollable) */}
       <div className="flex items-center justify-center min-h-full px-4 py-6 sm:py-8 relative z-10 overflow-auto">
         <div
-          className="w-full max-w-[22rem] sm:max-w-md md:max-w-lg lg:max-w-xl p-5 sm:p-6 md:p-8 rounded-2xl"
+          className="w-full max-w-[22rem] sm:max-w-md md:max-w-lg lg:max-w-xl p-5 sm:p-6 md:p-8 rounded-2xl animate-pop-in"
           style={{
             background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))",
             backdropFilter: "blur(10px) saturate(120%)",

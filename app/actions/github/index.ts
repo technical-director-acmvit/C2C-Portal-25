@@ -1,7 +1,7 @@
 "use server";
 
-import { getIdToken } from "../session";
 import { fetchInstallationToken } from "@/lib/github";
+import { authenticatedFetch } from "@/lib/apifetch";
 
 const GITHUB_API = "https://api.github.com";
 
@@ -84,15 +84,10 @@ export async function saveInstallationAction(params: {
   installation_id: string;
   repo_full_name?: string | null;
 }) {
-  const idToken = await getIdToken();
   const base = process.env.NEXT_PUBLIC_API_URL;
   if (!base) throw new Error("Missing NEXT_PUBLIC_API_URL");
-  const res = await fetch(`${base}/api/v1/github/installation`, {
+  const res = await authenticatedFetch(`${base}/api/v1/github/installation`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${idToken}`,
-    },
     body: JSON.stringify(params),
     cache: "no-store",
   });
