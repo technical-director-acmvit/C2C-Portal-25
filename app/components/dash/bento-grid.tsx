@@ -76,11 +76,11 @@ export default function BentoGrid() {
                   value={value}
                   onChange={(newValue) => setValue(newValue)}
                   sx={{
-                    width: "110%",
-                    height: "140%",
+                    width: "100%",
+                    height: "100%",
                     maxWidth: "100%",
                     maxHeight: "100%",
-                    transform: "scale(1.4)",
+                    transform: "scale(0.9)",
                     transformOrigin: "center",
                     transition: "none",
                     willChange: "auto",
@@ -166,10 +166,11 @@ export default function BentoGrid() {
                   onChange={(newValue) => setValue(newValue)}
                   sx={{
                     width: "100%",
-                    height: "100%",
+                    height: "120%",
                     maxWidth: "100%",
+                    paddingTop: "5%",
                     maxHeight: "100%",
-                    transform: "scale(0.85)",
+                    transform: "scale(1)",
                     transformOrigin: "center",
                     transition: "none",
                     willChange: "auto",
