@@ -6,6 +6,7 @@ import IDCard from "@/app/components/dash/id-card";
 import IDCardBack from "@/app/components/dash/id-card-behind";
 import BackChevron from "@/app/components/portal/ui/back-chevron";
 import { useDashStore } from "@/app/stores/dash";
+import { HK_ENABLED } from "@/lib/env";
 import Image from "next/image";
 import { useEffect, useState, useMemo } from "react";
 import { cleanName } from "@/app/components/portal/nameUtils";
@@ -81,9 +82,11 @@ export default function ProfileView() {
         )}
       </div>
 
-      <div className="w-full flex justify-center mt-8 md:mt-10 px-3 sm:px-4">
-        <HKBox />
-      </div>
+      {HK_ENABLED && (
+        <div className="w-full flex justify-center mt-8 md:mt-10 px-3 sm:px-4">
+          <HKBox />
+        </div>
+      )}
     </div>
   );
 }
