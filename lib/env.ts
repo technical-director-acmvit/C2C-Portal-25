@@ -21,6 +21,15 @@ export const PORTAL_ENABLED: boolean = (() => {
 })();
 
 /**
+ * Whether whitelist enforcement is enabled for the portal.
+ * Accepts: "true"/"1"/"yes"/"on" (case-insensitive) as true, everything else false.
+ */
+export const WHITELIST_ENABLED: boolean = (() => {
+  const v = (process.env.NEXT_PUBLIC_WHITELIST_ENABLED ?? "").toString().trim().toLowerCase();
+  return v === "true" || v === "1" || v === "yes" || v === "on";
+})();
+
+/**
  * Whether the HKBox component should be displayed in the profile.
  * Accepts: "true"/"1"/"yes"/"on" (case-insensitive) as true, everything else false.
  */

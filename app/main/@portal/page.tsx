@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Portal from "../../components/portal/portal";
@@ -14,7 +13,6 @@ import { LogOut } from "lucide-react";
 import GithubView from "@/app/components/portal/github/github-view";
 import { PORTAL_ENABLED, DISCORD_URL } from "@/lib/env";
 import DevViewSwitcher from "@/app/components/portal/dev-view-switcher";
-import { checkWhitelist } from "@/app/actions/whitelist";
 import PortalButton from "@/app/components/portal/ui/button";
 
 
@@ -25,9 +23,9 @@ export default function Home() {
   const initialize = usePortalStore((s) => s.initialize);
   const setView = usePortalStore((s) => s.setView);
   const dashboard = usePortalStore((s) => s.dashboard);
-    const emailToCheck = session?.user?.email ?? null;
-    const whitelist_enabled = process.env.NEXT_PUBLIC_WHITELIST_ENABLED === "true";
-      const [showWhitelistModal, setShowWhitelistModal] = useState(false);
+  const whitelistChecked = usePortalStore((s) => s.whitelistChecked);
+  const isWhitelisted = usePortalStore((s) => s.isWhitelisted);
+  const emailToCheck = session?.user?.email ?? null;
     
 
 
@@ -45,27 +43,11 @@ export default function Home() {
     if (dashboard?.team) setView("github");
   }, [dashboard, setView]);
 
-  useEffect(() => {
-    if (!whitelist_enabled) return;
-    let mounted = true;
-    (async () => {
-      try {
-        const status = await checkWhitelist();
-        if (!mounted) return;
-        if (!status) {
-          setShowWhitelistModal(true);
-        }
-      } catch (err) {
-        console.error("Whitelist check failed", err);
-      }
-    })();
-    return () => {
-      mounted = false;
-    };
-  }, [whitelist_enabled]);
+  // No explicit whitelist effect here — store.initialize triggers verifyWhitelist.
 
   // If whitelist modal should be shown, return the whitelist modal instead
-  if (showWhitelistModal) {
+  const shouldShowWhitelistModal = whitelistChecked && !isWhitelisted;
+  if (shouldShowWhitelistModal) {
     return (
       <div className="fixed inset-0 w-screen h-screen relative">
         {/* Background image via next/image */}
