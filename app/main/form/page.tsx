@@ -1,6 +1,6 @@
 "use client";
 import LampDemo from "@/app/components/form/ui/lamp";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import InputBox from "@/app/components/form/InputBox";
 import ImgBox from "@/app/components/form/ImgBox";
 import { useDashStore } from "@/app/stores/dash";
@@ -28,6 +28,9 @@ export function FormContent() {
   const [githubLink, setGithubLink] = useState<string>(team?.github_url ?? "");
   const [figmaLink, setFigmaLink] = useState<string>(team?.figma_url ?? "");
   const [googleDriveLink, setGoogleDriveLink] = useState<string>(team?.other ?? "");
+  const [githubError, setGithubError] = useState<string>("");
+  const [figmaError, setFigmaError] = useState<string>("");
+  const [driveError, setDriveError] = useState<string>("");
     const [techStackInput, setTechStackInput] = useState<string>("");
   const resolvedTechStack = (team?.tech_stack ?? []) as string[] | Record<string, unknown>;
     const [techStackTags, setTechStackTags] = useState<string[]>(
@@ -46,9 +49,58 @@ export function FormContent() {
   // const techStackList: string[] = Array.isArray(resolvedTechStack) ? resolvedTechStack : Object.keys(resolvedTechStack);
 
     // Submit handler
+    const validateGithub = (url: string) => {
+      if (!url) return "";
+      try {
+        const u = new URL(url);
+        const hostOk = /(^|\.)github\.com$/i.test(u.hostname);
+        // basic path must include user/repo or org/repo optionally with further paths
+        const pathOk = /^\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+(\/.*)?$/.test(u.pathname);
+        return hostOk && pathOk ? "" : "Enter a valid GitHub repository URL";
+      } catch {
+        return "Enter a valid GitHub URL";
+      }
+    };
+
+    const validateFigma = (url: string) => {
+      if (!url) return "";
+      try {
+        const u = new URL(url);
+        const hostOk = /(^|\.)figma\.com$/i.test(u.hostname);
+        const pathOk = /^\/(file|design)\//.test(u.pathname);
+        return hostOk && pathOk ? "" : "Enter a valid Figma file/design URL";
+      } catch {
+        return "Enter a valid Figma URL";
+      }
+    };
+
+    const validateDrive = (url: string) => {
+      if (!url) return "";
+      try {
+        const u = new URL(url);
+        const hostOk = /(^|\.)drive\.google\.com$|(^|\.)docs\.google\.com$/i.test(u.hostname);
+        // Accept common Drive link formats
+        const pathOk = /^(\/drive\/folders\/|\/file\/d\/|\/uc\?|\/presentation\/d\/|\/document\/d\/|\/spreadsheets\/d\/)/.test(u.pathname + (u.search || ""));
+        return hostOk && pathOk ? "" : "Enter a valid Google Drive link";
+      } catch {
+        return "Enter a valid Google Drive URL";
+      }
+    };
+
     const handleSubmit = async () => {
         setIsSubmitting(true);
         try {
+            // Validate before submit
+            const gErr = validateGithub(githubLink);
+            const fErr = validateFigma(figmaLink);
+            const dErr = validateDrive(googleDriveLink);
+            setGithubError(gErr);
+            setFigmaError(fErr);
+            setDriveError(dErr);
+            if (gErr || fErr || dErr) {
+              setIsSubmitting(false);
+              return;
+            }
             const input: UpdateTeamInput = {
                 githubUrl: githubLink || null,
                 figmaUrl: figmaLink || null,
@@ -423,13 +475,21 @@ export function FormContent() {
                   <InputBox
                     placeholder="Upload GitHub Link..."
                     value={githubLink}
-                    onChange={(e) => setGithubLink(e.target.value)}
+                    onChange={(e) => {
+                      setGithubLink(e.target.value);
+                    }}
+                    onBlur={() => setGithubError(validateGithub(githubLink))}
+                    invalid={!!githubError}
+                    className=""
                   />
                 ) : (
                     <ViewBox
                       data={githubLink}
                       readOnly
                     />
+                )}
+                {githubError && (
+                  <span className="text-red-400 text-sm font-normal mt-2">{githubError}</span>
                 )}
               </div>
             </div>
@@ -442,12 +502,17 @@ export function FormContent() {
                         placeholder="Upload Figma Link..."
                         value={figmaLink}
                         onChange={(e) => setFigmaLink(e.target.value)}
+                        onBlur={() => setFigmaError(validateFigma(figmaLink))}
+                        invalid={!!figmaError}
                     />
                 ) : (
                     <ViewBox
                       data={figmaLink}
                       readOnly
                     />
+                )}
+                {figmaError && (
+                  <span className="text-red-400 text-sm font-normal mt-2">{figmaError}</span>
                 )}
               </div>
             </div>
@@ -462,12 +527,17 @@ export function FormContent() {
                     placeholder="Upload Google Drive Link..."
                     value={googleDriveLink}
                     onChange={(e) => setGoogleDriveLink(e.target.value)}
+                    onBlur={() => setDriveError(validateDrive(googleDriveLink))}
+                    invalid={!!driveError}
                   />
                 ) : (
                     <ViewBox
                       data={googleDriveLink}
                       readOnly
                     />
+                )}
+                {driveError && (
+                  <span className="text-red-400 text-sm font-normal mt-2">{driveError}</span>
                 )}
               </div>
             </div>
@@ -477,7 +547,7 @@ export function FormContent() {
               <div className="flex justify-center">
                 <button
                   onClick={handleSubmit}
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !!githubError || !!figmaError || !!driveError}
                   className="bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-600 text-white font-bold py-4 px-6 sm:px-8 rounded-lg text-lg sm:text-xl transition-colors w-full sm:w-auto"
                 >
                   {isSubmitting ? "Updating..." : "Update Team"}
