@@ -8,9 +8,9 @@ import ViewBox from "@/app/components/form/ViewBox";
 import { updateTeam, UpdateTeamInput } from "@/app/actions/update_team";
 
 export function FormContent() {
-    const view = useDashStore((s) => s.view);
+    // const view = useDashStore((s) => s.view);
     const data = useDashStore((s) => s.dashboard);
-    const error = useDashStore((s) => s.error);
+    // const error = useDashStore((s) => s.error);
     const team = data?.team ?? null;
     const track = data?.track ?? null;
     const currentUser = data?.user ?? null;
@@ -22,14 +22,14 @@ export function FormContent() {
     const chosenTrack = track?.title ?? "";
   const projectTitle = data?.submission?.title ?? "";
   const projectDesc = data?.submission?.description ?? "";
-  const projectPpt = data?.submission?.ppt_url ?? "";
+  // const projectPpt = data?.submission?.ppt_url ?? "";
     
     // Form state for editable fields
   const [githubLink, setGithubLink] = useState<string>(team?.github_url ?? "");
   const [figmaLink, setFigmaLink] = useState<string>(team?.figma_url ?? "");
   const [googleDriveLink, setGoogleDriveLink] = useState<string>(team?.other ?? "");
     const [techStackInput, setTechStackInput] = useState<string>("");
-    const resolvedTechStack: any = team?.tech_stack ?? [];
+  const resolvedTechStack = (team?.tech_stack ?? []) as string[] | Record<string, unknown>;
     const [techStackTags, setTechStackTags] = useState<string[]>(
       resolvedTechStack
         ? Array.isArray(resolvedTechStack)
@@ -43,13 +43,7 @@ export function FormContent() {
     const [uploadedFile, setUploadedFile] = useState<File | null>(null);
     const [uploadStatus, setUploadStatus] = useState<string>("");
 
-    const techStackList: string[] = resolvedTechStack
-      ? Array.isArray(resolvedTechStack)
-        ? (resolvedTechStack as string[])
-        : Object.keys(resolvedTechStack)
-      : [];
-
-      console.log("project title:", projectTitle);
+  // const techStackList: string[] = Array.isArray(resolvedTechStack) ? resolvedTechStack : Object.keys(resolvedTechStack);
 
     // Submit handler
     const handleSubmit = async () => {
@@ -80,7 +74,7 @@ export function FormContent() {
     ];
 
     const initialSelected = tracksConst.findIndex((t) => t.title === chosenTrack);
-    const [newTech] = useState<string>("");
+  // const [newTech] = useState<string>("");
 
     interface TechTagProps {
         tech: string;
@@ -96,7 +90,7 @@ export function FormContent() {
         );
     };
 
-    const handleTechStackKeyDown = (e: any) => {
+  const handleTechStackKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
             const val = techStackInput.trim();
             if (!val) return;
@@ -161,6 +155,7 @@ export function FormContent() {
 
           <div className="w-full max-w-4xl mx-auto mt-[30px] sm:mt-[50px] p-2 sm:p-4 font-bold relative">
           
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/form/Mask group (2).svg"
               alt=""
@@ -202,6 +197,7 @@ export function FormContent() {
 
           <div className="w-full max-w-4xl mx-auto mt-[20px] p-2 sm:p-4 font-bold relative">
            
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/form/Mask group (3).svg"
               alt=""
@@ -230,6 +226,7 @@ export function FormContent() {
 
             <div className="w-full max-w-5xl mx-auto mt-[20px] py-6 sm:py-10 p-2 sm:p-4 font-bold relative">
         
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/form/Mask group (4).svg"
                 alt=""
@@ -285,6 +282,7 @@ export function FormContent() {
 
             <div className="w-full max-w-4xl mx-auto mt-[20px] p-2 sm:p-4 font-bold relative">
               {/* Right side decorative SVG */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/form/Mask group (5).svg"
                 alt=""
@@ -302,6 +300,7 @@ export function FormContent() {
                     onChange={(e) => setTechStackInput(e.target.value)}
                     onKeyDown={handleTechStackKeyDown}
                   />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/form/search.svg"
                     alt="Search"
@@ -346,6 +345,7 @@ export function FormContent() {
                   {/* Upload Button */}
                   <label htmlFor="file-upload" className="cursor-pointer">
                     <div className="w-full sm:w-20 h-20 bg-neutral-950 rounded-2xl border border-green-400 hover:border-green-300 transition-colors flex items-center justify-center">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src="/form/upload.svg"
                         alt="Upload"

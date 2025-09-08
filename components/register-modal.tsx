@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import ReactDOM from "react-dom";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -621,9 +622,11 @@ export const RegisterModal: React.FC<ModalProps> = ({
                       className="flex items-end justify-center h-[110px] sm:h-[120px] md:h-[130px] lg:h-[140px] xl:h-[150px]"
                     >
                       {src ? (
-                        <img
+                        <Image
                           src={src}
                           alt={`Step ${idx + 1}`}
+                          width={240}
+                          height={160}
                           className="h-full w-auto select-none"
                           draggable={false}
                         />
