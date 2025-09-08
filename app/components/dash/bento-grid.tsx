@@ -1,5 +1,4 @@
 "use client";
-
 import SongCard from "./spotify-player";
 import TimerInfo from "./timer";
 import ButtonBox from "./button-box";
@@ -117,7 +116,7 @@ export default function BentoGrid() {
             <div className="grid grid-cols-2 gap-4">
               {/* Song card */}
               <div className="col-span-1 h-36 border-emerald-500 border rounded-lg overflow-hidden">
-                <SongCard title="My song" artist="My name" image="/landing/C2C Logo.svg" />
+                <SongCard title="Octave...coming soon!" artist="" image="/dash/c2cplace.svg" />
               </div>
 
               {/* Building image card */}
@@ -207,7 +206,7 @@ export default function BentoGrid() {
             </div>
 
             <div className="col-span-5 row-span-9 rounded-lg">
-              <SongCard title="My song" artist="My name" image="/landing/C2C Logo.svg" />
+              <SongCard title="Octave...coming soon!" artist="" image="/dash/c2cplace.svg" />
             </div>
 
             <div className="col-span-4 row-span-9 rounded-lg overflow-hidden flex items-center justify-center">
