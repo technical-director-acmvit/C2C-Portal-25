@@ -14,6 +14,7 @@ import { LampOverlay } from "@/app/components/form/ui/lamp";
 import BottomBar from "@/app/components/dash/bottom-bar";
 import { signOut } from "next-auth/react";
 import { LogOut } from "lucide-react";
+import BackChevron from "@/app/components/portal/ui/back-chevron";
 
 export default function DashPage() {
   useLayoutEffect(() => {
@@ -22,6 +23,7 @@ export default function DashPage() {
   const view = useDashStore((s) => s.view);
   const initialize = useDashStore((s) => s.initialize);
   const loading = useDashStore((s) => s.loading);
+  const setView = useDashStore((s) => s.setView);
 
   useEffect(() => {
     void initialize();
@@ -77,6 +79,18 @@ export default function DashPage() {
             {view === "profile" && <ProfileView />}
             {view === "form" && (
               <div className="relative z-20">
+                {/* Back controls matching Profile view styling */}
+                <div className="w-full flex items-center justify-start px-3 sm:px-4 pt-4">
+                  <div className="md:hidden">
+                    <BackChevron onClick={() => setView("home")} />
+                  </div>
+                  <button
+                    onClick={() => setView("home")}
+                    className="hidden md:inline-flex px-4 py-2 rounded-full border border-emerald-500 text-white hover:bg-emerald-600/20"
+                  >
+                    Back
+                  </button>
+                </div>
                 <FormContent />
               </div>
             )}
