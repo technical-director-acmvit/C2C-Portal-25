@@ -246,7 +246,7 @@ const Form = ({ onBack, requirePPT = false, embedded = false, onClose }: FormPro
             <input
               ref={fileInputRef}
               type="file"
-              accept=".pdf,.ppt,.pptx,application/pdf,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation"
+              accept=".pdf,application/pdf"
               onChange={handleFileChange}
               className="hidden"
               disabled={submitting}
