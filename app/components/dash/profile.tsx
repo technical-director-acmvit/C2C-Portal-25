@@ -8,6 +8,7 @@ import BackChevron from "@/app/components/portal/ui/back-chevron";
 import { useDashStore } from "@/app/stores/dash";
 import { useEffect, useState, useMemo } from "react";
 import { cleanName } from "@/app/components/portal/nameUtils";
+import { HK_ENABLED } from "@/lib/env";
 
 export default function ProfileView() {
   const setView = useDashStore((s) => s.setView);
