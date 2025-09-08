@@ -3,14 +3,13 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { InteractiveHoverButton } from "@/app/components/landing/ui/cta-button";
 import { REGISTRATIONS_OPEN } from "@/lib/env";
-import { useModal, useIsAnyModalOpen } from "@/components/register-modal";
 
 export default function TopBar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { openModal } = useModal();
-  const isAnyModalOpen = useIsAnyModalOpen();
+  const router = useRouter();
 
   useEffect(() => {
     // lock body scroll when mobile menu is open
@@ -131,49 +130,46 @@ export default function TopBar() {
                   )}
                 </li>
               ))}
-              {!isAnyModalOpen && (
-                <li className="flex items-center h-full ml-4">
-                  {REGISTRATIONS_OPEN ? (
-                    <InteractiveHoverButton
-                      variant="compact"
-                      onClick={openModal}
-                      onPointerDown={openModal}
-                      className="w-auto text-[12px] px-6 py-1.5 min-h-[32px] rounded-full font-semibold flex items-center justify-center bg-[#48BA86] text-black border !border-[#48BA86] transition-colors hover:!bg-white hover:!border-white cursor-pointer"
-                    >
-                      Register Now
-                    </InteractiveHoverButton>
-                  ) : (
-                    <span
-                      className="inline-block w-auto text-[12px] px-6 py-1.5 min-h-[32px] rounded-full font-semibold text-white border border-white/30 bg-black/30 backdrop-blur-sm"
-                      aria-live="polite"
-                    >
-                      Registrations opening soon
-                    </span>
-                  )}
-                </li>
-              )}
+              <li className="flex items-center h-full ml-4">
+                {REGISTRATIONS_OPEN ? (
+                  <InteractiveHoverButton
+                    variant="compact"
+                    onClick={() => router.push('/portal')}
+                    onPointerDown={() => router.push('/portal')}
+                    className="w-auto text-[12px] px-6 py-1.5 min-h-[32px] rounded-full font-semibold flex items-center justify-center bg-[#48BA86] text-black border !border-[#48BA86] transition-colors hover:!bg-white hover:!border-white cursor-pointer"
+                  >
+                    Register Now
+                  </InteractiveHoverButton>
+                ) : (
+                  <span
+                    className="inline-block w-auto text-[12px] px-6 py-1.5 min-h-[32px] rounded-full font-semibold text-white border border-white/30 bg-black/30 backdrop-blur-sm"
+                    aria-live="polite"
+                  >
+                    Registrations opening soon
+                  </span>
+                )}
+              </li>
             </ul>
           </nav>
 
           <div className="md:hidden flex items-center gap-2">
-            {!isAnyModalOpen &&
-              (REGISTRATIONS_OPEN ? (
-                <InteractiveHoverButton
-                  variant="simple"
-                  onClick={openModal}
-                  onPointerDown={openModal}
-                  className="w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors cursor-pointer"
-                >
-                  Register Now
-                </InteractiveHoverButton>
-              ) : (
-                <span
-                  className="inline-block w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold text-white border border-white/30 bg-black/30 backdrop-blur-sm"
-                  aria-live="polite"
-                >
-                  Registrations opening soon
-                </span>
-              ))}
+            {REGISTRATIONS_OPEN ? (
+              <InteractiveHoverButton
+                variant="simple"
+                onClick={() => router.push('/portal')}
+                onPointerDown={() => router.push('/portal')}
+                className="w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors cursor-pointer"
+              >
+                Register Now
+              </InteractiveHoverButton>
+            ) : (
+              <span
+                className="inline-block w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold text-white border border-white/30 bg-black/30 backdrop-blur-sm"
+                aria-live="polite"
+              >
+                Registrations opening soon
+              </span>
+            )}
             <button
               aria-label="Toggle menu"
               aria-expanded={menuOpen}

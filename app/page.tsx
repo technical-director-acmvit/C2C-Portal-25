@@ -20,19 +20,16 @@ import DotGrid from "./components/landing/dot-grid";
 import HeadingText from "./components/landing/HeadingText";
 import Tracks from "./components/landing/tracks";
 import { REGISTRATIONS_OPEN } from "@/lib/env";
-import { GlobalModal, useModal, useIsAnyModalOpen } from "@/components/register-modal";
+import { useRouter } from "next/navigation";
 
 const DesktopRegisterButton = () => {
-  const { openModal } = useModal();
-  const isAnyModalOpen = useIsAnyModalOpen();
-
-  if (isAnyModalOpen) return null;
+  const router = useRouter();
 
   return (
     <div className="hidden md:flex fixed left-1/2 -translate-x-1/2 bottom-[8%] z-[9999]">
       {REGISTRATIONS_OPEN ? (
         <InteractiveHoverButton
-          onClick={openModal}
+          onClick={() => router.push('/portal')}
           className="w-[280px] text-lg px-5 py-2 min-h-[48px] rounded-full font-bold flex items-center justify-center bg-[#48BA86] hover:bg-[#3aa874] text-black border border-[#48BA86] transition-colors"
         >
           Register Now
@@ -130,10 +127,6 @@ export default function Page() {
 
       <ViewportPortal>
         <DesktopRegisterButton />
-      </ViewportPortal>
-
-      <ViewportPortal>
-        <GlobalModal />
       </ViewportPortal>
 
       <div id="smooth-wrapper" className="relative z-0">
