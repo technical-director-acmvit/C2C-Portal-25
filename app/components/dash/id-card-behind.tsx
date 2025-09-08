@@ -1,17 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-
+import React from "react";
 
 interface IDCardProps {
-  onBack?: () => void;
   name?: string;
   members?: [string, string, string, string]
 
 }
 
-const IDCardBack = ({ onBack, name = "TeamName", members = ["member1", "member2", "member3", "member4"] }: IDCardProps) => {
+const IDCardBack = ({ name = "TeamName", members = ["member1", "member2", "member3", "member4"] }: IDCardProps) => {
 
 
   return (

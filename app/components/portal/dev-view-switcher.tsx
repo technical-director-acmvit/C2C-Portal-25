@@ -303,7 +303,7 @@ type MockState = keyof typeof mockDashboardStates;
 const DevViewSwitcher: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const view = usePortalStore((state) => state.view);
-  const setView = usePortalStore((state) => state.setView);
+  // const setView = usePortalStore((state) => state.setView);
   const dashboard = usePortalStore((state) => state.dashboard);
   
   // Dash store

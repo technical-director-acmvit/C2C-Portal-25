@@ -14,7 +14,7 @@ interface SlotRouterProps {
 }
 
 export default function SlotRouter({ portal, dash }: SlotRouterProps) {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [userData, setUserData] = useState<GetUserResponse | null>(null);
   const [forcePortal, setForcePortal] = useState(false);
   const [loading, setLoading] = useState(true);
