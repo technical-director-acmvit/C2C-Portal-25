@@ -81,26 +81,36 @@ export default function SlotRouter({ portal, dash, reject }: SlotRouterProps) {
   const rounds = userData?.user?.team?.rounds ?? []
   const roundsCount = Array.isArray(rounds) ? rounds.length : 0
 
-  // Check if current round has ended and user has only 1 round completed
+  // Check if current team round and active round are the same (promotion eligibility)
   const currentTeamRound = dashboardData?.current_team_round;
-  const currentTime = new Date();
-  const roundEndTime = currentTeamRound?.end_time ? new Date(currentTeamRound.end_time) : null;
-  const shouldShowReject = roundEndTime && currentTime > roundEndTime && roundsCount === 1;
+  const activeRound = dashboardData?.active_round;
+  const isPromoted = currentTeamRound?.id === activeRound?.id;
 
-  // If forcePortal is true (User not found) OR roundsCount is 0 or 1 -> show portal.
   const dontShowPromotions = !PROMOTIONS_LIVE;
   const shouldForcePortal = forcePortal || dontShowPromotions;
-  const shouldShowDash = !shouldForcePortal && roundsCount > 1;
 
-  // Check for dev override
   const devOverride = process.env.NODE_ENV === "development" ? getDevRouteOverride() : "auto";
-  const finalShouldShowDash = devOverride === "auto" ? shouldShowDash : devOverride === "dash";
   
-  // Return reject if conditions are met
-  if (shouldShowReject && !finalShouldShowDash) {
+  let finalView: "portal" | "dash" | "reject" = "portal";
+  
+  if (!shouldForcePortal && roundsCount > 1) {
+    if (PROMOTIONS_LIVE) {
+      finalView = isPromoted ? "dash" : "reject";
+    } else {
+      finalView = "portal";
+    }
+  }
+
+  // Apply dev override if in development
+  if (devOverride !== "auto") {
+    finalView = devOverride === "dash" ? "dash" : "portal";
+  }
+  
+  // Return the appropriate view
+  if (finalView === "reject") {
     return <>{reject}</>;
   }
     
-  return <>{finalShouldShowDash ? dash : portal}</>;
+  return <>{finalView === "dash" ? dash : portal}</>;
 }
 
