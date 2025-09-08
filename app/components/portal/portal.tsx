@@ -8,10 +8,12 @@ import { signOut, useSession } from "next-auth/react";
 
 const Portal = ({ userEmail }: { userEmail?: string | null }) => {
   const [selected, setSelected] = useState<"internal" | "external" | null>(null);
+
   const [showVitModal, setShowVitModal] = useState(false);
   const { data: session } = useSession();
   const emailToCheck = session?.user?.email ?? userEmail ?? null;
   const isVitStudentEmail = emailToCheck ? /@vitstudent\.ac\.in$/i.test(emailToCheck.trim()) : false;
+
   //const whitelist_enabled = process.env.NEXT_PUBLIC_WHITELIST_ENABLED === "true";
 
   // console.log("Portal userEmail:", userEmail);

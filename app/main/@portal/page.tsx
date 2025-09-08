@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,6 +14,9 @@ import { LogOut } from "lucide-react";
 import GithubView from "@/app/components/portal/github/github-view";
 import { PORTAL_ENABLED, DISCORD_URL } from "@/lib/env";
 import DevViewSwitcher from "@/app/components/portal/dev-view-switcher";
+import { checkWhitelist } from "@/app/actions/whitelist";
+import PortalButton from "@/app/components/portal/ui/button";
+
 
 export default function Home() {
   const { data: session } = useSession()
@@ -22,6 +25,11 @@ export default function Home() {
   const initialize = usePortalStore((s) => s.initialize);
   const setView = usePortalStore((s) => s.setView);
   const dashboard = usePortalStore((s) => s.dashboard);
+    const emailToCheck = session?.user?.email ?? null;
+    const whitelist_enabled = process.env.NEXT_PUBLIC_WHITELIST_ENABLED === "true";
+      const [showWhitelistModal, setShowWhitelistModal] = useState(false);
+    
+
 
     const userEmail = typeof session?.user?.email === "string" ? session?.user?.email : undefined;
 
@@ -36,6 +44,90 @@ export default function Home() {
     // Only allow GitHub view when the user is in a team
     if (dashboard?.team) setView("github");
   }, [dashboard, setView]);
+
+  useEffect(() => {
+    if (!whitelist_enabled) return;
+    let mounted = true;
+    (async () => {
+      try {
+        const status = await checkWhitelist();
+        if (!mounted) return;
+        if (!status) {
+          setShowWhitelistModal(true);
+        }
+      } catch (err) {
+        console.error("Whitelist check failed", err);
+      }
+    })();
+    return () => {
+      mounted = false;
+    };
+  }, [whitelist_enabled]);
+
+  // If whitelist modal should be shown, return the whitelist modal instead
+  if (showWhitelistModal) {
+    return (
+      <div className="fixed inset-0 w-screen h-screen relative">
+        {/* Background image via next/image */}
+        <Image
+          src="/portal/bg1.svg"
+          alt=""
+          aria-hidden
+          fill
+          className="object-cover"
+          priority={false}
+        />
+        
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+
+          {/* Modal card */}
+          <div className="flex items-center justify-center h-full px-4">
+            <div
+              className="w-full max-w-xs sm:max-w-sm md:max-w-md p-4 sm:p-6 md:p-8 rounded-2xl animate-pop-in"
+              style={{
+                background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))",
+                backdropFilter: "blur(10px) saturate(120%)",
+                boxShadow:
+                  "0 12px 40px rgba(0,0,0,0.55), 0 6px 24px rgba(72,186,134,0.06) inset, 0 1px 0 rgba(255,255,255,0.02) inset",
+                border: "1px solid rgba(255,255,255,0.10)",
+              }}
+            >
+              <h2
+                className="text-white text-center mb-4"
+                style={{
+                  fontFamily: "'Pilat Extended', Arial, sans-serif",
+                  fontWeight: "700",
+                  letterSpacing: "0.5px",
+                  fontSize: "clamp(16px, 4.5vw, 20px)",
+                }}
+              >
+                Access Restricted
+              </h2>
+
+              <p className="text-gray-300 text-center mb-6" style={{ fontSize: "clamp(12px, 4vw, 16px)" }}>
+                Please log in with the email ID you used during registration to access this portal.
+              </p>
+
+              {emailToCheck && (
+                <p className="text-gray-300 text-center mb-6" style={{ fontSize: "clamp(12px, 4vw, 16px)" }}>
+                  Currently logged in as{" "}
+                  <span className="text-white font-semibold">{emailToCheck}</span>
+                </p>
+              )}
+
+              <div className="flex items-center justify-center gap-3">
+                <PortalButton onClick={() => signOut({ callbackUrl: "/" })}>
+                  Log out & Login Again
+                </PortalButton>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // Show Coming Soon when portal is disabled via env flag
   if (!PORTAL_ENABLED) {
