@@ -16,8 +16,8 @@ export default function BentoGrid() {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <>
-        <div className="px-6 md:hidden">
-          <div className="flex flex-col gap-6 w-full mx-auto py-6">
+        <div className="px-4 md:hidden">
+          <div className="flex flex-col gap-5 w-full mx-auto py-4">
             {/* Timer info - full width, prominent */}
             <div className="w-full">
               <TimerInfo
@@ -29,16 +29,16 @@ export default function BentoGrid() {
 
             {/* Notice card - full width */}
             <div className="w-full">
-              <div className="relative w-full h-44">
-                {/* Background card layers */}
-                <div className="absolute inset-0 bg-black border border-green-700 rounded-lg transform rotate-1"></div>
-                <div className="absolute inset-0 bg-black border border-green-700 rounded-lg transform -rotate-1"></div>
+              <div className="relative w-full h-44 overflow-hidden">
+                {/* Background card layers - positioned relative to the container */}
+                <div className="absolute top-1 left-1 right-1 bottom-1 bg-black border border-green-700 rounded-lg transform rotate-1"></div>
+                <div className="absolute top-1 left-1 right-1 bottom-1 bg-black border border-green-700 rounded-lg transform -rotate-1"></div>
 
-                {/* Main content card */}
-                <div className="relative bg-black border border-green-700 rounded-lg p-5 text-center text-white h-full flex flex-col justify-center">
-                  <h2 className="text-xl font-bold underline mb-4">NOTICE</h2>
-                  <div className="text-base">
-                    <ul className="list-disc text-left mx-auto w-fit space-y-2">
+                {/* Main content card - exactly same positioning */}
+                <div className="absolute top-1 left-1 right-1 bottom-1 bg-black border border-green-700 rounded-lg p-4 text-center text-white flex flex-col justify-center">
+                  <h2 className="text-lg font-bold underline mb-3">NOTICE</h2>
+                  <div className="text-sm">
+                    <ul className="list-disc text-left mx-auto w-fit space-y-1 pl-6">
                       <li>This is to inform the design people that you all slay</li>
                       <li>Keep up the amazing work!</li>
                     </ul>
@@ -57,7 +57,7 @@ export default function BentoGrid() {
             </div>
 
             {/* Two-column layout for song and image */}
-            <div className="grid grid-cols-2 gap-5">
+            <div className="grid grid-cols-2 gap-4">
               {/* Song card */}
               <div className="col-span-1 h-36 border-emerald-500 border rounded-lg overflow-hidden">
                 <SongCard title="My song" artist="My name" image="/landing/C2C Logo.svg" />
@@ -70,40 +70,43 @@ export default function BentoGrid() {
             </div>
 
             {/* Calendar - optimized for mobile */}
-            <div className="bg-black border-green-700 border w-full h-96 flex items-center justify-center rounded-lg overflow-hidden">
-              <div className="w-full h-full flex items-center justify-center p-4">
+            <div className="bg-black border-green-700 border w-full h-80 flex items-center justify-center rounded-lg overflow-hidden">
+              <div className="w-full h-full flex items-center justify-center p-2">
                 <DateCalendar
                   value={value}
                   onChange={(newValue) => setValue(newValue)}
                   sx={{
-                    width: "100%",
-                    height: "100%",
+                    width: "110%",
+                    height: "140%",
                     maxWidth: "100%",
                     maxHeight: "100%",
-                    transform: "scale(1)",
+                    transform: "scale(1.4)",
                     transformOrigin: "center",
+                    transition: "none",
+                    willChange: "auto",
                     "& .MuiPickersCalendarHeader-root": {
                       color: "white",
-                      paddingLeft: "12px",
-                      paddingRight: "12px",
-                      marginBottom: "12px",
+                      paddingLeft: "8px",
+                      paddingRight: "8px",
+                      marginBottom: "8px",
                     },
                     "& .MuiPickersCalendarHeader-label": {
                       color: "white",
-                      fontSize: "1.25rem",
+                      fontSize: "1.1rem",
                       fontWeight: "600",
                     },
                     "& .MuiDayCalendar-weekDayLabel": {
                       color: "white",
-                      fontSize: "1rem",
+                      fontSize: "0.9rem",
                       fontWeight: "500",
                     },
                     "& .MuiPickersDay-root": {
                       color: "white",
-                      fontSize: "1rem",
+                      fontSize: "0.95rem",
                       minHeight: "40px",
                       minWidth: "40px",
-                      margin: "3px",
+                      margin: "2px",
+                      transition: "background-color 0.15s ease",
                     },
                     "& .MuiPickersDay-root.Mui-selected": {
                       backgroundColor: "green",
@@ -117,9 +120,13 @@ export default function BentoGrid() {
                       color: "white",
                       minHeight: "48px",
                       minWidth: "48px",
+                      transition: "background-color 0.15s ease",
                     },
                     "& .MuiDayCalendar-weekContainer": {
                       margin: "4px 0",
+                    },
+                    "& .MuiPickersSlideTransition-root": {
+                      minHeight: "200px",
                     },
                   }}
                 />
@@ -130,7 +137,7 @@ export default function BentoGrid() {
 
         {/* Desktop grid - hidden on small screens, visible on md+ */}
         <div className="hidden md:block md:px-4">
-          <div className="grid grid-cols-14 grid-rows-24 gap-5 w-full mx-auto max-w-none py-8">
+          <div className="grid grid-cols-14 grid-rows-24 gap-4 w-full mx-auto max-w-none py-8">
             <div className="col-span-11 row-span-5">
               <TimerInfo timer="12 : 21 : 12" heading="Review 0" info="lorem iajnfewjnfljenflqwn" />
             </div>
@@ -164,6 +171,8 @@ export default function BentoGrid() {
                     maxHeight: "100%",
                     transform: "scale(0.85)",
                     transformOrigin: "center",
+                    transition: "none",
+                    willChange: "auto",
                     "& .MuiPickersCalendarHeader-root": {
                       color: "white",
                       paddingLeft: "8px",
@@ -171,33 +180,18 @@ export default function BentoGrid() {
                     },
                     "& .MuiPickersCalendarHeader-label": {
                       color: "white",
-                      fontSize: "1rem",
-                      "@media (max-width: 1024px)": {
-                        fontSize: "0.9rem",
-                      },
-                      "@media (max-width: 768px)": {
-                        fontSize: "0.8rem",
-                      },
+                      fontSize: "1.1rem",
                     },
                     "& .MuiDayCalendar-weekDayLabel": {
                       color: "white",
-                      fontSize: "0.8rem",
-                      "@media (max-width: 1024px)": {
-                        fontSize: "0.75rem",
-                      },
-                      "@media (max-width: 768px)": {
-                        fontSize: "0.7rem",
-                      },
+                      fontSize: "0.85rem",
                     },
                     "& .MuiPickersDay-root": {
                       color: "white",
-                      fontSize: "0.85rem",
-                      "@media (max-width: 1024px)": {
-                        fontSize: "0.8rem",
-                      },
-                      "@media (max-width: 768px)": {
-                        fontSize: "0.75rem",
-                      },
+                      fontSize: "0.9rem",
+                      minHeight: "32px",
+                      minWidth: "32px",
+                      transition: "background-color 0.15s ease",
                     },
                     "& .MuiPickersDay-root.Mui-selected": {
                       backgroundColor: "green",
@@ -208,6 +202,10 @@ export default function BentoGrid() {
                     },
                     "& .MuiPickersArrowSwitcher-button": {
                       color: "white",
+                      transition: "background-color 0.15s ease",
+                    },
+                    "& .MuiPickersSlideTransition-root": {
+                      minHeight: "180px",
                     },
                   }}
                 />
@@ -219,17 +217,17 @@ export default function BentoGrid() {
             </div>
 
             {/* Notice card */}
-            <div className="col-span-6 row-span-9 mb-8 rounded-lg">
-              <div className="relative w-full h-full p-4">
+            <div className="col-span-6 row-span-9 mb-6 rounded-lg">
+              <div className="relative w-full h-full p-3 overflow-hidden">
                 {/* Background card layers */}
-                <div className="absolute inset-4 bg-black border border-green-700 rounded-lg transform rotate-3"></div>
-                <div className="absolute inset-4 bg-black border border-green-700 rounded-lg transform -rotate-2"></div>
+                <div className="absolute inset-3 bg-black border border-green-700 rounded-lg transform rotate-3"></div>
+                <div className="absolute inset-3 bg-black border border-green-700 rounded-lg transform -rotate-2"></div>
 
                 {/* Main content card */}
-                <div className="relative bg-black border border-green-700 rounded-lg p-4 text-center text-white h-full flex flex-col justify-center">
-                  <h2 className="text-lg font-bold underline mb-4">NOTICE</h2>
+                <div className="relative bg-black border border-green-700 rounded-lg p-3 text-center text-white h-full flex flex-col justify-center">
+                  <h2 className="text-lg font-bold underline mb-2">NOTICE</h2>
                   <div className="text-sm">
-                    <ul className="list-disc text-left mx-auto w-fit space-y-1">
+                    <ul className="list-disc text-left mx-auto w-fit space-y-1 pl-6">
                       <li>This is to inform the design people that you all slay</li>
                       <li>Keep up the amazing work!</li>
                     </ul>
