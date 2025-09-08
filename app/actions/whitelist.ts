@@ -1,6 +1,6 @@
 import { authenticatedFetch } from "@/lib/apifetch";
 
-export type WhitelistResult = { ok: boolean; error?: string };
+export type WhitelistResult = { ok: boolean; internal?: boolean; error?: string };
 
 export async function checkWhitelist(): Promise<WhitelistResult> {
   try {
@@ -9,11 +9,18 @@ export async function checkWhitelist(): Promise<WhitelistResult> {
       { method: "GET" }
     );
 
-    if (res.status === 200) return { ok: true };
-    if (res.status === 403) return { ok: false };
+    const body = await res.json().catch(() => ({} as { internal?: unknown; error?: string }));
 
-    const e = await res.json().catch(() => ({} as { error?: string }));
-    return { ok: false, error: e?.error || `Whitelist check failed (${res.status})` };
+    if (res.status === 200) {
+      return { ok: true, internal: Boolean((body as { internal?: unknown }).internal) };
+    }
+
+    if (res.status === 403) {
+      // Not whitelisted; surface error for UI.
+      return { ok: false, error: (body as { error?: string })?.error || "Email not whitelisted" };
+    }
+
+    return { ok: false, error: (body as { error?: string })?.error || `Whitelist check failed (${res.status})` };
   } catch (err) {
     const msg = err instanceof Error ? err.message : "Unknown error";
     return { ok: false, error: msg };

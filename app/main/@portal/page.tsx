@@ -24,7 +24,8 @@ export default function Home() {
   const setView = usePortalStore((s) => s.setView);
   const dashboard = usePortalStore((s) => s.dashboard);
   const whitelistChecked = usePortalStore((s) => s.whitelistChecked);
-  const isWhitelisted = usePortalStore((s) => s.isWhitelisted);
+  const whitelistOk = usePortalStore((s) => s.whitelistOk);
+  const whitelistError = usePortalStore((s) => s.whitelistError);
   const emailToCheck = session?.user?.email ?? null;
     
 
@@ -45,73 +46,7 @@ export default function Home() {
 
   // No explicit whitelist effect here — store.initialize triggers verifyWhitelist.
 
-  // If whitelist modal should be shown, return the whitelist modal instead
-  const shouldShowWhitelistModal = whitelistChecked && !isWhitelisted;
-  if (shouldShowWhitelistModal) {
-    return (
-      <div className="fixed inset-0 w-screen h-screen relative">
-        {/* Background image via next/image */}
-        <Image
-          src="/portal/bg1.svg"
-          alt=""
-          aria-hidden
-          fill
-          className="object-cover"
-          priority={false}
-        />
-        
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          {/* Backdrop */}
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-
-          {/* Modal card */}
-          <div className="flex items-center justify-center h-full px-4">
-            <div
-              className="w-full max-w-xs sm:max-w-sm md:max-w-md p-4 sm:p-6 md:p-8 rounded-2xl animate-pop-in"
-              style={{
-                background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))",
-                backdropFilter: "blur(10px) saturate(120%)",
-                boxShadow:
-                  "0 12px 40px rgba(0,0,0,0.55), 0 6px 24px rgba(72,186,134,0.06) inset, 0 1px 0 rgba(255,255,255,0.02) inset",
-                border: "1px solid rgba(255,255,255,0.10)",
-              }}
-            >
-              <h2
-                className="text-white text-center mb-4"
-                style={{
-                  fontFamily: "'Pilat Extended', Arial, sans-serif",
-                  fontWeight: "700",
-                  letterSpacing: "0.5px",
-                  fontSize: "clamp(16px, 4.5vw, 20px)",
-                }}
-              >
-                Access Restricted
-              </h2>
-
-              <p className="text-gray-300 text-center mb-6" style={{ fontSize: "clamp(12px, 4vw, 16px)" }}>
-                Please log in with the email ID you used during registration to access this portal.
-              </p>
-
-              {emailToCheck && (
-                <p className="text-gray-300 text-center mb-6" style={{ fontSize: "clamp(12px, 4vw, 16px)" }}>
-                  Currently logged in as{" "}
-                  <span className="text-white font-semibold">{emailToCheck}</span>
-                </p>
-              )}
-
-              <div className="flex items-center justify-center gap-3">
-                <PortalButton onClick={() => signOut({ callbackUrl: "/" })}>
-                  Log out & Login Again
-                </PortalButton>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Show Coming Soon when portal is disabled via env flag
+  // Show Coming Soon when portal is disabled via env flag (no whitelist gating)
   if (!PORTAL_ENABLED) {
     return (
       <div className="fixed inset-0 w-screen h-screen relative">
@@ -152,6 +87,58 @@ export default function Home() {
               >
                 Join Discord
               </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Always wait for whitelist to finish before showing anything
+  if (!whitelistChecked) {
+    return <PortalLoader />;
+  }
+
+  // If not whitelisted, show access denied modal with server error if provided
+  if (whitelistOk === false) {
+    return (
+      <div className="fixed inset-0 w-screen h-screen relative">
+        <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" priority={false} />
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+          <div className="flex items-center justify-center h-full px-4">
+            <div
+              className="w-full max-w-xs sm:max-w-sm md:max-w-md p-4 sm:p-6 md:p-8 rounded-2xl animate-pop-in"
+              style={{
+                background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))",
+                backdropFilter: "blur(10px) saturate(120%)",
+                boxShadow:
+                  "0 12px 40px rgba(0,0,0,0.55), 0 6px 24px rgba(72,186,134,0.06) inset, 0 1px 0 rgba(255,255,255,0.02) inset",
+                border: "1px solid rgba(255,255,255,0.10)",
+              }}
+            >
+              <h2
+                className="text-white text-center mb-4"
+                style={{
+                  fontFamily: "'Pilat Extended', Arial, sans-serif",
+                  fontWeight: "700",
+                  letterSpacing: "0.5px",
+                  fontSize: "clamp(16px, 4.5vw, 20px)",
+                }}
+              >
+                Access Restricted
+              </h2>
+              <p className="text-gray-300 text-center mb-6" style={{ fontSize: "clamp(12px, 4vw, 16px)" }}>
+                Please log in with the email ID you used during registration to access this portal.
+              </p>
+              {emailToCheck && (
+                <p className="text-gray-300 text-center mb-6" style={{ fontSize: "clamp(12px, 4vw, 16px)" }}>
+                  Currently logged in as <span className="text-white font-semibold">{emailToCheck}</span>
+                </p>
+              )}
+              <div className="flex items-center justify-center gap-3">
+                <PortalButton onClick={() => signOut({ callbackUrl: "/" })}>Log out & Login Again</PortalButton>
+              </div>
             </div>
           </div>
         </div>

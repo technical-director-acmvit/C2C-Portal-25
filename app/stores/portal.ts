@@ -14,7 +14,9 @@ type PortalState = {
   dashboard: DashboardResponse | null;
   isLeaving: boolean;
   whitelistChecked: boolean;
-  isWhitelisted: boolean;
+  whitelistOk: boolean | null;
+  whitelistError: string | null;
+  isInternal: boolean | null;
 
   initialize: () => Promise<void>;
   refreshDashboard: () => Promise<void>;
@@ -46,7 +48,9 @@ export const usePortalStore = create<PortalState>((set, get) => ({
   dashboard: null,
   isLeaving: false,
   whitelistChecked: false,
-  isWhitelisted: true,
+  whitelistOk: null,
+  whitelistError: null,
+  isInternal: null,
 
   setView: (v) => set({ view: v }),
   setError: (e) => set({ error: e }),
@@ -120,12 +124,14 @@ export const usePortalStore = create<PortalState>((set, get) => ({
     try {
       set({ whitelistChecked: false });
       const res = await checkWhitelist();
-      set({ whitelistChecked: true, isWhitelisted: !!res.ok });
-      if (!res.ok && res.error) {
-        set({ error: res.error });
-      }
+      set({
+        whitelistChecked: true,
+        whitelistOk: !!res.ok,
+        whitelistError: res.ok ? null : res.error ?? null,
+        isInternal: res.ok && typeof res.internal === "boolean" ? res.internal : null,
+      });
     } catch (err) {
-      set({ whitelistChecked: true, isWhitelisted: false });
+      set({ whitelistChecked: true, whitelistOk: false, whitelistError: "Whitelist check failed", isInternal: null });
     }
   },
 }));

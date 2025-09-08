@@ -4,29 +4,22 @@ import Internal from "./internal";
 import { useState } from "react";
 import PortalButton from "./ui/button";
 import Image from "next/image";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { usePortalStore } from "@/app/stores/portal";
 
 const Portal = ({ userEmail }: { userEmail?: string | null }) => {
   const [selected, setSelected] = useState<"internal" | "external" | null>(null);
-
-  const [showVitModal, setShowVitModal] = useState(false);
   const { data: session } = useSession();
   const emailToCheck = session?.user?.email ?? userEmail ?? null;
-  const isVitStudentEmail = emailToCheck ? /@vitstudent\.ac\.in$/i.test(emailToCheck.trim()) : false;
+  const whitelistChecked = usePortalStore((s) => s.whitelistChecked);
+  const whitelistOk = usePortalStore((s) => s.whitelistOk);
+  const isInternal = usePortalStore((s) => s.isInternal);
 
-  //const whitelist_enabled = process.env.NEXT_PUBLIC_WHITELIST_ENABLED === "true";
+  const handleProceed = () => {
+    if (!whitelistChecked || !whitelistOk || isInternal === null) return;
+    setSelected(isInternal ? "internal" : "external");
+  };
 
-  // console.log("Portal userEmail:", userEmail);
-
-    if (selected === null && userEmail) {
-      const isVitStudent = /@vitstudent\.ac\.in$/i.test(userEmail.trim());
-      if (isVitStudent) {
-        setSelected("internal");
-      }
-    }
-
-    console.log("Portal selected:", selected);
-    console.log("Portal isVitStudentEmail:", isVitStudentEmail);
   if (selected === "internal") {
     return <Internal onBack={() => setSelected(null)} mail={emailToCheck} />;
   }
@@ -36,87 +29,19 @@ const Portal = ({ userEmail }: { userEmail?: string | null }) => {
 
   return (
     <div className="fixed inset-0 w-screen h-screen relative">
-      {/* Background image via next/image */}
-      <Image
-        src="/portal/bg1.svg"
-        alt=""
-        aria-hidden
-        fill
-        className="object-cover"
-        priority={false}
-      />
+      <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" priority={false} />
       <div className="flex flex-col items-center justify-center h-full px-4 text-center relative z-10 animate-fade-in-up">
         <div className="flex items-center gap-3 mb-4 sm:mb-6">
-          {/* <BackChevron /> */}
           <h1 className="text-white font-bold" style={{ fontSize: "clamp(20px, 5.5vw, 36px)" }}>
-            Are you a VIT student?
+            Welcome to Code2Create
           </h1>
         </div>
         <div className="flex flex-row flex-wrap gap-3 sm:gap-6 w-full items-center justify-center">
-          <PortalButton onClick={() => setShowVitModal(true)}>
-            Yes
-          </PortalButton>
-          <PortalButton onClick={() => setSelected("external")}>
-            No
+          <PortalButton onClick={handleProceed} disabled={!whitelistChecked || !whitelistOk || isInternal === null}>
+            {(!whitelistChecked || isInternal === null) ? "Checking access..." : "Proceed"}
           </PortalButton>
         </div>
       </div>
-
-      {showVitModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-            onClick={() => setShowVitModal(false)}
-          />
-
-          {/* Modal card */}
-          <div className="flex items-center justify-center h-full px-4">
-            <div
-              className="w-full max-w-xs sm:max-w-sm md:max-w-md p-4 sm:p-6 md:p-8 rounded-2xl animate-pop-in"
-              style={{
-                background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))",
-                backdropFilter: "blur(10px) saturate(120%)",
-                boxShadow:
-                  "0 12px 40px rgba(0,0,0,0.55), 0 6px 24px rgba(72,186,134,0.06) inset, 0 1px 0 rgba(255,255,255,0.02) inset",
-                border: "1px solid rgba(255,255,255,0.10)",
-              }}
-            >
-              <h2
-                className="text-white text-center mb-4"
-                style={{
-                  fontFamily: "'Pilat Extended', Arial, sans-serif",
-                  fontWeight: "700",
-                  letterSpacing: "0.5px",
-                  fontSize: "clamp(16px, 4.5vw, 20px)",
-                }}
-              >
-                Please log in through your VIT email id
-              </h2>
-
-              <p className="text-gray-300 text-center mb-6" style={{ fontSize: "clamp(12px, 4vw, 16px)" }}>
-                {emailToCheck ? (
-                  <>
-                    Logged in as{" "}<span className="text-white font-semibold">{emailToCheck}</span>.
-                  </>
-                ) : (
-                  "You must use your VIT email to proceed."
-                )}
-              </p>
-
-              <div className="flex items-center justify-center gap-3">
-                {!isVitStudentEmail && (
-                  <PortalButton onClick={() => signOut({ callbackUrl: "/" })}>
-                    Log out
-                  </PortalButton>
-                )}
-
-                
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
