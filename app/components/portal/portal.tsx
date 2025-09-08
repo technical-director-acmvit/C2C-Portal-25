@@ -1,7 +1,7 @@
 "use client";
 import External from "./external";
 import Internal from "./internal";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PortalButton from "./ui/button";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
@@ -13,7 +13,20 @@ const Portal = ({ userEmail }: { userEmail?: string | null }) => {
   const { data: session } = useSession();
   const emailToCheck = session?.user?.email ?? userEmail ?? null;
   const isVitStudentEmail = emailToCheck ? /@vitstudent\.ac\.in$/i.test(emailToCheck.trim()) : false;
-  
+
+  //const whitelist_enabled = process.env.NEXT_PUBLIC_WHITELIST_ENABLED === "true";
+
+  // console.log("Portal userEmail:", userEmail);
+
+    if (selected === null && userEmail) {
+      const isVitStudent = /@vitstudent\.ac\.in$/i.test(userEmail.trim());
+      if (isVitStudent) {
+        setSelected("internal");
+      }
+    }
+
+    console.log("Portal selected:", selected);
+    console.log("Portal isVitStudentEmail:", isVitStudentEmail);
   if (selected === "internal") {
     return <Internal onBack={() => setSelected(null)} mail={emailToCheck} />;
   }

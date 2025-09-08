@@ -19,7 +19,7 @@ import PortalButton from "@/app/components/portal/ui/button";
 
 
 export default function Home() {
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
 
   const view = usePortalStore((s) => s.view);
   const initialize = usePortalStore((s) => s.initialize);

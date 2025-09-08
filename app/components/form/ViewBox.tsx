@@ -9,7 +9,7 @@ export default function ViewBox({ data, readOnly = false }: Props) {
       type="text"
       value={data}
       readOnly={readOnly}
-      className="w-full h-[87px] px-4 py-2 mt-4 rounded-lg border border-emerald-500 bg-[rgba(73,77,75,1)] text-white text-lg focus:outline-none focus:border-emerald-400 transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+  className="w-[757px] h-20 bg-neutral-600 rounded-2xl border border-green-400 mt-4 text-white px-4"
     />
   );
 }
