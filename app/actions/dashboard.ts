@@ -83,7 +83,8 @@ export async function fetchDashboard(): Promise<{
   if (!res.ok) {
     const err = (raw as { error?: string })?.error;
     if (res.status === 404) {
-      throw new Error("User not found");
+      // Surface a structured 404 so callers can route to signup
+      return { ok: false, status: 404, error: err || "User not found" };
     }
     return { ok: false, status: res.status, error: err };
   }

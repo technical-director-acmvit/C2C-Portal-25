@@ -47,6 +47,9 @@ export default function SlotRouter({ portal, dash, reject }: SlotRouterProps) {
         const dashboardResponse = await fetchDashboard();
         if (dashboardResponse.ok && dashboardResponse.data) {
           setDashboardData(dashboardResponse.data);
+        } else if (dashboardResponse.status === 404) {
+          // Treat missing user as portal flow
+          setForcePortal(true);
         } else if (dashboardResponse.error) {
           setError(dashboardResponse.error);
         }
