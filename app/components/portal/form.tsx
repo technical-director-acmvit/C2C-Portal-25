@@ -205,7 +205,7 @@ const Form = ({ onBack, requirePPT = false, embedded = false, onClose }: FormPro
         <div>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
             <label className="block text-sm text-gray-300">
-              PPT / PDF Upload {requirePPT ? "(required)" : "(optional)"}
+              PDF Upload {requirePPT ? "(required)" : "(optional)"}
             </label>
             <a
               href="/C2C_Template.pptx"

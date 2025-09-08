@@ -172,8 +172,8 @@ export function FormContent() {
         const file = event.target.files?.[0];
         if (!file) return;
 
-        // Validate file type (PPT/PDF)
-        const validTypes = ['application/pdf', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation'];
+        // Validate file type ( )
+        const validTypes = ['application/pdf'];
         if (!validTypes.includes(file.type)) {
             setUploadStatus("Please upload a PDF or PowerPoint file");
             return;
