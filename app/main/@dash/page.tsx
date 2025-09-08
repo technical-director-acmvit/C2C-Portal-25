@@ -12,6 +12,8 @@ import PortalLoader from "@/app/components/portal/portal-loader";
 import { FormContent } from "@/app/main/form/page";
 import { LampOverlay } from "@/app/components/form/ui/lamp";
 import BottomBar from "@/app/components/dash/bottom-bar";
+import { signOut } from "next-auth/react";
+import { LogOut } from "lucide-react";
 
 export default function DashPage() {
   useLayoutEffect(() => {
@@ -42,21 +44,34 @@ export default function DashPage() {
             {(view === "form" || view === "profile") && <LampOverlay />}
             {/* Header Section - only on home view */}
             {view === "home" && (
-              <div className="text-center mb-8">
-                <div className="flex items-center justify-center gap-3 mb-4">
-                  <div className="w-12 h-12 relative flex-shrink-0 pt-2">
-                    <Image
-                      src="/landing/C2C Logo.svg"
-                      alt="Code2Create Main Logo"
-                      width={400}
-                      height={400}
-                      className=""
-                      priority
-                    />
-                  </div>
-                  <h1 className="text-3xl md:text-4xl lg:text-5xl text-white">Code2Create</h1>
+              <>
+                <div className="flex justify-end mb-4">
+                  <button
+                    type="button"
+                    aria-label="Log out"
+                    title="Log out"
+                    onClick={() => signOut({ callbackUrl: "/" })}
+                    className="group inline-flex items-center justify-center rounded-full border border-white/10 bg-black/30 hover:bg-black/50 text-white p-2 sm:p-3 transition-colors focus:outline-none focus:ring-2 focus:ring-white/30"
+                  >
+                    <LogOut className="h-5 w-5 sm:h-6 sm:w-6 opacity-90 group-hover:opacity-100" />
+                  </button>
                 </div>
-              </div>
+                <div className="text-center mb-8">
+                  <div className="flex items-center justify-center gap-3 mb-4">
+                    <div className="w-12 h-12 relative flex-shrink-0 pt-2">
+                      <Image
+                        src="/landing/C2C Logo.svg"
+                        alt="Code2Create Main Logo"
+                        width={400}
+                        height={400}
+                        className=""
+                        priority
+                      />
+                    </div>
+                    <h1 className="text-3xl md:text-4xl lg:text-5xl text-white">Code2Create</h1>
+                  </div>
+                </div>
+              </>
             )}
             {view === "home" && <BentoGrid />}
             {view === "profile" && <ProfileView />}
