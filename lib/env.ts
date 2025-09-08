@@ -44,3 +44,8 @@ export const HK_ENABLED: boolean = (() => {
 export const DISCORD_URL: string =
   (process.env.NEXT_PUBLIC_DISCORD_URL || "").toString().trim() ||
   "https://discord.com/invite/CY2sygnhYk";
+
+export const PROMOTIONS_LIVE: boolean = (() => {
+  const v = (process.env.NEXT_PUBLIC_PROMOTIONS_LIVE ?? "").toString().trim().toLowerCase();
+  return v === "true" || v === "1" || v === "yes" || v === "on";
+})();

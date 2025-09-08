@@ -9,12 +9,12 @@ export const metadata: Metadata = {
   title: "Portal | C2C",
 };
 
-export default async function PortalLayout({ children, portal, dash }: Readonly<{ children: React.ReactNode, portal: React.ReactNode, dash: React.ReactNode }>) {    
+export default async function PortalLayout({ children, portal, dash, reject }: Readonly<{ children: React.ReactNode, portal: React.ReactNode, dash: React.ReactNode, reject: React.ReactNode }>) {
   return (
     <AuthProvider>
       <AuthReauthGuard>
         {children}
-        <SlotRouter portal={portal} dash={dash} />
+        <SlotRouter portal={portal} dash={dash} reject={reject} />
       </AuthReauthGuard>
     </AuthProvider>
   );
