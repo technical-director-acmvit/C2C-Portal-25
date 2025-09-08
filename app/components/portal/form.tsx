@@ -208,8 +208,8 @@ const Form = ({ onBack, requirePPT = false, embedded = false, onClose }: FormPro
               PPT / PDF Upload {requirePPT ? "(required)" : "(optional)"}
             </label>
             <a
-              href="/template.pptx"
-              download="presentation_template.pptx"
+              href="/C2C_Template.pptx"
+              download="Code2Create_IdeaSubmission_Template.pptx"
               className="inline-flex items-center gap-1.5 text-xs text-[#5EBF94] hover:text-[#48BA86] transition-colors duration-200 group"
             >
               <svg 
