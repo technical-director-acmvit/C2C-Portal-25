@@ -82,7 +82,7 @@ const Sponsors = () => (
               />
               <SponsorCard
                 title="ElevenLabs"
-                role="Bronze Sponsor"
+                role="Gold Sponsor"
                 description="ElevenLabs is an AI Audio research and deployment company creating models that generate realistic, versatile, and context-aware speech and sound. Their technology powers audiobooks, news articles, video games, film pre-production, social media, and advertising. It also restores voices for those who've lost them and supports accessibility needs - reshaping how people create, experience, and interact with sound."
                 logoSrc="/landing/elevenlabs-logo-black.svg"
               />
