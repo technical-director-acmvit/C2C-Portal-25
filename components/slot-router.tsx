@@ -14,9 +14,10 @@ interface SlotRouterProps {
   portal: React.ReactNode
   dash: React.ReactNode
   reject: React.ReactNode
+  no_active_round: React.ReactNode
 }
 
-export default function SlotRouter({ portal, dash, reject }: SlotRouterProps) {
+export default function SlotRouter({ portal, dash, reject, no_active_round }: SlotRouterProps) {
   const { data: session } = useSession();
   const [userData, setUserData] = useState<GetUserResponse | null>(null);
   const [dashboardData, setDashboardData] = useState<DashboardResponse | null>(null);
@@ -87,7 +88,11 @@ export default function SlotRouter({ portal, dash, reject }: SlotRouterProps) {
   // Check if current team round and active round are the same (promotion eligibility)
   const currentTeamRound = dashboardData?.current_team_round;
   const activeRound = dashboardData?.active_round;
+  if (!activeRound) {
+    return <>{no_active_round}</>;
+  }
   const isPromoted = currentTeamRound?.id === activeRound?.id;
+
 
   const dontShowPromotions = !PROMOTIONS_LIVE;
   const shouldForcePortal = forcePortal || dontShowPromotions;
@@ -95,6 +100,8 @@ export default function SlotRouter({ portal, dash, reject }: SlotRouterProps) {
   const devOverride = process.env.NODE_ENV === "development" ? getDevRouteOverride() : "auto";
   
   let finalView: "portal" | "dash" | "reject" = "portal";
+
+  console.log("stuff", { roundsCount, isPromoted, PROMOTIONS_LIVE, shouldForcePortal, devOverride });
   
   if (!shouldForcePortal && roundsCount > 1) {
     if (PROMOTIONS_LIVE) {
@@ -116,4 +123,3 @@ export default function SlotRouter({ portal, dash, reject }: SlotRouterProps) {
     
   return <>{finalView === "dash" ? dash : portal}</>;
 }
-
