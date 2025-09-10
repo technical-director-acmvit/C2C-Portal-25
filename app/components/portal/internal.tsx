@@ -117,13 +117,19 @@ const Internal = ({ onBack,mail  }: Props) => {
    };
 
    const isFormValid = () => {
-     return (
+     const baseValid = (
        formData.registrationNumber.trim() !== "" &&
        formData.gender !== "" &&
-       formData.contactNumber.trim() !== "" &&
-       formData.block !== "" &&
-       formData.roomNumber.trim() !== ""
+       formData.contactNumber.trim() !== ""
      );
+     
+     // If hosteller, also require block and room number
+     if (formData.hosteller) {
+       return baseValid && formData.block !== "" && formData.roomNumber.trim() !== "";
+     }
+     
+     // If dayscholar, only require base fields
+     return baseValid;
    };
 
    const handleSubmit = async () => {
@@ -272,7 +278,12 @@ const Internal = ({ onBack,mail  }: Props) => {
              <button
                type="button"
                aria-pressed={!formData.hosteller}
-               onClick={() => setFormData((prev) => ({ ...prev, hosteller: false }))}
+               onClick={() => setFormData((prev) => ({ 
+                 ...prev, 
+                 hosteller: false,
+                 block: "", // Clear block when switching to dayscholar
+                 roomNumber: "" // Clear room number when switching to dayscholar
+               }))}
                className={`flex-1 rounded-full py-2 text-center transition-colors ${
                  !formData.hosteller
                    ? "bg-[#48BA86] text-black"
@@ -284,35 +295,39 @@ const Internal = ({ onBack,mail  }: Props) => {
              </button>
            </div>
 
-          {/* Block selector */}
-          <label className="text-sm text-gray-300 mt-4 mb-2">Block</label>
-          <Select
-            id="block"
-            value={formData.block}
-            onChange={(val: string) => setFormData((prev) => ({ ...prev, block: val }))}
-            options={blocks}
-            placeholder={blocksLoading ? "Loading blocks…" : "Select block"}
-            className=""
-          />
-          {blocks.length === 0 && !blocksLoading && (
-            <div className="text-yellow-300 text-sm mt-2">No blocks available</div>
-          )}
+          {/* Block selector - only show for hostellers */}
+          {formData.hosteller && (
+            <>
+              <label className="text-sm text-gray-300 mt-4 mb-2">Block</label>
+              <Select
+                id="block"
+                value={formData.block}
+                onChange={(val: string) => setFormData((prev) => ({ ...prev, block: val }))}
+                options={blocks}
+                placeholder={blocksLoading ? "Loading blocks…" : "Select block"}
+                className=""
+              />
+              {blocks.length === 0 && !blocksLoading && (
+                <div className="text-yellow-300 text-sm mt-2">No blocks available</div>
+              )}
 
-          {/* Room number input */}
-          <label className="text-sm text-gray-300 mt-3 mb-2">Room Number</label>
-          <input
-            className="w-full bg-[#111213]/60 border border-white/10 rounded-full px-4 py-3 text-white placeholder-gray-400 focus:outline-none"
-            type="text"
-            name="roomNumber"
-            value={formData.roomNumber}
-            onChange={handleInputChange}
-            placeholder="Room Number"
-            maxLength={8}
-            inputMode="text"
-            pattern="[A-Za-z0-9\s]*"
-          />
-          {fieldErrors.roomNumber && (
-            <div className="text-red-300 text-sm mt-2">{fieldErrors.roomNumber}</div>
+              {/* Room number input - only show for hostellers */}
+              <label className="text-sm text-gray-300 mt-3 mb-2">Room Number</label>
+              <input
+                className="w-full bg-[#111213]/60 border border-white/10 rounded-full px-4 py-3 text-white placeholder-gray-400 focus:outline-none"
+                type="text"
+                name="roomNumber"
+                value={formData.roomNumber}
+                onChange={handleInputChange}
+                placeholder="Room Number"
+                maxLength={8}
+                inputMode="text"
+                pattern="[A-Za-z0-9\s]*"
+              />
+              {fieldErrors.roomNumber && (
+                <div className="text-red-300 text-sm mt-2">{fieldErrors.roomNumber}</div>
+              )}
+            </>
           )}
 
            <div className="flex justify-center mt-6">
