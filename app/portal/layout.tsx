@@ -3,6 +3,7 @@ import AuthProvider from "@/components/auth-provider";
 import AuthReauthGuard from "@/components/auth-reauth-guard";
 import SlotRouter from "@/components/slot-router";
 import React from "react";
+import DevViewSwitcher from "@/app/components/portal/dev-view-switcher";
 
 
 export const metadata: Metadata = {
@@ -15,6 +16,8 @@ export default async function PortalLayout({ children, portal, dash, reject, no_
       <AuthReauthGuard>
         {children}
         <SlotRouter portal={portal} dash={dash} reject={reject} no_active_round={no_active_round} />
+        {/* Render dev switcher globally for all /portal views (dev-only inside component) */}
+        <DevViewSwitcher />
       </AuthReauthGuard>
     </AuthProvider>
   );

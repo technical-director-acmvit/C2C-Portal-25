@@ -7,7 +7,6 @@ import BentoGrid from "@/app/components/dash/bento-grid";
 import ProfileView from "@/app/components/dash/profile";
 import { useDashStore } from "@/app/stores/dash";
 import DashGradientBG from "@/app/components/dash/gradient-bg";
-import DevViewSwitcher from "@/app/components/portal/dev-view-switcher";
 import PortalLoader from "@/app/components/portal/portal-loader";
 import { FormContent } from "@/app/portal/form/page";
 import { LampOverlay } from "@/app/components/form/ui/lamp";
@@ -124,7 +123,7 @@ export default function DashPage() {
         <BottomBar />
       </div>
 
-      <DevViewSwitcher />
+      {/* DevViewSwitcher now rendered globally via portal layout */}
       
       {/* Room Details Modal - appears on top of everything */}
       <BlockRoomModal 

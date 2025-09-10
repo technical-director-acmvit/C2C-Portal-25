@@ -12,7 +12,6 @@ import { signOut, useSession } from "next-auth/react";
 import { LogOut } from "lucide-react";
 import GithubView from "@/app/components/portal/github/github-view";
 import { PORTAL_ENABLED, DISCORD_URL } from "@/lib/env";
-import DevViewSwitcher from "@/app/components/portal/dev-view-switcher";
 import PortalButton from "@/app/components/portal/ui/button";
 import BlockRoomModal from "@/app/components/portal/block_room";
 
@@ -211,8 +210,7 @@ export default function Home() {
         </div>
       )}
       
-      {/* Dev Controls */}
-      <DevViewSwitcher />
+      {/* DevViewSwitcher now rendered globally via portal layout */}
 
       {/* Room Details Modal - appears on top of everything */}
       <BlockRoomModal 

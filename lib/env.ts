@@ -11,6 +11,18 @@ export const REGISTRATIONS_OPEN: boolean = (() => {
 })();
 
 /**
+ * Whether signups are over (blocks proceeding past the welcome screen).
+ * Primary flag: NEXT_PUBLIC_SIGNUPS_OVER.
+ * If not set, falls back to the inverse of REGISTRATIONS_OPEN.
+ */
+export const SIGNUPS_OVER: boolean = (() => {
+  const v = (process.env.NEXT_PUBLIC_SIGNUPS_OVER ?? "").toString().trim().toLowerCase();
+  if (v === "true" || v === "1" || v === "yes" || v === "on") return true;
+  if (v === "false" || v === "0" || v === "no" || v === "off") return false;
+  return !REGISTRATIONS_OPEN;
+})();
+
+/**
  * Whether the portal is enabled (shows auth + portal screens) or in Coming Soon mode.
  * Accepts: "true"/"1"/"yes"/"on" (case-insensitive) as true, everything else false.
  * When false, the /portal route shows a Coming Soon page without any auth gating.
