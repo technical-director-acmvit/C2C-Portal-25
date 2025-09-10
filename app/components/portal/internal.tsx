@@ -50,10 +50,13 @@ const Internal = ({ onBack,mail  }: Props) => {
               value: key,
             }))
           : Array.isArray(data)
-          ? data.map((b: any) =>
+          ? data.map((b: { label?: string; name?: string; value?: string } | string) =>
               typeof b === "string"
                 ? { label: b, value: b }
-                : { label: b.label ?? b.name ?? b.value, value: b.value ?? b.name ?? b.label }
+                : { 
+                    label: (b.label ?? b.name ?? b.value ?? "").toString(), 
+                    value: (b.value ?? b.name ?? b.label ?? "").toString() 
+                  }
             )
           : [];
         setBlocks(opts);
