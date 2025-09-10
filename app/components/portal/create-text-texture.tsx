@@ -125,6 +125,14 @@ export function createTextTexture(
     textureCache.set(cacheKey, texture);
   };
   
+  const img2 = new window.Image();
+  img2.src = '/portal/c2cacmgreen.svg';
+  img2.onload = () => {
+    {ctx.drawImage(img2, 190+1678/2, 500, 500, 300)};
+    texture.needsUpdate = true;
+    textureCache.set(cacheKey, texture);
+  };
+  
 
   return texture;
 }

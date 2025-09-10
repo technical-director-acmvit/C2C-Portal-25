@@ -47,8 +47,8 @@ export default function Lanyard({
       >
         <ambientLight intensity={Math.PI} />
     <Physics gravity={gravity} timeStep={1 / 60}>
-      <Band position={[-2, 4, 0]} text={text} front={true}/>
-      <Band position={[2, 4, 0]}  text={text} front={false}/>
+      <Band position={[-1.5, 4, 0]} text={text} front={true}/>
+      <Band position={[1.5, 4, 0]}  text={text} front={false}/>
         </Physics>
         <Environment blur={0.75}>
           <Lightformer
