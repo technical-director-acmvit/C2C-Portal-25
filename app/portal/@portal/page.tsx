@@ -38,9 +38,13 @@ export default function Home() {
     // Only show modal for internal users
     if (user.internal !== true) return false;
     
-    // Show modal if either room_number or block is missing
+    // Show modal if either room_number or block is missing for hostellers
+    // For dayscholar users (hosteller: false), we don't need room details
+    if (user.hosteller === false) return false;
+    
+    // For hostellers, check if room_number or block is missing
     return !user.room_number || !user.block;
-  }, [dashboard?.user]);
+  }, [dashboard?.user, dashboard]); // Add dashboard as dependency to trigger on every refresh
     
 
 

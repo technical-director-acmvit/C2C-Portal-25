@@ -97,12 +97,10 @@ export default function SlotRouter({ portal, dash, reject, no_active_round }: Sl
       return <>{portal}</>;
     }
     
-    // If promotions are live and there's a current team round, check if it has ended
     if (PROMOTIONS_LIVE && currentTeamRound?.end_time) {
       const currentTime = new Date();
       const roundEndTime = new Date(currentTeamRound.end_time);
       
-      // If current team round has ended, show rejection screen; otherwise show dashboard
       if (currentTime > roundEndTime) {
         return <>{reject}</>;
       } else {
