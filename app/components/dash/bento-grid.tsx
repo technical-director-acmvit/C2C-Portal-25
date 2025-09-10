@@ -298,7 +298,7 @@ export default function BentoGrid() {
             </div>
 
             <div className="border-emerald-500 bg-[#060f0b] border-2 col-span-5 row-span-4 p-8 flex flex-col items-center gap-4 rounded-lg">
-              <ButtonBox text="Submit your ideas" btnText="Form" onClick={() => setView("form")} />
+              <ButtonBox text="View your idea" btnText="Form" onClick={() => setView("form")} />
             </div>
           </div>
         </div>

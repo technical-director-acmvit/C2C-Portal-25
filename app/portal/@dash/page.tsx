@@ -12,11 +12,15 @@ import PortalLoader from "@/app/components/portal/portal-loader";
 import { FormContent } from "@/app/portal/form/page";
 import { LampOverlay } from "@/app/components/form/ui/lamp";
 import BottomBar from "@/app/components/dash/bottom-bar";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { LogOut } from "lucide-react";
 import BackChevron from "@/app/components/portal/ui/back-chevron";
+import BlockRoomModal from "@/app/components/portal/block_room";
+import React from "react";
 
 export default function DashPage() {
+  const { data: session } = useSession();
+  
   useLayoutEffect(() => {
     // Your layout effects here
   }, []);
@@ -24,6 +28,23 @@ export default function DashPage() {
   const initialize = useDashStore((s) => s.initialize);
   const loading = useDashStore((s) => s.loading);
   const setView = useDashStore((s) => s.setView);
+  const dashboard = useDashStore((s) => s.dashboard);
+
+  // Check if user needs to provide room details
+  const needsRoomDetails = React.useMemo(() => {
+    const user = dashboard?.user;
+    if (!user) return false;
+    
+    // Only show modal for internal users
+    if (user.internal !== true) return false;
+    
+    // Show modal if either room_number or block is missing for hostellers
+    // For dayscholar users (hosteller: false), we don't need room details
+    if (user.hosteller === false) return false;
+    
+    // For hostellers, check if room_number or block is missing
+    return !user.room_number || !user.block;
+  }, [dashboard?.user, dashboard]); // Add dashboard as dependency to trigger on every refresh
 
   useEffect(() => {
     void initialize();
@@ -102,6 +123,12 @@ export default function DashPage() {
       </div>
 
       <DevViewSwitcher />
+      
+      {/* Room Details Modal - appears on top of everything */}
+      <BlockRoomModal 
+        isOpen={needsRoomDetails} 
+        onSuccess={initialize}
+      />
     </div>
   );
 }
