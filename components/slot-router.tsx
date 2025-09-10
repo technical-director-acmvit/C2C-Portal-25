@@ -84,13 +84,13 @@ export default function SlotRouter({ portal, dash, reject, no_active_round }: Sl
     return <div className="p-4 text-red-600">Error loading user data: {error}</div>
   }
 
-  // Determine rounds count: if team or rounds are missing, treat as 0 rounds.
-  const rounds = userData?.user?.team?.rounds ?? []
-  const roundsCount = Array.isArray(rounds) ? rounds.length : 0
-
   // Check if current team round and active round are the same (promotion eligibility)
   const currentTeamRound = dashboardData?.current_team_round;
   const activeRound = dashboardData?.active_round;
+  
+  // Determine rounds count: use current team round number + 1 to get total rounds participated
+  // If team has a current_team_round, they've at least participated in that many rounds
+  const roundsCount = currentTeamRound?.round_number !== undefined ? currentTeamRound.round_number + 1 : 0;
   if (!activeRound) {
     // If user is not found, show portal instead of "coming soon"
     if (userNotFound) {
@@ -120,14 +120,31 @@ export default function SlotRouter({ portal, dash, reject, no_active_round }: Sl
   
   let finalView: "portal" | "dash" | "reject" = "portal";
 
-  console.log("stuff", { roundsCount, isPromoted, PROMOTIONS_LIVE, shouldForcePortal, devOverride });
+  // console.log("SlotRouter Debug:", { 
+  //   roundsCount, 
+  //   isPromoted, 
+  //   PROMOTIONS_LIVE, 
+  //   shouldForcePortal, 
+  //   devOverride,
+  //   currentTeamRoundId: currentTeamRound?.id,
+  //   activeRoundId: activeRound?.id,
+  //   currentTeamRoundNumber: currentTeamRound?.round_number,
+  //   activeRoundNumber: activeRound?.round_number,
+  //   userNotFound,
+  //   forcePortal,
+  //   dontShowPromotions
+  // });
   
-  if (!shouldForcePortal && roundsCount > 1) {
+  if (!shouldForcePortal && roundsCount >= 1) {
     if (PROMOTIONS_LIVE) {
       finalView = isPromoted ? "dash" : "reject";
+      console.log("Promotion logic applied - finalView:", finalView);
     } else {
       finalView = "portal";
+      console.log("Promotions not live - showing portal");
     }
+  } else {
+    console.log("Forcing portal due to shouldForcePortal or roundsCount < 1");
   }
 
   // Apply dev override if in development
