@@ -17,6 +17,8 @@ export default function ProfileView() {
   const userName = cleanName(dashboard?.user?.name) || "User";
   const email = dashboard?.user?.email || "";
   const contact = dashboard?.user?.contact_number || "";
+  const hostelBlock = dashboard?.user?.block || "";
+  const roomNumber = dashboard?.user?.room_number || "";
   const teamName = cleanName(dashboard?.team?.name) || "";
   const teammates = useMemo(
     () => (dashboard?.teammates || [])
@@ -67,6 +69,18 @@ export default function ProfileView() {
       >
         Hello {userName}
       </div>
+
+      {(hostelBlock || roomNumber) && (
+        <div className="w-full flex justify-center px-4 mb-6">
+          <div className="w-full max-w-2xl rounded-xl border border-emerald-500/40 bg-emerald-900/20 text-emerald-50 px-4 py-3">
+            <div className="text-sm sm:text-base font-semibold">Hostel Details</div>
+            <div className="mt-1 text-sm sm:text-base">
+              {hostelBlock && <span className="mr-3">Block: <span className="font-medium">{hostelBlock}</span></span>}
+              {roomNumber && <span>Room: <span className="font-medium">{roomNumber}</span></span>}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="w-full flex justify-center mb-8">
         {isSmall ? (
