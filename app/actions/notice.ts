@@ -14,10 +14,10 @@ export async function getNotices(): Promise<Notice[]> {
   // Backend returns { notices: Notice[] }
   const raw = Array.isArray(body?.notices) ? body.notices : [];
   // Normalize created_at to always be a string to satisfy consumers
-  return raw.map((n: any) => ({
-    ID: n.ID ?? n.id ?? "",
+  return raw.map((n: Partial<Notice>) => ({
+    ID: n.ID ?? (n as any).id ?? "",
     information: n.information ?? "",
-    created_at: n.created_at ?? n.createdAt ?? new Date().toISOString(),
+    created_at: n.created_at ?? (n as any).createdAt ?? new Date().toISOString(),
   }));
 }
 
