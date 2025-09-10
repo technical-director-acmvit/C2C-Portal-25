@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TeamUp from "./team-up";
 import PortalButton from "./ui/button";
 import { signupInternal } from "../../actions/signup";
@@ -21,225 +21,309 @@ const Internal = ({ onBack,mail  }: Props) => {
     gender: "",
     contactNumber: "",
     hosteller: true,
+    block: "",
+    roomNumber: "",
   });
   // field-level validation messages
   const [fieldErrors, setFieldErrors] = useState({
     registrationNumber: "",
     contactNumber: "",
+    roomNumber: "",
   });
 
-  // regex: two digits + three letters + four digits (e.g. 23BCT0122)
-  const regNoRegex = /^[0-9]{2}[A-Z]{3}[0-9]{4}$/;
-  const validateRegistrationNumber = (val: string) => regNoRegex.test(val.trim());
-  const validatePhoneNumber = (val: string) => {
-    const digits = val.replace(/\D/g, "");
-    if (digits.length !== 10) return false;
-    const first = parseInt(digits[0], 10);
-    return first >= 6 && first <= 9;
-  };
+  // blocks list fetched from a public JSON (e.g., /portal/blocks.json in public folder)
+  const [blocks, setBlocks] = useState<{ label: string; value: string }[]>([]);
+  const [blocksLoading, setBlocksLoading] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value: rawValue } = e.target;
-
-    if (name === "registrationNumber") {
-      // normalize to uppercase and limit to 9 characters
-      const value = rawValue.toUpperCase().slice(0, 9);
-      setFormData((prev) => ({ ...prev, registrationNumber: value }));
-      if (fieldErrors.registrationNumber) {
-        setFieldErrors((prev) => ({ ...prev, registrationNumber: "" }));
-      }
-      return;
-    }
-
-    if (name === "contactNumber") {
-      // allow only digits and limit to 10 digits
-      const digits = rawValue.replace(/\D/g, "").slice(0, 10);
-      setFormData((prev) => ({ ...prev, contactNumber: digits }));
-      if (fieldErrors.contactNumber) {
-        setFieldErrors((prev) => ({ ...prev, contactNumber: "" }));
-      }
-      return;
-    }
-
-    // fallback for other inputs (e.g., selects)
-    setFormData((prev) => ({ ...prev, [name]: rawValue }));
-  };
-
-  const isFormValid = () => {
-    return (
-      formData.registrationNumber.trim() !== "" &&
-      formData.gender !== "" &&
-      formData.contactNumber.trim() !== ""
-    );
-  };
-
-  const handleSubmit = async () => {
-    if (!isFormValid()) {
-      setError("Please fill all fields");
-      return;
-    }
-
-    // validate fields and show inline errors if invalid
-    const regValid = validateRegistrationNumber(formData.registrationNumber);
-    const phoneValid = validatePhoneNumber(formData.contactNumber);
-    if (!regValid || !phoneValid) {
-      setFieldErrors({
-        registrationNumber: regValid ? "" : "Registration number must be like 12XYZ3456",
-        contactNumber: phoneValid ? "" : "Phone number must contain 10 digits",
-      });
-      return;
-    }
-
-    // proceed with submit
-    if (isFormValid()) {
-      setLoading(true);
-      setError(null);
-
+  useEffect(() => {
+    const fetchBlocks = async () => {
+      setBlocksLoading(true);
       try {
+        const res = await fetch("/api/blocks");
+        if (!res.ok) throw new Error("Failed to load blocks");
+        const response = await res.json();
+        const data = response.data;
+        // handle object structure like {"MH-A": "MH-A", "MH-B": "MH-B"}
+        const opts = typeof data === "object" && !Array.isArray(data)
+          ? Object.entries(data).map(([key, value]) => ({
+              label: value as string,
+              value: key,
+            }))
+          : Array.isArray(data)
+          ? data.map((b: any) =>
+              typeof b === "string"
+                ? { label: b, value: b }
+                : { label: b.label ?? b.name ?? b.value, value: b.value ?? b.name ?? b.label }
+            )
+          : [];
+        setBlocks(opts);
+      } catch (e) {
+        console.error("Error loading blocks", e);
+        setBlocks([]);
+      } finally {
+        setBlocksLoading(false);
+      }
+    };
+    fetchBlocks();
+  }, []);
+ 
+   // regex: two digits + three letters + four digits (e.g. 23BCT0122)
+   const regNoRegex = /^[0-9]{2}[A-Z]{3}[0-9]{4}$/;
+   const validateRegistrationNumber = (val: string) => regNoRegex.test(val.trim());
+   const validatePhoneNumber = (val: string) => {
+     const digits = val.replace(/\D/g, "");
+     if (digits.length !== 10) return false;
+     const first = parseInt(digits[0], 10);
+     return first >= 6 && first <= 9;
+   };
+
+   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+     const { name, value: rawValue } = e.target;
+ 
+     if (name === "registrationNumber") {
+       // normalize to uppercase and limit to 9 characters
+       const value = rawValue.toUpperCase().slice(0, 9);
+       setFormData((prev) => ({ ...prev, registrationNumber: value }));
+       if (fieldErrors.registrationNumber) {
+         setFieldErrors((prev) => ({ ...prev, registrationNumber: "" }));
+       }
+       return;
+     }
+
+    if (name === "roomNumber") {
+      const cleaned = rawValue.replace(/[^A-Za-z0-9\s]/g, "").slice(0, 8);
+      setFormData((prev) => ({ ...prev, roomNumber: cleaned }));
+      if (fieldErrors.roomNumber) {
+        setFieldErrors((prev) => ({ ...prev, roomNumber: "" }));
+      }
+      return;
+    }
+ 
+     if (name === "contactNumber") {
+       // allow only digits and limit to 10 digits
+       const digits = rawValue.replace(/\D/g, "").slice(0, 10);
+       setFormData((prev) => ({ ...prev, contactNumber: digits }));
+       if (fieldErrors.contactNumber) {
+         setFieldErrors((prev) => ({ ...prev, contactNumber: "" }));
+       }
+       return;
+     }
+ 
+     // fallback for other inputs (e.g., selects)
+     setFormData((prev) => ({ ...prev, [name]: rawValue }));
+   };
+
+   const isFormValid = () => {
+     return (
+       formData.registrationNumber.trim() !== "" &&
+       formData.gender !== "" &&
+       formData.contactNumber.trim() !== "" &&
+       formData.block !== "" &&
+       formData.roomNumber.trim() !== ""
+     );
+   };
+
+   const handleSubmit = async () => {
+     if (!isFormValid()) {
+       setError("Please fill all fields");
+       return;
+     }
+
+     // validate fields and show inline errors if invalid
+     const regValid = validateRegistrationNumber(formData.registrationNumber);
+     const phoneValid = validatePhoneNumber(formData.contactNumber);
+     if (!regValid || !phoneValid) {
+       setFieldErrors({
+         registrationNumber: regValid ? "" : "Registration number must be like 12XYZ3456",
+         contactNumber: phoneValid ? "" : "Phone number must contain 10 digits",
+         roomNumber: "",
+       });
+       return;
+     }
+
+     // proceed with submit
+     if (isFormValid()) {
+       setLoading(true);
+       setError(null);
+
+       try {
         await signupInternal({
           contact_number: formData.contactNumber,
           gender: formData.gender,
           reg_no: formData.registrationNumber,
-          hosteller: Boolean(formData.hosteller),
+          hosteller: formData.hosteller,
+          room_number: formData.roomNumber || undefined,
+          block: formData.block || undefined,
         });
 
         setSubmitted(true);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Signup failed");
-      } finally {
-        setLoading(false);
-      }
-    }
-  };
+       } catch (err) {
+         setError(err instanceof Error ? err.message : "Signup failed");
+       } finally {
+         setLoading(false);
+       }
+     }
+   };
 
-  if (submitted) {
-    return <TeamUp />;
-  }
+   if (submitted) {
+     return <TeamUp />;
+   }
 
-  return (
-    <div className="fixed inset-0 w-screen h-screen relative">
-      {/* Background image via next/image */}
-      <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" />
-      {/* <div className="absolute top-6 left-6 sm:left-8">
-                <Image src="/portal/logo.svg" alt="Logo" width={200} height={200} />
-            </div> */}
-      <div className="flex items-center justify-center h-full relative z-10">
-        <div
-          className="w-full max-w-lg p-6 sm:p-8 rounded-2xl animate-pop-in"
-          style={{
-            background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))",
-            backdropFilter: "blur(10px) saturate(120%)",
-            boxShadow:
-              "0 12px 40px rgba(0,0,0,0.55), 0 6px 24px rgba(72,186,134,0.06) inset, 0 1px 0 rgba(255,255,255,0.02) inset",
-            border: "1px solid rgba(255,255,255,0.10)",
-          }}
-        >
-        <div className="relative mb-4 sm:mb-6">
-            {!mail && (
-                <div className="absolute left-0 top-1/2 -translate-y-1/2">
-                    <BackChevron onClick={onBack} />
-                </div>
-            )}
+   return (
+     <div className="fixed inset-0 w-screen h-screen relative">
+       {/* Background image via next/image */}
+       <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" />
+       {/* <div className="absolute top-6 left-6 sm:left-8">
+                 <Image src="/portal/logo.svg" alt="Logo" width={200} height={200} />
+             </div> */}
+       <div className="flex items-center justify-center h-full relative z-10">
+         <div
+           className="w-full max-w-lg p-6 sm:p-8 rounded-2xl animate-pop-in"
+           style={{
+             background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))",
+             backdropFilter: "blur(10px) saturate(120%)",
+             boxShadow:
+               "0 12px 40px rgba(0,0,0,0.55), 0 6px 24px rgba(72,186,134,0.06) inset, 0 1px 0 rgba(255,255,255,0.02) inset",
+             border: "1px solid rgba(255,255,255,0.10)",
+           }}
+         >
+         <div className="relative mb-4 sm:mb-6">
+             {!mail && (
+                 <div className="absolute left-0 top-1/2 -translate-y-1/2">
+                     <BackChevron onClick={onBack} />
+                 </div>
+             )}
 
-            <h2
-                className="mx-auto text-center font-semibold text-white"
-                style={{ fontFamily: "'Pilat Extended', 'Trap', Arial, sans-serif", fontSize: "clamp(20px, 5.5vw, 28px)" }}
-            >
-                Student Details
-            </h2>
-        </div>
+             <h2
+                 className="mx-auto text-center font-semibold text-white"
+                 style={{ fontFamily: "'Pilat Extended', 'Trap', Arial, sans-serif", fontSize: "clamp(20px, 5.5vw, 28px)" }}
+             >
+                 Student Details
+             </h2>
+         </div>
 
-          {error && (
-            <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded-md text-sm">
-              {error}
-            </div>
-          )}
+           {error && (
+             <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded-md text-sm">
+               {error}
+             </div>
+           )}
 
-          <label className="text-sm text-gray-300 mb-2">Registration Number</label>
-          <input
-            className="w-full bg-[#111213]/60 border border-white/10 rounded-full px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#48BA86]/40"
-            type="text"
-            name="registrationNumber"
-            value={formData.registrationNumber}
-            onChange={handleInputChange}
-            placeholder="Registration Number"
-            maxLength={9}
-          />
-          {fieldErrors.registrationNumber && (
-            <div className="text-red-300 text-sm mt-2">{fieldErrors.registrationNumber}</div>
-          )}
+           <label className="text-sm text-gray-300 mb-2">Registration Number</label>
+           <input
+             className="w-full bg-[#111213]/60 border border-white/10 rounded-full px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#48BA86]/40"
+             type="text"
+             name="registrationNumber"
+             value={formData.registrationNumber}
+             onChange={handleInputChange}
+             placeholder="Registration Number"
+             maxLength={9}
+           />
+           {fieldErrors.registrationNumber && (
+             <div className="text-red-300 text-sm mt-2">{fieldErrors.registrationNumber}</div>
+           )}
 
-          <label className="text-sm text-gray-300 mt-3 mb-2">Gender</label>
+           <label className="text-sm text-gray-300 mt-3 mb-2">Gender</label>
+           <Select
+             id="gender"
+             value={formData.gender}
+             onChange={(val: string) => setFormData((prev) => ({ ...prev, gender: val }))}
+             options={[
+               { label: "Male", value: "male" },
+               { label: "Female", value: "female" },
+             ]}
+             placeholder="Gender"
+             className=""
+           />
+
+           <label className="text-sm text-gray-300 mt-3 mb-2">Contact Number</label>
+           <input
+             className="w-full bg-[#111213]/60 border border-white/10 rounded-full px-4 py-3 text-white placeholder-gray-400 focus:outline-none"
+             type="tel"
+             name="contactNumber"
+             value={formData.contactNumber}
+             onChange={handleInputChange}
+             placeholder="Contact Number"
+             inputMode="numeric"
+             pattern="\d*"
+           />
+           {fieldErrors.contactNumber && (
+             <div className="text-red-300 text-sm mt-2">{fieldErrors.contactNumber}</div>
+           )}
+
+           {/* Hosteller / Dayscholar switch */}
+           <label className="text-sm text-gray-300 mt-4 mb-2">Residence</label>
+           <div className="flex w-full bg-[#111213]/60 border border-white/10 rounded-full p-1">
+             <button
+               type="button"
+               aria-pressed={formData.hosteller}
+               onClick={() => setFormData((prev) => ({ ...prev, hosteller: true }))}
+               className={`flex-1 rounded-full py-2 text-center transition-colors ${
+                 formData.hosteller
+                   ? "bg-[#48BA86] text-black"
+                   : "bg-transparent text-white hover:bg-white/10"
+               }`}
+               style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: "14px" }}
+             >
+               Hosteller
+             </button>
+             <button
+               type="button"
+               aria-pressed={!formData.hosteller}
+               onClick={() => setFormData((prev) => ({ ...prev, hosteller: false }))}
+               className={`flex-1 rounded-full py-2 text-center transition-colors ${
+                 !formData.hosteller
+                   ? "bg-[#48BA86] text-black"
+                   : "bg-transparent text-white hover:bg-white/10"
+               }`}
+               style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: "14px" }}
+             >
+               Dayscholar
+             </button>
+           </div>
+
+          {/* Block selector */}
+          <label className="text-sm text-gray-300 mt-4 mb-2">Block</label>
           <Select
-            id="gender"
-            value={formData.gender}
-            onChange={(val: string) => setFormData((prev) => ({ ...prev, gender: val }))}
-            options={[
-              { label: "Male", value: "male" },
-              { label: "Female", value: "female" },
-            ]}
-            placeholder="Gender"
+            id="block"
+            value={formData.block}
+            onChange={(val: string) => setFormData((prev) => ({ ...prev, block: val }))}
+            options={blocks}
+            placeholder={blocksLoading ? "Loading blocks…" : "Select block"}
             className=""
           />
-
-          <label className="text-sm text-gray-300 mt-3 mb-2">Contact Number</label>
-          <input
-            className="w-full bg-[#111213]/60 border border-white/10 rounded-full px-4 py-3 text-white placeholder-gray-400 focus:outline-none"
-            type="tel"
-            name="contactNumber"
-            value={formData.contactNumber}
-            onChange={handleInputChange}
-            placeholder="Contact Number"
-            inputMode="numeric"
-            pattern="\d*"
-          />
-          {fieldErrors.contactNumber && (
-            <div className="text-red-300 text-sm mt-2">{fieldErrors.contactNumber}</div>
+          {blocks.length === 0 && !blocksLoading && (
+            <div className="text-yellow-300 text-sm mt-2">No blocks available</div>
           )}
 
-          {/* Hosteller / Dayscholar switch */}
-          <label className="text-sm text-gray-300 mt-4 mb-2">Residence</label>
-          <div className="flex w-full bg-[#111213]/60 border border-white/10 rounded-full p-1">
-            <button
-              type="button"
-              aria-pressed={formData.hosteller}
-              onClick={() => setFormData((prev) => ({ ...prev, hosteller: true }))}
-              className={`flex-1 rounded-full py-2 text-center transition-colors ${
-                formData.hosteller
-                  ? "bg-[#48BA86] text-black"
-                  : "bg-transparent text-white hover:bg-white/10"
-              }`}
-              style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: "14px" }}
-            >
-              Hosteller
-            </button>
-            <button
-              type="button"
-              aria-pressed={!formData.hosteller}
-              onClick={() => setFormData((prev) => ({ ...prev, hosteller: false }))}
-              className={`flex-1 rounded-full py-2 text-center transition-colors ${
-                !formData.hosteller
-                  ? "bg-[#48BA86] text-black"
-                  : "bg-transparent text-white hover:bg-white/10"
-              }`}
-              style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: "14px" }}
-            >
-              Dayscholar
-            </button>
-          </div>
+          {/* Room number input */}
+          <label className="text-sm text-gray-300 mt-3 mb-2">Room Number</label>
+          <input
+            className="w-full bg-[#111213]/60 border border-white/10 rounded-full px-4 py-3 text-white placeholder-gray-400 focus:outline-none"
+            type="text"
+            name="roomNumber"
+            value={formData.roomNumber}
+            onChange={handleInputChange}
+            placeholder="Room Number"
+            maxLength={8}
+            inputMode="text"
+            pattern="[A-Za-z0-9\s]*"
+          />
+          {fieldErrors.roomNumber && (
+            <div className="text-red-300 text-sm mt-2">{fieldErrors.roomNumber}</div>
+          )}
 
-          <div className="flex justify-center mt-6">
-            <PortalButton
-              onClick={handleSubmit}
-              disabled={!isFormValid() || loading}
-              className={`${isFormValid() && !loading ? "" : "opacity-50 cursor-not-allowed"}`}
-            >
-              {loading ? "Submitting…" : "Proceed"}
-            </PortalButton>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-export default Internal;
+           <div className="flex justify-center mt-6">
+             <PortalButton
+               onClick={handleSubmit}
+               disabled={!isFormValid() || loading}
+               className={`${isFormValid() && !loading ? "" : "opacity-50 cursor-not-allowed"}`}
+             >
+               {loading ? "Submitting…" : "Proceed"}
+             </PortalButton>
+           </div>
+         </div>
+       </div>
+     </div>
+   );
+ };
+ export default Internal;

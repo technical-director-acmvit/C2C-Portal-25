@@ -5,6 +5,8 @@ export interface InternalSignupData {
   gender: string;
   reg_no: string;
   hosteller?: boolean;
+  room_number?: string;
+  block?: string;
 }
 
 export interface ExternalSignupData {
@@ -24,6 +26,8 @@ export async function signupInternal(data: InternalSignupData) {
       internal: true,
       hosteller: Boolean(data.hosteller),
       college_name: "",
+      room_number: data.room_number,
+      block: data.block,
     }),
   });
   if (!response.ok) {

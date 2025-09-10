@@ -12,6 +12,8 @@ export type UserSummary = {
   college_name?: string;
   role?: string;
   team_id?: string | null;
+  room_number?: string | null;
+block?: string | null;
 };
 
 export type TeamInfo = {

@@ -14,6 +14,7 @@ import GithubView from "@/app/components/portal/github/github-view";
 import { PORTAL_ENABLED, DISCORD_URL } from "@/lib/env";
 import DevViewSwitcher from "@/app/components/portal/dev-view-switcher";
 import PortalButton from "@/app/components/portal/ui/button";
+import BlockRoomModal from "@/app/components/portal/block_room";
 
 
 export default function Home() {
@@ -23,10 +24,23 @@ export default function Home() {
   const initialize = usePortalStore((s) => s.initialize);
   const setView = usePortalStore((s) => s.setView);
   const dashboard = usePortalStore((s) => s.dashboard);
+  const refreshDashboard = usePortalStore((s) => s.refreshDashboard);
   const whitelistChecked = usePortalStore((s) => s.whitelistChecked);
   const whitelistOk = usePortalStore((s) => s.whitelistOk);
   const whitelistError = usePortalStore((s) => s.whitelistError);
   const emailToCheck = session?.user?.email ?? null;
+
+  // Check if user needs to provide room details
+  const needsRoomDetails = React.useMemo(() => {
+    const user = dashboard?.user;
+    if (!user) return false;
+    
+    // Only show modal for internal users
+    if (user.internal !== true) return false;
+    
+    // Show modal if either room_number or block is missing
+    return !user.room_number || !user.block;
+  }, [dashboard?.user]);
     
 
 
@@ -195,6 +209,12 @@ export default function Home() {
       
       {/* Dev Controls */}
       <DevViewSwitcher />
+
+      {/* Room Details Modal - appears on top of everything */}
+      <BlockRoomModal 
+        isOpen={needsRoomDetails} 
+        onSuccess={refreshDashboard}
+      />
     </>
   );
 }
