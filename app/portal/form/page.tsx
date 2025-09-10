@@ -66,17 +66,6 @@ export function FormContent() {
       }
     };
 
-    const validateFigma = (url: string) => {
-      if (!url) return "";
-      try {
-        const u = new URL(url);
-        const hostOk = /(^|\.)figma\.com$/i.test(u.hostname);
-        const pathOk = /^\/(file|design)\//.test(u.pathname);
-        return hostOk && pathOk ? "" : "Enter a valid Figma file/design URL";
-      } catch {
-        return "Enter a valid Figma URL";
-      }
-    };
 
     const validateDrive = (url: string) => {
       if (!url) return "";
@@ -96,12 +85,10 @@ export function FormContent() {
         try {
             // Validate before submit
             const gErr = validateGithub(githubLink);
-            const fErr = validateFigma(figmaLink);
             const dErr = validateDrive(googleDriveLink);
             setGithubError(gErr);
-            setFigmaError(fErr);
             setDriveError(dErr);
-            if (gErr || fErr || dErr) {
+            if (gErr || dErr) {
               setIsSubmitting(false);
               return;
             }
@@ -507,7 +494,6 @@ export function FormContent() {
                         placeholder="Upload Figma Link..."
                         value={figmaLink}
                         onChange={(e) => setFigmaLink(e.target.value)}
-                        onBlur={() => setFigmaError(validateFigma(figmaLink))}
                         invalid={!!figmaError}
                     />
                 ) : (
