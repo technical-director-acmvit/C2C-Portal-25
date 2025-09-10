@@ -15,15 +15,15 @@ export default function BentoGrid() {
     const [value, setValue] = React.useState<Dayjs | null>(dayjs());
     const setView = useDashStore((s) => s.setView);
     const data = useDashStore((s) => s.dashboard);
-    const [notices, setNotices] = React.useState<{ id: number; message: string; created_at: string }[]>([]);
+    const [notices, setNotices] = React.useState<{ ID: string; information: string; created_at: string }[]>([]);
 
     // live countdown for round end time (HH : MM : SS)
-    const [timeLeft, setTimeLeft] = React.useState<string>("00 : 00 : 00");
+    const [timeLeft, setTimeLeft] = React.useState<string>("Wait a little more");
 
     React.useEffect(() => {
         let mounted = true;
         function compute() {
-            const endRaw = data && data.submission?.round_end_time;
+            const endRaw = data?.active_round?.end_time || data?.submission?.round_end_time;
             if (!endRaw) {
                 if (mounted) setTimeLeft("Wait a little more");
                 return;
@@ -31,7 +31,7 @@ export default function BentoGrid() {
             const end = dayjs(endRaw);
             const diffMs = end.diff(dayjs());
             if (diffMs <= 0) {
-                if (mounted) setTimeLeft("Wait a little more");
+                if (mounted) setTimeLeft("00 : 00 : 00");
                 return;
             }
 
@@ -48,7 +48,7 @@ export default function BentoGrid() {
             mounted = false;
             clearInterval(id);
         };
-    }, [data?.submission?.round_end_time]);
+    }, [data?.submission?.round_end_time, data?.active_round?.end_time]);
 
     React.useEffect(() => {
         let mounted = true;
@@ -65,7 +65,7 @@ export default function BentoGrid() {
         };
     }, []);
 
-    const displayNotices = Array.isArray(notices) && notices.length > 0 ? notices : [{ id: 0, message: "No notices available", created_at: new Date().toISOString() }];
+        const displayNotices = Array.isArray(notices) && notices.length > 0 ? notices : [{ ID: "0", information: "No notices available", created_at: new Date().toISOString() }];
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <>
@@ -74,7 +74,7 @@ export default function BentoGrid() {
             {/* Timer info - full width, prominent */}
             <div className="w-full">
               <TimerInfo
-                timer={data && data.submission?.round_end_time ? timeLeft : "Wait a little more"}
+                timer={timeLeft}
                 heading="Time until round end"
                 info=""
               />
@@ -93,8 +93,8 @@ export default function BentoGrid() {
                   <div className="text-sm">
                     <div className="text-sm">
                       <ul className="list-disc text-left mx-auto w-fit space-y-1 pl-6">
-                        {displayNotices.map((notice: { id: number; message: string }) => (
-                          <li key={notice.id}>{notice.message}</li>
+                        {displayNotices.map((notice: { ID: string; information: string }) => (
+                          <li key={notice.ID}>{notice.information}</li>
                         ))}
                     </ul>
                   </div>
@@ -196,7 +196,7 @@ export default function BentoGrid() {
           <div className="grid grid-cols-14 grid-rows-24 gap-4 w-full mx-auto max-w-none py-8">
             <div className="col-span-11 row-span-5">
               <TimerInfo
-                timer={data && data.submission?.round_end_time ? timeLeft : "Wait a little more"}
+                timer={timeLeft}
                 heading="Time until round end"
                 info=""
               />    </div>
@@ -288,8 +288,8 @@ export default function BentoGrid() {
                   <h2 className="text-lg font-bold underline mb-2">NOTICE</h2>
                   <div className="text-sm">
                       <ul className="list-disc text-left mx-auto w-fit space-y-1 pl-6">
-                        {displayNotices.map((notice: { id: number; message: string }) => (
-                          <li key={notice.id}>{notice.message}</li>
+                        {displayNotices.map((notice: { ID: string; information: string }) => (
+                          <li key={notice.ID}>{notice.information}</li>
                         ))}
                     </ul>
                   </div>

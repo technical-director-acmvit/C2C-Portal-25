@@ -6,6 +6,7 @@ import PortalButton from "./ui/button";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePortalStore } from "@/app/stores/portal";
+import { SIGNUPS_OVER } from "@/lib/env";
 
 const Portal = ({ userEmail }: { userEmail?: string | null }) => {
   const [selected, setSelected] = useState<"internal" | "external" | null>(null);
@@ -16,6 +17,7 @@ const Portal = ({ userEmail }: { userEmail?: string | null }) => {
   const isInternal = usePortalStore((s) => s.isInternal);
 
   const handleProceed = () => {
+    if (SIGNUPS_OVER) return; // block proceeding when signups are over
     if (!whitelistChecked || !whitelistOk || isInternal === null) return;
     setSelected(isInternal ? "internal" : "external");
   };
@@ -37,8 +39,13 @@ const Portal = ({ userEmail }: { userEmail?: string | null }) => {
           </h1>
         </div>
         <div className="flex flex-row flex-wrap gap-3 sm:gap-6 w-full items-center justify-center">
-          <PortalButton onClick={handleProceed} disabled={!whitelistChecked || !whitelistOk || isInternal === null}>
-            {(!whitelistChecked || isInternal === null) ? "Checking access..." : "Proceed"}
+          <PortalButton
+            onClick={handleProceed}
+            disabled={SIGNUPS_OVER || !whitelistChecked || !whitelistOk || isInternal === null}
+          >
+            {SIGNUPS_OVER
+              ? "Registrations closed"
+              : (!whitelistChecked || isInternal === null) ? "Checking access..." : "Proceed"}
           </PortalButton>
         </div>
       </div>
