@@ -278,7 +278,12 @@ const Internal = ({ onBack,mail  }: Props) => {
              <button
                type="button"
                aria-pressed={!formData.hosteller}
-               onClick={() => setFormData((prev) => ({ ...prev, hosteller: false }))}
+               onClick={() => setFormData((prev) => ({ 
+                 ...prev, 
+                 hosteller: false,
+                 block: "", // Clear block when switching to dayscholar
+                 roomNumber: "" // Clear room number when switching to dayscholar
+               }))}
                className={`flex-1 rounded-full py-2 text-center transition-colors ${
                  !formData.hosteller
                    ? "bg-[#48BA86] text-black"
