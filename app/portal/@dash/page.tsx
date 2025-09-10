@@ -54,6 +54,9 @@ export default function DashPage() {
     <div className="relative w-full min-h-screen">
       <DashGradientBG />
 
+      {/* Full-screen loader overlay */}
+      {loading && <PortalLoader />}
+
       <TopBar />
 
       <main
@@ -63,7 +66,6 @@ export default function DashPage() {
             : "relative z-10 container mx-auto px-4 py-6 max-w-7xl"
         }
       >
-            {loading && <PortalLoader />}
             {(view === "form" || view === "profile") && <LampOverlay />}
             {/* Header Section - only on home view */}
             {view === "home" && (

@@ -203,11 +203,11 @@ export function FormContent() {
       <div className="w-full flex justify-center pt-[5px] px-4">
         
         <div className="w-full max-w-6xl text-white">
-          <h2 className="pt-[100px] text-[24px] sm:text-[32px] md:text-[40px] text-center font-bold px-4">
+          {/* <h2 className="pt-[100px] text-[24px] sm:text-[32px] md:text-[40px] text-center font-bold px-4">
             Ideas are the new currency—spend yours here!
-          </h2>
+          </h2> */}
           <h2 className="pt-[40px] sm:pt-[60px] md:pt-[80px] text-[40px] sm:text-[56px] md:text-[70px] text-center font-bold px-4">
-            Idea Submission
+            Idea View
           </h2>
 
           <div className="w-full max-w-4xl mx-auto mt-[30px] sm:mt-[50px] p-2 sm:p-4 font-bold relative">
@@ -222,20 +222,22 @@ export function FormContent() {
             <h2 className="text-[24px] sm:text-[28px] md:text-[30px] text-left mb-6 sm:mb-8">Team Type</h2>
             <div className="flex flex-col sm:flex-row justify-between gap-4">
               <button
-                className={`flex-1 h-16 sm:h-20 rounded-2xl border-2 font-medium text-base sm:text-lg transition-all ${
+                className={`flex-1 h-16 sm:h-20 rounded-2xl border-2 font-medium text-base sm:text-lg transition-all cursor-not-allowed ${
                   currentUser?.internal 
                     ? "bg-[rgba(57,75,67,1)] border-emerald-500 text-white" 
-                    : "bg-[rgba(6,15,11,1)] border-emerald-500 text-[#a6a3a3] hover:bg-[rgba(20,25,21,1)]"
+                    : "bg-[rgba(6,15,11,1)] border-emerald-500 text-[#a6a3a3]"
                 }`}
+                disabled
               >
                 Internal Participant
               </button>
               <button
-                className={`flex-1 h-16 sm:h-20 rounded-2xl border-2 font-medium text-base sm:text-lg transition-all ${
+                className={`flex-1 h-16 sm:h-20 rounded-2xl border-2 font-medium text-base sm:text-lg transition-all cursor-not-allowed ${
                   !currentUser?.internal 
                     ? "bg-[rgba(57,75,67,1)] border-emerald-500 text-white" 
-                    : "bg-[rgba(6,15,11,1)] border-emerald-500 text-[#a6a3a3] hover:bg-[rgba(20,25,21,1)]"
+                    : "bg-[rgba(6,15,11,1)] border-emerald-500 text-[#a6a3a3]"
                 }`}
+                disabled
               >
                 External Participant
               </button>
@@ -351,11 +353,12 @@ export function FormContent() {
                 {/* Search input for tech stack */}
                 <div className="w-full max-w-[757px] h-14 bg-neutral-700 rounded-2xl border border-neutral-600 flex items-center px-4 gap-3">
                   <input
-                    className="flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none"
+                    className={`flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none ${!isTechStackEmpty ? 'cursor-not-allowed' : ''}`}
                     placeholder="Find your tech stack..."
                     value={techStackInput}
                     onChange={(e) => setTechStackInput(e.target.value)}
                     onKeyDown={handleTechStackKeyDown}
+                    disabled={!isTechStackEmpty}
                   />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
