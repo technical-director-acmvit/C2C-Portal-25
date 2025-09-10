@@ -203,11 +203,11 @@ export function FormContent() {
       <div className="w-full flex justify-center pt-[5px] px-4">
         
         <div className="w-full max-w-6xl text-white">
-          <h2 className="pt-[100px] text-[24px] sm:text-[32px] md:text-[40px] text-center font-bold px-4">
+          {/* <h2 className="pt-[100px] text-[24px] sm:text-[32px] md:text-[40px] text-center font-bold px-4">
             Ideas are the new currency—spend yours here!
-          </h2>
+          </h2> */}
           <h2 className="pt-[40px] sm:pt-[60px] md:pt-[80px] text-[40px] sm:text-[56px] md:text-[70px] text-center font-bold px-4">
-            Idea Submission
+            Idea View
           </h2>
 
           <div className="w-full max-w-4xl mx-auto mt-[30px] sm:mt-[50px] p-2 sm:p-4 font-bold relative">
