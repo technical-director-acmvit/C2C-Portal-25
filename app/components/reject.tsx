@@ -36,15 +36,12 @@ export default function Reject() {
           </div>
 
           <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-            <a
-              href={DISCORD_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 bg-indigo-500 hover:bg-indigo-400 text-white text-sm sm:text-base transition-colors"
-            >
-              <Image src="/footer/discord.svg" alt="Discord" width={20} height={20} className="opacity-90" />
-              Join our Discord
-            </a>
+            <PortalButton onClick={() => typeof window !== 'undefined' && window.open(DISCORD_URL, '_blank', 'noopener')}>
+              <span className="inline-flex items-center gap-2">
+                <Image src="/footer/discord.svg" alt="Discord" width={20} height={20} className="opacity-90" />
+                Join our Discord
+              </span>
+            </PortalButton>
             <PortalButton onClick={() => router.push('/')}>
               Return Home
             </PortalButton>

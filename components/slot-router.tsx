@@ -138,13 +138,13 @@ export default function SlotRouter({ portal, dash, reject, no_active_round }: Sl
   if (!shouldForcePortal && roundsCount >= 1) {
     if (PROMOTIONS_LIVE) {
       finalView = isPromoted ? "dash" : "reject";
-      console.log("Promotion logic applied - finalView:", finalView);
+      // console.log("Promotion logic applied - finalView:", finalView);
     } else {
       finalView = "portal";
-      console.log("Promotions not live - showing portal");
+      // console.log("Promotions not live - showing portal");
     }
   } else {
-    console.log("Forcing portal due to shouldForcePortal or roundsCount < 1");
+    // console.log("Forcing portal due to shouldForcePortal or roundsCount < 1");
   }
 
   // Apply dev override if in development
