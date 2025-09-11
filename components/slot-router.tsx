@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import PortalLoader from "@/app/components/portal/portal-loader";
 import { getUserData } from "@/app/actions/user";
@@ -18,6 +19,11 @@ interface SlotRouterProps {
 }
 
 export default function SlotRouter({ portal, dash, reject, no_active_round }: SlotRouterProps) {
+  const pathname = usePathname();
+  // Do not render SlotRouter on integration pages to avoid background overlays (e.g., reject) beneath integration UIs
+  if (typeof window !== "undefined" && pathname?.startsWith("/portal/integrations")) {
+    return null;
+  }
   const { data: session } = useSession();
   const [userData, setUserData] = useState<GetUserResponse | null>(null);
   const [dashboardData, setDashboardData] = useState<DashboardResponse | null>(null);
@@ -102,13 +108,13 @@ export default function SlotRouter({ portal, dash, reject, no_active_round }: Sl
       const roundEndTime = new Date(currentTeamRound.end_time);
       
       if (currentTime > roundEndTime) {
-        return <>{reject}</>;
+        // return <>{reject}</>;
       } else {
         return <>{dash}</>;
       }
     }
     
-    return <>{no_active_round}</>;
+    // return <>{no_active_round}</>;
   }
   const isPromoted = currentTeamRound?.id === activeRound?.id;
 
