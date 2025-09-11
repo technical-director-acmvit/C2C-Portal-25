@@ -41,6 +41,24 @@ export default function RepoList({ repos }: { repos: Repo[] }) {
                   "",
                   `${url.pathname}?${url.searchParams.toString()}#view`,
                 );
+                window.dispatchEvent(new HashChangeEvent("hashchange"));
+              }}
+              className="px-3 py-1 rounded bg-emerald-600/60 hover:bg-emerald-600/80"
+            >
+              Select
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                if (typeof window === "undefined") return;
+                const url = new URL(window.location.href);
+                url.searchParams.set("owner", r.owner.login);
+                url.searchParams.set("repo", r.name);
+                window.history.pushState(
+                  {},
+                  "",
+                  `${url.pathname}?${url.searchParams.toString()}#view`,
+                );
                 // trigger hashchange for listeners
                 window.dispatchEvent(new HashChangeEvent("hashchange"));
               }}

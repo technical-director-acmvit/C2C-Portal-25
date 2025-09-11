@@ -1,13 +1,28 @@
-'use client'
+"use client"
 
-import React from 'react'
-import { useRouter } from 'next/navigation'
-import Image from 'next/image'
-import PortalButton from './portal/ui/button'
-import { DISCORD_URL } from '@/lib/env'
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import PortalButton from "./portal/ui/button";
+import { DISCORD_URL } from "@/lib/env";
+import { getDevRouteOverride } from "@/app/components/portal/dev-view-switcher";
 
 export default function Reject() {
-  const router = useRouter()
+  const router = useRouter();
+  const [devOverride, setDevOverride] = useState<"auto" | "portal" | "dash">("auto");
+
+  useEffect(() => {
+    if (process.env.NODE_ENV !== "development") return;
+    const current = getDevRouteOverride();
+    setDevOverride(current);
+    if (current !== "auto") {
+      router.refresh();
+    }
+  }, [router]);
+
+  if (process.env.NODE_ENV === "development" && devOverride !== "auto") {
+    return null;
+  }
 
   return (
     <div className="fixed inset-0 w-screen h-screen relative">
@@ -42,7 +57,7 @@ export default function Reject() {
                 Join our Discord
               </span>
             </PortalButton>
-            <PortalButton onClick={() => router.push('/')}>
+            <PortalButton onClick={() => router.push('/') }>
               Return Home
             </PortalButton>
           </div>

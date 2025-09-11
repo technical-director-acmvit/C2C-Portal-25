@@ -5,6 +5,7 @@ import TopBar from "@/app/components/dash/top-bar";
 import Image from "next/image";
 import BentoGrid from "@/app/components/dash/bento-grid";
 import ProfileView from "@/app/components/dash/profile";
+import GithubView from "@/app/components/portal/github/github-view";
 import { useDashStore } from "@/app/stores/dash";
 import DashGradientBG from "@/app/components/dash/gradient-bg";
 import PortalLoader from "@/app/components/portal/portal-loader";
@@ -98,6 +99,24 @@ export default function DashPage() {
               </>
             )}
             {view === "home" && <BentoGrid />}
+            {view === "github" && (
+              <div className="relative z-20">
+                {/* Back controls matching Profile/Form styling */}
+                <div className="w-full flex items-center justify-start px-3 sm:px-4 pt-4">
+                  <div className="md:hidden">
+                    <BackChevron onClick={() => setView("home")} />
+                  </div>
+                  <button
+                    onClick={() => setView("home")}
+                    className="hidden md:inline-flex px-4 py-2 rounded-full border border-emerald-500 text-white hover:bg-emerald-600/20"
+                  >
+                    Back
+                  </button>
+                </div>
+                {/* Reuse the GitHub view component within dash */}
+                <GithubView onBack={() => setView("home")} hasTeam={Boolean(dashboard?.team)} noBackground />
+              </div>
+            )}
             {view === "profile" && <ProfileView />}
             {view === "form" && (
               <div className="relative z-20">
