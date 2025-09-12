@@ -71,13 +71,21 @@ export default function BentoGrid() {
       <>
         <div className="px-4 md:hidden">
           <div className="flex flex-col gap-5 w-full mx-auto py-4">
-            {/* Timer info - full width, prominent */}
+            {/* Final Pitch Guidelines - full width */}
             <div className="w-full">
-              <TimerInfo
-                timer={timeLeft}
-                heading="Time until round end"
-                info=""
-              />
+              <div className="bg-black w-full h-full flex p-4 rounded-xl border-green-700 border-2 items-center justify-between">
+                <div className="flex flex-col">
+                  <h3 className="text-white font-bold md:text-lg">Guidelines for final pitches</h3>
+                  <p className="text-white/80 text-xs sm:text-sm">Download the PDF and prepare accordingly.</p>
+                </div>
+                <a
+                  href="/FinalPitch.pdf"
+                  download
+                  className="px-4 py-2 rounded-md border border-green-700 text-white hover:bg-green-700/20"
+                >
+                  Download
+                </a>
+              </div>
             </div>
 
             {/* Notice card - full width */}
@@ -195,11 +203,20 @@ export default function BentoGrid() {
         <div className="hidden md:block md:px-4">
           <div className="grid grid-cols-14 grid-rows-24 gap-4 w-full mx-auto max-w-none py-8">
             <div className="col-span-11 row-span-5">
-              <TimerInfo
-                timer={timeLeft}
-                heading="Time until round end"
-                info=""
-              />    </div>
+              <div className="bg-black w-full h-full flex p-6 rounded-xl border-green-700 border-2 items-center justify-between">
+                <div className="flex flex-col">
+                  <h3 className="text-white font-bold text-xl">Guidelines for final pitches</h3>
+                  <p className="text-white/80 text-sm">Download the PDF and prepare accordingly.</p>
+                </div>
+                <a
+                  href="/FinalPitch.pdf"
+                  download
+                  className="px-5 py-2 rounded-md border border-green-700 text-white hover:bg-green-700/20"
+                >
+                  Download
+                </a>
+              </div>
+            </div>
 
             <div className="col-span-3 row-span-7 rounded-lg overflow-hidden flex items-center justify-center">
               <ImageBox image="/dash/shirt-mascot.svg" title="cool looking dude" flag={0} />
