@@ -47,7 +47,7 @@ const FinalPitchModal: React.FC<FinalPitchModalProps> = ({ isOpen, onClose }) =>
               lineHeight: 1.6,
             }}
           >
-            Please come to Ambedkar Auditorium at 10:30 PM sharp for your final pitches.
+            Please come to Ambedkar Auditorium at 10:30 AM sharp for your final pitches.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
