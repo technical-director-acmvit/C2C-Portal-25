@@ -90,78 +90,36 @@ export default function SlotRouter({ portal, dash, reject, no_active_round }: Sl
     return <div className="p-4 text-red-600">Error loading user data: {error}</div>
   }
 
-  // Check if current team round and active round are the same (promotion eligibility)
+  // Extract rounds from dashboard data
   const currentTeamRound = dashboardData?.current_team_round;
   const activeRound = dashboardData?.active_round;
-  
-  // Determine rounds count: use current team round number + 1 to get total rounds participated
-  // If team has a current_team_round, they've at least participated in that many rounds
-  const roundsCount = currentTeamRound?.round_number !== undefined ? currentTeamRound.round_number + 1 : 0;
+
+  // If there is NO active round configured on the server right now
+  // - If the user doesn't exist -> show portal
+  // - Otherwise show the dedicated no_active_round slot
   if (!activeRound) {
-    // If user is not found, show portal instead of "coming soon"
-    if (userNotFound) {
-      return <>{portal}</>;
-    }
-    
-    if (PROMOTIONS_LIVE && currentTeamRound?.end_time) {
-      const currentTime = new Date();
-      const roundEndTime = new Date(currentTeamRound.end_time);
-      
-      if (currentTime > roundEndTime) {
-        // return <>{reject}</>;
-      } else {
-        return <>{dash}</>;
-      }
-    }
-    
-    // return <>{no_active_round}</>;
+    if (userNotFound) return <>{portal}</>;
+    return <>{no_active_round}</>;
   }
-  const isPromoted = currentTeamRound?.id === activeRound?.id;
 
+  // If active round exists but the user/team has not participated in any round yet,
+  // treat them as non-participants and keep them in the portal flow (not rejected).
+  if (!currentTeamRound) {
+    return <>{portal}</>;
+  }
 
-  const dontShowPromotions = !PROMOTIONS_LIVE;
-  const shouldForcePortal = forcePortal || dontShowPromotions;
+  // Core promotion logic: if the team's current round matches the active round -> dash, else -> reject
+  let finalView: "portal" | "dash" | "reject" =
+    currentTeamRound?.id === activeRound?.id ? "dash" : "reject";
 
+  // Apply dev override if in development (keeps existing behavior)
   const devOverride = process.env.NODE_ENV === "development" ? getDevRouteOverride() : "auto";
-  
-  let finalView: "portal" | "dash" | "reject" = "portal";
-
-  // console.log("SlotRouter Debug:", { 
-  //   roundsCount, 
-  //   isPromoted, 
-  //   PROMOTIONS_LIVE, 
-  //   shouldForcePortal, 
-  //   devOverride,
-  //   currentTeamRoundId: currentTeamRound?.id,
-  //   activeRoundId: activeRound?.id,
-  //   currentTeamRoundNumber: currentTeamRound?.round_number,
-  //   activeRoundNumber: activeRound?.round_number,
-  //   userNotFound,
-  //   forcePortal,
-  //   dontShowPromotions
-  // });
-  
-  if (!shouldForcePortal && roundsCount >= 1) {
-    if (PROMOTIONS_LIVE) {
-      finalView = isPromoted ? "dash" : "reject";
-      // console.log("Promotion logic applied - finalView:", finalView);
-    } else {
-      finalView = "portal";
-      // console.log("Promotions not live - showing portal");
-    }
-  } else {
-    // console.log("Forcing portal due to shouldForcePortal or roundsCount < 1");
-  }
-
-  // Apply dev override if in development
   if (devOverride !== "auto") {
     finalView = devOverride === "dash" ? "dash" : "portal";
   }
-  
+
   // Return the appropriate view
-  if (finalView === "reject") {
-    return <>{reject}</>;
-  }
-    
-  return <>{finalView === "dash" ? dash : portal}</>;
+  if (finalView === "reject") return <>{reject}</>;
+  if (finalView === "dash") return <>{dash}</>;
+  return <>{portal}</>;
 }

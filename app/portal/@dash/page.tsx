@@ -15,6 +15,7 @@ import { signOut, useSession } from "next-auth/react";
 import { LogOut } from "lucide-react";
 import BackChevron from "@/app/components/portal/ui/back-chevron";
 import BlockRoomModal from "@/app/components/portal/block_room";
+import FinalPitchModal from "@/app/components/dash/final-pitch-modal";
 import React from "react";
 
 export default function DashPage() {
@@ -28,6 +29,18 @@ export default function DashPage() {
   const loading = useDashStore((s) => s.loading);
   const setView = useDashStore((s) => s.setView);
   const dashboard = useDashStore((s) => s.dashboard);
+  const [showFinalModal, setShowFinalModal] = React.useState(false);
+
+  // Show final pitch notice when user's current round matches the active round
+  const isActiveRoundMatch = React.useMemo(() => {
+    const cr = dashboard?.current_team_round?.id;
+    const ar = dashboard?.active_round?.id;
+    return Boolean(cr && ar && cr === ar);
+  }, [dashboard?.current_team_round?.id, dashboard?.active_round?.id]);
+
+  React.useEffect(() => {
+    if (isActiveRoundMatch) setShowFinalModal(true);
+  }, [isActiveRoundMatch]);
 
   // Check if user needs to provide room details
   const needsRoomDetails = React.useMemo(() => {
@@ -130,6 +143,9 @@ export default function DashPage() {
         isOpen={needsRoomDetails} 
         onSuccess={initialize}
       />
+
+      {/* Final pitch announcement modal */}
+      <FinalPitchModal isOpen={showFinalModal} onClose={() => setShowFinalModal(false)} />
     </div>
   );
 }
