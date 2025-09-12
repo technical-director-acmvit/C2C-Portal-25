@@ -3,7 +3,6 @@
 import type React from "react"
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
 import PortalLoader from "@/app/components/portal/portal-loader";
 import { getUserData } from "@/app/actions/user";
 import type { GetUserResponse } from "@/types/user";
@@ -19,14 +18,12 @@ interface SlotRouterProps {
 
 export default function SlotRouter({ portal, dash, reject, no_active_round }: SlotRouterProps) {
   const pathname = usePathname();
-  // Do not render SlotRouter on integration pages to avoid background overlays (e.g., reject) beneath integration UIs
-  if (typeof window !== "undefined" && pathname?.startsWith("/portal/integrations")) {
-    return null;
-  }
-  const { data: session } = useSession();
-  const [userData, setUserData] = useState<GetUserResponse | null>(null);
+  const isIntegrationsPage = pathname?.startsWith("/portal/integrations") ?? false;
+  // Keep hooks unconditional; we'll short-circuit rendering later
+  const [, setUserData] = useState<GetUserResponse | null>(null);
   const [dashboardData, setDashboardData] = useState<DashboardResponse | null>(null);
-  const [forcePortal, setForcePortal] = useState(false);
+  // We don't read forcePortal anywhere; avoid unused var by only keeping setter
+  const [, setForcePortal] = useState(false);
   const [userNotFound, setUserNotFound] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -46,10 +43,16 @@ export default function SlotRouter({ portal, dash, reject, no_active_round }: Sl
   useEffect(() => {
     async function loadData() {
       try {
-        // Fetch user data
+        // If this is an integrations page, skip any network work
+        if (isIntegrationsPage) {
+          setLoading(false);
+          return;
+        }
+
+        // Fetch user data (kept for side-effects/consistency if needed)
         const userResponse = await getUserData();
         setUserData(userResponse as GetUserResponse);
-        
+
         // Fetch dashboard data
         const dashboardResponse = await fetchDashboard();
         if (dashboardResponse.ok && dashboardResponse.data) {
@@ -77,9 +80,14 @@ export default function SlotRouter({ portal, dash, reject, no_active_round }: Sl
         setLoading(false);
       }
     }
-    
+
     loadData();
-  }, []);
+  }, [isIntegrationsPage]);
+
+  // Do not render SlotRouter on integration pages to avoid background overlays (e.g., reject) beneath integration UIs
+  if (isIntegrationsPage) {
+    return null;
+  }
 
   if (loading) {
     return <PortalLoader />
