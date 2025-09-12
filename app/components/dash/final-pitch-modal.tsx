@@ -50,7 +50,15 @@ const FinalPitchModal: React.FC<FinalPitchModalProps> = ({ isOpen, onClose }) =>
             Please come to Ambedkar Auditorium at 10:30 PM sharp for your final pitches.
           </p>
 
-          <div className="flex justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+            <a
+              href="/FinalPitch.pdf"
+              download
+              className="px-4 py-2 rounded-md bg-transparent border border-white/20 text-white hover:bg-white/10 transition-colors text-center"
+              style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}
+            >
+              Download Instructions
+            </a>
             <button
               type="button"
               onClick={onClose}
@@ -67,4 +75,3 @@ const FinalPitchModal: React.FC<FinalPitchModalProps> = ({ isOpen, onClose }) =>
 };
 
 export default FinalPitchModal;
-

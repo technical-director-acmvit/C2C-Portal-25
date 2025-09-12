@@ -8,7 +8,6 @@ import PortalLoader from "@/app/components/portal/portal-loader";
 import { getUserData } from "@/app/actions/user";
 import type { GetUserResponse } from "@/types/user";
 import { getDevRouteOverride } from "@/app/components/portal/dev-view-switcher";
-import { PROMOTIONS_LIVE } from "@/lib/env";
 import { fetchDashboard, type DashboardResponse } from "@/app/actions/dashboard";
 
 interface SlotRouterProps {
@@ -108,9 +107,18 @@ export default function SlotRouter({ portal, dash, reject, no_active_round }: Sl
     return <>{portal}</>;
   }
 
-  // Core promotion logic: if the team's current round matches the active round -> dash, else -> reject
-  let finalView: "portal" | "dash" | "reject" =
-    currentTeamRound?.id === activeRound?.id ? "dash" : "reject";
+  // Core promotion logic:
+  // - Before final round (4): never show reject/accept — keep users in dash if they have a team round
+  // - In final round (4): rounds must match to show dash; otherwise show reject
+  const roundsMatch = Boolean(currentTeamRound?.id && activeRound?.id && currentTeamRound.id === activeRound.id);
+  const isFinalRound = (activeRound?.round_number === 4) || (activeRound?.name === "4");
+  let finalView: "portal" | "dash" | "reject" = "dash";
+  if (isFinalRound) {
+    finalView = roundsMatch ? "dash" : "reject";
+  } else {
+    // Not final round: always show dash for participants, never reject
+    finalView = "dash";
+  }
 
   // Apply dev override if in development (keeps existing behavior)
   const devOverride = process.env.NODE_ENV === "development" ? getDevRouteOverride() : "auto";

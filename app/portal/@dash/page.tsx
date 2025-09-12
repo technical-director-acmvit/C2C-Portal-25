@@ -31,16 +31,18 @@ export default function DashPage() {
   const dashboard = useDashStore((s) => s.dashboard);
   const [showFinalModal, setShowFinalModal] = React.useState(false);
 
-  // Show final pitch notice when user's current round matches the active round
-  const isActiveRoundMatch = React.useMemo(() => {
-    const cr = dashboard?.current_team_round?.id;
-    const ar = dashboard?.active_round?.id;
-    return Boolean(cr && ar && cr === ar);
-  }, [dashboard?.current_team_round?.id, dashboard?.active_round?.id]);
+  // Show final pitch notice ONLY when user's current round matches active round AND it's the final round (4)
+  const showFinalPitchNotice = React.useMemo(() => {
+    const cr = dashboard?.current_team_round;
+    const ar = dashboard?.active_round;
+    const roundsMatch = Boolean(cr?.id && ar?.id && cr.id === ar.id);
+    const isFinal = (ar?.round_number === 4) || (ar?.name === "4");
+    return roundsMatch && isFinal;
+  }, [dashboard?.current_team_round?.id, dashboard?.active_round?.id, dashboard?.active_round?.round_number, dashboard?.active_round?.name]);
 
   React.useEffect(() => {
-    if (isActiveRoundMatch) setShowFinalModal(true);
-  }, [isActiveRoundMatch]);
+    if (showFinalPitchNotice) setShowFinalModal(true);
+  }, [showFinalPitchNotice]);
 
   // Check if user needs to provide room details
   const needsRoomDetails = React.useMemo(() => {
