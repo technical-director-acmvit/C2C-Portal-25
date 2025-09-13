@@ -130,25 +130,6 @@ export default function TopBar() {
                   )}
                 </li>
               ))}
-              <li className="flex items-center h-full ml-4">
-                {REGISTRATIONS_OPEN ? (
-                  <InteractiveHoverButton
-                    variant="compact"
-                    onClick={() => router.push('/portal')}
-                    onPointerDown={() => router.push('/portal')}
-                    className="w-auto text-[12px] px-6 py-1.5 min-h-[32px] rounded-full font-semibold flex items-center justify-center bg-[#48BA86] text-black border !border-[#48BA86] transition-colors hover:!bg-white hover:!border-white cursor-pointer"
-                  >
-                    Register Now
-                  </InteractiveHoverButton>
-                ) : (
-                  <span
-                    className="inline-block w-auto text-[12px] px-6 py-1.5 min-h-[32px] rounded-full font-semibold text-white border border-white/30 bg-black/30 backdrop-blur-sm"
-                    aria-live="polite"
-                  >
-                    Registrations opening soon
-                  </span>
-                )}
-              </li>
             </ul>
           </nav>
 

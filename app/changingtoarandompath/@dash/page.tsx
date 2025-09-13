@@ -8,7 +8,7 @@ import ProfileView from "@/app/components/dash/profile";
 import { useDashStore } from "@/app/stores/dash";
 import DashGradientBG from "@/app/components/dash/gradient-bg";
 import PortalLoader from "@/app/components/portal/portal-loader";
-import { FormContent } from "@/app/portal/form/page";
+import { FormContent } from "@/app/changingtoarandompath/form/page";
 import { LampOverlay } from "@/app/components/form/ui/lamp";
 import BottomBar from "@/app/components/dash/bottom-bar";
 import { signOut, useSession } from "next-auth/react";

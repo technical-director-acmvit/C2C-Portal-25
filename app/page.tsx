@@ -125,9 +125,6 @@ export default function Page() {
         <TopBar />
       </ViewportPortal>
 
-      <ViewportPortal>
-        <DesktopRegisterButton />
-      </ViewportPortal>
 
       <div id="smooth-wrapper" className="relative z-0">
         <div id="smooth-content">
