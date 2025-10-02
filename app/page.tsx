@@ -218,8 +218,7 @@ export default function Page() {
               </div>
             </div>
           </div>
-          {/* Winners sticky scroll section */}
-          <WinnersSection />
+          {/* <WinnersSection /> */}
 
           <div id="speakers" className="min-h-screen flex items-center justify-between flex-col">
             <Speaker />
