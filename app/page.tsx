@@ -218,6 +218,9 @@ export default function Page() {
               </div>
             </div>
           </div>
+          {/* Winners sticky scroll section */}
+          <WinnersSection />
+
           <div id="speakers" className="min-h-screen flex items-center justify-between flex-col">
             <Speaker />
           </div>
@@ -233,6 +236,102 @@ export default function Page() {
 
           <Footer />
         </div>
+      </div>
+    </div>
+  );
+}
+
+function WinnersSection() {
+  const WINNERS: { team: string; how: string; github_url?: string }[] = [
+    { team: "Aloo Bhujiya", how: "1st Place" },
+    { team: "Bangalore Bologanesh", how: "2nd Place" },
+    { team: "Agent Forge", how: "3rd Place", github_url: "https://github.com/saran-gangster/AgentForge" },
+    { team: "void main ()", how: "Track Winner - Game Over" },
+    { team: "Coffee Overflow", how: "Track Winner - I Can Do It Better", github_url: "https://github.com/raghavvag/lucidfiles.git" },
+    { team: "Touch Grass.exe", how: "Track Winner - Art Attack" },
+    { team: "BehenCode", how: "Track Winner - Digital Dawn", github_url: "https://github.com/itzsam849/Green-Hydrogen-Infrastructure-Optimized-System" },
+    { team: "BlindSpot", how: "Track Winner - AI SOLUTIONS" },
+    { team: "Disco Diwaane", how: "Best Freshers", github_url: "https://github.com/vai-04/Heartician_DiscoDiwaane_C2C_25" },
+  ];
+
+  const content = WINNERS.map((w, idx) => ({
+    title: w.team,
+    description: w.how,
+    content: (
+      <div className="flex items-center justify-center w-full h-full">
+        <div className="text-center">
+          <p className="text-[#efefef] text-xl font-semibold">{w.how}</p>
+          {w.github_url ? (
+            <a
+              href={w.github_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-3 text-[#48BA86] hover:underline break-all"
+            >
+              {w.github_url}
+            </a>
+          ) : (
+            <p className="mt-3 text-neutral-300 text-sm">Repo link coming soon</p>
+          )}
+        </div>
+      </div>
+    ),
+  }));
+
+  return (
+    <div id="winners" className="relative w-full">
+      <div className="lg:hidden">
+        <GradientBG>
+          <div className="relative z-10">
+            <HeadingText text="Winners" />
+          </div>
+          <div className="pointer-events-none absolute inset-0 -z-10">
+            <DotGrid dotSize={2.5} gap={15} baseColor="#a3a3a3" className="h-full w-full" />
+          </div>
+          <div className="w-full max-w-[1080px] mx-auto mt-6 sm:mt-8 px-4 sm:px-6">
+            <div className="flex flex-col gap-4 sm:gap-6 pb-8">
+              {WINNERS.map((w, i) => (
+                <article key={w.team + i} className="bg-white/10 border border-green-900/40 rounded-[16px] sm:rounded-[20px] overflow-hidden p-4 sm:p-5">
+                  <h3 className="text-[#efefef] font-bold font-['Trap'] text-2xl sm:text-3xl">{w.team}</h3>
+                  <p className="text-[#efefef] font-['DM_Sans'] text-base sm:text-lg mt-2">{w.how}</p>
+                  {w.github_url ? (
+                    <a href={w.github_url} target="_blank" rel="noopener noreferrer" className="text-[#48BA86] hover:underline break-all mt-3 inline-block">{w.github_url}</a>
+                  ) : (
+                    <p className="text-neutral-300 text-sm mt-3">Repo link coming soon</p>
+                  )}
+                </article>
+              ))}
+            </div>
+          </div>
+          <WinnersDisclaimer />
+        </GradientBG>
+      </div>
+
+      <div className="hidden lg:block">
+        <div className="min-h-[240vh]">
+          <GradientBG>
+            <div className="relative z-10">
+              <HeadingText text="Winners" />
+            </div>
+            <div className="pointer-events-none absolute inset-0 -z-10">
+              <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" className="h-full w-full" />
+            </div>
+            <div className="w-full max-w-[1080px] mx-auto mt-6 sm:mt-8 px-4 sm:px-6">
+              <StickyScroll content={content} />
+            </div>
+            <WinnersDisclaimer />
+          </GradientBG>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function WinnersDisclaimer() {
+  return (
+    <div className="w-full max-w-[1080px] mx-auto px-4 sm:px-6 mt-6 sm:mt-8">
+      <div className="bg-yellow-200/10 border border-yellow-300/30 text-yellow-200 rounded-md p-4 text-sm leading-relaxed">
+        Disclaimer: Winners’ projects are showcased for viewing only and cannot be reused anywhere. Do not copy, repurpose, or publish any part of these projects (code, designs, or ideas) in other hackathons, coursework, or products. Any unauthorized use is strictly prohibited without written permission from the original team and the organizers.
       </div>
     </div>
   );
