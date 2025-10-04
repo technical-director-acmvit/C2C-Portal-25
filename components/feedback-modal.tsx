@@ -14,9 +14,10 @@ interface FeedbackModalProps {
   onClose: () => void;
   email: string;
   eventType?: string;
+  onSubmitted?: () => void;
 }
 
-export function FeedbackModal({ isOpen, onClose, email, eventType = 'C2C' }: FeedbackModalProps) {
+export function FeedbackModal({ isOpen, onClose, email, eventType = 'C2C', onSubmitted }: FeedbackModalProps) {
   const [questions, setQuestions] = useState<FeedbackQuestion[]>([]);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [userEmail, setUserEmail] = useState(email);
@@ -104,6 +105,7 @@ export function FeedbackModal({ isOpen, onClose, email, eventType = 'C2C' }: Fee
 
       if (data.success) {
         setSubmitted(true);
+        onSubmitted?.();
       } else {
         setError(data.error || 'Failed to submit feedback');
       }

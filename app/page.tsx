@@ -12,7 +12,7 @@ import Speaker from "./components/landing/speaker";
 import TopBar from "./components/landing/top-bar";
 import ViewportPortal from "@/components/viewport-portal";
 import { FeedbackModal } from "@/components/feedback-modal";
-import { useLayoutEffect, useEffect, useState, Suspense } from "react";
+import { useLayoutEffect, useEffect, useState, Suspense, useCallback } from "react";
 import { InteractiveHoverButton } from "./components/landing/ui/cta-button";
 import { StickyScroll } from "./components/landing/ui/sticky-scroll-reveal";
 import Image from "next/image";
@@ -23,7 +23,8 @@ import Tracks from "./components/landing/tracks";
 import { REGISTRATIONS_OPEN } from "@/lib/env";
 import { useRouter, useSearchParams } from "next/navigation";
 
-const DesktopFeedbackButton = ({ onClick }: { onClick: () => void }) => {
+const DesktopFeedbackButton = ({ onClick, disabled }: { onClick: () => void; disabled?: boolean }) => {
+  if (disabled) return null;
   return (
     <div className="hidden md:flex fixed left-1/2 -translate-x-1/2 bottom-[8%] z-[9999]">
       <InteractiveHoverButton
@@ -98,9 +99,10 @@ const TRACKS_CONTENT = TRACKS.map((track) => ({
   ),
 }));
 
-function FeedbackSearchParamGate({ onOpen }: { onOpen: (email: string) => void }) {
+function FeedbackSearchParamGate({ onOpen, disabled }: { onOpen: (email: string) => void; disabled?: boolean }) {
   const searchParams = useSearchParams();
   useEffect(() => {
+    if (disabled) return;
     const feedbackId = searchParams.get('id');
     if (feedbackId) {
       try {
@@ -112,7 +114,7 @@ function FeedbackSearchParamGate({ onOpen }: { onOpen: (email: string) => void }
         console.error('Invalid feedback ID:', error);
       }
     }
-  }, [searchParams, onOpen]);
+  }, [searchParams, onOpen, disabled]);
   return null;
 }
 
@@ -121,6 +123,22 @@ export default function Page() {
     isOpen: false,
     email: '',
   });
+  const [hasSubmittedFeedback, setHasSubmittedFeedback] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const stored = window.localStorage.getItem('c2c_feedback_submitted');
+    if (stored === 'true') {
+      setHasSubmittedFeedback(true);
+    }
+  }, []);
+
+  const markFeedbackSubmitted = useCallback(() => {
+    setHasSubmittedFeedback(true);
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('c2c_feedback_submitted', 'true');
+    }
+  }, []);
 
   useLayoutEffect(() => {
     // ScrollSmoother.create({
@@ -140,6 +158,7 @@ export default function Page() {
   };
 
   const openFeedbackModal = () => {
+    if (hasSubmittedFeedback) return;
     setFeedbackModal({
       isOpen: true,
       email: '', // Empty email for manual entry
@@ -157,6 +176,7 @@ export default function Page() {
       {/* Watch search params for feedback id inside Suspense boundary */}
       <Suspense fallback={null}>
         <FeedbackSearchParamGate
+          disabled={hasSubmittedFeedback}
           onOpen={(email) => setFeedbackModal({ isOpen: true, email })}
         />
       </Suspense>
@@ -168,12 +188,13 @@ export default function Page() {
           onClose={closeFeedbackModal}
           email={feedbackModal.email}
           eventType="C2C"
+          onSubmitted={markFeedbackSubmitted}
         />
       </ViewportPortal>
 
       {/* Feedback Button (hidden when modal open) */}
       {!feedbackModal.isOpen && (
-        <DesktopFeedbackButton onClick={openFeedbackModal} />
+        <DesktopFeedbackButton onClick={openFeedbackModal} disabled={hasSubmittedFeedback} />
       )}
 
       <div id="smooth-wrapper" className="relative z-0">
