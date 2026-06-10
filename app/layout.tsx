@@ -147,9 +147,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full overflow-x-hidden">
+    <html lang="en" className="min-h-full overflow-x-hidden overflow-y-auto">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden min-h-[100svh] overscroll-y-none touch-pan-y`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-[100svh] overflow-x-hidden overflow-y-auto touch-pan-y`}
       >
         <ModalProvider>{children}</ModalProvider>
       </body>

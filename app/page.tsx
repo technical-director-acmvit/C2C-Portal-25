@@ -20,8 +20,8 @@ import GradientBG from "./components/landing/gradient-bg";
 import DotGrid from "./components/landing/dot-grid";
 import HeadingText from "./components/landing/HeadingText";
 import Tracks from "./components/landing/tracks";
-import { REGISTRATIONS_OPEN } from "@/lib/env";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import ReturnAnnouncement from "./components/landing/return-announcement";
 
 const DesktopFeedbackButton = ({ onClick, disabled }: { onClick: () => void; disabled?: boolean }) => {
   if (disabled) return null;
@@ -168,21 +168,22 @@ export default function Page() {
   return (
     <div className="relative w-full">
       <div className="fixed inset-0 -z-10 bg-gradient-to-b from-[#0a0a0a] via-[#161616] to-[#0a0a0a]" />
+      <ReturnAnnouncement />
 
       <ViewportPortal>
         <TopBar />
       </ViewportPortal>
 
       {/* Watch search params for feedback id inside Suspense boundary */}
-      <Suspense fallback={null}>
+      {/* <Suspense fallback={null}>
         <FeedbackSearchParamGate
           disabled={hasSubmittedFeedback}
           onOpen={(email) => setFeedbackModal({ isOpen: true, email })}
         />
-      </Suspense>
+      </Suspense> */}
 
       {/* Feedback Modal via portal to ensure overlay is above all content */}
-      <ViewportPortal>
+      {/* <ViewportPortal>
         <FeedbackModal
           isOpen={feedbackModal.isOpen}
           onClose={closeFeedbackModal}
@@ -190,7 +191,7 @@ export default function Page() {
           eventType="C2C"
           onSubmitted={markFeedbackSubmitted}
         />
-      </ViewportPortal>
+      </ViewportPortal> */}
 
       {/* Feedback Button temporarily disabled */}
       {/*

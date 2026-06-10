@@ -134,7 +134,7 @@ export default function TopBar() {
           </nav>
 
           <div className="md:hidden flex items-center gap-2">
-            {REGISTRATIONS_OPEN ? (
+            {REGISTRATIONS_OPEN && (
               <InteractiveHoverButton
                 variant="simple"
                 onClick={() => router.push('/portal')}
@@ -143,13 +143,6 @@ export default function TopBar() {
               >
                 Register Now
               </InteractiveHoverButton>
-            ) : (
-              <span
-                className="inline-block w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold text-white border border-white/30 bg-black/30 backdrop-blur-sm"
-                aria-live="polite"
-              >
-                Registrations opening soon
-              </span>
             )}
             <button
               aria-label="Toggle menu"

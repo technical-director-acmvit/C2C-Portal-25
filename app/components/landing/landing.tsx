@@ -122,8 +122,8 @@ const Landing = () => {
           </p>
 
           {/* Mobile CTA at bottom */}
-          <div className="md:hidden mb-10">
-            {REGISTRATIONS_OPEN ? (
+          {REGISTRATIONS_OPEN && (
+            <div className="md:hidden mb-10">
               <InteractiveHoverButton
                 variant="simple"
                 onClick={() => router.push('/portal')}
@@ -131,15 +131,8 @@ const Landing = () => {
               >
                 Register Now
               </InteractiveHoverButton>
-            ) : (
-              <span
-                className="inline-block w-auto text-[12px] px-3 py-1.5 min-h-[32px] rounded-full font-semibold text-white border border-white/30 bg-black/30 backdrop-blur-sm mb-2 mt-[-10%]"
-                aria-live="polite"
-              >
-                Registrations opening soon
-              </span>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* CTA moved to app/page.tsx for better control on responsiveness and scroll behavior */}
         </div>
