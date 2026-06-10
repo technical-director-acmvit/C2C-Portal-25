@@ -961,8 +961,9 @@ h4 {
  */
 .c2c-prereg-strip {
   position: absolute;
+  z-index: 0;
   width: 245vmax;
-  height: clamp(64px, 11vmin, 128px);
+  height: clamp(44px, 6.4vmin, 84px);
   overflow: hidden;
   opacity: 0;
   clip-path: polygon(2.6% 0, 100% 0, 97.4% 100%, 0 100%);
@@ -974,24 +975,24 @@ h4 {
 }
 
 .c2c-prereg-strip--tl {
-  top: 14%;
-  left: 10%;
-  transform: translate(-78%, -62%) rotate(-23deg) scaleX(0);
+  top: 2%;
+  left: 3%;
+  transform: translate(-82%, -84%) rotate(-23deg) scaleX(0);
 }
 
 .c2c-prereg.is-active .c2c-prereg-strip--tl {
-  opacity: 0.94;
-  transform: translate(-54%, -54%) rotate(-23deg) scaleX(1);
+  opacity: 0.9;
+  transform: translate(-53%, -54%) rotate(-23deg) scaleX(1);
 }
 
 .c2c-prereg-strip--br {
-  bottom: 16%;
-  right: 12%;
-  transform: translate(68%, 72%) rotate(-34deg) scaleX(0);
+  right: 4%;
+  bottom: 6%;
+  transform: translate(76%, 86%) rotate(-34deg) scaleX(0);
 }
 
 .c2c-prereg.is-active .c2c-prereg-strip--br {
-  opacity: 0.94;
+  opacity: 0.9;
   transform: translate(50%, 50%) rotate(-34deg) scaleX(1);
 }
 
@@ -1015,7 +1016,7 @@ h4 {
 
 .c2c-prereg-tile {
   position: relative;
-  flex: 0 0 clamp(58px, 8.2vmin, 106px);
+  flex: 0 0 clamp(44px, 6.4vmin, 84px);
   height: 100%;
   overflow: hidden;
   transform: translateZ(0);
@@ -1042,6 +1043,7 @@ h4 {
 /* Corner labels */
 .c2c-prereg-corner {
   position: absolute;
+  z-index: 3;
   font-family: "Pilat Extended", "Trap-Bold", Arial, sans-serif;
   color: rgba(255, 255, 255, 0.95);
   font-size: clamp(0.95rem, 2vmin, 1.5rem);
@@ -1057,7 +1059,7 @@ h4 {
 }
 
 .c2c-prereg-corner--br {
-  bottom: clamp(20px, 4vmin, 38px);
+  bottom: clamp(48px, 6vmin, 72px);
   right: clamp(20px, 4vmin, 38px);
 }
 
@@ -1068,6 +1070,7 @@ h4 {
 /* Form */
 .c2c-prereg-form {
   position: absolute;
+  z-index: 2;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%) scale(0.96);
@@ -1220,27 +1223,31 @@ h4 {
 
 @media (max-width: 640px) {
   .c2c-prereg-strip {
-    height: clamp(48px, 14vmin, 96px);
+    height: clamp(24px, 7.5vw, 40px);
     width: 280vmax;
   }
   .c2c-prereg-tile {
-    flex-basis: clamp(44px, 11vmin, 84px);
+    flex-basis: clamp(24px, 7.5vw, 40px);
   }
   .c2c-prereg-strip--tl {
-    top: 9%;
-    left: 6%;
-    transform: translate(-82%, -60%) rotate(-25deg) scaleX(0);
+    top: 4%;
+    left: 4%;
+    transform: translate(-86%, -86%) rotate(-25deg) scaleX(0);
   }
   .c2c-prereg.is-active .c2c-prereg-strip--tl {
-    transform: translate(-55%, -42%) rotate(-25deg) scaleX(1);
+    transform: translate(-52%, -58%) rotate(-25deg) scaleX(1);
   }
   .c2c-prereg-strip--br {
-    bottom: 10%;
-    right: 6%;
-    transform: translate(72%, 80%) rotate(-31deg) scaleX(0);
+    right: 2%;
+    bottom: 8%;
+    transform: translate(82%, 92%) rotate(-31deg) scaleX(0);
   }
   .c2c-prereg.is-active .c2c-prereg-strip--br {
-    transform: translate(48%, 42%) rotate(-31deg) scaleX(1);
+    transform: translate(52%, 54%) rotate(-31deg) scaleX(1);
+  }
+  .c2c-prereg-corner--br {
+    right: 22px;
+    bottom: 64px;
   }
   .c2c-prereg-form {
     width: min(360px, calc(100vw - 28px));
