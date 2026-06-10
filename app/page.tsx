@@ -192,10 +192,12 @@ export default function Page() {
         />
       </ViewportPortal>
 
-      {/* Feedback Button (hidden when modal open) */}
+      {/* Feedback Button temporarily disabled */}
+      {/*
       {!feedbackModal.isOpen && (
         <DesktopFeedbackButton onClick={openFeedbackModal} disabled={hasSubmittedFeedback} />
       )}
+      */}
 
       <div id="smooth-wrapper" className="relative z-0">
         <div id="smooth-content">
