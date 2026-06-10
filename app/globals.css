@@ -378,8 +378,20 @@ h4 {
 
 .c2c-page-shell.is-upcoming-open #smooth-content {
   transform: translateY(105svh);
-  opacity: 0.2;
-  filter: blur(10px);
+  opacity: 0.16;
+  filter: none;
+}
+
+.c2c-hero-logo-anchor {
+  transition:
+    opacity 420ms ease,
+    filter 420ms ease;
+  will-change: opacity, filter;
+}
+
+.c2c-page-shell.is-upcoming-open .c2c-hero-logo-anchor {
+  opacity: 0;
+  filter: none;
 }
 
 .c2c-upcoming-filter {
@@ -403,7 +415,7 @@ h4 {
   pointer-events: none;
   opacity: 0;
   overflow: hidden;
-  background: rgba(7, 12, 13, 0);
+  background: transparent;
   transition:
     opacity 520ms ease,
     background 720ms ease;
@@ -411,12 +423,16 @@ h4 {
 
 .c2c-upcoming-overlay.is-visible {
   opacity: 1;
+  background: transparent;
+}
+
+.c2c-upcoming-overlay.is-glass {
   background: rgba(7, 12, 13, 0.32);
 }
 
 .c2c-upcoming-overlay.is-active {
   pointer-events: auto;
-  background: rgba(4, 8, 9, 0.48);
+  background: transparent;
 }
 
 .c2c-upcoming-overlay__tint,
@@ -424,6 +440,13 @@ h4 {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 360ms ease;
+}
+
+.c2c-upcoming-overlay.is-glass .c2c-upcoming-overlay__tint,
+.c2c-upcoming-overlay.is-glass .c2c-upcoming-overlay__shine {
+  opacity: 1;
 }
 
 .c2c-upcoming-overlay__tint {
@@ -473,11 +496,12 @@ h4 {
   height: var(--logo-size);
   width: auto;
   max-width: none;
-  opacity: 0.92;
+  opacity: 0.9;
   filter: drop-shadow(0 26px 70px rgba(0, 0, 0, 0.62));
-  transform: rotate(90deg) scale(0.24);
+  transform: rotate(0deg) scale(0.18);
   transition: transform 1150ms cubic-bezier(0.18, 1, 0.22, 1);
   transform-origin: center;
+  z-index: 1;
 }
 
 .c2c-upcoming-overlay.is-active .c2c-upcoming-logo {
@@ -494,95 +518,155 @@ h4 {
   }
 }
 
-.c2c-upcoming-detail-layer {
+.c2c-upcoming-sector-layer {
+  position: absolute;
+  inset: -50%;
+  opacity: 0;
+  transform: scale(0.98);
+  transition:
+    opacity 280ms ease 360ms,
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1) 360ms;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.c2c-upcoming-label-layer {
   position: absolute;
   inset: 0;
   opacity: 0;
-  transform: scale(0.96);
+  transform: scale(0.98);
   transition:
-    opacity 520ms ease 420ms,
-    transform 720ms cubic-bezier(0.22, 1, 0.36, 1) 420ms;
+    opacity 280ms ease 720ms,
+    transform 760ms cubic-bezier(0.22, 1, 0.36, 1) 720ms;
   pointer-events: none;
+  z-index: 4;
 }
 
-.c2c-upcoming-overlay.is-active .c2c-upcoming-detail-layer {
+.c2c-upcoming-overlay.is-active .c2c-upcoming-sector-layer,
+.c2c-upcoming-overlay.is-active .c2c-upcoming-label-layer {
   opacity: 1;
   transform: scale(1);
 }
 
-.c2c-upcoming-detail {
+.c2c-upcoming-sector {
+  --sector-angle: 0deg;
+  --sector-color: rgba(72, 186, 134, 0.88);
+  --sector-delay: 470ms;
   position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: clamp(104px, 20vmin, 220px);
-  height: clamp(92px, 17vmin, 188px);
-  padding: clamp(0.65rem, 1.6vmin, 1.2rem);
-  color: white;
-  text-align: center;
-  background:
-    radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.26), transparent 38%),
-    rgba(9, 15, 15, 0.22);
-  -webkit-backdrop-filter: blur(10px) saturate(145%);
-  backdrop-filter: blur(10px) saturate(145%);
-  box-shadow:
-    inset 1px 1px 1px rgba(255, 255, 255, 0.24),
-    inset -1px -1px 1px rgba(0, 0, 0, 0.22),
-    0 18px 45px rgba(0, 0, 0, 0.24);
+  left: 50%;
+  top: 50%;
+  width: max(78svw, 78svh);
+  height: clamp(58px, 12vmin, 138px);
+  background: var(--sector-color);
+  clip-path: polygon(0 18%, 100% 0, 96% 50%, 100% 100%, 0 82%);
+  transform: rotate(var(--sector-angle)) translateY(-50%) scaleX(0);
+  transform-origin: 0 50%;
+  transition:
+    transform 880ms cubic-bezier(0.19, 1, 0.22, 1) var(--sector-delay),
+    opacity 320ms ease var(--sector-delay);
+  opacity: 0;
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.2);
 }
 
-.c2c-upcoming-detail span {
+.c2c-upcoming-overlay.is-active .c2c-upcoming-sector {
+  opacity: 0.96;
+  transform: rotate(var(--sector-angle)) translateY(-50%) scaleX(1);
+}
+
+.c2c-upcoming-label {
+  position: absolute;
+  display: flex;
+  width: clamp(96px, 15vmin, 180px);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  color: white;
+  text-align: left;
+  text-shadow: 0 1px 16px rgba(0, 0, 0, 0.5);
+}
+
+.c2c-upcoming-label span {
   font-family: "Trap", "DM Sans", Arial, sans-serif;
-  font-size: clamp(0.52rem, 1.05vmin, 0.72rem);
+  font-size: clamp(0.48rem, 1vmin, 0.74rem);
   line-height: 1;
-  color: rgba(255, 255, 255, 0.74);
+  color: rgba(255, 255, 255, 0.78);
   text-transform: uppercase;
   letter-spacing: 0.14em;
 }
 
-.c2c-upcoming-detail strong {
+.c2c-upcoming-label strong {
   margin-top: 0.38rem;
   font-family: "Pilat Extended", "Trap-Bold", Arial, sans-serif;
-  font-size: clamp(0.72rem, 1.65vmin, 1.18rem);
+  font-size: clamp(0.72rem, 1.7vmin, 1.24rem);
   line-height: 1.05;
   color: rgba(255, 255, 255, 0.96);
-  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.54);
+  text-shadow: 0 1px 16px rgba(0, 0, 0, 0.46);
 }
 
-.c2c-upcoming-detail--date {
-  left: 31%;
-  top: 34%;
-  translate: -50% -50%;
-  clip-path: polygon(8% 50%, 92% 5%, 92% 95%);
+.c2c-upcoming-label--date {
+  left: 33%;
+  top: 41%;
 }
 
-.c2c-upcoming-detail--venue {
-  left: 66%;
-  top: 35%;
-  translate: -50% -50%;
-  clip-path: polygon(8% 5%, 94% 50%, 8% 95%);
+.c2c-upcoming-label--venue {
+  left: 55%;
+  top: 36%;
 }
 
-.c2c-upcoming-detail--place {
-  left: 47%;
-  top: 65%;
-  translate: -50% -50%;
-  width: clamp(118px, 21vmin, 228px);
-  height: clamp(104px, 18vmin, 194px);
-  clip-path: polygon(50% 4%, 96% 94%, 4% 94%);
-}
-
-.c2c-upcoming-detail--cutout {
-  left: 50%;
+.c2c-upcoming-label--campus {
+  left: 60%;
   top: 50%;
-  translate: -50% -50%;
-  width: clamp(110px, 18vmin, 190px);
-  height: clamp(92px, 15vmin, 160px);
-  clip-path: polygon(50% 2%, 98% 50%, 50% 98%, 2% 50%);
-  background:
-    radial-gradient(circle at 45% 38%, rgba(255, 255, 255, 0.28), transparent 36%),
-    rgba(22, 43, 38, 0.36);
+}
+
+.c2c-upcoming-label--state {
+  left: 58%;
+  top: 63%;
+}
+
+.c2c-upcoming-label--cutout {
+  left: 42%;
+  top: 62%;
+}
+
+.c2c-upcoming-label--return {
+  left: 30%;
+  top: 55%;
+}
+
+.c2c-upcoming-sector--date {
+  --sector-angle: -122deg;
+  --sector-color: rgba(162, 215, 190, 0.9);
+  --sector-delay: 460ms;
+}
+
+.c2c-upcoming-sector--venue {
+  --sector-angle: -58deg;
+  --sector-color: rgba(90, 192, 143, 0.9);
+  --sector-delay: 510ms;
+}
+
+.c2c-upcoming-sector--campus {
+  --sector-angle: 0deg;
+  --sector-color: rgba(68, 177, 129, 0.91);
+  --sector-delay: 560ms;
+}
+
+.c2c-upcoming-sector--state {
+  --sector-angle: 58deg;
+  --sector-color: rgba(116, 207, 164, 0.9);
+  --sector-delay: 610ms;
+}
+
+.c2c-upcoming-sector--cutout {
+  --sector-angle: 122deg;
+  --sector-color: rgba(175, 226, 201, 0.9);
+  --sector-delay: 660ms;
+}
+
+.c2c-upcoming-sector--return {
+  --sector-angle: 180deg;
+  --sector-color: rgba(53, 158, 111, 0.92);
+  --sector-delay: 710ms;
 }
 
 .c2c-upcoming-button {
@@ -665,57 +749,53 @@ h4 {
     --logo-size: min(calc(100svw - 10px), calc(84svh - 10px));
   }
 
-  .c2c-upcoming-detail {
-    width: clamp(74px, 22vmin, 104px);
-    height: auto;
-    min-height: 42px;
-    padding: 0.2rem;
-    clip-path: none;
-    background: transparent;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    box-shadow: none;
+  .c2c-upcoming-sector {
+    width: max(88svw, 72svh);
+    height: clamp(38px, 10vmin, 58px);
   }
 
-  .c2c-upcoming-detail span {
-    font-size: clamp(0.42rem, 1.7vmin, 0.56rem);
+  .c2c-upcoming-label {
+    width: clamp(70px, 23vmin, 112px);
+  }
+
+  .c2c-upcoming-label span {
+    font-size: clamp(0.38rem, 1.45vmin, 0.5rem);
     letter-spacing: 0.1em;
   }
 
-  .c2c-upcoming-detail strong {
-    margin-top: 0.24rem;
-    font-size: clamp(0.58rem, 2.5vmin, 0.78rem);
+  .c2c-upcoming-label strong {
+    margin-top: 0.2rem;
+    font-size: clamp(0.5rem, 2.15vmin, 0.7rem);
   }
 
-  .c2c-upcoming-detail--date {
-    left: 33%;
-    top: 37%;
+  .c2c-upcoming-label--date {
+    left: 29%;
+    top: 42%;
   }
 
-  .c2c-upcoming-detail--venue {
-    left: 67%;
-    top: 37%;
+  .c2c-upcoming-label--venue {
+    left: 56%;
+    top: 38%;
   }
 
-  .c2c-upcoming-detail--place {
-    left: 50%;
-    top: 63%;
-    width: clamp(86px, 25vmin, 118px);
-    height: auto;
+  .c2c-upcoming-label--campus {
+    left: 59%;
+    top: 50%;
   }
 
-  .c2c-upcoming-detail--cutout {
-    width: clamp(92px, 28vmin, 126px);
-    height: auto;
-    min-height: 54px;
-    background:
-      radial-gradient(circle at 45% 35%, rgba(255, 255, 255, 0.18), transparent 42%),
-      rgba(22, 43, 38, 0.22);
-    -webkit-backdrop-filter: blur(8px) saturate(140%);
-    backdrop-filter: blur(8px) saturate(140%);
-    box-shadow:
-      inset 1px 1px 1px rgba(255, 255, 255, 0.16),
-      0 10px 24px rgba(0, 0, 0, 0.22);
+  .c2c-upcoming-label--state {
+    left: 55%;
+    top: 61%;
+  }
+
+  .c2c-upcoming-label--cutout {
+    left: 39%;
+    top: 61%;
+  }
+
+  .c2c-upcoming-label--return {
+    left: 27%;
+    top: 53%;
   }
 
   .c2c-upcoming-button {
@@ -730,9 +810,14 @@ h4 {
   .c2c-upcoming-overlay,
   .c2c-upcoming-stage,
   .c2c-upcoming-logo,
-  .c2c-upcoming-detail-layer,
+  .c2c-upcoming-sector-layer,
+  .c2c-upcoming-label-layer,
   .c2c-upcoming-button {
     transition-duration: 1ms;
     animation: none;
+  }
+
+  .c2c-upcoming-sector {
+    transition-duration: 1ms;
   }
 }

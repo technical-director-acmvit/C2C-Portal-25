@@ -60,7 +60,7 @@ const Landing = () => {
 
         {/* Main logo positioned like rising sun from mountains - behind mountains */}
         <div
-          className="absolute top-[50%] left-1/2 -translate-x-1/2 -translate-y-[8%]"
+          className="c2c-hero-logo-anchor absolute top-[50%] left-1/2 -translate-x-1/2 -translate-y-[8%]"
           style={{ zIndex: 1 }}
         >
           <div className="animate-floating" style={{ willChange: "transform" }}>
