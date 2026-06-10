@@ -64,14 +64,7 @@ export default function TopBar({ onUpcomingEdition }: TopBarProps = {}) {
 
   return (
     <>
-      <div
-        className="c2c-topbar w-full border-b border-white/60"
-        style={{
-          backgroundColor: "rgba(10, 12, 14, 0.62)",
-          WebkitBackdropFilter: "blur(18px) saturate(160%)",
-          backdropFilter: "blur(18px) saturate(160%)",
-        }}
-      >
+      <div className="c2c-topbar w-full border-b border-white/60">
         <div className="w-full flex items-center justify-between px-0 sm:px-0 lg:px-0 py-2 md:py-0 md:h-14">
           <div className="flex-shrink-0 border-r border-white pr-4 md:pr-8 py-1 flex items-center">
             <button

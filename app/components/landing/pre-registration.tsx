@@ -1,24 +1,24 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { type CSSProperties, FormEvent, useEffect, useState } from "react";
 
 type PreRegistrationProps = {
   active: boolean;
   onClose: () => void;
 };
 
-// Colours pulled from the C2C logo, used to tint adjacent triangles in the
-// corner strips so two neighbours never share a fill.
+// Colours pulled from the green sectors of the C2C logo. The black cutout is
+// intentionally excluded because the registration strips should read as logo
+// facets, not gaps.
 const TRIANGLE_COLORS = [
   "#48BA86",
   "#D3EBE0",
   "#5EBF94",
   "#86CCAC",
   "#ADDBC8",
-  "#2C2C2C",
 ];
 
-const STRIP_COUNT = 22; // number of base triangles in one strip period
+const STRIP_TILE_COUNT = 60; // one seamless loop period
 
 type Strip = {
   key: "tl" | "br";
@@ -34,29 +34,32 @@ const STRIPS: Strip[] = [
   { key: "br", className: "c2c-prereg-strip c2c-prereg-strip--br", durationMs: 22000 },
 ];
 
-function StripTriangles({ stripIndex }: { stripIndex: number }) {
-  // Render 2x the strip period so the loop can translate by 50% and seamlessly
-  // restart. Triangles alternate up/down so consecutive pairs form
-  // parallelograms.
-  const total = STRIP_COUNT * 2;
-  const items = [] as { idx: number; down: boolean; fill: string }[];
-  for (let i = 0; i < total; i++) {
-    const colorIdx = (i + stripIndex * 2) % TRIANGLE_COLORS.length;
-    items.push({
-      idx: i,
-      down: i % 2 === 1,
-      fill: TRIANGLE_COLORS[colorIdx],
-    });
-  }
+function tileColors(index: number, stripIndex: number) {
+  const offset = stripIndex * 2;
+  return {
+    a: TRIANGLE_COLORS[(index * 2 + offset) % TRIANGLE_COLORS.length],
+    b: TRIANGLE_COLORS[(index * 2 + offset + 1) % TRIANGLE_COLORS.length],
+  };
+}
+
+function StripTiles({ stripIndex }: { stripIndex: number }) {
+  const tiles = Array.from({ length: STRIP_TILE_COUNT }, (_, idx) => ({
+    idx,
+    ...tileColors(idx, stripIndex),
+  }));
+
   return (
-    <div className="c2c-prereg-strip__inner">
-      {items.map(({ idx, down, fill }) => (
-        <div
-          key={idx}
-          className={`c2c-prereg-tri ${down ? "is-down" : "is-up"}`}
-          style={{ backgroundColor: fill }}
-        />
-      ))}
+    <div className="c2c-prereg-strip__track">
+      {[0, 1].map((copy) =>
+        tiles.map(({ idx, a, b }) => (
+          <span
+            key={`${copy}-${idx}`}
+            className="c2c-prereg-tile"
+            style={{ "--tri-a": a, "--tri-b": b } as CSSProperties}
+            aria-hidden="true"
+          />
+        )),
+      )}
     </div>
   );
 }
@@ -95,9 +98,7 @@ export default function PreRegistration({ active, onClose }: PreRegistrationProp
           className={strip.className}
           style={{ ["--c2c-prereg-strip-duration" as string]: `${strip.durationMs}ms` }}
         >
-          <StripTriangles stripIndex={i} />
-          {/* duplicate for the seamless loop */}
-          <StripTriangles stripIndex={i} />
+          <StripTiles stripIndex={i} />
         </div>
       ))}
 

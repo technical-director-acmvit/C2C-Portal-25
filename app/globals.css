@@ -353,9 +353,12 @@ h4 {
 }
 
 .c2c-upcoming-header {
+  position: fixed;
+  inset: 0 0 auto;
   transform: translateY(0);
   opacity: 1;
   width: 100%;
+  pointer-events: none;
   transition:
     transform 760ms cubic-bezier(0.22, 1, 0.36, 1),
     opacity 520ms ease;
@@ -365,11 +368,11 @@ h4 {
 .c2c-topbar {
   position: relative;
   isolation: isolate;
-  background:
-    linear-gradient(180deg, rgba(25, 58, 58, 0.86), rgba(8, 15, 16, 0.66)),
-    rgba(8, 12, 13, 0.74) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-  backdrop-filter: blur(24px) saturate(180%) !important;
+  overflow: hidden;
+  pointer-events: auto;
+  background: rgba(7, 14, 15, 0.34) !important;
+  -webkit-backdrop-filter: blur(0.1px);
+  backdrop-filter: blur(0.1px);
   box-shadow:
     inset 0 -1px 0 rgba(255, 255, 255, 0.24),
     0 12px 34px rgba(0, 0, 0, 0.28);
@@ -379,11 +382,32 @@ h4 {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   background:
-    radial-gradient(circle at 18% 12%, rgba(72, 186, 134, 0.28), transparent 36%),
-    radial-gradient(circle at 78% 0%, rgba(211, 235, 224, 0.16), transparent 34%);
+    linear-gradient(180deg, rgba(16, 43, 43, 0.72), rgba(5, 10, 11, 0.54)),
+    radial-gradient(circle at 18% 8%, rgba(72, 186, 134, 0.36), transparent 32%),
+    radial-gradient(circle at 78% 0%, rgba(211, 235, 224, 0.18), transparent 34%),
+    rgba(8, 12, 13, 0.58);
+  -webkit-backdrop-filter: blur(28px) saturate(190%) contrast(106%);
+  backdrop-filter: blur(28px) saturate(190%) contrast(106%);
   pointer-events: none;
+}
+
+.c2c-topbar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.32);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -10px 22px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+}
+
+.c2c-topbar > div {
+  position: relative;
+  z-index: 2;
 }
 
 .c2c-upcoming-header.is-upcoming-open {
@@ -597,16 +621,17 @@ h4 {
 .c2c-upcoming-label {
   position: fixed;
   display: flex;
-  width: clamp(120px, 22vmin, 250px);
-  max-width: min(30vw, 250px);
+  width: clamp(144px, 24vmin, 360px);
+  max-width: min(38vw, 360px);
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: white;
   text-align: center;
   transform: translate(-50%, -50%);
-  overflow-wrap: anywhere;
-  word-break: break-word;
+  overflow-wrap: break-word;
+  word-break: normal;
+  text-wrap: balance;
 }
 
 .c2c-upcoming-label strong,
@@ -614,8 +639,8 @@ h4 {
   display: block;
   max-width: 100%;
   min-width: 0;
-  word-break: break-word;
-  overflow-wrap: anywhere;
+  word-break: normal;
+  overflow-wrap: break-word;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -641,13 +666,18 @@ h4 {
 .c2c-upcoming-label strong {
   margin-top: 0.55rem;
   font-family: "Pilat Extended", "Trap-Bold", Arial, sans-serif;
-  font-size: clamp(1.55rem, 3.7vmin, 3rem);
+  font-size: clamp(1.35rem, 3.1vmin, 2.55rem);
   line-height: 1.04;
   letter-spacing: -0.01em;
   color: rgba(255, 255, 255, 0.98);
   text-shadow:
     0 1px 2px rgba(0, 0, 0, 0.7),
     0 6px 28px rgba(0, 0, 0, 0.6);
+}
+
+.c2c-upcoming-label--cutout strong {
+  font-size: clamp(1.12rem, 2.55vmin, 2.1rem);
+  line-height: 1.02;
 }
 
 .c2c-upcoming-button {
@@ -731,8 +761,8 @@ h4 {
   }
 
   .c2c-upcoming-label {
-    width: clamp(74px, 25vw, 118px);
-    max-width: 28vw;
+    width: clamp(92px, 29vw, 142px);
+    max-width: 32vw;
   }
 
   .c2c-upcoming-label span {
@@ -743,8 +773,12 @@ h4 {
 
   .c2c-upcoming-label strong {
     margin-top: 0.32rem;
-    font-size: clamp(0.6rem, 2.45vmin, 0.86rem);
+    font-size: clamp(0.66rem, 2.25vmin, 0.92rem);
     line-height: 1.03;
+  }
+
+  .c2c-upcoming-label--cutout strong {
+    font-size: clamp(0.58rem, 2.05vmin, 0.82rem);
   }
 
   .c2c-upcoming-button {
@@ -813,45 +847,79 @@ h4 {
   pointer-events: auto;
 }
 
+.c2c-prereg-liquid-filter {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
 .c2c-prereg-trigger {
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(72, 186, 134, 0.6);
-  background:
-    linear-gradient(180deg, rgba(72, 186, 134, 0.22), rgba(72, 186, 134, 0.08)),
-    rgba(10, 12, 14, 0.55);
+  isolation: isolate;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(220, 255, 240, 0.11);
   box-shadow:
-    0 14px 38px rgba(0, 0, 0, 0.42),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    0 18px 44px rgba(0, 0, 0, 0.42),
+    inset -2px -4px 8px rgba(0, 0, 0, 0.08),
+    inset 2px 4px 9px rgba(255, 255, 255, 0.16),
+    inset 0 0 5px rgba(255, 255, 255, 0.28);
   font-family: "Trap-Bold", "Trap", Arial, sans-serif;
   letter-spacing: 0.02em;
   cursor: pointer;
   transition:
     transform 280ms cubic-bezier(0.18, 1, 0.22, 1),
     box-shadow 280ms ease,
-    border-color 280ms ease,
-    background 280ms ease;
+    border-color 280ms ease;
 }
 
 .c2c-prereg-trigger:hover,
 .c2c-prereg-trigger:focus-visible {
   outline: none;
   transform: translateY(-2px) scale(1.02);
-  border-color: rgba(72, 186, 134, 0.95);
-  background:
-    linear-gradient(180deg, rgba(72, 186, 134, 0.34), rgba(72, 186, 134, 0.14)),
-    rgba(10, 12, 14, 0.55);
+  border-color: rgba(255, 255, 255, 0.46);
   box-shadow:
-    0 20px 44px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    0 22px 52px rgba(0, 0, 0, 0.5),
+    inset -2px -4px 8px rgba(0, 0, 0, 0.1),
+    inset 2px 4px 9px rgba(255, 255, 255, 0.24),
+    inset 0 0 7px rgba(255, 255, 255, 0.34);
 }
 
-.c2c-prereg-trigger__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: #48ba86;
-  box-shadow: 0 0 12px rgba(72, 186, 134, 0.9);
+.c2c-prereg-trigger__effect,
+.c2c-prereg-trigger__tint,
+.c2c-prereg-trigger__shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.c2c-prereg-trigger__effect {
+  z-index: 0;
+  -webkit-backdrop-filter: url(#c2c-prereg-liquid-glass) blur(16px) saturate(175%);
+  backdrop-filter: url(#c2c-prereg-liquid-glass) blur(16px) saturate(175%);
+}
+
+.c2c-prereg-trigger__tint {
+  z-index: 0;
+  background:
+    radial-gradient(circle at 22% 8%, rgba(255, 255, 255, 0.36), transparent 42%),
+    radial-gradient(circle at 80% 85%, rgba(72, 186, 134, 0.2), transparent 38%),
+    rgba(255, 255, 255, 0.06);
+}
+
+.c2c-prereg-trigger__shine {
+  z-index: 1;
+  box-shadow:
+    inset 1px 1px 1px rgba(255, 255, 255, 0.5),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.18);
+}
+
+.c2c-prereg-trigger__content,
+.c2c-prereg-trigger__arrow {
+  position: relative;
+  z-index: 3;
 }
 
 .c2c-prereg-trigger__arrow {
@@ -887,18 +955,17 @@ h4 {
   opacity: 1;
 }
 
-/* Diagonal strips — each strip is a wide horizontal band of triangles that
- * gets rotated to its incident angle and translated infinitely. The strip
- * itself is the rotated/positioned frame; .c2c-prereg-strip__inner is the
- * scrolling track inside it.
+/* Diagonal strips — each strip is a wide horizontal band of triangle tiles
+ * rotated to its incident angle and translated infinitely. A duplicated tile
+ * track moves by exactly half its width so the loop cannot tear.
  */
 .c2c-prereg-strip {
   position: absolute;
-  display: flex;
-  width: 220vmax;
+  width: 245vmax;
   height: clamp(64px, 11vmin, 128px);
   overflow: hidden;
   opacity: 0;
+  clip-path: polygon(2.6% 0, 100% 0, 97.4% 100%, 0 100%);
   filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.4));
   transform-origin: 50% 50%;
   transition:
@@ -907,14 +974,14 @@ h4 {
 }
 
 .c2c-prereg-strip--tl {
-  top: 18%;
-  left: 12%;
-  transform: translate(-68%, -72%) rotate(22deg) scaleX(0);
+  top: 14%;
+  left: 10%;
+  transform: translate(-78%, -62%) rotate(-23deg) scaleX(0);
 }
 
 .c2c-prereg.is-active .c2c-prereg-strip--tl {
   opacity: 0.94;
-  transform: translate(-50%, -50%) rotate(22deg) scaleX(1);
+  transform: translate(-54%, -54%) rotate(-23deg) scaleX(1);
 }
 
 .c2c-prereg-strip--br {
@@ -928,38 +995,48 @@ h4 {
   transform: translate(50%, 50%) rotate(-34deg) scaleX(1);
 }
 
-.c2c-prereg-strip__inner {
+.c2c-prereg-strip__track {
   display: flex;
+  width: max-content;
+  min-width: max-content;
   height: 100%;
-  flex: 0 0 50%;
+  will-change: transform;
   animation: c2c-prereg-scroll var(--c2c-prereg-strip-duration, 18s) linear infinite;
 }
 
-.c2c-prereg-strip--br .c2c-prereg-strip__inner {
+.c2c-prereg-strip--br .c2c-prereg-strip__track {
   animation-direction: reverse;
 }
 
 @keyframes c2c-prereg-scroll {
   from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
+  to { transform: translateX(-50%); }
 }
 
-.c2c-prereg-tri {
-  flex: 0 0 clamp(56px, 10vmin, 112px);
+.c2c-prereg-tile {
+  position: relative;
+  flex: 0 0 clamp(58px, 8.2vmin, 106px);
   height: 100%;
-  margin-left: calc(-1 * clamp(28px, 5vmin, 56px));
+  overflow: hidden;
+  transform: translateZ(0);
 }
 
-.c2c-prereg-tri:first-child {
-  margin-left: 0;
+.c2c-prereg-tile::before,
+.c2c-prereg-tile::after {
+  content: "";
+  position: absolute;
+  inset: -0.75px;
+  backface-visibility: hidden;
 }
 
-.c2c-prereg-tri.is-up {
-  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+.c2c-prereg-tile::before {
+  background: var(--tri-a);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
 }
 
-.c2c-prereg-tri.is-down {
-  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+.c2c-prereg-tile::after {
+  background: var(--tri-b);
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
 }
 
 /* Corner labels */
@@ -994,7 +1071,7 @@ h4 {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%) scale(0.96);
-  width: min(440px, calc(100vw - 32px));
+  width: min(520px, calc(100vw - 32px));
   max-height: calc(100svh - 150px);
   overflow: auto;
   display: flex;
@@ -1144,19 +1221,18 @@ h4 {
 @media (max-width: 640px) {
   .c2c-prereg-strip {
     height: clamp(48px, 14vmin, 96px);
-    width: 250vmax;
+    width: 280vmax;
   }
-  .c2c-prereg-tri {
-    flex: 0 0 clamp(44px, 12vmin, 88px);
-    margin-left: calc(-1 * clamp(22px, 6vmin, 44px));
+  .c2c-prereg-tile {
+    flex-basis: clamp(44px, 11vmin, 84px);
   }
   .c2c-prereg-strip--tl {
-    top: 8%;
-    left: 8%;
-    transform: translate(-72%, -80%) rotate(24deg) scaleX(0);
+    top: 9%;
+    left: 6%;
+    transform: translate(-82%, -60%) rotate(-25deg) scaleX(0);
   }
   .c2c-prereg.is-active .c2c-prereg-strip--tl {
-    transform: translate(-48%, -40%) rotate(24deg) scaleX(1);
+    transform: translate(-55%, -42%) rotate(-25deg) scaleX(1);
   }
   .c2c-prereg-strip--br {
     bottom: 10%;
@@ -1192,7 +1268,7 @@ h4 {
   .c2c-prereg-corner {
     transition-duration: 1ms;
   }
-  .c2c-prereg-strip__inner {
+  .c2c-prereg-strip__track {
     animation: none;
   }
 }

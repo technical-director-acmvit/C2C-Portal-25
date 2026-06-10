@@ -85,10 +85,11 @@ function computeGeometry(width: number, height: number): SectorGeometry[] {
 
   // Reserve padding so labels do not run off-screen or collide with the
   // bottom button. Cutout (south wedge) gets extra bottom reserve.
-  const estimatedLabelHalf = Math.min(width * 0.16, Math.max(54, Math.min(width, height) * 0.14));
+  const minDim = Math.min(width, height);
+  const estimatedLabelHalf = Math.min(width * 0.2, Math.max(72, minDim * 0.18));
   const padX = Math.max(estimatedLabelHalf + 12, width * 0.055);
-  const padY = Math.max(56, height * 0.05);
-  const buttonReserve = 120;
+  const padY = Math.max(68, height * 0.06);
+  const buttonReserve = Math.max(170, Math.min(260, height * 0.22));
 
   return SECTORS.map((sector) => {
     const centerAngle = (sector.centerDeg * Math.PI) / 180;
@@ -124,8 +125,15 @@ function computeGeometry(width: number, height: number): SectorGeometry[] {
     // not lean toward a corner and spill into the neighbouring wedge on
     // narrow viewports (e.g. Galaxy Z Fold 5 outer screen).
     const bisectorExit = rayToEdge(centerAngle, cx, cy, width, height);
-    const minDim = Math.min(width, height);
-    const fraction = minDim < 480 ? 0.62 : 0.7;
+    const fractionBySector: Record<string, number> = {
+      venue: minDim < 480 ? 0.58 : 0.64,
+      campus: minDim < 480 ? 0.58 : 0.64,
+      state: minDim < 480 ? 0.56 : 0.62,
+      cutout: minDim < 480 ? 0.43 : 0.5,
+      date: minDim < 480 ? 0.56 : 0.62,
+      return: minDim < 480 ? 0.58 : 0.64,
+    };
+    const fraction = fractionBySector[sector.key] ?? (minDim < 480 ? 0.58 : 0.64);
     let labelX = cx + fraction * (bisectorExit[0] - cx);
     let labelY = cy + fraction * (bisectorExit[1] - cy);
 

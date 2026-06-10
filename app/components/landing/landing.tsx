@@ -118,13 +118,50 @@ const Landing = ({ onPreRegister }: LandingProps = {}) => {
             className="absolute left-1/2 -translate-x-1/2 z-20 c2c-prereg-cta"
             style={{ bottom: "32%" }}
           >
+            <svg
+              className="c2c-prereg-liquid-filter"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+              focusable="false"
+              width="0"
+              height="0"
+            >
+              <defs>
+                <filter id="c2c-prereg-liquid-glass" x="-20%" y="-80%" width="140%" height="260%">
+                  <feTurbulence
+                    type="fractalNoise"
+                    baseFrequency="0.012 0.028"
+                    numOctaves="2"
+                    seed="7"
+                    result="noise"
+                  />
+                  <feGaussianBlur in="noise" stdDeviation="9" result="softNoise" />
+                  <feComponentTransfer in="softNoise" result="dispMap">
+                    <feFuncA type="discrete" tableValues="0 0.45 0.85 1" />
+                  </feComponentTransfer>
+                  <feDisplacementMap
+                    in="SourceGraphic"
+                    in2="dispMap"
+                    scale="26"
+                    xChannelSelector="R"
+                    yChannelSelector="G"
+                    result="displaced"
+                  />
+                  <feGaussianBlur in="displaced" stdDeviation="1.2" />
+                </filter>
+              </defs>
+            </svg>
             <button
               type="button"
               onClick={onPreRegister}
               className="c2c-prereg-trigger group inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm sm:text-base"
             >
-              <span aria-hidden className="c2c-prereg-trigger__dot" />
-              <span className="font-semibold tracking-wide">Pre-register for C2C 7.0</span>
+              <span aria-hidden className="c2c-prereg-trigger__effect" />
+              <span aria-hidden className="c2c-prereg-trigger__tint" />
+              <span aria-hidden className="c2c-prereg-trigger__shine" />
+              <span className="c2c-prereg-trigger__content font-semibold tracking-wide">
+                Pre-register for C2C 7.0
+              </span>
               <span aria-hidden className="c2c-prereg-trigger__arrow">→</span>
             </button>
           </div>
