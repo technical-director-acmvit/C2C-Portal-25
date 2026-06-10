@@ -132,6 +132,11 @@ export default function ReturnAnnouncement({ active, onToggle }: ReturnAnnouncem
         <div className="c2c-upcoming-overlay__shine" />
 
         <div className="c2c-upcoming-stage" aria-hidden={!active}>
+          <div className="c2c-upcoming-sector-layer">
+            {SECTORS.map((item) => (
+              <div key={item.className} className={item.className} />
+            ))}
+          </div>
           <div className="c2c-upcoming-logo-wrap">
             <Image
               src="/landing/C2C Logo.svg"
@@ -141,19 +146,14 @@ export default function ReturnAnnouncement({ active, onToggle }: ReturnAnnouncem
               priority
               className="c2c-upcoming-logo"
             />
-            <div className="c2c-upcoming-sector-layer">
-              {SECTORS.map((item) => (
-                <div key={item.className} className={item.className} />
-              ))}
-            </div>
-            <div className="c2c-upcoming-label-layer">
-              {SECTORS.map((item) => (
-                <div key={item.labelClassName} className={item.labelClassName}>
-                  <span>{item.eyebrow}</span>
-                  <strong>{item.value}</strong>
-                </div>
-              ))}
-            </div>
+          </div>
+          <div className="c2c-upcoming-label-layer">
+            {SECTORS.map((item) => (
+              <div key={item.labelClassName} className={item.labelClassName}>
+                <span>{item.eyebrow}</span>
+                <strong>{item.value}</strong>
+              </div>
+            ))}
           </div>
         </div>
       </div>

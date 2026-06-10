@@ -519,25 +519,19 @@ h4 {
 }
 
 .c2c-upcoming-sector-layer {
-  position: absolute;
-  inset: -50%;
+  position: fixed;
+  inset: 0;
   opacity: 0;
-  transform: scale(0.98);
-  transition:
-    opacity 280ms ease 360ms,
-    transform 900ms cubic-bezier(0.22, 1, 0.36, 1) 360ms;
+  transition: opacity 220ms ease 260ms;
   pointer-events: none;
   z-index: 3;
 }
 
 .c2c-upcoming-label-layer {
-  position: absolute;
+  position: fixed;
   inset: 0;
   opacity: 0;
-  transform: scale(0.98);
-  transition:
-    opacity 280ms ease 720ms,
-    transform 760ms cubic-bezier(0.22, 1, 0.36, 1) 720ms;
+  transition: opacity 280ms ease 760ms;
   pointer-events: none;
   z-index: 4;
 }
@@ -545,44 +539,38 @@ h4 {
 .c2c-upcoming-overlay.is-active .c2c-upcoming-sector-layer,
 .c2c-upcoming-overlay.is-active .c2c-upcoming-label-layer {
   opacity: 1;
-  transform: scale(1);
 }
 
 .c2c-upcoming-sector {
-  --sector-angle: 0deg;
+  --sector-clip: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
   --sector-color: rgba(72, 186, 134, 0.88);
   --sector-delay: 470ms;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: max(78svw, 78svh);
-  height: clamp(58px, 12vmin, 138px);
+  position: fixed;
+  inset: 0;
   background: var(--sector-color);
-  clip-path: polygon(0 18%, 100% 0, 96% 50%, 100% 100%, 0 82%);
-  transform: rotate(var(--sector-angle)) translateY(-50%) scaleX(0);
-  transform-origin: 0 50%;
-  transition:
-    transform 880ms cubic-bezier(0.19, 1, 0.22, 1) var(--sector-delay),
-    opacity 320ms ease var(--sector-delay);
+  clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
   opacity: 0;
-  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.2);
+  transition:
+    clip-path 920ms cubic-bezier(0.19, 1, 0.22, 1) var(--sector-delay),
+    opacity 260ms ease var(--sector-delay);
 }
 
 .c2c-upcoming-overlay.is-active .c2c-upcoming-sector {
-  opacity: 0.96;
-  transform: rotate(var(--sector-angle)) translateY(-50%) scaleX(1);
+  clip-path: var(--sector-clip);
+  opacity: 0.88;
 }
 
 .c2c-upcoming-label {
-  position: absolute;
+  position: fixed;
   display: flex;
-  width: clamp(96px, 15vmin, 180px);
+  width: clamp(124px, 18vmin, 230px);
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   color: white;
-  text-align: left;
+  text-align: center;
   text-shadow: 0 1px 16px rgba(0, 0, 0, 0.5);
+  transform: translate(-50%, -50%);
 }
 
 .c2c-upcoming-label span {
@@ -604,67 +592,67 @@ h4 {
 }
 
 .c2c-upcoming-label--date {
-  left: 33%;
-  top: 41%;
+  left: 23%;
+  top: 67%;
 }
 
 .c2c-upcoming-label--venue {
-  left: 55%;
-  top: 36%;
+  left: 50%;
+  top: 17%;
 }
 
 .c2c-upcoming-label--campus {
-  left: 60%;
-  top: 50%;
+  left: 77%;
+  top: 33%;
 }
 
 .c2c-upcoming-label--state {
-  left: 58%;
-  top: 63%;
+  left: 77%;
+  top: 67%;
 }
 
 .c2c-upcoming-label--cutout {
-  left: 42%;
-  top: 62%;
+  left: 50%;
+  top: 83%;
 }
 
 .c2c-upcoming-label--return {
-  left: 30%;
-  top: 55%;
+  left: 23%;
+  top: 33%;
 }
 
 .c2c-upcoming-sector--date {
-  --sector-angle: -122deg;
-  --sector-color: rgba(162, 215, 190, 0.9);
+  --sector-clip: polygon(50% 50%, 20% 100%, 0 50%, 0 50%);
+  --sector-color: rgba(116, 207, 164, 0.86);
   --sector-delay: 460ms;
 }
 
 .c2c-upcoming-sector--venue {
-  --sector-angle: -58deg;
-  --sector-color: rgba(90, 192, 143, 0.9);
+  --sector-clip: polygon(50% 50%, 20% 0, 80% 0, 80% 0);
+  --sector-color: rgba(90, 192, 143, 0.86);
   --sector-delay: 510ms;
 }
 
 .c2c-upcoming-sector--campus {
-  --sector-angle: 0deg;
+  --sector-clip: polygon(50% 50%, 80% 0, 100% 50%, 100% 50%);
   --sector-color: rgba(68, 177, 129, 0.91);
   --sector-delay: 560ms;
 }
 
 .c2c-upcoming-sector--state {
-  --sector-angle: 58deg;
-  --sector-color: rgba(116, 207, 164, 0.9);
+  --sector-clip: polygon(50% 50%, 100% 50%, 80% 100%, 80% 100%);
+  --sector-color: rgba(162, 215, 190, 0.86);
   --sector-delay: 610ms;
 }
 
 .c2c-upcoming-sector--cutout {
-  --sector-angle: 122deg;
-  --sector-color: rgba(175, 226, 201, 0.9);
+  --sector-clip: polygon(50% 50%, 80% 100%, 20% 100%, 20% 100%);
+  --sector-color: rgba(175, 226, 201, 0.84);
   --sector-delay: 660ms;
 }
 
 .c2c-upcoming-sector--return {
-  --sector-angle: 180deg;
+  --sector-clip: polygon(50% 50%, 0 50%, 20% 0, 20% 0);
   --sector-color: rgba(53, 158, 111, 0.92);
   --sector-delay: 710ms;
 }
@@ -750,12 +738,11 @@ h4 {
   }
 
   .c2c-upcoming-sector {
-    width: max(88svw, 72svh);
-    height: clamp(38px, 10vmin, 58px);
+    inset: 0;
   }
 
   .c2c-upcoming-label {
-    width: clamp(70px, 23vmin, 112px);
+    width: clamp(78px, 24vmin, 120px);
   }
 
   .c2c-upcoming-label span {
@@ -769,33 +756,33 @@ h4 {
   }
 
   .c2c-upcoming-label--date {
-    left: 29%;
-    top: 42%;
+    left: 23%;
+    top: 66%;
   }
 
   .c2c-upcoming-label--venue {
-    left: 56%;
-    top: 38%;
+    left: 50%;
+    top: 19%;
   }
 
   .c2c-upcoming-label--campus {
-    left: 59%;
-    top: 50%;
+    left: 75%;
+    top: 36%;
   }
 
   .c2c-upcoming-label--state {
-    left: 55%;
-    top: 61%;
+    left: 75%;
+    top: 64%;
   }
 
   .c2c-upcoming-label--cutout {
-    left: 39%;
-    top: 61%;
+    left: 50%;
+    top: 79%;
   }
 
   .c2c-upcoming-label--return {
-    left: 27%;
-    top: 53%;
+    left: 25%;
+    top: 36%;
   }
 
   .c2c-upcoming-button {
