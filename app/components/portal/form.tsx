@@ -239,7 +239,7 @@ const Form = ({ onBack, requirePPT = false, embedded = false, onClose }: FormPro
                       }, 0);
                     }, 900);
                   }
-                } catch (_) {
+                } catch {
                   // no-op; if detection fails, let default anchor behavior proceed
                 }
               }}

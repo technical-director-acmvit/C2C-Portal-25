@@ -24,27 +24,19 @@ export default function Home() {
   const initialize = usePortalStore((s) => s.initialize);
   const setView = usePortalStore((s) => s.setView);
   const dashboard = usePortalStore((s) => s.dashboard);
+  const team = dashboard?.team;
   const refreshDashboard = usePortalStore((s) => s.refreshDashboard);
   const whitelistChecked = usePortalStore((s) => s.whitelistChecked);
   const whitelistOk = usePortalStore((s) => s.whitelistOk);
-  const whitelistError = usePortalStore((s) => s.whitelistError);
   const emailToCheck = session?.user?.email ?? null;
 
   // Check if user needs to provide room details
-  const needsRoomDetails = React.useMemo(() => {
-    const user = dashboard?.user;
-    if (!user) return false;
-    
-    // Only show modal for internal users
-    if (user.internal !== true) return false;
-    
-    // Show modal if either room_number or block is missing for hostellers
-    // For dayscholar users (hosteller: false), we don't need room details
-    if (user.hosteller === false) return false;
-    
-    // For hostellers, check if room_number or block is missing
-    return !user.room_number || !user.block;
-  }, [dashboard?.user, dashboard]); // Add dashboard as dependency to trigger on every refresh
+  const user = dashboard?.user;
+  const needsRoomDetails = Boolean(
+    user?.internal === true &&
+    user.hosteller !== false &&
+    (!user.room_number || !user.block)
+  );
     
 
 
@@ -59,12 +51,11 @@ export default function Home() {
     const iid = url.searchParams.get("installation_id");
     if (!iid) return;
     // Only allow GitHub view when the user is in a team
-    if (dashboard?.team) setView("github");
-  }, [dashboard, setView]);
+    if (team) setView("github");
+  }, [team, setView]);
 
   // Ensure the repo is tagged on portal load if we already have an installation and repo URL
   useEffect(() => {
-    const team = dashboard?.team;
     const installationId = team?.github_installation_id || null;
     const repoUrl = (team?.github_url && String(team.github_url).trim()) || null;
     if (!installationId || !repoUrl) return;
@@ -94,7 +85,7 @@ export default function Home() {
       } catch {}
     })();
     return () => { cancelled = true; };
-  }, [dashboard?.team?.github_installation_id, dashboard?.team?.github_url]);
+  }, [team]);
 
   // No explicit whitelist effect here — store.initialize triggers verifyWhitelist.
 
@@ -255,4 +246,3 @@ export default function Home() {
     </>
   );
 }
-

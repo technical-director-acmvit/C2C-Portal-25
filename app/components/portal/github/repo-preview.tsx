@@ -166,7 +166,7 @@ export default function RepoPreview({ installationId }: { installationId: string
     return () => {
       active = false;
     };
-  }, [installationId, owner, repo]);
+  }, [installationId, isSelectedConnectedRepo, owner, repo]);
 
   if (!owner || !repo) return null;
 

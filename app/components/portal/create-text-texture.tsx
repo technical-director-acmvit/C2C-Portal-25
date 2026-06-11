@@ -3,9 +3,7 @@ import * as THREE from "three";
 interface TextTextureOptions {
   width?: number;
   height?: number;
-  font?: string;
   background?: string;
-  color?: string;
 }
 
 
@@ -20,9 +18,7 @@ export function createTextTexture(
   const {
     width = 1678,
     height = 1677,
-    font = "160px DM Sans",
     background = "black",
-    color = "#48BA86",
   } = options;
 
   // Create a cache key based on text, front, and options

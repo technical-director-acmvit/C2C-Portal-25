@@ -165,7 +165,7 @@ export async function tagRepoAction(
       // console.log("[C2C] tagRepoAction: topics updated", { owner, repo, tag: normalized });
     } catch {}
     return { ok: true, method: "topics", tag: normalized } as const;
-  } catch (e) {
+  } catch {
     try {
       // console.log("[C2C] tagRepoAction: topics attempt failed; falling back to labels", {
       //   owner,
@@ -192,7 +192,7 @@ export async function tagRepoAction(
         //console.log("[C2C] tagRepoAction: label created or existed", { owner, repo, tag: tagHumanReadable });
       } catch {}
       return { ok: true, method: "labels", tag: tagHumanReadable } as const;
-    } catch (e2) {
+    } catch {
       try {
         // console.log("[C2C] tagRepoAction: label fallback failed", {
         //   owner,
