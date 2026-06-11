@@ -147,10 +147,39 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full overflow-x-hidden">
+    <html lang="en" className="min-h-full overflow-x-hidden overflow-y-auto">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden min-h-[100svh] overscroll-y-none touch-pan-y`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-[100svh] overflow-x-hidden overflow-y-auto touch-pan-y`}
       >
+        {/* Shared SVG distortion filter for the liquid-glass treatment used
+         * by the navbar and the See upcoming / Pre-register CTAs. */}
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          width="0"
+          height="0"
+          style={{ position: "absolute", width: 0, height: 0, pointerEvents: "none" }}
+        >
+          <defs>
+            <filter id="c2c-liquid-glass" x="0%" y="0%" width="100%" height="100%">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.008 0.008"
+                numOctaves="2"
+                seed="92"
+                result="noise"
+              />
+              <feGaussianBlur in="noise" stdDeviation="2" result="softNoise" />
+              <feDisplacementMap
+                in="SourceGraphic"
+                in2="softNoise"
+                scale="60"
+                xChannelSelector="R"
+                yChannelSelector="G"
+              />
+            </filter>
+          </defs>
+        </svg>
         <ModalProvider>{children}</ModalProvider>
       </body>
     </html>

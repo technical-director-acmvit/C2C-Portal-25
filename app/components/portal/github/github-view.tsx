@@ -37,7 +37,7 @@ export default function GithubView({ onBack, hasTeam: hasTeamProp, noBackground 
   const [justLinked, setJustLinked] = useState<boolean>(false);
   const [retryKey, setRetryKey] = useState<number>(0);
   const [, setHash] = useState<string>(typeof window !== "undefined" ? window.location.hash : "");
-  const connectedUrl = (team && (team as any).github_url && String((team as any).github_url).trim()) || null;
+  const connectedUrl = (team?.github_url && String(team.github_url).trim()) || null;
   const connected = Boolean(connectedUrl);
   function parseOwnerRepo(urlStr: string | null): { owner: string | null; repo: string | null } {
     if (!urlStr) return { owner: null, repo: null };

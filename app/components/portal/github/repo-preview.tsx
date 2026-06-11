@@ -5,18 +5,18 @@ import InlineLoader from "../inline-loader";
 import LanguageBar from "./language-bar";
 import PortalButton from "../ui/button";
 import { updateTeam } from "@/app/actions/update_team";
-  import {
-    listCommitsAction,
-    getContentsAction,
-    saveInstallationAction,
-    tagRepoAction,
-    getRepoAction,
-    listBranchesAction,
-    listPullsAction,
-    listIssuesAction,
-    listReleasesAction,
+import {
+  listCommitsAction,
+  getContentsAction,
+  tagRepoAction,
+  getRepoAction,
+  listBranchesAction,
+  listPullsAction,
+  listIssuesAction,
+  listReleasesAction,
   listLanguagesAction,
-  } from "@/app/actions/github";
+} from "@/app/actions/github";
+import { saveInstallationClient } from "@/app/actions/github/client";
 import { useDashStore } from "@/app/stores/dash";
 import { usePortalStore } from "@/app/stores/portal";
 
@@ -27,7 +27,7 @@ export default function RepoPreview({ installationId }: { installationId: string
   const portalDashboard = usePortalStore((s) => s.dashboard);
   const dashDashboard = useDashStore.getState().dashboard;
   const team = portalDashboard?.team || dashDashboard?.team || null;
-  const connectedUrl = (team && (team as any).github_url && String((team as any).github_url).trim()) || null;
+  const connectedUrl = (team?.github_url && String(team.github_url).trim()) || null;
   function parseOwnerRepo(urlStr: string | null): { owner: string | null; repo: string | null } {
     if (!urlStr) return { owner: null, repo: null };
     try {

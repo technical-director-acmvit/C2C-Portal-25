@@ -11,87 +11,17 @@ import Footer from "./components/landing/footer";
 import Speaker from "./components/landing/speaker";
 import TopBar from "./components/landing/top-bar";
 import ViewportPortal from "@/components/viewport-portal";
-import { useLayoutEffect } from "react";
-import { InteractiveHoverButton } from "./components/landing/ui/cta-button";
+import { useLayoutEffect, useEffect, useState, useCallback } from "react";
 import { StickyScroll } from "./components/landing/ui/sticky-scroll-reveal";
 import Image from "next/image";
 import GradientBG from "./components/landing/gradient-bg";
 import DotGrid from "./components/landing/dot-grid";
 import HeadingText from "./components/landing/HeadingText";
-import Tracks from "./components/landing/tracks";
-import { REGISTRATIONS_OPEN } from "@/lib/env";
-import { useRouter } from "next/navigation";
+import Tracks, { LANDING_TRACKS } from "./components/landing/tracks";
+import ReturnAnnouncement from "./components/landing/return-announcement";
+import PreRegistration from "./components/landing/pre-registration";
 
-const DesktopRegisterButton = () => {
-  const router = useRouter();
-
-  return (
-    <div className="hidden md:flex fixed left-1/2 -translate-x-1/2 bottom-[8%] z-[9999]">
-      {REGISTRATIONS_OPEN ? (
-        <InteractiveHoverButton
-          onClick={() => router.push('/portal')}
-          className="w-[280px] text-lg px-5 py-2 min-h-[48px] rounded-full font-bold flex items-center justify-center bg-[#48BA86] hover:bg-[#3aa874] text-black border border-[#48BA86] transition-colors"
-        >
-          Register Now
-        </InteractiveHoverButton>
-      ) : (
-        <span
-          className="inline-block w-[280px] text-lg px-5 py-2 min-h-[48px] rounded-full font-bold text-white border border-white/30 bg-black/30 backdrop-blur-sm text-center"
-          aria-live="polite"
-        >
-          Registrations opening soon
-        </span>
-      )}
-    </div>
-  );
-};
-
-const TRACKS = [
-  {
-    number: 1,
-    title: "I Can Do It Better",
-    description:
-      "Reimagine and improve widely used software by enhancing usability, adding desired features, or optimizing performance.",
-    svgPath: "/tracks/CanDoBetter.svg",
-  },
-    {
-    number: 2,
-    title: "I Can Do It Better",
-    description:
-      "Reimagine and improve widely used software by enhancing usability, adding desired features, or optimizing performance.",
-    svgPath: "/tracks/CanDoBetter.svg",
-  },
-  {
-    number: 3,
-    title: "Art Attack",
-    description:
-      "Build tools that reimagine creative expression through technologies that help create music, art, or media in new and exciting ways.",
-    svgPath: "/tracks/Art_Attack.svg",
-  },
-  {
-    number: 4,
-    title: "Game Over",
-    description:
-      "Create experiences that redefine gaming through original games and technologies that improve gameplay, performance, or game development.",
-    svgPath: "/tracks/Game_Over.svg",
-  },
-  {
-    number: 5,
-    title: "Digital Dawn",
-    description:
-      "Create solutions that uniquely solve Indian challenges at scale, focusing on affordable and inclusive technology for the next billion users.",
-    svgPath: "/tracks/Digital_Dawn.svg",
-  },
-  {
-    number: 6,
-    title: "AI Solutions",
-    description:
-      "Build intelligent systems using RunPod's compute services to create practical and scalable AI solutions for real-world problems.",
-    svgPath: "/tracks/ai_solutions.svg",
-  },
-];
-
-const TRACKS_CONTENT = TRACKS.map((track) => ({
+const TRACKS_CONTENT = LANDING_TRACKS.map((track) => ({
   title: track.title,
   description: track.description,
   content: (
@@ -109,6 +39,9 @@ const TRACKS_CONTENT = TRACKS.map((track) => ({
 }));
 
 export default function Page() {
+  const [upcomingOpen, setUpcomingOpen] = useState(false);
+  const [preRegisterOpen, setPreRegisterOpen] = useState(false);
+
   useLayoutEffect(() => {
     // ScrollSmoother.create({
     //   wrapper: '#smooth-wrapper',
@@ -117,22 +50,70 @@ export default function Page() {
     // });
   }, []);
 
+  const toggleUpcoming = useCallback(() => {
+    setUpcomingOpen((current) => !current);
+  }, []);
+
+  const openPreRegister = useCallback(() => {
+    setPreRegisterOpen(true);
+  }, []);
+
+  const closePreRegister = useCallback(() => setPreRegisterOpen(false), []);
+
+  // Lock body scroll while the pre-register flow is open
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const previousBody = document.body.style.overflow;
+    const previousHtml = document.documentElement.style.overflow;
+    document.body.style.overflow = preRegisterOpen ? "hidden" : previousBody || "";
+    document.documentElement.style.overflow = preRegisterOpen ? "hidden" : previousHtml || "";
+    return () => {
+      document.body.style.overflow = previousBody || "";
+      document.documentElement.style.overflow = previousHtml || "";
+    };
+  }, [preRegisterOpen]);
+
+  // Surface the upcoming toggle to the (portal-rendered) TopBar nav item
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const handler = () => toggleUpcoming();
+    window.addEventListener("c2c:open-upcoming", handler);
+    return () => window.removeEventListener("c2c:open-upcoming", handler);
+  }, [toggleUpcoming]);
+
+  const shellClass = [
+    "relative w-full c2c-page-shell",
+    upcomingOpen ? "is-upcoming-open" : "",
+    preRegisterOpen ? "is-prereg-open" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <div className="relative w-full">
+    <div className={shellClass}>
       <div className="fixed inset-0 -z-10 bg-gradient-to-b from-[#0a0a0a] via-[#161616] to-[#0a0a0a]" />
 
-      <ViewportPortal>
-        <TopBar />
+      <ViewportPortal
+        className={`c2c-upcoming-header ${upcomingOpen ? "is-upcoming-open" : ""} ${
+          preRegisterOpen ? "is-prereg-open" : ""
+        }`}
+      >
+        <TopBar onUpcomingEdition={toggleUpcoming} />
       </ViewportPortal>
-
-      <ViewportPortal>
-        <DesktopRegisterButton />
+      <ViewportPortal
+        id="c2c-upcoming-portal"
+        className={`c2c-upcoming-host ${preRegisterOpen ? "is-prereg-open" : ""}`}
+      >
+        <ReturnAnnouncement active={upcomingOpen} onToggle={toggleUpcoming} />
+      </ViewportPortal>
+      <ViewportPortal id="c2c-prereg-portal">
+        <PreRegistration active={preRegisterOpen} onClose={closePreRegister} />
       </ViewportPortal>
 
       <div id="smooth-wrapper" className="relative z-0">
         <div id="smooth-content">
           <div className="relative">
-            <Landing />
+            <Landing onPreRegister={openPreRegister} />
           </div>
 
           <div className="min-h-screen flex flex-col">
@@ -171,6 +152,7 @@ export default function Page() {
               </div>
             </div>
           </div>
+
           <div id="speakers" className="min-h-screen flex items-center justify-between flex-col">
             <Speaker />
           </div>

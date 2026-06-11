@@ -13,8 +13,11 @@ export async function saveInstallationClient(params: {
     body: JSON.stringify(params),
     cache: "no-store",
   });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error((data as any)?.error || "Failed to save installation");
+  const data: unknown = await res.json().catch(() => ({}));
+  const error =
+    data && typeof data === "object" && "error" in data && typeof data.error === "string"
+      ? data.error
+      : "Failed to save installation";
+  if (!res.ok) throw new Error(error);
   return data;
 }
-
