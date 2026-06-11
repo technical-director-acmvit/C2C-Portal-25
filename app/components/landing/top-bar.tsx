@@ -7,7 +7,11 @@ import { useRouter } from "next/navigation";
 import { InteractiveHoverButton } from "@/app/components/landing/ui/cta-button";
 import { REGISTRATIONS_OPEN } from "@/lib/env";
 
-export default function TopBar() {
+type TopBarProps = {
+  onUpcomingEdition?: () => void;
+};
+
+export default function TopBar({ onUpcomingEdition }: TopBarProps = {}) {
   const [menuOpen, setMenuOpen] = useState(false);
   const router = useRouter();
 
@@ -22,6 +26,15 @@ export default function TopBar() {
   }, [menuOpen]);
 
   const handleNavClick = (href: string) => {
+    if (href === "#__upcoming") {
+      if (onUpcomingEdition) {
+        onUpcomingEdition();
+      } else if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("c2c:open-upcoming"));
+      }
+      setMenuOpen(false);
+      return;
+    }
     if (href.startsWith("#")) {
       const element = document.querySelector(href);
       if (element) {
@@ -46,16 +59,19 @@ export default function TopBar() {
     { href: "#speakers", label: "Speakers", hasDropdown: false },
     { href: "#sponsors", label: "Sponsors", hasDropdown: false },
     { href: "#faqs", label: "FAQs", hasDropdown: false },
+    { href: "#__upcoming", label: "See upcoming Edition", hasDropdown: false },
   ];
 
   return (
     <>
-      <div className="w-full bg-transparent border-b border-white backdrop-blur-sm">
-        <div className="w-full flex items-center justify-between px-0 sm:px-0 lg:px-0 py-2 md:py-0 md:h-14">
-          <div className="flex-shrink-0 border-r border-white pr-4 md:pr-8 py-1 flex items-center">
+      <div className="c2c-topbar w-full border-b border-white/30">
+        <span aria-hidden className="c2c-topbar__effect" />
+        <span aria-hidden className="c2c-topbar__tint" />
+        <span aria-hidden className="c2c-topbar__shine" />
+        <div className="w-full flex items-center justify-between px-0 py-2 min-[1120px]:py-0 min-[1120px]:h-14">
+          <div className="flex-shrink-0 border-r border-white pr-4 min-[1120px]:pr-8 py-1 flex items-center">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              onPointerDown={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="cursor-pointer"
               aria-label="Scroll to top"
             >
@@ -72,21 +88,20 @@ export default function TopBar() {
             </button>
           </div>
 
-          <nav className="hidden md:flex flex-1 justify-center items-center px-4 md:h-full">
-            <ul className="flex gap-4 items-center h-full">
+          <nav className="hidden min-[1120px]:flex flex-1 justify-center items-center px-2 min-[1120px]:h-full">
+            <ul className="flex gap-1 xl:gap-2 items-center h-full">
               {navLinks.map((link) => (
                 <li key={link.href} className="min-w-0 flex items-center h-full">
                   {link.href.startsWith("#") ? (
                     <button
                       onClick={() => handleNavClick(link.href)}
-                      onPointerDown={() => handleNavClick(link.href)}
                       className="group inline-flex items-center justify-center h-full cursor-pointer"
                     >
                       <span
-                        className="flex items-center justify-center space-x-2 px-3 py-1 rounded-md transition-colors min-w-0"
+                        className="flex items-center justify-center space-x-2 px-2 xl:px-3 py-1 rounded-md transition-colors min-w-0"
                         style={{ fontFamily: "Trap, Arial, sans-serif" }}
                       >
-                        <span className="text-white group-hover:text-gray-300 text-center leading-tight break-words">
+                        <span className="text-white group-hover:text-gray-300 text-center leading-tight text-[13px] xl:text-sm whitespace-nowrap">
                           {link.label}
                         </span>
                         {link.hasDropdown && (
@@ -108,10 +123,10 @@ export default function TopBar() {
                       className="group inline-flex items-center justify-center h-full cursor-pointer"
                     >
                       <span
-                        className="flex items-center justify-center space-x-2 px-3 py-1 rounded-md transition-colors min-w-0"
+                        className="flex items-center justify-center space-x-2 px-2 xl:px-3 py-1 rounded-md transition-colors min-w-0"
                         style={{ fontFamily: "Trap, Arial, sans-serif" }}
                       >
-                        <span className="text-white group-hover:text-gray-300 text-center leading-tight break-words">
+                        <span className="text-white group-hover:text-gray-300 text-center leading-tight text-[13px] xl:text-sm whitespace-nowrap">
                           {link.label}
                         </span>
                         {link.hasDropdown && (
@@ -133,29 +148,20 @@ export default function TopBar() {
             </ul>
           </nav>
 
-          <div className="md:hidden flex items-center gap-2">
-            {REGISTRATIONS_OPEN ? (
+          <div className="min-[1120px]:hidden flex items-center gap-2">
+            {REGISTRATIONS_OPEN && (
               <InteractiveHoverButton
                 variant="simple"
                 onClick={() => router.push('/portal')}
-                onPointerDown={() => router.push('/portal')}
                 className="w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors cursor-pointer"
               >
                 Register Now
               </InteractiveHoverButton>
-            ) : (
-              <span
-                className="inline-block w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold text-white border border-white/30 bg-black/30 backdrop-blur-sm"
-                aria-live="polite"
-              >
-                Registrations opening soon
-              </span>
             )}
             <button
               aria-label="Toggle menu"
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen((s) => !s)}
-              onPointerDown={() => setMenuOpen((s) => !s)}
               className="p-2 rounded-md text-white hover:bg-white/10 focus:outline-none focus:ring-white cursor-pointer"
             >
               {menuOpen ? (
@@ -183,7 +189,7 @@ export default function TopBar() {
             </button>
           </div>
 
-          <div className="hidden md:flex flex-shrink-0 border-l border-white pl-4 md:pl-8 py-1 items-center mr-4">
+          <div className="hidden min-[1120px]:flex flex-shrink-0 border-l border-white pl-4 min-[1120px]:pl-8 py-1 items-center mr-4">
             <a
               href="https://acmvit.in"
               target="_blank"
@@ -204,7 +210,7 @@ export default function TopBar() {
         </div>
 
         {menuOpen && (
-          <div className="md:hidden absolute inset-x-0 top-full bg-black/95 border-t border-white z-50">
+          <div className="min-[1120px]:hidden absolute inset-x-0 top-full bg-black/95 border-t border-white z-50">
             <div className="px-4 py-4">
               <ul className="flex flex-col gap-3">
                 {navLinks.map((link) => (
@@ -212,7 +218,6 @@ export default function TopBar() {
                     {link.href.startsWith("#") ? (
                       <button
                         onClick={() => handleNavClick(link.href)}
-                        onPointerDown={() => handleNavClick(link.href)}
                         className="block w-full px-3 py-2 rounded text-white hover:bg-white/10 text-center cursor-pointer"
                         style={{ fontFamily: "Trap, Arial, sans-serif" }}
                       >
@@ -222,7 +227,6 @@ export default function TopBar() {
                       <Link
                         href={link.href}
                         onClick={() => setMenuOpen(false)}
-                        onPointerDown={() => setMenuOpen(false)}
                         className="block w-full px-3 py-2 rounded text-white hover:bg-white/10 text-center cursor-pointer"
                         style={{ fontFamily: "Trap, Arial, sans-serif" }}
                       >

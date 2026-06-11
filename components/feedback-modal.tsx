@@ -36,11 +36,11 @@ export function FeedbackModal({ isOpen, onClose, email, eventType = 'C2C', onSub
   const fetchQuestions = async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const response = await fetch(`/api/feedback/questions?event_type=${eventType}`);
       const data = await response.json();
-      
+
       if (data.success) {
         setQuestions(data.questions);
         // Initialize answers object
@@ -69,7 +69,7 @@ export function FeedbackModal({ isOpen, onClose, email, eventType = 'C2C', onSub
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Only validate email if it was provided via URL (not anonymous)
     if (email && userEmail) {
       if (!userEmail.includes('@') || !userEmail.includes('.')) {
@@ -77,7 +77,7 @@ export function FeedbackModal({ isOpen, onClose, email, eventType = 'C2C', onSub
         return;
       }
     }
-    
+
     // Validate all questions are answered
     const unanswered = questions.filter(q => !answers[q.id]?.trim());
     if (unanswered.length > 0) {

@@ -5,7 +5,7 @@ import PortalButton from "../ui/button";
 
 export default function InstallCard({ installUrl }: { installUrl: string }) {
   return (
-    <div className="w-full max-w-3xl mx-auto bg-black/30 border border-white/10 rounded-2xl p-6 sm:p-8 animate-pop-in">
+    <div className="w-full mx-auto border border-white/10 rounded-2xl p-6 sm:p-8 animate-pop-in">
       <h2
         className="text-2xl sm:text-3xl font-bold"
         style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}

@@ -29,44 +29,46 @@ export const StickyScroll = ({
   useEffect(() => {
     if (!containerRef.current) return;
 
-    isMobileRef.current = window.matchMedia("(max-width: 1023px)").matches;
-    if (isMobileRef.current) return;
-
+    const mq = window.matchMedia("(min-width: 1024px)");
     const triggers: ScrollTrigger[] = [];
 
-    if (containerRef.current && stageRef.current) {
+    const setup = () => {
+      if (!containerRef.current || !stageRef.current) return;
       const endAdd = () => window.innerHeight * 0.7 * Math.max(1, content.length - 1);
-
       const t = ScrollTrigger.create({
         trigger: containerRef.current,
-        // Pin as soon as the section reaches the top to keep content centered in viewport
         start: "center center",
         end: () => "+=" + endAdd(),
         pin: stageRef.current,
         scrub: 0.2,
-        snap: {
-          snapTo: (value) => {
-            // value is 0..1 progress; snap to item steps
-            const steps = content.length - 1;
-            if (steps <= 0) return 0;
-            return Math.round(value * steps) / steps;
-          },
-          duration: 0.2,
-          ease: "power1.inOut",
-        },
+        // No snap — the snap step was producing an irritating mid-scroll jerk
+        // when the viewport sat near the breakpoint. The scrubbed pin alone
+        // already drives the activeCard updates smoothly.
         onUpdate: (self) => {
           const steps = content.length - 1;
           const idx = steps > 0 ? Math.round(self.progress * steps) : 0;
-          // Avoid capturing activeCard; setting same value is a no-op
           setActiveCard(idx);
         },
-        // markers: true,
       });
       triggers.push(t);
-    }
+    };
+
+    const teardown = () => {
+      while (triggers.length) triggers.pop()?.kill();
+    };
+
+    const apply = () => {
+      isMobileRef.current = !mq.matches;
+      teardown();
+      if (mq.matches) setup();
+    };
+
+    apply();
+    mq.addEventListener("change", apply);
 
     return () => {
-      triggers.forEach((tr) => tr.kill());
+      mq.removeEventListener("change", apply);
+      teardown();
     };
   }, [content.length]);
 

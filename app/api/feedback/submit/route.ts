@@ -25,12 +25,12 @@ export async function POST(request: NextRequest) {
     }
 
     const client = await pool.connect();
-    
+
     try {
       // Check if user already submitted feedback (only if email is provided)
       if (email) {
         const existingSubmission = await client.query(
-          `SELECT id FROM feedback_submissions 
+          `SELECT id FROM feedback_submissions
            WHERE email = $1 AND event_type = $2`,
           [email, eventType]
         );

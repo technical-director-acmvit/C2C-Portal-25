@@ -4,20 +4,22 @@ import React, { useEffect, useState } from "react";
 import InstallCard from "@/app/components/portal/github/install-card";
 import RepoList from "@/app/components/portal/github/repo-list";
 import RepoPreview from "@/app/components/portal/github/repo-preview";
-import {
-  getInstallUrlAction,
-  listInstallationReposAction,
-  saveInstallationAction,
-} from "@/app/actions/github";
+import { getInstallUrlAction, listInstallationReposAction, tagRepoAction } from "@/app/actions/github";
+import { saveInstallationClient } from "@/app/actions/github/client";
+import { getRepoInstallationIdAction } from "@/app/actions/github";
 import BackChevron from "@/app/components/portal/ui/back-chevron";
-import PortalLoader from "@/app/components/portal/portal-loader";
+import InlineLoader from "@/app/components/portal/inline-loader";
+import PortalButton from "@/app/components/portal/ui/button";
 import { usePortalStore } from "@/app/stores/portal";
+import { useDashStore } from "@/app/stores/dash";
 import Image from "next/image";
 
-export default function GithubView() {
-  const setView = usePortalStore((s) => s.setView);
-  const dashboard = usePortalStore((s) => s.dashboard);
-  const hasTeam = Boolean(dashboard?.team);
+export default function GithubView({ onBack, hasTeam: hasTeamProp, noBackground = false, embedded = false }: { onBack?: () => void; hasTeam?: boolean; noBackground?: boolean; embedded?: boolean }) {
+  const setPortalView = usePortalStore((s) => s.setView);
+  const portalDashboard = usePortalStore((s) => s.dashboard);
+  const dashDashboard = useDashStore.getState().dashboard;
+  const team = portalDashboard?.team || dashDashboard?.team || null;
+  const hasTeam = hasTeamProp ?? Boolean(team);
 
   const [installationId, setInstallationId] = useState<string | null>(null);
   type Repo = {
@@ -35,13 +37,55 @@ export default function GithubView() {
   const [justLinked, setJustLinked] = useState<boolean>(false);
   const [retryKey, setRetryKey] = useState<number>(0);
   const [, setHash] = useState<string>(typeof window !== "undefined" ? window.location.hash : "");
+  const connectedUrl = (team?.github_url && String(team.github_url).trim()) || null;
+  const connected = Boolean(connectedUrl);
+  function parseOwnerRepo(urlStr: string | null): { owner: string | null; repo: string | null } {
+    if (!urlStr) return { owner: null, repo: null };
+    try {
+      const u = new URL(urlStr);
+      if (!/(^|\.)github\.com$/i.test(u.hostname)) return { owner: null, repo: null };
+      const parts = u.pathname.replace(/^\//, '').split('/');
+      if (parts.length < 2) return { owner: null, repo: null };
+      const owner = parts[0];
+      let repo = parts[1];
+      repo = repo.replace(/\.git$/i, '');
+      return { owner, repo };
+    } catch {
+      const m = urlStr.match(/github\.com\/(.+?)\/(.+?)(?:$|\?|#|\/)/i);
+      if (m) {
+        return { owner: m[1], repo: m[2].replace(/\.git$/i, '') };
+      }
+      return { owner: null, repo: null };
+    }
+  }
+  const { owner: connectedOwner, repo: connectedRepo } = parseOwnerRepo(connectedUrl);
 
   useEffect(() => {
-    if (!hasTeam) {
-      setView("dashboard");
+    let done = false;
+    if (!installationId || !connectedOwner || !connectedRepo) return;
+    (async () => {
+      if (done) return;
+      try {
+        console.log("[C2C] Tagging repo via Manage view", {
+          installationId,
+          owner: connectedOwner,
+          repo: connectedRepo,
+        });
+        const res = await tagRepoAction(installationId, connectedOwner, connectedRepo).catch(() => ({ ok: false } as const));
+        console.log("[C2C] Tagging attempt (Manage view) result:", res);
+      } catch {}
+      done = true;
+    })();
+    return () => { done = true; };
+  }, [installationId, connectedOwner, connectedRepo]);
+
+  useEffect(() => {
+    // Only auto-redirect when running within the portal (no explicit hasTeamProp supplied)
+    if (hasTeamProp === undefined && !hasTeam) {
+      setPortalView("dashboard");
       return;
     }
-  }, [hasTeam, setView]);
+  }, [hasTeamProp, hasTeam, setPortalView]);
 
   useEffect(() => {
     (async () => {
@@ -52,6 +96,36 @@ export default function GithubView() {
       }
     })();
   }, []);
+
+  useEffect(() => {
+    if (!installationId) return;
+    if (!connectedOwner || !connectedRepo) return;
+    if (typeof window === "undefined") return;
+    const url = new URL(window.location.href);
+    const already = url.searchParams.get("owner") === connectedOwner && url.searchParams.get("repo") === connectedRepo && window.location.hash === "#view";
+    if (already) return;
+    url.searchParams.set("owner", connectedOwner);
+    url.searchParams.set("repo", connectedRepo);
+    window.history.replaceState({}, "", `${url.pathname}?${url.searchParams.toString()}#view`);
+    window.dispatchEvent(new HashChangeEvent("hashchange"));
+  }, [installationId, connectedOwner, connectedRepo]);
+
+  useEffect(() => {
+    if (installationId) return;
+    if (!connectedOwner || !connectedRepo) return;
+    let active = true;
+    (async () => {
+      try {
+        const id = await getRepoInstallationIdAction(connectedOwner, connectedRepo);
+        if (!active || !id) return;
+        setInstallationId(id);
+        try {
+          await saveInstallationClient({ installation_id: id });
+        } catch {}
+      } catch {}
+    })();
+    return () => { active = false; };
+  }, [installationId, connectedOwner, connectedRepo]);
 
   useEffect(() => {
     const url = new URL(window.location.href);
@@ -78,7 +152,7 @@ export default function GithubView() {
     let active = true;
     (async () => {
       try {
-        await saveInstallationAction({ installation_id: installationId });
+        await saveInstallationClient({ installation_id: installationId });
       } catch {
         // non-fatal; still allow UI usage
       } finally {
@@ -115,7 +189,7 @@ export default function GithubView() {
         if (tid) clearTimeout(tid);
         if (active) setRepos(result || []);
         try {
-          await saveInstallationAction({ installation_id: installationId });
+          await saveInstallationClient({ installation_id: installationId });
         } catch {}
       } catch (e) {
         if (active) setError(e instanceof Error ? e.message : "Failed to fetch repos");
@@ -142,15 +216,93 @@ export default function GithubView() {
     );
   }
 
-  if (!hasTeam) return <PortalLoader />;
+  if (!hasTeam) return <InlineLoader size={160} />;
+
+  if (embedded) {
+    return (
+      <div className="w-full text-white">
+        <div className="max-w-5xl mx-auto bg-black/30 border border-white/10 rounded-2xl p-4 sm:p-6 animate-fade-in-up">
+          <h1
+            className="mb-4"
+            style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: "clamp(20px,5.5vw,30px)" }}
+          >
+            GitHub Integration
+          </h1>
+          {connected && connectedOwner && connectedRepo && (
+            <div className="w-full max-w-3xl mx-auto bg-black/30 border border-white/10 rounded-2xl p-6 sm:p-8 animate-pop-in mb-6">
+              <h2
+                className="text-2xl sm:text-3xl font-bold"
+                style={{ fontFamily: "'Pilat Extended', Arial, sans-serif" }}
+              >
+                Connected repository
+              </h2>
+              <p className="text-gray-300 mt-3">
+                {connectedOwner}/{connectedRepo}
+              </p>
+              <div className="mt-6 flex gap-3">
+                <a href={connectedUrl as string} target="_blank" rel="noreferrer">
+                  <PortalButton>Open on GitHub</PortalButton>
+                </a>
+                {!installationId && link && (
+                  <a href={link}>
+                    <PortalButton>Connect GitHub App</PortalButton>
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
+
+          {!installationId && !connected && <InstallCard installUrl={link} />}
+
+          {installationId && (
+            <div className="space-y-6">
+              {justLinked && (
+                <div className="rounded-xl border border-white/10 bg-green-500/10 text-green-300 px-4 py-3">
+                  GitHub app linked successfully.
+                </div>
+              )}
+              <div className="flex items-center gap-3">
+                <span className="text-gray-300">Installation:</span>
+                <code className="px-2 py-1 bg-black/40 border border-white/10 rounded">
+                  {installationId}
+                </code>
+              </div>
+              {loading && (
+                <div className="flex items-center justify-center py-8"><InlineLoader size={120} /></div>
+              )}
+              {error && (
+                <div className="flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-red-500/10 text-red-300 px-4 py-3">
+                  <span className="truncate">{error}</span>
+                  <button
+                    type="button"
+                    onClick={() => setRetryKey((k) => k + 1)}
+                    className="text-xs underline hover:opacity-90"
+                  >
+                    Retry
+                  </button>
+                </div>
+              )}
+              {!loading && !error && <RepoList repos={repos} />}
+
+              {typeof window !== "undefined" && window.location.hash === "#view" && (
+                <RepoPreview installationId={installationId} />
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="fixed inset-0 w-screen h-screen relative text-white">
-      {/* Background image via next/image */}
-      <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" />
-      <BackChevron className="absolute top-4 left-4 z-10" onClick={() => setView("dashboard")} />
+    <div className="fixed inset-0 w-screen h-screen relative text-white z-[100]">
+      {/* Background: optionally suppressed to inherit @dash gradient */}
+      {!noBackground && (
+        <Image src="/portal/bg1.svg" alt="" aria-hidden fill className="object-cover" />
+      )}
+      <BackChevron className="absolute top-4 left-4 z-10" onClick={() => (onBack ? onBack() : setPortalView("dashboard"))} />
       <div className="absolute inset-0 overflow-auto p-6">
-        <div className="max-w-5xl mx-auto bg-black/30 border border-white/10 rounded-2xl p-4 sm:p-6 animate-fade-in-up">
+        <div className="max-w-5xl mx-auto border-white/10 rounded-2xl p-4 sm:p-6 animate-fade-in-up">
           <h1
             className="mb-4"
             style={{ fontFamily: "'Pilat Extended', Arial, sans-serif", fontSize: "clamp(20px,5.5vw,30px)" }}
@@ -172,7 +324,9 @@ export default function GithubView() {
                   {installationId}
                 </code>
               </div>
-              {loading && <PortalLoader />}
+              {loading && (
+                <div className="flex items-center justify-center py-8"><InlineLoader size={120} /></div>
+              )}
               {error && (
                 <div className="flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-red-500/10 text-red-300 px-4 py-3">
                   <span className="truncate">{error}</span>

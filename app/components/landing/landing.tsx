@@ -6,7 +6,11 @@ import { InteractiveHoverButton } from "@/app/components/landing/ui/cta-button";
 import { REGISTRATIONS_OPEN } from "@/lib/env";
 import { useRouter } from "next/navigation";
 
-const Landing = () => {
+type LandingProps = {
+  onPreRegister?: () => void;
+};
+
+const Landing = ({ onPreRegister }: LandingProps = {}) => {
   const router = useRouter();
   return (
     <div
@@ -47,8 +51,8 @@ const Landing = () => {
       <div className="relative h-full flex flex-col items-center justify-center z-10">
         {/* Main Heading with stroke - positioned above logo */}
         <div
-          className="absolute md:top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 w-full max-w-screen-xl"
-          style={{ zIndex: 10, top: "calc(28% + env(safe-area-inset-top, 0px))" }}
+          className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 w-full max-w-screen-xl top-[22%] md:top-[20%]"
+          style={{ zIndex: 10 }}
         >
           <h1 className="text-center text-hollow text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl break-words hyphens-auto mb-1 xs:mb-2 sm:mb-4">
             Turning what if
@@ -60,7 +64,7 @@ const Landing = () => {
 
         {/* Main logo positioned like rising sun from mountains - behind mountains */}
         <div
-          className="absolute top-[50%] left-1/2 -translate-x-1/2 -translate-y-[8%]"
+          className="c2c-hero-logo-anchor absolute top-[50%] left-1/2 -translate-x-1/2 -translate-y-[8%]"
           style={{ zIndex: 1 }}
         >
           <div className="animate-floating" style={{ willChange: "transform" }}>
@@ -108,6 +112,27 @@ const Landing = () => {
           />
         </div>
 
+        {/* Pre-register CTA — same liquid-glass build as the See upcoming
+         * button. Desktop sits mid-hero above the tagline, mobile sits just
+         * below the "Turning what if" heading. */}
+        {onPreRegister && (
+          <div className="absolute left-1/2 -translate-x-1/2 z-20 c2c-prereg-cta c2c-prereg-cta--hero">
+            <button
+              type="button"
+              onClick={onPreRegister}
+              className="c2c-upcoming-button"
+              aria-label="Pre-register for C2C 7.0"
+            >
+              <span aria-hidden className="c2c-upcoming-button__effect" />
+              <span aria-hidden className="c2c-upcoming-button__tint" />
+              <span aria-hidden className="c2c-upcoming-button__shine" />
+              <span className="c2c-upcoming-button__content">
+                Pre-register for C2C 7.0 →
+              </span>
+            </button>
+          </div>
+        )}
+
         {/* Main tagline */}
         <div
           className="absolute left-1/2 -translate-x-1/2 px-4 w-full max-w-screen-xl flex flex-col items-center text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl bottom-[2%] md:bottom-[15%] lg:bottom-[15%] xl:bottom-[15%]"
@@ -122,8 +147,8 @@ const Landing = () => {
           </p>
 
           {/* Mobile CTA at bottom */}
-          <div className="md:hidden mb-10">
-            {REGISTRATIONS_OPEN ? (
+          {REGISTRATIONS_OPEN && (
+            <div className="md:hidden mb-10">
               <InteractiveHoverButton
                 variant="simple"
                 onClick={() => router.push('/portal')}
@@ -131,15 +156,8 @@ const Landing = () => {
               >
                 Register Now
               </InteractiveHoverButton>
-            ) : (
-              <span
-                className="inline-block w-auto text-[12px] px-3 py-1.5 min-h-[32px] rounded-full font-semibold text-white border border-white/30 bg-black/30 backdrop-blur-sm mb-2 mt-[-10%]"
-                aria-live="polite"
-              >
-                Registrations opening soon
-              </span>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* CTA moved to app/page.tsx for better control on responsiveness and scroll behavior */}
         </div>

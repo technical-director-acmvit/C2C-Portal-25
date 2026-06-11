@@ -14,6 +14,7 @@ import GithubView from "@/app/components/portal/github/github-view";
 import { PORTAL_ENABLED, DISCORD_URL } from "@/lib/env";
 import PortalButton from "@/app/components/portal/ui/button";
 import BlockRoomModal from "@/app/components/portal/block_room";
+import { tagRepoAction } from "@/app/actions/github";
 
 
 export default function Home() {
@@ -60,6 +61,40 @@ export default function Home() {
     // Only allow GitHub view when the user is in a team
     if (dashboard?.team) setView("github");
   }, [dashboard, setView]);
+
+  // Ensure the repo is tagged on portal load if we already have an installation and repo URL
+  useEffect(() => {
+    const team = dashboard?.team;
+    const installationId = team?.github_installation_id || null;
+    const repoUrl = (team?.github_url && String(team.github_url).trim()) || null;
+    if (!installationId || !repoUrl) return;
+    let owner: string | null = null;
+    let repo: string | null = null;
+    try {
+      const u = new URL(repoUrl);
+      const parts = u.pathname.replace(/^\//, '').split('/');
+      if (parts.length >= 2) {
+        owner = parts[0];
+        repo = parts[1].replace(/\.git$/i, '');
+      }
+    } catch {
+      const m = repoUrl.match(/github\.com\/(.+?)\/(.+?)(?:$|\?|#|\/)/i);
+      if (m) {
+        owner = m[1];
+        repo = m[2].replace(/\.git$/i, '');
+      }
+    }
+    if (!owner || !repo) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        console.log("[C2C] /portal load: attempting to tag", { installationId, owner, repo });
+        const res = await tagRepoAction(installationId, owner, repo).catch(() => ({ ok: false } as const));
+        if (!cancelled) console.log("[C2C] /portal load: tagging result", res);
+      } catch {}
+    })();
+    return () => { cancelled = true; };
+  }, [dashboard?.team?.github_installation_id, dashboard?.team?.github_url]);
 
   // No explicit whitelist effect here — store.initialize triggers verifyWhitelist.
 

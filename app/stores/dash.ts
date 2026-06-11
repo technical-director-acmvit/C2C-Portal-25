@@ -3,7 +3,7 @@
 import { create } from "zustand";
 import { fetchDashboard, type DashboardResponse } from "@/app/actions/dashboard";
 
-type DashView = "home" | "profile" | "form";
+type DashView = "home" | "profile" | "form" | "github";
 
 type DashState = {
   view: DashView;
