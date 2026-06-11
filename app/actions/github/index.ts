@@ -2,6 +2,7 @@
 
 import { fetchInstallationToken } from "@/lib/github";
 import { authenticatedFetch } from "@/lib/apifetch";
+import { createAppJwt } from "@/lib/github";
 
 const GITHUB_API = "https://api.github.com";
 
@@ -10,7 +11,7 @@ export async function getInstallUrlAction(origin: string): Promise<string> {
   const slug = process.env.NEXT_PUBLIC_GH_APP_SLUG;
   if (!slug) throw new Error("Missing NEXT_PUBLIC_GH_APP_SLUG");
   const base = `https://github.com/apps/${encodeURIComponent(slug)}/installations/new`;
-  const params = new URLSearchParams({ redirect_url: `${origin}/portal`, state: "c2c-gh-install" });
+  const params = new URLSearchParams({ redirect_url: `${origin}/portal/integrations/github`, state: "c2c-gh-install" });
   return `${base}?${params.toString()}`;
 }
 
@@ -110,6 +111,100 @@ export async function getRepoAction(installationId: string, owner: string, repo:
   return gh<RepoMeta>(`/repos/${owner}/${repo}`, token);
 }
 
+export async function tagRepoAction(
+  installationId: string,
+  owner: string,
+  repo: string,
+  tagHumanReadable = "Code2Create",
+) {
+  const token = await fetchInstallationToken(installationId);
+  // try {
+  //   console.log("[C2C] tagRepoAction: start", { owner, repo, installationId, tagHumanReadable });
+  // } catch {}
+
+  try {
+    let namesExisting: string[] = [];
+    try {
+      const resp = await fetch(`${GITHUB_API}/repos/${owner}/${repo}/topics`, {
+        headers: {
+          Accept: "application/vnd.github.mercy-preview+json, application/vnd.github+json",
+          Authorization: `Bearer ${token}`,
+          "User-Agent": "c2c-app",
+        },
+        cache: "no-store",
+      });
+      if (resp.ok) {
+        const t = (await resp.json()) as { names?: string[] };
+        namesExisting = Array.isArray(t?.names) ? t!.names! : [];
+      }
+    } catch {
+      namesExisting = [];
+    }
+    const normalized = tagHumanReadable.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    if ((namesExisting ?? []).map((n) => String(n).toLowerCase()).includes(normalized)) {
+      try { console.log("[C2C] tagRepoAction: topic already present", { owner, repo, tag: normalized }); } catch {}
+      return { ok: true, method: "topics-exists", tag: normalized } as const;
+    }
+    const names = Array.from(new Set([...(namesExisting ?? []), normalized]));
+    const putResp = await fetch(`${GITHUB_API}/repos/${owner}/${repo}/topics`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/vnd.github.mercy-preview+json, application/vnd.github+json",
+        Authorization: `Bearer ${token}`,
+        "User-Agent": "c2c-app",
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+      body: JSON.stringify({ names }),
+    });
+    if (!putResp.ok) {
+      const errText = await putResp.text();
+      throw new Error(errText || `PUT /topics failed ${putResp.status}`);
+    }
+    try {
+      // console.log("[C2C] tagRepoAction: topics updated", { owner, repo, tag: normalized });
+    } catch {}
+    return { ok: true, method: "topics", tag: normalized } as const;
+  } catch (e) {
+    try {
+      // console.log("[C2C] tagRepoAction: topics attempt failed; falling back to labels", {
+      //   owner,
+      //   repo,
+      //   err: e instanceof Error ? e.message : String(e),
+      // });
+    } catch {}
+    try {
+      await fetch(`${GITHUB_API}/repos/${owner}/${repo}/labels`, {
+        method: "POST",
+        headers: {
+          Accept: "application/vnd.github+json",
+          Authorization: `Bearer ${token}`,
+          "User-Agent": "c2c-app",
+          "Content-Type": "application/json",
+        },
+        cache: "no-store",
+        body: JSON.stringify({ name: tagHumanReadable, color: "36a64f" }),
+      }).then(async (r) => {
+        if (r.status === 422) return; // already exists
+        if (!r.ok) throw new Error(await r.text());
+      });
+      try {
+        //console.log("[C2C] tagRepoAction: label created or existed", { owner, repo, tag: tagHumanReadable });
+      } catch {}
+      return { ok: true, method: "labels", tag: tagHumanReadable } as const;
+    } catch (e2) {
+      try {
+        // console.log("[C2C] tagRepoAction: label fallback failed", {
+        //   owner,
+        //   repo,
+        //   err: e2 instanceof Error ? e2.message : String(e2),
+        // });
+      } catch {}
+      return { ok: false, reason: "insufficient_permissions" } as const;
+    }
+  }
+}
+
 export async function listBranchesAction(installationId: string, owner: string, repo: string) {
   const token = await fetchInstallationToken(installationId);
   return gh<Array<{ name: string; protected?: boolean }>>(
@@ -152,13 +247,12 @@ export async function listIssuesAction(
     html_url: string;
     user?: { login?: string };
     created_at?: string;
-    pull_request?: unknown; // present when this "issue" is actually a PR
+    pull_request?: unknown;
   };
   const items = await gh<Issue[]>(
     `/repos/${owner}/${repo}/issues?state=${state}&per_page=10`,
     token,
   );
-  // Filter out PRs (issues API returns PRs too when they exist)
   return items.filter((i) => !i.pull_request);
 }
 
@@ -180,4 +274,20 @@ export async function listReleasesAction(installationId: string, owner: string, 
 export async function listLanguagesAction(installationId: string, owner: string, repo: string) {
   const token = await fetchInstallationToken(installationId);
   return gh<Record<string, number>>(`/repos/${owner}/${repo}/languages`, token);
+}
+
+export async function getRepoInstallationIdAction(owner: string, repo: string): Promise<string | null> {
+  const jwt = createAppJwt();
+  const resp = await fetch(`${GITHUB_API}/repos/${owner}/${repo}/installation`, {
+    headers: {
+      Accept: "application/vnd.github+json",
+      Authorization: `Bearer ${jwt}`,
+      "User-Agent": "c2c-app",
+    },
+    cache: "no-store",
+  });
+  if (!resp.ok) return null;
+  const data = await resp.json().catch(() => null) as { id?: number } | null;
+  const id = data?.id ? String(data.id) : null;
+  return id;
 }

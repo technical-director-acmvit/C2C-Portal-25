@@ -7,6 +7,7 @@ import ImgBox from "@/app/components/form/ImgBox";
 import { useDashStore } from "@/app/stores/dash";
 import ViewBox from "@/app/components/form/ViewBox";
 import { updateTeam, UpdateTeamInput } from "@/app/actions/update_team";
+import { getRepoInstallationIdAction, tagRepoAction } from "@/app/actions/github";
 import UpdateSuccessModal from "@/app/components/form/update-success-modal";
 
 export function FormContent() {
@@ -99,6 +100,40 @@ export function FormContent() {
                 techStack: techStackTags.length > 0 ? techStackTags : null,
             };
             await updateTeam(input);
+
+            // Best-effort: if a GitHub repo URL was provided, attempt to ensure the Code2Create topic exists
+            if (githubLink) {
+              try {
+                // parse owner/repo from URL
+                let owner: string | null = null;
+                let repo: string | null = null;
+                try {
+                  const u = new URL(githubLink);
+                  const parts = u.pathname.replace(/^\//, '').split('/');
+                  if (parts.length >= 2) {
+                    owner = parts[0];
+                    repo = parts[1].replace(/\.git$/i, '');
+                  }
+                } catch {
+                  const m = githubLink.match(/github\.com\/(.+?)\/(.+?)(?:$|\?|#|\/)/i);
+                  if (m) {
+                    owner = m[1];
+                    repo = m[2].replace(/\.git$/i, '');
+                  }
+                }
+                if (owner && repo) {
+                  const iid = await getRepoInstallationIdAction(owner, repo);
+                  console.log("[C2C] Post-save: installation id", iid);
+                  if (iid) {
+                    console.log("[C2C] Post-save: attempting to tag", { owner, repo, iid });
+                    const res = await tagRepoAction(iid, owner, repo).catch(() => ({ ok: false } as const));
+                    console.log("[C2C] Post-save tagging result:", res);
+                  } else {
+                    console.log("[C2C] Post-save: installation id not found; skipping tag");
+                  }
+                }
+              } catch {}
+            }
             setShowUpdatedModal(true);
         } catch (error) {
             console.error("Failed to update team:", error);

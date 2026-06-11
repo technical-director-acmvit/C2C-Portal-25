@@ -27,7 +27,11 @@ GITHUB_APP_PRIVATE_KEY=-----BEGIN PRIVATE KEY-----\nMIIEv...\n-----END PRIVATE K
 
 In your GitHub App settings:
 
-- Permissions: set at least Repository contents (Read-only) and Metadata (Read-only).
+- Permissions:
+  - Minimum for browsing: Repository contents (Read-only) and Metadata (Read-only).
+  - To auto-tag repositories with the Code2Create topic:
+    - Repository administration: Read & write (required to add repository topics)
+    - Optional fallback: Issues: Read & write (to create a label if topics are blocked)
 - Webhooks: not required for basic browsing.
 - Setup URL: set to `https://<your-domain>/portal/integrations/github` (or `http://localhost:3000/portal/integrations/github` for local).
 

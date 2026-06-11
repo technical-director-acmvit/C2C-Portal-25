@@ -4,18 +4,22 @@ import TimerInfo from "./timer";
 import ButtonBox from "./button-box";
 import ImageBox from "./image-box";
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { useDashStore } from "@/app/stores/dash";
 import dayjs, { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { getNotices } from "@/app/actions/notice";
+import { getInstallUrlAction } from "@/app/actions/github";
 
 export default function BentoGrid() {
     const [value, setValue] = React.useState<Dayjs | null>(dayjs());
     const setView = useDashStore((s) => s.setView);
     const data = useDashStore((s) => s.dashboard);
     const [notices, setNotices] = React.useState<{ ID: string; information: string; created_at: string }[]>([]);
+    const [installUrl, setInstallUrl] = useState<string | null>(null);
+    const connected = Boolean(data?.team?.github_installation_id || data?.team?.github_url);
 
     // live countdown for round end time (HH : MM : SS)
     const [timeLeft, setTimeLeft] = React.useState<string>("Wait a little more");
@@ -63,6 +67,18 @@ export default function BentoGrid() {
         return () => {
             mounted = false;
         };
+    }, []);
+
+    useEffect(() => {
+        (async () => {
+            if (typeof window === "undefined") return;
+            try {
+                const link = await getInstallUrlAction(window.location.origin);
+                setInstallUrl(link);
+            } catch {
+                setInstallUrl(null);
+            }
+        })();
     }, []);
 
         const displayNotices = Array.isArray(notices) && notices.length > 0 ? notices : [{ ID: "0", information: "No notices available", created_at: new Date().toISOString() }];
@@ -118,6 +134,21 @@ export default function BentoGrid() {
 
             <div className="border-emerald-500 bg-[#060f0b] rounded-lg border-2 w-full h-24 p-5 flex flex-col items-center justify-center">
               <ButtonBox text="Submit your idea" btnText="Form" onClick={() => setView("form")} />
+            </div>
+
+            <div className="border-emerald-500 bg-[#060f0b] rounded-lg border-2 w-full h-24 p-5 flex flex-col items-center justify-center">
+              <ButtonBox
+                text={connected ? "GitHub connected" : "Connect your GitHub"}
+                btnText={connected ? "Manage" : "GitHub"}
+                onClick={() => {
+                  if (connected) return setView("github");
+                  if (installUrl) {
+                    window.location.href = installUrl;
+                  } else {
+                    setView("github");
+                  }
+                }}
+              />
             </div>
 
             {/* Two-column layout for song and image */}
@@ -289,8 +320,26 @@ export default function BentoGrid() {
               </div>
             </div>
 
-            <div className="col-span-3 row-span-9 rounded-lg overflow-hidden flex items-center justify-center">
-              <ImageBox image="/image 41.png" title="c" flag={0} />
+            <div className="border-emerald-500 bg-[#060f0b] border-2 col-span-3 row-span-9 p-6 flex flex-col items-center justify-center gap-4 rounded-lg">
+              <div className="text-center">
+                <div className="text-white text-lg font-semibold">{connected ? "GitHub connected" : "Connect your GitHub"}</div>
+                {!connected && (
+                  <div className="text-white/70 text-sm mt-1">Grant repository access via the GitHub App</div>
+                )}
+              </div>
+              <button
+                onClick={() => {
+                  if (connected) return setView("github");
+                  if (installUrl) {
+                    window.location.href = installUrl;
+                  } else {
+                    setView("github");
+                  }
+                }}
+                className="px-4 py-2 rounded-full border border-emerald-500 text-white hover:bg-emerald-600/20"
+              >
+                {connected ? "Manage" : "Connect"}
+              </button>
             </div>
 
             {/* Notice card */}

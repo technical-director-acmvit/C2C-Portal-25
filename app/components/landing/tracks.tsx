@@ -4,35 +4,40 @@ import Image from "next/image";
 import GradientBG from "./gradient-bg";
 import DotGrid from "./dot-grid";
 import HeadingText from "./HeadingText";
-const TRACKS = [
+export const LANDING_TRACKS = [
   {
     number: 1,
     title: "I Can Do It Better",
-    desc: "Reimagine and improve widely used software by enhancing usability, adding desired features, or optimizing performance.",
+    description:
+      "Reimagine and improve widely used software by enhancing usability, adding desired features, or optimizing performance.",
     svgPath: "/tracks/CanDoBetter.svg",
   },
   {
     number: 2,
     title: "Art Attack",
-    desc: "Build tools that reimagine creative expression through technologies that help create music, art, or media in new and exciting ways.",
+    description:
+      "Build tools that reimagine creative expression through technologies that help create music, art, or media in new and exciting ways.",
     svgPath: "/tracks/Art_Attack.svg",
   },
   {
     number: 3,
     title: "Game Over",
-    desc: "Create experiences that redefine gaming through original games and technologies that improve gameplay, performance, or game development.",
+    description:
+      "Create experiences that redefine gaming through original games and technologies that improve gameplay, performance, or game development.",
     svgPath: "/tracks/Game_Over.svg",
   },
   {
     number: 4,
     title: "Digital Dawn",
-    desc: "Create solutions that uniquely solve Indian challenges at scale, focusing on affordable and inclusive technology for the next billion users.",
+    description:
+      "Create solutions that uniquely solve Indian challenges at scale, focusing on affordable and inclusive technology for the next billion users.",
     svgPath: "/tracks/Digital_Dawn.svg",
   },
   {
     number: 5,
     title: "AI Solutions",
-    desc: "Build intelligent systems using RunPod's compute services to create practical and scalable AI solutions for real-world problems.",
+    description:
+      "Build intelligent systems using RunPod's compute services to create practical and scalable AI solutions for real-world problems.",
     svgPath: "/tracks/ai_solutions.svg",
   },
 ];
@@ -50,7 +55,7 @@ const Tracks = ({ children }: { children?: React.ReactNode }) => {
         </div>
         <div className="w-full max-w-[1080px] mx-auto mt-6 sm:mt-8 px-4 sm:px-6">
           <div className="flex flex-col gap-4 sm:gap-6 pb-16">
-            {TRACKS.map((card) => (
+            {LANDING_TRACKS.map((card) => (
               <article
                 key={card.number}
                 className="
@@ -68,7 +73,7 @@ const Tracks = ({ children }: { children?: React.ReactNode }) => {
                     </h3>
                   </div>
                   <p className="text-[#efefef] font-['DM_Sans'] text-base sm:text-lg md:text-xl">
-                    {card.desc}
+                    {card.description}
                   </p>
                 </div>
 

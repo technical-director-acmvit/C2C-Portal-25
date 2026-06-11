@@ -60,12 +60,18 @@
 
 html {
   background-color: #1e1e1e;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-  overscroll-behavior-y: none;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: auto;
 }
 
 @supports (height: 100dvh) {
@@ -166,4 +172,1155 @@ h4 {
   filter: blur(0.6px);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+}
+
+.c2c-lg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0);
+  transition: background 600ms ease-out;
+}
+
+.c2c-lg-overlay.is-open {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.c2c-lg-filter {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.c2c-lg {
+  --lg-radius: 1.75rem;
+  --lg-tint: rgba(170, 170, 170, 0.08);
+  --lg-fg: white;
+
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  color: var(--lg-fg);
+  background: rgba(170, 170, 170, 0.13);
+  border: 0;
+  border-radius: var(--lg-radius);
+  box-shadow:
+    inset -2px -4px 8px rgba(0, 0, 0, 0.02),
+    inset 2px 4px 8px rgba(255, 255, 255, 0.06),
+    inset 0 0 4px rgba(255, 255, 255, 0.15),
+    0 30px 80px rgba(0, 0, 0, 0.45);
+}
+
+.c2c-lg-card {
+  width: min(90vw, 520px);
+  opacity: 0;
+  transform: scale(0.94);
+  filter: blur(26px);
+  transition:
+    opacity 700ms ease-out,
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform, filter;
+}
+
+.c2c-lg-overlay.is-open .c2c-lg-card {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0);
+  animation: c2c-lg-wobble 2200ms ease-in-out 950ms 1;
+}
+
+@keyframes c2c-lg-wobble {
+  0% {
+    transform: scale(1, 1);
+  }
+  25% {
+    transform: scale(1.007, 0.993);
+  }
+  50% {
+    transform: scale(0.995, 1.005);
+  }
+  75% {
+    transform: scale(1.003, 0.997);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c2c-lg-card,
+  .c2c-lg-overlay.is-open .c2c-lg-card {
+    animation: none;
+    transition: opacity 200ms ease-out;
+    transform: none;
+    filter: none;
+  }
+  .c2c-lg-overlay {
+    transition: background 200ms ease-out;
+  }
+}
+
+.c2c-lg__tint,
+.c2c-lg__shine {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--lg-radius);
+  pointer-events: none;
+}
+
+.c2c-lg__tint {
+  z-index: 1;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.2), transparent 34%),
+    var(--lg-tint);
+}
+
+.c2c-lg__shine {
+  z-index: 2;
+  overflow: hidden;
+  box-shadow:
+    inset -2px -4px 8px rgba(0, 0, 0, 0.03),
+    inset 2px 4px 8px rgba(255, 255, 255, 0.1),
+    inset 0 0 4px rgba(255, 255, 255, 0.15);
+}
+
+.c2c-lg__content {
+  z-index: 3;
+  position: relative;
+  width: 100%;
+  padding: clamp(2.4rem, 5vw, 3rem) clamp(1.6rem, 4.5vw, 2.4rem);
+  text-align: center;
+}
+
+.c2c-lg-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: white;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.c2c-lg-close:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+.c2c-lg-kicker {
+  margin: 0 0 0.85rem;
+  color: rgba(155, 232, 220, 0.92);
+  font-family: "Trap-Bold", "Trap", Arial, sans-serif;
+  font-size: clamp(0.66rem, 1.6vw, 0.78rem);
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+
+.c2c-lg-title {
+  margin: 0 auto;
+  font-family: "Pilat Extended", "Trap-Bold", Arial, sans-serif;
+  font-size: clamp(2rem, 5.2vw, 2.9rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.96;
+  text-transform: uppercase;
+  text-shadow: 0 1px 24px rgba(0, 0, 0, 0.55);
+}
+
+.c2c-lg-copy {
+  margin: 1rem auto 0;
+  max-width: 22rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: "Trap", "DM Sans", Arial, sans-serif;
+  font-size: clamp(0.85rem, 1.6vw, 0.96rem);
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+.c2c-upcoming-header {
+  position: fixed;
+  inset: 0 0 auto;
+  opacity: 1;
+  width: 100%;
+  pointer-events: none;
+  transition:
+    transform 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 520ms ease;
+  /* No transform / will-change in the resting state: either one would make
+   * this header a "backdrop root", which truncates the navbar's
+   * backdrop-filter so the blur samples nothing and the glass looks flat.
+   * They're applied only while sliding away (.is-upcoming-open) below. */
+}
+
+/* Liquid-glass treatment (chakornk-style).
+ *
+ * Three-layer build, shared across the navbar and the floating CTAs:
+ *   __effect — backdrop-filter with the SVG displacement filter (refraction)
+ *              + blur + saturate. This is what reads as a real glass slab.
+ *   __tint   — translucent white wash so the glass is visible even when
+ *              there is nothing distinctive behind it.
+ *   __shine  — inset highlights along the rim that catch the eye like a
+ *              polished edge.
+ *
+ * The container needs `position: relative; isolation: isolate;
+ * overflow: hidden;` so the displacement filter clips inside the rounded
+ * border. Content sits at z-index 3 above the three layers.
+ */
+
+.c2c-topbar {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  pointer-events: auto;
+  background: rgba(255, 255, 255, 0.15);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  /* Outer drop + rim highlights from the glass-card recipe. The recipe's
+   * `inset 0 0 20px 10px` glow is scaled down here: on a 56px-tall bar that
+   * spread would flood the whole height with white and hide the blur. */
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 24px 0 rgba(255, 255, 255, 0.18);
+}
+
+/* Bright sheen skimming the top edge (glass-card ::before). */
+.c2c-topbar::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.c2c-topbar__effect,
+.c2c-topbar__tint,
+.c2c-topbar__shine {
+  display: none;
+}
+
+.c2c-topbar > div {
+  position: relative;
+  z-index: 3;
+}
+
+
+.c2c-upcoming-header.is-upcoming-open {
+  transform: translateY(calc(-100% - 10px));
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/*
+ * #smooth-content has a transform applied only while the upcoming-takeover is
+ * open. We must NOT keep a transform / will-change on the base state — either
+ * one promotes #smooth-content to a containing block for `position: fixed`
+ * descendants, which breaks GSAP ScrollTrigger pins (e.g. the Tracks sticky
+ * scroll). The transition still animates between `none` and `translateY(...)`.
+ */
+.c2c-page-shell #smooth-content {
+  opacity: 1;
+  transition:
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 560ms ease,
+    filter 720ms ease;
+}
+
+.c2c-page-shell.is-upcoming-open #smooth-content {
+  transform: translateY(105svh);
+  opacity: 0.16;
+  filter: none;
+  will-change: transform, opacity;
+}
+
+.c2c-hero-logo-anchor {
+  transition:
+    opacity 420ms ease,
+    filter 420ms ease;
+  will-change: opacity, filter;
+}
+
+.c2c-page-shell.is-upcoming-open .c2c-hero-logo-anchor {
+  opacity: 0;
+  filter: none;
+}
+
+.c2c-upcoming-filter {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.c2c-upcoming {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  pointer-events: none;
+}
+
+.c2c-upcoming-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0;
+  overflow: hidden;
+  background: transparent;
+  transition:
+    opacity 520ms ease,
+    background 720ms ease;
+}
+
+.c2c-upcoming-overlay.is-visible {
+  opacity: 1;
+  background: transparent;
+}
+
+.c2c-upcoming-overlay.is-glass {
+  background: rgba(7, 12, 13, 0.32);
+}
+
+.c2c-upcoming-overlay.is-active {
+  pointer-events: auto;
+  background: transparent;
+}
+
+.c2c-upcoming-overlay__tint,
+.c2c-upcoming-overlay__shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 360ms ease;
+}
+
+.c2c-upcoming-overlay.is-glass .c2c-upcoming-overlay__tint,
+.c2c-upcoming-overlay.is-glass .c2c-upcoming-overlay__shine {
+  opacity: 1;
+}
+
+.c2c-upcoming-overlay__tint {
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.18), transparent 24%),
+    radial-gradient(circle at 20% 20%, rgba(72, 186, 134, 0.15), transparent 28%),
+    rgba(255, 255, 255, 0.035);
+}
+
+.c2c-upcoming-overlay__shine {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+    inset 26px 0 70px rgba(255, 255, 255, 0.035),
+    inset -26px 0 70px rgba(0, 0, 0, 0.22);
+}
+
+.c2c-upcoming-stage {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 6px;
+  opacity: 0;
+  transform: scale(0.88);
+  transition:
+    opacity 520ms ease,
+    transform 920ms cubic-bezier(0.2, 1, 0.24, 1);
+}
+
+.c2c-upcoming-overlay.is-active .c2c-upcoming-stage {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.c2c-upcoming-logo-wrap {
+  --logo-size: min(calc(100svw - 12px), calc(100svh - 12px));
+  position: relative;
+  width: var(--logo-size);
+  height: var(--logo-size);
+  display: grid;
+  place-items: center;
+  animation: c2c-upcoming-oscillate 4.8s ease-in-out infinite;
+}
+
+.c2c-upcoming-overlay.is-active .c2c-upcoming-logo-wrap {
+  animation: none;
+  translate: 0 0;
+}
+
+.c2c-upcoming-logo {
+  height: var(--logo-size);
+  width: auto;
+  max-width: none;
+  opacity: 0.9;
+  filter: drop-shadow(0 26px 70px rgba(0, 0, 0, 0.62));
+  transform: rotate(0deg) scale(0.18);
+  transition: transform 1150ms cubic-bezier(0.18, 1, 0.22, 1);
+  transform-origin: center;
+  z-index: 1;
+}
+
+.c2c-upcoming-overlay.is-active .c2c-upcoming-logo {
+  transform: rotate(90deg) scale(1);
+}
+
+@keyframes c2c-upcoming-oscillate {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -12px;
+  }
+}
+
+.c2c-upcoming-sector-layer {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 220ms ease 260ms;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.c2c-upcoming-label-layer {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 280ms ease 760ms;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.c2c-upcoming-overlay.is-active .c2c-upcoming-sector-layer,
+.c2c-upcoming-overlay.is-active .c2c-upcoming-label-layer {
+  opacity: 1;
+}
+
+.c2c-upcoming-sector {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: 50% 50%;
+  transition:
+    opacity 360ms ease,
+    transform 920ms cubic-bezier(0.19, 1, 0.22, 1);
+  will-change: transform, opacity;
+}
+
+.c2c-upcoming-overlay.is-active .c2c-upcoming-sector {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.c2c-upcoming-label {
+  position: fixed;
+  display: flex;
+  width: clamp(144px, 24vmin, 360px);
+  max-width: min(38vw, 360px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  overflow-wrap: break-word;
+  word-break: normal;
+  text-wrap: balance;
+}
+
+.c2c-upcoming-label strong,
+.c2c-upcoming-label span {
+  display: block;
+  max-width: 100%;
+  min-width: 0;
+  word-break: normal;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+
+.c2c-upcoming-label span {
+  font-family: "Trap", "DM Sans", Arial, sans-serif;
+  font-size: clamp(1rem, 1.85vmin, 1.38rem);
+  line-height: 1.08;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.96),
+    0 4px 16px rgba(0, 0, 0, 0.88),
+    0 0 18px rgba(255, 255, 255, 0.16);
+  padding: 0.4rem 1.05rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.36),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.c2c-upcoming-label strong {
+  margin-top: 0.55rem;
+  font-family: "Pilat Extended", "Trap-Bold", Arial, sans-serif;
+  font-size: clamp(1.35rem, 3.1vmin, 2.55rem);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.98);
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.7),
+    0 6px 28px rgba(0, 0, 0, 0.6);
+}
+
+.c2c-upcoming-label--cutout strong {
+  font-size: clamp(1.12rem, 2.55vmin, 2.1rem);
+  line-height: 1.02;
+}
+
+.c2c-upcoming-button {
+  position: fixed;
+  left: 50%;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  z-index: 60;
+  min-width: 176px;
+  min-height: 54px;
+  padding: 0 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  color: white;
+  background: transparent;
+  pointer-events: auto;
+  cursor: pointer;
+  transform: translateX(-50%);
+  overflow: hidden;
+  box-shadow:
+    0 16px 44px rgba(0, 0, 0, 0.38),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+  transition:
+    transform 340ms cubic-bezier(0.175, 0.885, 0.32, 1.8),
+    min-width 340ms cubic-bezier(0.175, 0.885, 0.32, 1.8);
+}
+
+.c2c-upcoming-button:hover,
+.c2c-upcoming-button:focus-visible,
+.c2c-upcoming-button.is-active {
+  min-width: 196px;
+  transform: translateX(-50%) translateY(-4px);
+  outline: none;
+}
+
+.c2c-upcoming-button__effect,
+.c2c-upcoming-button__tint,
+.c2c-upcoming-button__shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.c2c-upcoming-button__effect {
+  z-index: 0;
+  -webkit-backdrop-filter: blur(10px) saturate(170%);
+  backdrop-filter: blur(10px) saturate(170%);
+  filter: url(#c2c-liquid-glass);
+}
+
+.c2c-upcoming-button__tint {
+  z-index: 1;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.34), transparent 42%),
+    rgba(255, 255, 255, 0.13);
+}
+
+.c2c-upcoming-button__shine {
+  z-index: 2;
+  box-shadow:
+    inset 2px 2px 1px rgba(255, 255, 255, 0.35),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.16);
+}
+
+.c2c-upcoming-button__content {
+  position: relative;
+  z-index: 3;
+  font-family: "DM Sans", "Trap", Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  white-space: nowrap;
+  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.55);
+}
+
+@media (max-width: 640px) {
+  .c2c-upcoming-logo-wrap {
+    --logo-size: min(calc(100svw - 10px), calc(84svh - 10px));
+  }
+
+  .c2c-upcoming-label {
+    width: clamp(92px, 29vw, 142px);
+    max-width: 32vw;
+  }
+
+  .c2c-upcoming-label span {
+    font-size: clamp(0.62rem, 2.25vmin, 0.78rem);
+    padding: 0.28rem 0.78rem;
+    letter-spacing: 0.05em;
+  }
+
+  .c2c-upcoming-label strong {
+    margin-top: 0.32rem;
+    font-size: clamp(0.66rem, 2.25vmin, 0.92rem);
+    line-height: 1.03;
+  }
+
+  .c2c-upcoming-label--cutout strong {
+    font-size: clamp(0.58rem, 2.05vmin, 0.82rem);
+  }
+
+  .c2c-upcoming-button {
+    min-width: 156px;
+    min-height: 50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c2c-upcoming-header,
+  .c2c-page-shell #smooth-content,
+  .c2c-upcoming-overlay,
+  .c2c-upcoming-stage,
+  .c2c-upcoming-logo,
+  .c2c-upcoming-sector-layer,
+  .c2c-upcoming-label-layer,
+  .c2c-upcoming-button {
+    transition-duration: 1ms;
+    animation: none;
+  }
+
+  .c2c-upcoming-sector {
+    transition-duration: 1ms;
+  }
+}
+
+/* =============================================================
+ * Pre-registration takeover
+ * =============================================================
+ *
+ * Opens when the landing CTA fires `onPreRegister`. While open the page
+ * scroll is locked from React, the underlying landing fades out, and two
+ * diagonal strips of logo-coloured triangles slide in from off-screen and
+ * scroll infinitely. The submit button just runs the close animation —
+ * there is no backend wired up yet.
+ */
+
+.c2c-topbar.is-prereg-open,
+.c2c-upcoming-header.is-prereg-open {
+  pointer-events: none;
+}
+
+.c2c-upcoming-host {
+  opacity: 1;
+  transition: opacity 320ms ease;
+}
+
+.c2c-upcoming-host.is-prereg-open {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.c2c-page-shell.is-prereg-open #smooth-content {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 520ms ease;
+}
+
+.c2c-upcoming-header.is-prereg-open {
+  opacity: 0;
+  transform: translateY(calc(-100% - 10px));
+}
+
+/* The landing-page CTA button */
+.c2c-prereg-cta {
+  pointer-events: auto;
+}
+
+/* Hero-mounted CTA: positioned just below the "Turning what if" heading.
+ * Top% values are calibrated so the button does not overlap the navbar
+ * (above) or the floating C2C logo (below) at any breakpoint. */
+.c2c-prereg-cta--hero {
+  top: 32%;
+  bottom: auto;
+}
+
+@media (min-width: 768px) {
+  .c2c-prereg-cta--hero {
+    top: 33%;
+  }
+}
+
+/* The pre-register CTA reuses the See upcoming button's visual class
+ * (c2c-upcoming-button) for an identical glass treatment, but it needs to
+ * live INSIDE the hero wrapper rather than floating fixed at the bottom of
+ * the viewport. These overrides keep the look and drop the fixed-position
+ * bottom mounting + translateX(-50%) baseline transform. */
+.c2c-prereg-cta .c2c-upcoming-button {
+  position: relative;
+  left: auto;
+  bottom: auto;
+  transform: none;
+}
+
+.c2c-prereg-cta .c2c-upcoming-button:hover,
+.c2c-prereg-cta .c2c-upcoming-button:focus-visible {
+  transform: translateY(-4px);
+}
+
+.c2c-page-shell.is-prereg-open .c2c-prereg-cta {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+
+/* Overlay container */
+.c2c-prereg {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  opacity: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  transition: opacity 320ms ease;
+}
+
+.c2c-prereg.is-active {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+/* Diagonal strips — each strip is a wide horizontal band of triangle tiles
+ * rotated to its incident angle and translated infinitely. A duplicated tile
+ * track moves by exactly half its width so the loop cannot tear.
+ */
+.c2c-prereg-strip {
+  position: absolute;
+  z-index: 0;
+  width: 245vmax;
+  height: clamp(44px, 6.4vmin, 84px);
+  overflow: hidden;
+  opacity: 0;
+  clip-path: polygon(2.6% 0, 100% 0, 97.4% 100%, 0 100%);
+  filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.4));
+  transform-origin: 50% 50%;
+  transition:
+    opacity 380ms linear 60ms,
+    transform 720ms linear 80ms;
+}
+
+.c2c-prereg-strip--tl {
+  top: 30%;
+  left: 0%;
+  transform: translate(-82%, -84%) rotate(-23deg) scaleX(0);
+}
+
+.c2c-prereg.is-active .c2c-prereg-strip--tl {
+  opacity: 0.9;
+  transform: translate(-53%, -54%) rotate(-23deg) scaleX(1);
+}
+
+.c2c-prereg-strip--br {
+  right: 10%;
+  bottom: 20%;
+  transform: translate(76%, 86%) rotate(-34deg) scaleX(0);
+}
+
+.c2c-prereg.is-active .c2c-prereg-strip--br {
+  opacity: 0.9;
+  transform: translate(50%, 50%) rotate(-34deg) scaleX(1);
+}
+
+.c2c-prereg-strip__track {
+  display: flex;
+  width: max-content;
+  min-width: max-content;
+  height: 100%;
+  will-change: transform;
+  animation: c2c-prereg-scroll var(--c2c-prereg-strip-duration, 18s) linear infinite;
+}
+
+.c2c-prereg-strip--br .c2c-prereg-strip__track {
+  animation-direction: reverse;
+}
+
+@keyframes c2c-prereg-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.c2c-prereg-tile {
+  position: relative;
+  flex: 0 0 clamp(44px, 6.4vmin, 84px);
+  height: 100%;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.c2c-prereg-tile::before,
+.c2c-prereg-tile::after {
+  content: "";
+  position: absolute;
+  inset: -0.75px;
+  backface-visibility: hidden;
+}
+
+.c2c-prereg-tile::before {
+  background: var(--tri-a);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.c2c-prereg-tile::after {
+  background: var(--tri-b);
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+/* Corner labels */
+.c2c-prereg-corner {
+  position: absolute;
+  z-index: 3;
+  font-family: "Pilat Extended", "Trap-Bold", Arial, sans-serif;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: clamp(0.95rem, 2vmin, 1.5rem);
+  letter-spacing: 0.06em;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 320ms ease 320ms;
+}
+
+.c2c-prereg-corner--tl {
+  top: clamp(20px, 4vmin, 38px);
+  left: clamp(20px, 4vmin, 38px);
+}
+
+.c2c-prereg-corner--br {
+  bottom: clamp(48px, 6vmin, 72px);
+  right: clamp(20px, 4vmin, 38px);
+}
+
+.c2c-prereg.is-active .c2c-prereg-corner {
+  opacity: 1;
+}
+
+/* Form */
+.c2c-prereg-form {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.96);
+  width: min(520px, calc(100vw - 32px));
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: clamp(1.4rem, 3vmin, 2rem);
+  border-radius: 22px;
+  background: rgba(10, 12, 14, 0.78);
+  border: 1px solid rgba(72, 186, 134, 0.35);
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  color: white;
+  opacity: 0;
+  isolation: isolate;
+  transition:
+    opacity 360ms ease 260ms,
+    transform 460ms cubic-bezier(0.18, 1, 0.22, 1) 260ms;
+}
+
+/* Moving green aura behind the form. Two pseudo-elements rotate in opposite
+ * directions, blurred into a soft halo that brushes around the card edges.
+ * Sized to the form box (no negative inset) so the colour stays contained
+ * within the card's rounded rectangle via `overflow: hidden` on the form. */
+.c2c-prereg-form::before,
+.c2c-prereg-form::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(28px);
+  opacity: 0.45;
+}
+
+.c2c-prereg-form::before {
+  background: conic-gradient(
+    from 0deg,
+    rgba(72, 186, 134, 0) 0%,
+    rgba(72, 186, 134, 0.7) 18%,
+    rgba(173, 219, 200, 0.55) 32%,
+    rgba(72, 186, 134, 0) 48%,
+    rgba(94, 191, 148, 0.6) 68%,
+    rgba(72, 186, 134, 0) 100%
+  );
+  animation: c2c-prereg-aura-spin 9s linear infinite;
+}
+
+.c2c-prereg-form::after {
+  background: conic-gradient(
+    from 120deg,
+    rgba(134, 204, 172, 0) 0%,
+    rgba(94, 191, 148, 0.55) 22%,
+    rgba(72, 186, 134, 0) 44%,
+    rgba(173, 219, 200, 0.5) 64%,
+    rgba(72, 186, 134, 0) 100%
+  );
+  animation: c2c-prereg-aura-spin 13s linear infinite reverse;
+  opacity: 0.4;
+}
+
+@keyframes c2c-prereg-aura-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.c2c-prereg.is-active .c2c-prereg-form {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.c2c-prereg-form > * {
+  position: relative;
+  z-index: 1;
+}
+
+.c2c-prereg-form__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.c2c-prereg-form__eyebrow {
+  margin: 0;
+  font-family: "DM Sans", "Trap", Arial, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: rgba(134, 204, 172, 0.95);
+}
+
+.c2c-prereg-form__title {
+  margin: 0;
+  font-family: "DM Sans", "Trap", Arial, sans-serif;
+  font-size: clamp(1.5rem, 3.2vmin, 2rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.98);
+}
+
+.c2c-prereg-form__sub {
+  margin: 0;
+  font-family: "DM Sans", "Trap", Arial, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.c2c-prereg-form__status {
+  margin: 0;
+  min-height: 1.2em;
+  font-family: "DM Sans", "Trap", Arial, sans-serif;
+  font-size: 0.86rem;
+  line-height: 1.4;
+  color: rgba(255, 200, 200, 0.92);
+}
+
+.c2c-prereg-form__status[data-tone="success"] {
+  color: rgba(173, 219, 200, 0.95);
+}
+
+.c2c-prereg-form__status[data-tone="info"] {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.c2c-prereg-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.32rem;
+}
+
+.c2c-prereg-field > span {
+  font-family: "DM Sans", "Trap", Arial, sans-serif;
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.c2c-prereg-field > input {
+  font-family: "DM Sans", "Trap", Arial, sans-serif;
+  font-size: 1rem;
+  padding: 0.72rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  transition:
+    border-color 200ms ease,
+    background 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.c2c-prereg-field > input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.c2c-prereg-field > input:focus {
+  outline: none;
+  border-color: rgba(72, 186, 134, 0.85);
+  background: rgba(72, 186, 134, 0.12);
+  box-shadow: 0 0 0 3px rgba(72, 186, 134, 0.2);
+}
+
+.c2c-prereg-form__actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.4rem;
+}
+
+.c2c-prereg-button {
+  flex: 1;
+  font-family: "DM Sans", "Trap", Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  padding: 0.78rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    transform 220ms cubic-bezier(0.18, 1, 0.22, 1),
+    box-shadow 220ms ease,
+    background 220ms ease,
+    color 220ms ease,
+    border-color 220ms ease,
+    opacity 220ms ease;
+}
+
+.c2c-prereg-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.c2c-prereg-button--ghost {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.c2c-prereg-button--ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.c2c-prereg-button--primary {
+  background: linear-gradient(180deg, #5ec79a 0%, #48ba86 100%);
+  color: #06160f;
+  border-color: rgba(72, 186, 134, 0.95);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.32);
+}
+
+.c2c-prereg-button--primary:hover:not(:disabled),
+.c2c-prereg-button--primary:focus-visible:not(:disabled) {
+  background: linear-gradient(180deg, #0c1814 0%, #061110 100%);
+  color: rgba(173, 219, 200, 0.98);
+  border-color: rgba(72, 186, 134, 0.85);
+  transform: translateY(-1px);
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(72, 186, 134, 0.55);
+}
+
+@media (max-width: 640px) {
+  .c2c-prereg-strip {
+    height: clamp(24px, 7.5vw, 40px);
+    width: 280vmax;
+  }
+  .c2c-prereg-tile {
+    flex-basis: clamp(24px, 7.5vw, 40px);
+  }
+  .c2c-prereg-strip--tl {
+    top: 20%;
+    left: 20%;
+    transform: translate(-86%, -86%) rotate(-25deg) scaleX(0);
+  }
+  .c2c-prereg.is-active .c2c-prereg-strip--tl {
+    transform: translate(-52%, -58%) rotate(-25deg) scaleX(1);
+  }
+  .c2c-prereg-strip--br {
+    right: 20%;
+    bottom: 20%;
+    transform: translate(82%, 92%) rotate(-31deg) scaleX(0);
+  }
+  .c2c-prereg.is-active .c2c-prereg-strip--br {
+    transform: translate(52%, 54%) rotate(-31deg) scaleX(1);
+  }
+  .c2c-prereg-corner--br {
+    right: 22px;
+    bottom: 64px;
+  }
+  .c2c-prereg-form {
+    width: min(360px, calc(100vw - 28px));
+    gap: 0.8rem;
+    padding: 1.15rem;
+    border-radius: 16px;
+  }
+  .c2c-prereg-form__title {
+    font-size: clamp(1.08rem, 5vw, 1.42rem);
+  }
+  .c2c-prereg-form__sub {
+    font-size: 0.82rem;
+  }
+  .c2c-prereg-form__actions {
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c2c-prereg,
+  .c2c-prereg-strip,
+  .c2c-prereg-form,
+  .c2c-prereg-corner {
+    transition-duration: 1ms;
+  }
+  .c2c-prereg-strip__track {
+    animation: none;
+  }
 }

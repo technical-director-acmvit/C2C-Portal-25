@@ -37,7 +37,10 @@ const faqData: FAQItem[] = [
     question: "Will there be accommodation for external participants?",
     answer: "Yes we will provide accomodation at VIT.",
   },
-  { question: "How do I choose my track?", answer: "You will get the option while registering." },
+  {
+    question: "How to register?",
+    answer: "Registration open soon. Pre-register now for updates.",
+  },
   {
     question: "Can I start working on my hack before the hackathon?",
     answer:

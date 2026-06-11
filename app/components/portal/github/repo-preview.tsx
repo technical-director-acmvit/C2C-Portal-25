@@ -1,12 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import InlineLoader from "../inline-loader";
 import LanguageBar from "./language-bar";
 import PortalButton from "../ui/button";
+import { updateTeam } from "@/app/actions/update_team";
 import {
   listCommitsAction,
   getContentsAction,
-  saveInstallationAction,
+  tagRepoAction,
   getRepoAction,
   listBranchesAction,
   listPullsAction,
@@ -14,11 +16,37 @@ import {
   listReleasesAction,
   listLanguagesAction,
 } from "@/app/actions/github";
+import { saveInstallationClient } from "@/app/actions/github/client";
+import { useDashStore } from "@/app/stores/dash";
+import { usePortalStore } from "@/app/stores/portal";
 
 export default function RepoPreview({ installationId }: { installationId: string }) {
   const url = new URL(typeof window !== "undefined" ? window.location.href : "http://localhost");
   const owner = url.searchParams.get("owner") || "";
   const repo = url.searchParams.get("repo") || "";
+  const portalDashboard = usePortalStore((s) => s.dashboard);
+  const dashDashboard = useDashStore.getState().dashboard;
+  const team = portalDashboard?.team || dashDashboard?.team || null;
+  const connectedUrl = (team?.github_url && String(team.github_url).trim()) || null;
+  function parseOwnerRepo(urlStr: string | null): { owner: string | null; repo: string | null } {
+    if (!urlStr) return { owner: null, repo: null };
+    try {
+      const u = new URL(urlStr);
+      if (!/(^|\.)github\.com$/i.test(u.hostname)) return { owner: null, repo: null };
+      const parts = u.pathname.replace(/^\//, '').split('/');
+      if (parts.length < 2) return { owner: null, repo: null };
+      const owner = parts[0];
+      let repo = parts[1];
+      repo = repo.replace(/\.git$/i, '');
+      return { owner, repo };
+    } catch {
+      const m = urlStr.match(/github\.com\/(.+?)\/(.+?)(?:$|\?|#|\/)/i);
+      if (m) return { owner: m[1], repo: m[2].replace(/\.git$/i, '') };
+      return { owner: null, repo: null };
+    }
+  }
+  const { owner: connectedOwner, repo: connectedRepo } = parseOwnerRepo(connectedUrl);
+  const isSelectedConnectedRepo = Boolean(connectedOwner && connectedRepo && owner === connectedOwner && repo === connectedRepo);
 
   type RepoMeta = {
     stargazers_count?: number;
@@ -74,6 +102,7 @@ export default function RepoPreview({ installationId }: { installationId: string
   const [commits, setCommits] = useState<Commit[]>([]);
   const [contents, setContents] = useState<ContentItem[]>([]);
   const [currentPath] = useState<string>("");
+  const [tagNotice, setTagNotice] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -104,10 +133,29 @@ export default function RepoPreview({ installationId }: { installationId: string
         setCommits(Array.isArray(cms) ? cms.slice(0, 10) : []);
         setContents(Array.isArray(root) ? root : []);
         try {
-          await saveInstallationAction({
+          await saveInstallationClient({
             installation_id: installationId,
-            repo_full_name: `${owner}/${repo}`,
           });
+          const repoUrl = `https://github.com/${owner}/${repo}`;
+          try {
+            await updateTeam({ githubUrl: repoUrl });
+          } catch {}
+          try { useDashStore.getState().refresh?.(); } catch {}
+          try { usePortalStore.getState().refreshDashboard?.(); } catch {}
+          if (isSelectedConnectedRepo) {
+            //console.log("[C2C] RepoPreview: attempting to tag repo (connected only)", { installationId, owner, repo });
+            const tagRes = await tagRepoAction(installationId, owner, repo).catch(() => ({ ok: false } as const));
+            //console.log("[C2C] RepoPreview: tagging result", tagRes);
+            if (!tagRes?.ok) {
+              setTagNotice(
+                "Could not add repository topic automatically. Please grant the GitHub App Repository administration: write (for topics) or Issues: write (for label fallback), or add the 'code2create-6-0' topic manually in the repo UI."
+              );
+            } else if (tagRes.method === "topics" || tagRes.method === "topics-exists") {
+              setTagNotice(null);
+            }
+          } else {
+            //console.log("[C2C] RepoPreview: skipping tag since selected repo is not the connected team repo", { selected: { owner, repo }, connectedOwner, connectedRepo });
+          }
         } catch {}
       } catch (e) {
         if (active) setError(e instanceof Error ? e.message : "Failed");
@@ -148,6 +196,41 @@ export default function RepoPreview({ installationId }: { installationId: string
             )}
           </div>
         </div>
+        {tagNotice && (
+          <div className="mt-3 rounded-xl border border-red-500/30 bg-red-500/10 text-red-200 px-4 py-2 text-sm flex items-center justify-between gap-3">
+            <span className="flex-1 pr-2">{tagNotice}</span>
+            <div className="flex items-center gap-2">
+              {repoInfo?.html_url && (
+                <a
+                  href={repoInfo.html_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-3 py-1 rounded bg-white/10 hover:bg-white/20 text-white text-xs"
+                >
+                  Open Repo
+                </a>
+              )}
+              <button
+                type="button"
+                className="px-3 py-1 rounded bg-red-500/20 hover:bg-red-500/30 text-red-100 text-xs"
+                onClick={async () => {
+                  try {
+                    if (!isSelectedConnectedRepo) {
+                      console.log("[C2C] RepoPreview Retry: skipping tag; not connected repo", { selected: { owner, repo }, connectedOwner, connectedRepo });
+                      return;
+                    }
+                    console.log("[C2C] RepoPreview Retry: attempting to tag (connected)", { installationId, owner, repo });
+                    const res = await tagRepoAction(installationId, owner, repo).catch(() => ({ ok: false } as const));
+                    console.log("[C2C] RepoPreview Retry: tagging result", res);
+                    if (res?.ok) setTagNotice(null);
+                  } catch {}
+                }}
+              >
+                Retry
+              </button>
+            </div>
+          </div>
+        )}
         <div className="mt-4">
           <LanguageBar languages={languages} />
         </div>
@@ -272,7 +355,9 @@ export default function RepoPreview({ installationId }: { installationId: string
         </Card>
       </div>
 
-      {loading && <div className="mt-6 text-gray-300">Loading…</div>}
+      {loading && (
+        <div className="mt-6 flex items-center justify-center"><InlineLoader size={100} /></div>
+      )}
       {error && <div className="mt-2 text-red-300">{error}</div>}
     </div>
   );

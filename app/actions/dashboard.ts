@@ -23,6 +23,7 @@ export type TeamInfo = {
     description?: string | null;
     code: string;
     github_url?: string | null;
+    github_installation_id?: string | null;
     figma_url?: string | null;
     other?: string | null;
     track_id?: string | null;
