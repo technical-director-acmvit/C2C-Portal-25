@@ -68,6 +68,7 @@ function StripTiles({ stripIndex }: { stripIndex: number }) {
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const ALREADY_REGISTERED_MESSAGE = "You're already on the list — we'll be in touch.";
 
 type Status =
   | { tone: "idle"; message: "" }
@@ -100,6 +101,12 @@ export default function PreRegistration({ active, onClose, onSuccess }: PreRegis
     setSubmitting(false);
   };
 
+  const infoSubmission = (message: string) => {
+    setStatus({ tone: "info", message });
+    setShaking(false);
+    setSubmitting(false);
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (submitting) return;
@@ -123,13 +130,11 @@ export default function PreRegistration({ active, onClose, onSuccess }: PreRegis
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: trimmedName, email: trimmedEmail }),
       });
-      const data: { success?: boolean; error?: string } = await res
+      const data: { success?: boolean; error?: string; alreadyRegistered?: boolean } = await res
         .json()
         .catch(() => ({}));
 
-      // The confirmation animation only plays for an actual saved
-      // registration — anything else (409 duplicate, 4xx/5xx, bad payload)
-      // is an unsuccessful submission.
+      // The confirmation animation only plays for an actual saved registration.
       if (res.ok && data?.success) {
         setStatus({
           tone: "success",
@@ -138,6 +143,11 @@ export default function PreRegistration({ active, onClose, onSuccess }: PreRegis
         // Keep `submitting` locked so the button can't fire again during the
         // handoff; the close/reset effect above clears it.
         window.setTimeout(() => onSuccess(), 350);
+        return;
+      }
+
+      if (res.status === 409 || data?.alreadyRegistered) {
+        infoSubmission(ALREADY_REGISTERED_MESSAGE);
         return;
       }
 

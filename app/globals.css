@@ -767,7 +767,7 @@ h4 {
 .c2c-upcoming-button:focus-visible,
 .c2c-upcoming-button.is-active {
   min-width: 196px;
-  transform: translateX(-50%) translateY(-4px);
+  transform: translateX(-50%);
   outline: none;
 }
 

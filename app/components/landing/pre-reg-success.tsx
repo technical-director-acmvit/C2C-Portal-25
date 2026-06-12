@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type PreRegSuccessProps = {
   active: boolean;
@@ -26,6 +26,11 @@ export default function PreRegSuccess({ active, onDone }: PreRegSuccessProps) {
   const [enter, setEnter] = useState(false);
   const [showText, setShowText] = useState(false);
   const [leaving, setLeaving] = useState(false);
+  const onDoneRef = useRef(onDone);
+
+  useEffect(() => {
+    onDoneRef.current = onDone;
+  }, [onDone]);
 
   useEffect(() => {
     if (!active) {
@@ -46,7 +51,7 @@ export default function PreRegSuccess({ active, onDone }: PreRegSuccessProps) {
     });
     const tText = window.setTimeout(() => setShowText(true), 3450);
     const tLeave = window.setTimeout(() => setLeaving(true), 5200);
-    const tDone = window.setTimeout(() => onDone(), 6100);
+    const tDone = window.setTimeout(() => onDoneRef.current(), 6100);
 
     return () => {
       cancelAnimationFrame(raf);
@@ -55,7 +60,7 @@ export default function PreRegSuccess({ active, onDone }: PreRegSuccessProps) {
       window.clearTimeout(tLeave);
       window.clearTimeout(tDone);
     };
-  }, [active, onDone]);
+  }, [active]);
 
   if (!mounted) return null;
 
