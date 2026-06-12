@@ -12,7 +12,7 @@ import PortalLoader from "@/app/components/portal/portal-loader";
 import { FormContent } from "@/app/changingtoarandompath/form/page";
 import { LampOverlay } from "@/app/components/form/ui/lamp";
 import BottomBar from "@/app/components/dash/bottom-bar";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { LogOut } from "lucide-react";
 import BackChevron from "@/app/components/portal/ui/back-chevron";
 import BlockRoomModal from "@/app/components/portal/block_room";
@@ -20,8 +20,6 @@ import FinalPitchModal from "@/app/components/dash/final-pitch-modal";
 import React from "react";
 
 export default function DashPage() {
-  const { data: session } = useSession();
-  
   useLayoutEffect(() => {
     // Your layout effects here
   }, []);
@@ -33,33 +31,25 @@ export default function DashPage() {
   const [showFinalModal, setShowFinalModal] = React.useState(false);
 
   // Show final pitch notice ONLY when user's current round matches active round AND it's the final round (4)
-  const showFinalPitchNotice = React.useMemo(() => {
-    const cr = dashboard?.current_team_round;
-    const ar = dashboard?.active_round;
-    const roundsMatch = Boolean(cr?.id && ar?.id && cr.id === ar.id);
-    const isFinal = (ar?.round_number === 4) || (ar?.name === "4");
-    return roundsMatch && isFinal;
-  }, [dashboard?.current_team_round?.id, dashboard?.active_round?.id, dashboard?.active_round?.round_number, dashboard?.active_round?.name]);
+  const currentRound = dashboard?.current_team_round;
+  const activeRound = dashboard?.active_round;
+  const roundsMatch = Boolean(
+    currentRound?.id && activeRound?.id && currentRound.id === activeRound.id
+  );
+  const showFinalPitchNotice =
+    roundsMatch && (activeRound?.round_number === 4 || activeRound?.name === "4");
 
   React.useEffect(() => {
     if (showFinalPitchNotice) setShowFinalModal(true);
   }, [showFinalPitchNotice]);
 
   // Check if user needs to provide room details
-  const needsRoomDetails = React.useMemo(() => {
-    const user = dashboard?.user;
-    if (!user) return false;
-    
-    // Only show modal for internal users
-    if (user.internal !== true) return false;
-    
-    // Show modal if either room_number or block is missing for hostellers
-    // For dayscholar users (hosteller: false), we don't need room details
-    if (user.hosteller === false) return false;
-    
-    // For hostellers, check if room_number or block is missing
-    return !user.room_number || !user.block;
-  }, [dashboard?.user, dashboard]); // Add dashboard as dependency to trigger on every refresh
+  const user = dashboard?.user;
+  const needsRoomDetails = Boolean(
+    user?.internal === true &&
+    user.hosteller !== false &&
+    (!user.room_number || !user.block)
+  );
 
   useEffect(() => {
     void initialize();

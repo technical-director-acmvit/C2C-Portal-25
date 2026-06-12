@@ -1,7 +1,6 @@
 "use client";
 import LampDemo from "@/app/components/form/ui/lamp";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import InputBox from "@/app/components/form/InputBox";
 import ImgBox from "@/app/components/form/ImgBox";
 import { useDashStore } from "@/app/stores/dash";
@@ -11,7 +10,6 @@ import { getRepoInstallationIdAction, tagRepoAction } from "@/app/actions/github
 import UpdateSuccessModal from "@/app/components/form/update-success-modal";
 
 export function FormContent() {
-  const router = useRouter();
     // const view = useDashStore((s) => s.view);
     const data = useDashStore((s) => s.dashboard);
     // const error = useDashStore((s) => s.error);
@@ -33,7 +31,6 @@ export function FormContent() {
   const [figmaLink, setFigmaLink] = useState<string>(team?.figma_url ?? "");
   const [googleDriveLink, setGoogleDriveLink] = useState<string>(team?.other ?? "");
   const [githubError, setGithubError] = useState<string>("");
-  const [figmaError, setFigmaError] = useState<string>("");
   const [driveError, setDriveError] = useState<string>("");
     const [techStackInput, setTechStackInput] = useState<string>("");
   const resolvedTechStack = (team?.tech_stack ?? []) as string[] | Record<string, unknown>;
@@ -48,8 +45,6 @@ export function FormContent() {
     console.log("Initial tech stack:", techStackTags, team?.tech_stack);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showUpdatedModal, setShowUpdatedModal] = useState(false);
-    const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-    const [uploadStatus, setUploadStatus] = useState<string>("");
 
   // const techStackList: string[] = Array.isArray(resolvedTechStack) ? resolvedTechStack : Object.keys(resolvedTechStack);
 
@@ -188,37 +183,6 @@ export function FormContent() {
     const isTechStackEmpty = !team?.tech_stack || 
         (Array.isArray(team.tech_stack) && team.tech_stack.length === 0) ||
         (!Array.isArray(team.tech_stack) && Object.keys(team.tech_stack).length === 0);
-
-    // File upload handler
-    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (!file) return;
-
-        // Validate file type ( )
-        const validTypes = ['application/pdf'];
-        if (!validTypes.includes(file.type)) {
-            setUploadStatus("Please upload a PDF or PowerPoint file");
-            return;
-        }
-
-        // Validate file size (5MB limit)
-        const maxSize = 5 * 1024 * 1024; // 5MB in bytes
-        if (file.size > maxSize) {
-            setUploadStatus("File size must be under 5MB");
-            return;
-        }
-
-        setUploadedFile(file);
-        setUploadStatus(`Uploaded: ${file.name}`);
-    };
-
-    // Download template handler
-    const handleDownloadTemplate = () => {
-        // You can replace this with actual template download logic
-        setUploadStatus("Template download started...");
-        // Simulate download
-        setTimeout(() => setUploadStatus(""), 2000);
-    };
 
   return (
     <>
@@ -529,16 +493,12 @@ export function FormContent() {
                         placeholder="Upload Figma Link..."
                         value={figmaLink}
                         onChange={(e) => setFigmaLink(e.target.value)}
-                        invalid={!!figmaError}
                     />
                 ) : (
                     <ViewBox
                       data={figmaLink}
                       readOnly
                     />
-                )}
-                {figmaError && (
-                  <span className="text-red-400 text-sm font-normal mt-2">{figmaError}</span>
                 )}
               </div>
             </div>
@@ -573,7 +533,7 @@ export function FormContent() {
               <div className="flex justify-center">
                 <button
                   onClick={handleSubmit}
-                  disabled={isSubmitting || !!githubError || !!figmaError || !!driveError}
+                  disabled={isSubmitting || !!githubError || !!driveError}
                   className="bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-600 text-white font-bold py-4 px-6 sm:px-8 rounded-lg text-lg sm:text-xl transition-colors w-full sm:w-auto"
                 >
                   {isSubmitting ? "Updating..." : "Update Team"}

@@ -130,7 +130,7 @@ export const usePortalStore = create<PortalState>((set, get) => ({
         whitelistError: res.ok ? null : res.error ?? null,
         isInternal: res.ok && typeof res.internal === "boolean" ? res.internal : null,
       });
-    } catch (_) {
+    } catch {
       set({ whitelistChecked: true, whitelistOk: false, whitelistError: "Whitelist check failed", isInternal: null });
     }
   },

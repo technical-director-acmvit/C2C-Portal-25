@@ -21,7 +21,7 @@ const HKBox = () => {
           const approved = codes.find(c => (c.status || "").toLowerCase() === "approved");
           setCode((approved ?? codes[0]).code);
         }
-      } catch (e) {
+      } catch {
         // Silent on init; users can still click to fetch
       }
     })();

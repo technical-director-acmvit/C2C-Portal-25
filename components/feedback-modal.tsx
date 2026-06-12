@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { X, Send, CheckCircle } from 'lucide-react';
 
 interface FeedbackQuestion {
@@ -26,14 +26,7 @@ export function FeedbackModal({ isOpen, onClose, email, eventType = 'C2C', onSub
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (isOpen && !submitted) {
-      fetchQuestions();
-      setUserEmail(email); // Update user email when modal opens
-    }
-  }, [isOpen, email, eventType, submitted]);
-
-  const fetchQuestions = async () => {
+  const fetchQuestions = useCallback(async () => {
     setLoading(true);
     setError(null);
 
@@ -58,7 +51,14 @@ export function FeedbackModal({ isOpen, onClose, email, eventType = 'C2C', onSub
     } finally {
       setLoading(false);
     }
-  };
+  }, [eventType]);
+
+  useEffect(() => {
+    if (isOpen && !submitted) {
+      fetchQuestions();
+      setUserEmail(email); // Update user email when modal opens
+    }
+  }, [isOpen, email, submitted, fetchQuestions]);
 
   const handleAnswerChange = (questionId: string, value: string) => {
     setAnswers(prev => ({

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
@@ -8,7 +8,7 @@ function loadBlockData() {
     return JSON.parse(fileContent);
 }
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const data = loadBlockData();
 

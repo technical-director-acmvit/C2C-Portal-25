@@ -8,13 +8,11 @@ import PortalButton from './portal/ui/button'
 interface ComingSoonProps {
     title?: string
     message?: string
-    showForUserNotFound?: boolean
 }
 
 export default function Coming_Soon({ 
     title = "Result coming soon", 
-    message = "The result is not out yet.\nWe are working hard to bring it to you soon!",
-    showForUserNotFound = true 
+    message = "The result is not out yet.\nWe are working hard to bring it to you soon!"
 }: ComingSoonProps = {}) {
     const router = useRouter()
 

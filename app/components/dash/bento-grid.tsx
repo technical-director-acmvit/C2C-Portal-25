@@ -1,6 +1,5 @@
 "use client";
 import SongCard from "./spotify-player";
-import TimerInfo from "./timer";
 import ButtonBox from "./button-box";
 import ImageBox from "./image-box";
 import * as React from "react";
@@ -20,39 +19,6 @@ export default function BentoGrid() {
     const [notices, setNotices] = React.useState<{ ID: string; information: string; created_at: string }[]>([]);
     const [installUrl, setInstallUrl] = useState<string | null>(null);
     const connected = Boolean(data?.team?.github_installation_id || data?.team?.github_url);
-
-    // live countdown for round end time (HH : MM : SS)
-    const [timeLeft, setTimeLeft] = React.useState<string>("Wait a little more");
-
-    React.useEffect(() => {
-        let mounted = true;
-        function compute() {
-            const endRaw = data?.active_round?.end_time || data?.submission?.round_end_time;
-            if (!endRaw) {
-                if (mounted) setTimeLeft("Wait a little more");
-                return;
-            }
-            const end = dayjs(endRaw);
-            const diffMs = end.diff(dayjs());
-            if (diffMs <= 0) {
-                if (mounted) setTimeLeft("00 : 00 : 00");
-                return;
-            }
-
-            const totalSec = Math.floor(diffMs / 1000);
-            const hours = Math.floor(totalSec / 3600);
-            const mins = Math.floor((totalSec % 3600) / 60);
-            const secs = totalSec % 60;
-            const pad = (n: number) => String(n).padStart(2, "0");
-            if (mounted) setTimeLeft(`${pad(hours)} : ${pad(mins)} : ${pad(secs)}`);
-        }
-        compute();
-        const id = setInterval(compute, 1000);
-        return () => {
-            mounted = false;
-            clearInterval(id);
-        };
-    }, [data?.submission?.round_end_time, data?.active_round?.end_time]);
 
     React.useEffect(() => {
         let mounted = true;
