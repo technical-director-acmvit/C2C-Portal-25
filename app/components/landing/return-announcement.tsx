@@ -1,11 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useId, useState } from "react";
-
-function toDomId(value: string) {
-	return value.replace(/[^A-Za-z0-9_-]/g, "_");
-}
+import { useEffect, useState } from "react";
 
 type ReturnAnnouncementProps = {
 	active: boolean;
@@ -145,46 +141,8 @@ function computeGeometry(width: number, height: number): SectorGeometry[] {
 	});
 }
 
-function GlassDistortion({ id }: { id: string }) {
-	return (
-		<svg
-			className="c2c-upcoming-filter"
-			xmlns="http://www.w3.org/2000/svg"
-			aria-hidden="true"
-			focusable="false"
-			width="0"
-			height="0"
-		>
-			<defs>
-				<filter id={id}>
-					<feTurbulence
-						type="fractalNoise"
-						baseFrequency="0.008 0.012"
-						numOctaves="2"
-						seed="18"
-						result="noise"
-					/>
-					<feGaussianBlur in="noise" stdDeviation="1.8" result="softNoise" />
-					<feDisplacementMap
-						in="SourceGraphic"
-						in2="softNoise"
-						scale="34"
-						xChannelSelector="R"
-						yChannelSelector="G"
-					/>
-				</filter>
-			</defs>
-		</svg>
-	);
-}
-
 export default function ReturnAnnouncement({ active, onToggle }: ReturnAnnouncementProps) {
-	const [hovered, setHovered] = useState(false);
-	const [suppressHoverGlass, setSuppressHoverGlass] = useState(false);
 	const [geometry, setGeometry] = useState<SectorGeometry[]>([]);
-	const filterId = `c2c-upcoming-glass-${toDomId(useId())}`;
-	const showingGlass = hovered && !active && !suppressHoverGlass;
-	const showingOverlay = showingGlass || active;
 
 	useEffect(() => {
 		if (typeof window === "undefined") return;
@@ -195,43 +153,12 @@ export default function ReturnAnnouncement({ active, onToggle }: ReturnAnnouncem
 		return () => window.removeEventListener("resize", update);
 	}, []);
 
-	const handleHoverStart = () => {
-		if (!active && !suppressHoverGlass) {
-			setHovered(true);
-		}
-	};
-
-	const handleHoverEnd = () => {
-		setHovered(false);
-		setSuppressHoverGlass(false);
-	};
-
-	const handleClick = () => {
-		setHovered(false);
-		setSuppressHoverGlass(true);
-		onToggle();
-	};
-
 	return (
 		<div className={`c2c-upcoming ${active ? "is-active" : ""}`}>
-			<GlassDistortion id={filterId} />
-
 			<div
-				className={`c2c-upcoming-overlay ${showingOverlay ? "is-visible" : ""} ${showingGlass ? "is-glass" : ""
-					} ${active ? "is-active" : ""}`}
+				className={`c2c-upcoming-overlay ${active ? "is-visible is-active" : ""}`}
 				aria-hidden={!active}
-				style={{
-					WebkitBackdropFilter: showingGlass
-						? `url(#${filterId}) blur(12px) saturate(150%)`
-						: "none",
-					backdropFilter: showingGlass
-						? `url(#${filterId}) blur(12px) saturate(150%)`
-						: "none",
-				}}
 			>
-				<div className="c2c-upcoming-overlay__tint" />
-				<div className="c2c-upcoming-overlay__shine" />
-
 				<div className="c2c-upcoming-stage" aria-hidden={!active}>
 					<div className="c2c-upcoming-sector-layer">
 						{SECTORS.map((sector, i) => {
@@ -284,11 +211,7 @@ export default function ReturnAnnouncement({ active, onToggle }: ReturnAnnouncem
 			<button
 				type="button"
 				className={`c2c-upcoming-button ${active ? "is-active" : ""}`}
-				onMouseEnter={handleHoverStart}
-				onMouseLeave={handleHoverEnd}
-				onFocus={handleHoverStart}
-				onBlur={handleHoverEnd}
-				onClick={handleClick}
+				onClick={onToggle}
 				aria-pressed={active}
 				aria-label={active ? "Close upcoming announcement" : "See upcoming announcement"}
 			>
