@@ -8,9 +8,10 @@ import { useRouter } from "next/navigation";
 
 type LandingProps = {
   onPreRegister?: () => void;
+  preRegistered?: boolean;
 };
 
-const Landing = ({ onPreRegister }: LandingProps = {}) => {
+const Landing = ({ onPreRegister, preRegistered = false }: LandingProps = {}) => {
   const router = useRouter();
   return (
     <div
@@ -119,15 +120,21 @@ const Landing = ({ onPreRegister }: LandingProps = {}) => {
           <div className="absolute left-1/2 -translate-x-1/2 z-20 c2c-prereg-cta c2c-prereg-cta--hero">
             <button
               type="button"
-              onClick={onPreRegister}
+              onClick={preRegistered ? undefined : onPreRegister}
+              disabled={preRegistered}
+              aria-disabled={preRegistered}
               className="c2c-upcoming-button"
-              aria-label="Pre-register for C2C 7.0"
+              aria-label={
+                preRegistered
+                  ? "You are pre-registered for C2C 7.0"
+                  : "Pre-register for C2C 7.0"
+              }
             >
               <span aria-hidden className="c2c-upcoming-button__effect" />
               <span aria-hidden className="c2c-upcoming-button__tint" />
               <span aria-hidden className="c2c-upcoming-button__shine" />
               <span className="c2c-upcoming-button__content">
-                Pre-register for C2C 7.0 →
+                {preRegistered ? "Pre-registered" : "Pre-register for C2C 7.0 →"}
               </span>
             </button>
           </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { type CSSProperties, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -63,7 +63,7 @@ export default function TopBar({ onUpcomingEdition }: TopBarProps = {}) {
   ];
 
   return (
-    <>
+    <div className="c2c-topbar-shell">
       <div className="c2c-topbar w-full border-b border-white/30">
         <span aria-hidden className="c2c-topbar__effect" />
         <span aria-hidden className="c2c-topbar__tint" />
@@ -152,7 +152,7 @@ export default function TopBar({ onUpcomingEdition }: TopBarProps = {}) {
             {REGISTRATIONS_OPEN && (
               <InteractiveHoverButton
                 variant="simple"
-                onClick={() => router.push('/portal')}
+                onClick={() => router.push("/portal")}
                 className="w-auto text-[11px] px-3 py-1 min-h-[28px] rounded-full font-semibold bg-black/50 hover:bg-black/60 text-white border border-white/30 backdrop-blur-sm transition-colors cursor-pointer"
               >
                 Register Now
@@ -208,38 +208,45 @@ export default function TopBar({ onUpcomingEdition }: TopBarProps = {}) {
             </a>
           </div>
         </div>
-
-        {menuOpen && (
-          <div className="min-[1120px]:hidden absolute inset-x-0 top-full bg-black/95 border-t border-white z-50">
-            <div className="px-4 py-4">
-              <ul className="flex flex-col gap-3">
-                {navLinks.map((link) => (
-                  <li key={link.href}>
-                    {link.href.startsWith("#") ? (
-                      <button
-                        onClick={() => handleNavClick(link.href)}
-                        className="block w-full px-3 py-2 rounded text-white hover:bg-white/10 text-center cursor-pointer"
-                        style={{ fontFamily: "Trap, Arial, sans-serif" }}
-                      >
-                        {link.label}
-                      </button>
-                    ) : (
-                      <Link
-                        href={link.href}
-                        onClick={() => setMenuOpen(false)}
-                        className="block w-full px-3 py-2 rounded text-white hover:bg-white/10 text-center cursor-pointer"
-                        style={{ fontFamily: "Trap, Arial, sans-serif" }}
-                      >
-                        {link.label}
-                      </Link>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        )}
       </div>
-    </>
+
+      {/* Mobile dropdown: mounted outside the topbar so its hidden height cannot
+       * stretch the glass bar. .is-open drives the push-down animation. */}
+      <div
+        className={`c2c-mobile-menu min-[1120px]:hidden ${menuOpen ? "is-open" : ""}`}
+        aria-hidden={!menuOpen}
+      >
+        <div className="c2c-mobile-menu__panel">
+          <ul className="flex flex-col gap-3 px-4 py-4 m-0 list-none">
+            {navLinks.map((link, index) => (
+              <li
+                key={link.href}
+                className="c2c-mobile-menu__item"
+                style={{ "--menu-i": index } as CSSProperties}
+              >
+                {link.href.startsWith("#") ? (
+                  <button
+                    onClick={() => handleNavClick(link.href)}
+                    className="block w-full px-3 py-2 rounded text-white hover:bg-white/10 text-center cursor-pointer"
+                    style={{ fontFamily: "Trap, Arial, sans-serif" }}
+                  >
+                    {link.label}
+                  </button>
+                ) : (
+                  <Link
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="block w-full px-3 py-2 rounded text-white hover:bg-white/10 text-center cursor-pointer"
+                    style={{ fontFamily: "Trap, Arial, sans-serif" }}
+                  >
+                    {link.label}
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -5,6 +5,9 @@ import { type CSSProperties, FormEvent, useEffect, useState } from "react";
 type PreRegistrationProps = {
   active: boolean;
   onClose: () => void;
+  // Fired only once the backend confirms the registration was saved. The
+  // parent hands off to the success animation from here.
+  onSuccess: () => void;
 };
 
 // Colours pulled from the green sectors of the C2C logo. The black cutout is
@@ -65,6 +68,7 @@ function StripTiles({ stripIndex }: { stripIndex: number }) {
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const ALREADY_REGISTERED_MESSAGE = "You're already on the list — we'll be in touch.";
 
 type Status =
   | { tone: "idle"; message: "" }
@@ -72,10 +76,11 @@ type Status =
   | { tone: "error"; message: string }
   | { tone: "success"; message: string };
 
-export default function PreRegistration({ active, onClose }: PreRegistrationProps) {
+export default function PreRegistration({ active, onClose, onSuccess }: PreRegistrationProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [shaking, setShaking] = useState(false);
   const [status, setStatus] = useState<Status>({ tone: "idle", message: "" });
 
   // When the panel closes externally, drop the in-flight submitting flag so a
@@ -83,9 +88,24 @@ export default function PreRegistration({ active, onClose }: PreRegistrationProp
   useEffect(() => {
     if (!active) {
       setSubmitting(false);
+      setShaking(false);
       setStatus({ tone: "idle", message: "" });
     }
   }, [active]);
+
+  // Any unsuccessful submission: surface the reason, shake the card and flash
+  // it red (cleared again in onAnimationEnd), and unlock the submit button.
+  const failSubmission = (message: string) => {
+    setStatus({ tone: "error", message });
+    setShaking(true);
+    setSubmitting(false);
+  };
+
+  const infoSubmission = (message: string) => {
+    setStatus({ tone: "info", message });
+    setShaking(false);
+    setSubmitting(false);
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -94,11 +114,11 @@ export default function PreRegistration({ active, onClose }: PreRegistrationProp
     const trimmedName = name.trim();
     const trimmedEmail = email.trim();
     if (!trimmedName) {
-      setStatus({ tone: "error", message: "Please tell us your name." });
+      failSubmission("Please tell us your name.");
       return;
     }
     if (!EMAIL_RE.test(trimmedEmail)) {
-      setStatus({ tone: "error", message: "That email doesn't look right." });
+      failSubmission("That email doesn't look right.");
       return;
     }
 
@@ -110,41 +130,31 @@ export default function PreRegistration({ active, onClose }: PreRegistrationProp
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: trimmedName, email: trimmedEmail }),
       });
-      const data: { success?: boolean; error?: string; alreadyRegistered?: boolean } =
-        await res.json().catch(() => ({}));
+      const data: { success?: boolean; error?: string; alreadyRegistered?: boolean } = await res
+        .json()
+        .catch(() => ({}));
+
+      // The confirmation animation only plays for an actual saved registration.
+      if (res.ok && data?.success) {
+        setStatus({
+          tone: "success",
+          message: "You're in. We'll ping you the moment C2C 7.0 opens.",
+        });
+        // Keep `submitting` locked so the button can't fire again during the
+        // handoff; the close/reset effect above clears it.
+        window.setTimeout(() => onSuccess(), 350);
+        return;
+      }
 
       if (res.status === 409 || data?.alreadyRegistered) {
-        setStatus({
-          tone: "info",
-          message: "You're already on the list — we'll be in touch.",
-        });
-        setSubmitting(false);
+        infoSubmission(ALREADY_REGISTERED_MESSAGE);
         return;
       }
 
-      if (!res.ok || !data?.success) {
-        setStatus({
-          tone: "error",
-          message: data?.error || "Couldn't save that. Try again in a moment.",
-        });
-        setSubmitting(false);
-        return;
-      }
-
-      setStatus({
-        tone: "success",
-        message: "You're in. We'll ping you the moment C2C 7.0 opens.",
-      });
-      window.setTimeout(() => {
-        onClose();
-      }, 1200);
+      failSubmission(data?.error || "Couldn't save that. Try again in a moment.");
     } catch (err) {
-      console.error(err);
-      setStatus({
-        tone: "error",
-        message: "Network hiccup. Please try again.",
-      });
-      setSubmitting(false);
+      console.error("preregister save failed:", err);
+      failSubmission("Network hiccup. Please try again.");
     }
   };
 
@@ -170,7 +180,19 @@ export default function PreRegistration({ active, onClose }: PreRegistrationProp
         C2C 7.0
       </div>
 
-      <form className="c2c-prereg-form" onSubmit={handleSubmit}>
+      <form
+        className={`c2c-prereg-form ${shaking ? "is-error-shake" : ""}`}
+        onSubmit={handleSubmit}
+        onAnimationEnd={(e) => {
+          // c2c-prereg-form-flash is the reduced-motion variant of the shake.
+          if (
+            e.animationName === "c2c-prereg-form-shake" ||
+            e.animationName === "c2c-prereg-form-flash"
+          ) {
+            setShaking(false);
+          }
+        }}
+      >
         <header className="c2c-prereg-form__head">
           <p className="c2c-prereg-form__eyebrow">Join the list</p>
           <h2 className="c2c-prereg-form__title">Be first in line for C2C 7.0</h2>

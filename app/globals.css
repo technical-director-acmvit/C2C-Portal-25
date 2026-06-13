@@ -382,6 +382,11 @@ h4 {
  * border. Content sits at z-index 3 above the three layers.
  */
 
+.c2c-topbar-shell {
+  position: relative;
+  width: 100%;
+}
+
 .c2c-topbar {
   position: relative;
   isolation: isolate;
@@ -424,6 +429,72 @@ h4 {
 .c2c-topbar > div {
   position: relative;
   z-index: 3;
+}
+
+/* Mobile nav dropdown — the panel is pushed down from under the bar on open
+ * and pulled back up on close, behind the same glass recipe as the bar. The
+ * outer wrapper only clips the slide; visibility flips after the pull-back
+ * finishes so the exit stays animated and closed items aren't focusable. */
+.c2c-mobile-menu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 50;
+  overflow: hidden;
+  pointer-events: none;
+  visibility: hidden;
+  transition: visibility 0s 460ms;
+}
+
+.c2c-mobile-menu.is-open {
+  visibility: visible;
+  pointer-events: auto;
+  transition: none;
+}
+
+.c2c-mobile-menu__panel {
+  transform: translateY(-102%);
+  transition: transform 420ms cubic-bezier(0.32, 0.72, 0.28, 1);
+  background: rgba(255, 255, 255, 0.15);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.25),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 24px 0 rgba(255, 255, 255, 0.12);
+}
+
+.c2c-mobile-menu.is-open .c2c-mobile-menu__panel {
+  transform: translateY(0);
+}
+
+/* Items follow the panel: dropped in from the top with a small stagger on
+ * open, pulled back together (no stagger, faster) on close. */
+.c2c-mobile-menu__item {
+  opacity: 0;
+  transform: translateY(-16px);
+  transition:
+    opacity 200ms ease,
+    transform 220ms ease;
+}
+
+.c2c-mobile-menu.is-open .c2c-mobile-menu__item {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 300ms ease calc(120ms + var(--menu-i, 0) * 35ms),
+    transform 340ms cubic-bezier(0.2, 0.9, 0.3, 1) calc(120ms + var(--menu-i, 0) * 35ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c2c-mobile-menu,
+  .c2c-mobile-menu__panel,
+  .c2c-mobile-menu__item {
+    transition-duration: 1ms;
+    transition-delay: 0ms;
+  }
 }
 
 
@@ -499,42 +570,9 @@ h4 {
   background: transparent;
 }
 
-.c2c-upcoming-overlay.is-glass {
-  background: rgba(7, 12, 13, 0.32);
-}
-
 .c2c-upcoming-overlay.is-active {
   pointer-events: auto;
   background: transparent;
-}
-
-.c2c-upcoming-overlay__tint,
-.c2c-upcoming-overlay__shine {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 360ms ease;
-}
-
-.c2c-upcoming-overlay.is-glass .c2c-upcoming-overlay__tint,
-.c2c-upcoming-overlay.is-glass .c2c-upcoming-overlay__shine {
-  opacity: 1;
-}
-
-.c2c-upcoming-overlay__tint {
-  background:
-    radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.18), transparent 24%),
-    radial-gradient(circle at 20% 20%, rgba(72, 186, 134, 0.15), transparent 28%),
-    rgba(255, 255, 255, 0.035);
-}
-
-.c2c-upcoming-overlay__shine {
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.08),
-    inset 26px 0 70px rgba(255, 255, 255, 0.035),
-    inset -26px 0 70px rgba(0, 0, 0, 0.22);
 }
 
 .c2c-upcoming-stage {
@@ -729,7 +767,7 @@ h4 {
 .c2c-upcoming-button:focus-visible,
 .c2c-upcoming-button.is-active {
   min-width: 196px;
-  transform: translateX(-50%) translateY(-4px);
+  transform: translateX(-50%);
   outline: none;
 }
 
@@ -892,9 +930,21 @@ h4 {
   transform: none;
 }
 
+/* Bounce along width + height (no raise-up). The bouncy easing on
+ * .c2c-upcoming-button's `transform` transition (cubic-bezier overshoot) makes
+ * the scale springs past its target and settle — matching the See upcoming
+ * Edition button's springy feel. */
 .c2c-prereg-cta .c2c-upcoming-button:hover,
 .c2c-prereg-cta .c2c-upcoming-button:focus-visible {
-  transform: translateY(-4px);
+  transform: scale(1.07);
+}
+
+/* Once pre-registered the CTA is inert — no pointer cursor, no bounce. */
+.c2c-prereg-cta .c2c-upcoming-button:disabled,
+.c2c-prereg-cta .c2c-upcoming-button:disabled:hover,
+.c2c-prereg-cta .c2c-upcoming-button:disabled:focus-visible {
+  cursor: default;
+  transform: none;
 }
 
 .c2c-page-shell.is-prereg-open .c2c-prereg-cta {
@@ -1037,7 +1087,7 @@ h4 {
   position: absolute;
   z-index: 2;
   left: 50%;
-  top: 50%;
+  top: 55%;
   transform: translate(-50%, -50%) scale(0.96);
   width: min(520px, calc(100vw - 32px));
   overflow: hidden;
@@ -1117,6 +1167,58 @@ h4 {
 .c2c-prereg-form > * {
   position: relative;
   z-index: 1;
+}
+
+/* Unsuccessful submission: shake the card and wash it mildly red, then settle
+ * back to the normal palette. Every keyframe keeps the centering translate —
+ * the card is positioned by transform, so a bare translateX would teleport it.
+ * Cleared from React in onAnimationEnd. */
+.c2c-prereg-form.is-error-shake {
+  animation: c2c-prereg-form-shake 640ms cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes c2c-prereg-form-shake {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  12% {
+    transform: translate(calc(-50% - 11px), -50%) scale(1);
+    background: rgba(46, 12, 14, 0.82);
+    border-color: rgba(229, 86, 86, 0.65);
+    box-shadow:
+      0 28px 80px rgba(0, 0, 0, 0.55),
+      0 0 34px rgba(229, 86, 86, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+  24% {
+    transform: translate(calc(-50% + 10px), -50%) scale(1);
+  }
+  36% {
+    transform: translate(calc(-50% - 8px), -50%) scale(1);
+  }
+  48% {
+    transform: translate(calc(-50% + 6px), -50%) scale(1);
+  }
+  60% {
+    transform: translate(calc(-50% - 3px), -50%) scale(1);
+    background: rgba(46, 12, 14, 0.82);
+    border-color: rgba(229, 86, 86, 0.65);
+    box-shadow:
+      0 28px 80px rgba(0, 0, 0, 0.55),
+      0 0 34px rgba(229, 86, 86, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+  72% {
+    transform: translate(calc(-50% + 1px), -50%) scale(1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    background: rgba(10, 12, 14, 0.78);
+    border-color: rgba(72, 186, 134, 0.35);
+    box-shadow:
+      0 28px 80px rgba(0, 0, 0, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
 }
 
 .c2c-prereg-form__head {
@@ -1322,5 +1424,179 @@ h4 {
   }
   .c2c-prereg-strip__track {
     animation: none;
+  }
+  /* Keep the red error flash but drop the movement. */
+  .c2c-prereg-form.is-error-shake {
+    animation-name: c2c-prereg-form-flash;
+  }
+}
+
+@keyframes c2c-prereg-form-flash {
+  12%,
+  60% {
+    background: rgba(46, 12, 14, 0.82);
+    border-color: rgba(229, 86, 86, 0.65);
+  }
+  100% {
+    background: rgba(10, 12, 14, 0.78);
+    border-color: rgba(72, 186, 134, 0.35);
+  }
+}
+
+/* =============================================================
+ * Pre-registration success takeover
+ * =============================================================
+ *
+ * Plays once the form POST resolves (see pre-reg-success.tsx). The C2C logo
+ * rises from the bottom of the screen (small -> large, linear), the light-green
+ * facet flies in from the right and decelerates into the logo's empty (black)
+ * wedge, then a confirmation line fades in. Finally the whole stage fades out,
+ * lifting the dark scrim to reveal the site with the CTA now reading
+ * "Pre-registered".
+ */
+.c2c-prereg-success {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483600;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  background: rgba(4, 8, 9, 0);
+  /* Slow fade: the pre-registration page stays mounted underneath while this
+   * scrim dissolves it into darkness (page.tsx swaps it out once covered). */
+  transition: background 2400ms ease;
+}
+
+.c2c-prereg-success.is-active {
+  pointer-events: auto;
+  /* Fully opaque while the stage plays: the form swap, scroll-lock release
+   * and shell re-render all happen under cover, so none of that churn can
+   * bleed through and flicker behind the logo. */
+  background: rgba(4, 8, 9, 1);
+}
+
+/* Lifting the scrim on exit must beat .is-active (equal specificity), so this
+ * rule is ordered after it. The exit is quicker than the 2.4s entrance fade. */
+.c2c-prereg-success.is-leaving {
+  background: rgba(4, 8, 9, 0);
+  transition: background 760ms ease;
+}
+
+.c2c-prereg-success__stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(20px, 4.5vmin, 44px);
+  transition: opacity 680ms ease;
+}
+
+.c2c-prereg-success.is-leaving .c2c-prereg-success__stage {
+  opacity: 0;
+}
+
+.c2c-prereg-success__logo-box {
+  --c2c-success-logo: min(46vmin, 340px);
+  position: relative;
+  width: var(--c2c-success-logo);
+  height: calc(var(--c2c-success-logo) * 299 / 265);
+  /* Hidden until the entrance class triggers the rise keyframes, so there is
+   * no one-frame flash of the full-size logo. */
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.c2c-prereg-success.is-active .c2c-prereg-success__logo-box {
+  /* Starts only once the scrim fade is mostly settled, so the page-to-page
+   * crossfade reads first and the logo rise gets its own beat. */
+  animation: c2c-prereg-success-rise 1100ms linear 1500ms both;
+}
+
+.c2c-prereg-success__logo {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 30px 70px rgba(0, 0, 0, 0.6));
+}
+
+.c2c-prereg-success__triangle {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  filter: drop-shadow(0 0 18px rgba(211, 235, 224, 0.35));
+  /* Keep the facet on its own compositor layer for the whole sequence —
+   * without this the layer is demoted the moment the fly-in animation
+   * settles, and the repaint shows up as a flicker right as it docks. */
+  will-change: transform, opacity;
+}
+
+.c2c-prereg-success.is-active .c2c-prereg-success__triangle {
+  /* Ease-out so the facet decelerates as it docks. The delay lets the logo
+   * mostly arrive first; `both` keeps it off-screen during that delay. */
+  animation: c2c-prereg-success-facet 1080ms cubic-bezier(0.16, 0.84, 0.3, 1) 2250ms both;
+}
+
+.c2c-prereg-success__text {
+  margin: 0;
+  font-family: "Pilat Extended", "Trap-Bold", Arial, sans-serif;
+  font-size: clamp(1.25rem, 3.4vmin, 2.1rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #eafaf2;
+  text-align: center;
+  text-shadow:
+    0 2px 18px rgba(0, 0, 0, 0.55),
+    0 0 26px rgba(72, 186, 134, 0.35);
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 560ms ease,
+    transform 560ms cubic-bezier(0.2, 1, 0.24, 1);
+}
+
+.c2c-prereg-success.show-text .c2c-prereg-success__text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes c2c-prereg-success-rise {
+  from {
+    transform: translateY(54vh) scale(0.16);
+    opacity: 0;
+  }
+  14% {
+    opacity: 1;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes c2c-prereg-success-facet {
+  from {
+    transform: translateX(116vw);
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c2c-prereg-success.is-active .c2c-prereg-success__logo-box,
+  .c2c-prereg-success.is-active .c2c-prereg-success__triangle {
+    animation-duration: 1ms;
+    animation-delay: 0ms;
+  }
+  .c2c-prereg-success,
+  .c2c-prereg-success__stage,
+  .c2c-prereg-success__text {
+    transition-duration: 1ms;
   }
 }

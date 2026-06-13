@@ -20,6 +20,9 @@ import HeadingText from "./components/landing/HeadingText";
 import Tracks, { LANDING_TRACKS } from "./components/landing/tracks";
 import ReturnAnnouncement from "./components/landing/return-announcement";
 import PreRegistration from "./components/landing/pre-registration";
+import PreRegSuccess from "./components/landing/pre-reg-success";
+
+const PREREG_CACHE_KEY = "c2c-prereg-status";
 
 const TRACKS_CONTENT = LANDING_TRACKS.map((track) => ({
   title: track.title,
@@ -41,6 +44,21 @@ const TRACKS_CONTENT = LANDING_TRACKS.map((track) => ({
 export default function Page() {
   const [upcomingOpen, setUpcomingOpen] = useState(false);
   const [preRegisterOpen, setPreRegisterOpen] = useState(false);
+  const [preRegistered, setPreRegistered] = useState(false);
+  const [successPlaying, setSuccessPlaying] = useState(false);
+
+  // Restore the cached pre-registration status so the CTA stays "Pre-registered"
+  // across reloads.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      if (window.localStorage.getItem(PREREG_CACHE_KEY) === "done") {
+        setPreRegistered(true);
+      }
+    } catch {
+      // localStorage can throw in private mode — treat as not registered.
+    }
+  }, []);
 
   useLayoutEffect(() => {
     // ScrollSmoother.create({
@@ -60,18 +78,40 @@ export default function Page() {
 
   const closePreRegister = useCallback(() => setPreRegisterOpen(false), []);
 
-  // Lock body scroll while the pre-register flow is open
+  // Registration confirmed: cache the status, mark the CTA and hand off to the
+  // success animation. The form stays mounted while the success scrim slowly
+  // darkens over it (the ~2.4s crossfade in globals.css) and is only swapped
+  // out once fully covered, so the page-to-page transition reads as one smooth
+  // fade — by the time the scrim lifts, the CTA already says "Pre-registered".
+  // The swap waits for the quiet hold after the facet docks (~4s) so its
+  // re-render/scroll-lock churn can't jank the fly-in, but still lands before
+  // the scrim starts lifting at ~5.5s.
+  const handlePreRegSuccess = useCallback(() => {
+    try {
+      window.localStorage.setItem(PREREG_CACHE_KEY, "done");
+    } catch {
+      // Persisting is best-effort; the in-memory flag still drives this session.
+    }
+    setPreRegistered(true);
+    setSuccessPlaying(true);
+    window.setTimeout(() => setPreRegisterOpen(false), 4600);
+  }, []);
+
+  const handleSuccessDone = useCallback(() => setSuccessPlaying(false), []);
+
+  // Lock body scroll while the pre-register flow or success animation is active
   useEffect(() => {
     if (typeof document === "undefined") return;
+    const shouldLockScroll = preRegisterOpen || successPlaying;
     const previousBody = document.body.style.overflow;
     const previousHtml = document.documentElement.style.overflow;
-    document.body.style.overflow = preRegisterOpen ? "hidden" : previousBody || "";
-    document.documentElement.style.overflow = preRegisterOpen ? "hidden" : previousHtml || "";
+    document.body.style.overflow = shouldLockScroll ? "hidden" : previousBody || "";
+    document.documentElement.style.overflow = shouldLockScroll ? "hidden" : previousHtml || "";
     return () => {
       document.body.style.overflow = previousBody || "";
       document.documentElement.style.overflow = previousHtml || "";
     };
-  }, [preRegisterOpen]);
+  }, [preRegisterOpen, successPlaying]);
 
   // Surface the upcoming toggle to the (portal-rendered) TopBar nav item
   useEffect(() => {
@@ -107,13 +147,20 @@ export default function Page() {
         <ReturnAnnouncement active={upcomingOpen} onToggle={toggleUpcoming} />
       </ViewportPortal>
       <ViewportPortal id="c2c-prereg-portal">
-        <PreRegistration active={preRegisterOpen} onClose={closePreRegister} />
+        <PreRegistration
+          active={preRegisterOpen}
+          onClose={closePreRegister}
+          onSuccess={handlePreRegSuccess}
+        />
+      </ViewportPortal>
+      <ViewportPortal id="c2c-prereg-success-portal">
+        <PreRegSuccess active={successPlaying} onDone={handleSuccessDone} />
       </ViewportPortal>
 
       <div id="smooth-wrapper" className="relative z-0">
         <div id="smooth-content">
           <div className="relative">
-            <Landing onPreRegister={openPreRegister} />
+            <Landing onPreRegister={openPreRegister} preRegistered={preRegistered} />
           </div>
 
           <div className="min-h-screen flex flex-col">
