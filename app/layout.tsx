@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s | Code2Create",
   },
   description:
-    "Code2Create (C2C) is ACM-VIT's flagship 48-hour national hackathon hosted at VIT Vellore, India. Team up with peers, tackle real-world challenges with mentorship, and prototype impactful products across Digital Dawn, Art Attack, Game Over, I Can Do It Better, and AI Solutions — in partnership with RunPod and ElevenLabs.",
+    "Code2Create (C2C) is ACM-VIT's flagship 48-hour national hackathon hosted at VIT Vellore, India. Team up with peers, tackle real-world challenges with mentorship, and prototype impactful products across five creative tracks.",
   applicationName: "Code2Create",
   authors: [{ name: "ACM-VIT" }],
   creator: "ACM-VIT",
@@ -64,21 +64,10 @@ export const metadata: Metadata = {
     "prizes",
     "showcase talent",
     "demo",
-    "Digital Dawn",
-    "Art Attack",
-    "Game Over",
-    "I Can Do It Better",
-    "AI Solutions",
     "AI",
     "artificial intelligence",
     "machine learning",
     "ML",
-    "GPU",
-    "AI audio",
-    "text to speech",
-    "speech synthesis",
-    "RunPod",
-    "ElevenLabs",
     "developer community",
     "student developers",
     "engineering students",
@@ -96,7 +85,7 @@ export const metadata: Metadata = {
     url: "/",
     title: "Code2Create - ACM-VIT Hackathon",
     description:
-      "ACM-VIT's flagship 48-hour national hackathon at VIT Vellore featuring tracks like Digital Dawn, Art Attack, Game Over, I Can Do It Better, and AI Solutions.",
+      "ACM-VIT's flagship 48-hour national hackathon at VIT Vellore across five creative tracks.",
     siteName: "Code2Create",
     images: [
       {
@@ -111,8 +100,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Code2Create - ACM-VIT Hackathon",
-    description:
-      "Build across tracks like Digital Dawn, Art Attack, Game Over, I Can Do It Better, and AI Solutions - with partners RunPod and ElevenLabs.",
+    description: "Build across five creative tracks, revealed closer to the event.",
     images: ["/opengraph.png"],
   },
   alternates: {

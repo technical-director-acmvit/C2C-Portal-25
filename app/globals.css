@@ -74,6 +74,29 @@ body {
   overscroll-behavior-y: auto;
 }
 
+/*
+ * Mobile sections share one continuous dot field and the page-wide gradient.
+ * Individual canvas grids and section-local gradient orbs restart at component
+ * boundaries, which makes visible horizontal seams on narrow screens.
+ */
+.c2c-section-flow__mobile-grid {
+  background-image: radial-gradient(
+    circle,
+    rgba(163, 163, 163, 0.82) 0,
+    rgba(163, 163, 163, 0.82) 1.25px,
+    transparent 1.4px
+  );
+  background-position: center top;
+  background-size: 25px 25px;
+}
+
+@media (max-width: 767px) {
+  .c2c-section-flow .c2c-dot-grid,
+  .c2c-section-flow .c2c-gradient-bg__orb {
+    display: none;
+  }
+}
+
 @supports (height: 100dvh) {
   :root {
     --app-viewport-h: 100dvh;

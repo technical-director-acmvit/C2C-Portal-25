@@ -7,19 +7,19 @@ import GradientBG from "./gradient-bg";
 const Statistics = () => {
   return (
     <GradientBG>
-      <div id="stats" className="w-full min-h-screen relative overflow-hidden">
+      <div id="stats" className="w-full min-h-0 md:min-h-screen relative overflow-hidden">
         {/* Background grid */}
         <div className="pointer-events-none absolute inset-0 -z-10">
           <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" className="h-full w-full" />
         </div>
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-1 md:px-4">
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-0 md:min-h-screen px-1 py-6 md:px-4 md:py-0">
           {/* Stats Image */}
           <div className="w-full flex justify-center items-center">
             {/* Mobile Stats Image */}
             <Image
-              src="/landing/mobilestats.svg"
+              src="/landing/mobilestats_2000_participants.svg"
               alt="ACM Stats"
               width={800}
               height={1200}

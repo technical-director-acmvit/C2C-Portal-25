@@ -145,35 +145,7 @@ const Footer = () => {
                   className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors"
                   style={{ fontFamily: "PolySans Trial, Arial, sans-serif" }}
                 >
-                  AI SOLUTIONS
-                </a>
-                <a
-                  href="#tracks"
-                  className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors"
-                  style={{ fontFamily: "PolySans Trial, Arial, sans-serif" }}
-                >
-                  ART ATTACK
-                </a>
-                <a
-                  href="#tracks"
-                  className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors"
-                  style={{ fontFamily: "PolySans Trial, Arial, sans-serif" }}
-                >
-                  DIGITAL DAWN
-                </a>
-                <a
-                  href="#tracks"
-                  className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors"
-                  style={{ fontFamily: "PolySans Trial, Arial, sans-serif" }}
-                >
-                  I CAN DO IT BETTER
-                </a>
-                <a
-                  href="#tracks"
-                  className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors"
-                  style={{ fontFamily: "PolySans Trial, Arial, sans-serif" }}
-                >
-                  GAME OVER
+                  TBD
                 </a>
               </div>
             </div>
@@ -216,6 +188,15 @@ const Footer = () => {
                   style={{ fontFamily: "PolySans Trial, Arial, sans-serif" }}
                 >
                   CLI-RPG
+                </a>
+                <a
+                  href="https://conclave.acmvit.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white text-xs sm:text-sm md:text-base font-light uppercase hover:text-yellow-50 transition-colors"
+                  style={{ fontFamily: "PolySans Trial, Arial, sans-serif" }}
+                >
+                  CONCLAVE
                 </a>
                 <a
                   href="https://examcooker.in"
@@ -265,7 +246,7 @@ const Footer = () => {
                 className="text-[#48ba86] text-xs sm:text-sm md:text-base font-light uppercase"
                 style={{ fontFamily: "PolySans Trial, Arial, sans-serif" }}
               >
-                SPONSORS
+                PREVIOUS SPONSORS
               </div>
               <div className="flex flex-col gap-1 sm:gap-1.5 md:gap-2">
                 <a
@@ -295,8 +276,8 @@ const Footer = () => {
       {/* Bottom Section */}
   <div className="w-full flex flex-col items-center justify-center relative px-4 pt-4 sm:pt-6 md:pt-10">
         <div className="flex flex-col items-center justify-center mb-4 z-30 relative">
-          <p className="text-white text-xs sm:text-sm md:text-xl mb-4 sm:mb-6 md:mb-12 text-center"> 
-            © 2025 ACM-VIT. All rights reserved.
+          <p className="text-white text-xs sm:text-sm md:text-xl mb-4 sm:mb-6 md:mb-12 text-center">
+            © 2026 ACM-VIT. All rights reserved.
           </p>
 
           {/* Social Icons */}

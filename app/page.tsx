@@ -8,7 +8,6 @@ import Timeline from "./components/landing/timeline";
 import AboutACM from "./components/landing/about-acm";
 import Statistics from "./components/landing/statistics";
 import Footer from "./components/landing/footer";
-import Speaker from "./components/landing/speaker";
 import TopBar from "./components/landing/top-bar";
 import ViewportPortal from "@/components/viewport-portal";
 import { useLayoutEffect, useEffect, useState, useCallback } from "react";
@@ -17,7 +16,11 @@ import Image from "next/image";
 import GradientBG from "./components/landing/gradient-bg";
 import DotGrid from "./components/landing/dot-grid";
 import HeadingText from "./components/landing/HeadingText";
-import Tracks, { LANDING_TRACKS } from "./components/landing/tracks";
+import Tracks, {
+  LANDING_TRACKS,
+  TRACKS_REVEALED,
+  TracksComingSoon,
+} from "./components/landing/tracks";
 import ReturnAnnouncement from "./components/landing/return-announcement";
 import PreRegistration from "./components/landing/pre-registration";
 import PreRegSuccess from "./components/landing/pre-reg-success";
@@ -163,57 +166,84 @@ export default function Page() {
             <Landing onPreRegister={openPreRegister} preRegistered={preRegistered} />
           </div>
 
-          <div className="min-h-screen flex flex-col">
-            <div id="about" className="flex-1 w-full">
-              <About />
-            </div>
-          </div>
-
-          <div className=" flex items-center justify-between flex-col">
-            <AboutACM />
-          </div>
-          <div className=" flex items-center justify-between flex-col">
-            <Statistics />
-          </div>
-          <div id="tracks" className="relative w-full">
-            {/* Mobile: use the original Tracks component */}
-            <div className="lg:hidden">
-              <Tracks />
-            </div>
-
-            {/* Desktop: GSAP sticky scroll version */}
-            <div className="hidden lg:block">
-              <div className="min-h-[300vh]">
-                <GradientBG>
-                  <div className="relative z-10">
-                    <HeadingText text="Tracks" />
-                  </div>
-                  <div className="pointer-events-none absolute inset-0 -z-10">
-                    <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" className="h-full w-full" />
-                  </div>
-
-                  <div className="w-full max-w-[1080px] mx-auto mt-6 sm:mt-8 px-4 sm:px-6">
-                    <StickyScroll content={TRACKS_CONTENT} />
-                  </div>
-                </GradientBG>
+          <div className="c2c-section-flow relative isolate">
+            <div className="c2c-section-flow__mobile-grid absolute inset-0 z-0 pointer-events-none md:hidden" />
+            <div className="relative z-10">
+              <div className="min-h-screen flex flex-col">
+                <div id="about" className="flex-1 w-full">
+                  <About />
+                </div>
               </div>
+
+              <div className="flex items-center justify-between flex-col">
+                <AboutACM />
+              </div>
+              <div className="flex items-center justify-between flex-col">
+                <Statistics />
+              </div>
+              <div id="tracks" className="relative w-full">
+                {/* Mobile: use the original Tracks component */}
+                <div className="lg:hidden">
+                  <Tracks />
+                </div>
+
+                {/* Desktop: GSAP sticky scroll version (once tracks are revealed) */}
+                <div className="hidden lg:block">
+                  {TRACKS_REVEALED ? (
+                    <div className="min-h-[300vh]">
+                      <GradientBG>
+                        <div className="relative z-10">
+                          <HeadingText text="Tracks" />
+                        </div>
+                        <div className="pointer-events-none absolute inset-0 -z-10">
+                          <DotGrid
+                            dotSize={2.5}
+                            gap={25}
+                            baseColor="#a3a3a3"
+                            className="h-full w-full"
+                          />
+                        </div>
+
+                        <div className="w-full max-w-[1080px] mx-auto mt-6 sm:mt-8 px-4 sm:px-6">
+                          <StickyScroll content={TRACKS_CONTENT} />
+                        </div>
+                      </GradientBG>
+                    </div>
+                  ) : (
+                    <GradientBG>
+                      <div className="relative z-10">
+                        <HeadingText text="Tracks" />
+                      </div>
+                      <div className="pointer-events-none absolute inset-0 -z-10">
+                        <DotGrid
+                          dotSize={2.5}
+                          gap={25}
+                          baseColor="#a3a3a3"
+                          className="h-full w-full"
+                        />
+                      </div>
+                      <TracksComingSoon />
+                    </GradientBG>
+                  )}
+                </div>
+              </div>
+
+              <div id="timeline" className="min-h-0 lg:min-h-screen flex items-stretch flex-col">
+                <Timeline />
+              </div>
+              <div
+                id="sponsors"
+                className="min-h-screen flex items-center justify-between flex-col"
+              >
+                <Sponsors />
+              </div>
+              <div id="faqs" className="flex items-center justify-between flex-col">
+                <FAQs />
+              </div>
+
+              <Footer />
             </div>
           </div>
-
-          <div id="speakers" className="min-h-screen flex items-center justify-between flex-col">
-            <Speaker />
-          </div>
-          <div id="timeline" className="h-screen flex items-center justify-between flex-col">
-            <Timeline />
-          </div>
-          <div id="sponsors" className="min-h-screen flex items-center justify-between flex-col">
-            <Sponsors />
-          </div>
-          <div id="faqs" className="flex items-center justify-between flex-col">
-            <FAQs />
-          </div>
-
-          <Footer />
         </div>
       </div>
     </div>

@@ -206,7 +206,7 @@ const Landing = ({ onPreRegister, preRegistered = false }: LandingProps = {}) =>
               fontFamily: "Trap-Bold, Arial, sans-serif",
             }}
           >
-            Code2Create 6.0
+            Code2Create 7.0
           </p>
         </div>
       </div>

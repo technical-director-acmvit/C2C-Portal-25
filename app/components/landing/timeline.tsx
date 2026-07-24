@@ -11,20 +11,20 @@ const days: DaySchedule[] = [
   {
     id: "D1",
     label: "Day 1",
-    date: "10th September 2025",
+    date: "4th September 2026",
     entries: [
       { time: "01:30 PM", text: "Repo init - Reporting Time" },
       {
         time: "03:00 PM",
-        text: "Create Release: v0.1.0 (Inauguration and an insightful session by Dr. Meenakshi D'Souza, President, ACM India Council, Hackathon officially starts)",
+        text: "Create Release: v0.1.0 ",
       },
-      { time: "10:30 PM", text: "\"Deploy your Model\" - A session by RunPod" },
+      // { time: "10:30 PM", text: "\"Deploy your Model\" - A session by RunPod" },
     ],
   },
   {
     id: "D2",
     label: "Day 2",
-    date: "11th September 2025",
+    date: "5th September 2026",
     entries: [
       { time: "12:00 AM", text: "Run Workflow (Review 1 - no eliminations)" },
       { time: "09:00 AM", text: "Sync with origin (Reporting back at the venue)" },
@@ -34,7 +34,7 @@ const days: DaySchedule[] = [
   {
     id: "D3",
     label: "Day 3",
-    date: "12th September 2025",
+    date: "6th September 2026",
     entries: [
       { time: "12:00 AM", text: "Push to dev (Review 3 - eliminations)" },
       { time: "10:00 AM", text: "Push to main (Final Pitches)" },
@@ -153,12 +153,12 @@ const Timeline = () => {
 
   return (
     <GradientBG>
-      <div className="w-full min-h-screen relative overflow-hidden">
+      <div className="w-full min-h-0 lg:min-h-screen relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <DotGrid dotSize={2.5} gap={25} baseColor="#a3a3a3" />
         </div>
 
-        <div className="relative z-10 min-h-screen">
+        <div className="relative z-10 min-h-0 lg:min-h-screen">
           {/* Header */}
           <div className="pt-8 pb-4 md:pt-16 md:pb-8">
             <h1
@@ -365,7 +365,7 @@ const Timeline = () => {
           </div>
 
           {/* Bottom spacing */}
-          <div className="h-16"></div>
+          <div className="h-8 sm:h-12 lg:h-16"></div>
         </div>
       </div>
     </GradientBG>
